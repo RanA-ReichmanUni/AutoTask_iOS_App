@@ -12,7 +12,7 @@ struct AddTask: View {
     
     @State var activeTask : Bool = true
     @State var taskName : String = ""
-    @State var Notes : String = ""
+    @State var notes : String = ""
   
     var importanceValues = ["Very High", "High", "Medium", "Low","Very Low"]
     
@@ -37,7 +37,7 @@ struct AddTask: View {
                 }
                 
                 Section(header: Text("Additional Info")) {
-                    TextField("Notes", text: $Notes)
+                    TextField("Notes", text: $notes)
                 }
                     Toggle(isOn: $activeTask) {
                         Text("Active")
