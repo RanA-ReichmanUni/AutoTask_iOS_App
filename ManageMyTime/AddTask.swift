@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct AddTask: View {
-    @State var activeTask : Bool = true
- 
     
+    @State var activeTask : Bool = true
+    @State var taskName : String = ""
+    @State var Notes : String = ""
+  
     var importanceValues = ["Very High", "High", "Medium", "Low","Very Low"]
     
       @State private var selectedImportanceIndex = 2
@@ -21,7 +23,7 @@ struct AddTask: View {
         NavigationView {
             Form {
                 Section(header: Text("New Task")) {
-                    TextField("Task Name", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                    TextField("Task Name", text: $taskName)
                       Section {
                                   Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
                                       ForEach(0 ..< importanceValues.count) {
@@ -35,7 +37,7 @@ struct AddTask: View {
                 }
                 
                 Section(header: Text("Additional Info")) {
-                    TextField("Notes", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                    TextField("Notes", text: $Notes)
                 }
                     Toggle(isOn: $activeTask) {
                         Text("Active")
