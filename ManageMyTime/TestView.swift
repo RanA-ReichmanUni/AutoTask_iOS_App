@@ -10,10 +10,12 @@ import SwiftUI
 
 struct TestView: View {
    var importanceValues = ["1", "2", "3", "4", "5"]
+   
    @State private var selectedImportance = 3
-
+    @State private var wakeUp = Date()
    var body: some View {
       VStack {
+               
          Picker(selection: $selectedImportance, label: Text("Importance")) {
             ForEach(0 ..< importanceValues.count) {
                Text(self.importanceValues[$0])

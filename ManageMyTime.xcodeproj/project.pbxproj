@@ -19,6 +19,8 @@
 		25680724249FF1FF0096AB89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25680722249FF1FF0096AB89 /* LaunchScreen.storyboard */; };
 		2568072F249FF1FF0096AB89 /* ManageMyTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568072E249FF1FF0096AB89 /* ManageMyTimeTests.swift */; };
 		2568073D249FF3C00096AB89 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568073C249FF3C00096AB89 /* Task.swift */; };
+		25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FD24A22FB400671D09 /* MultiPicker.swift */; };
+		25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FF24A2304D00671D09 /* DurationSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		2568072E249FF1FF0096AB89 /* ManageMyTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyTimeTests.swift; sourceTree = "<group>"; };
 		25680730249FF1FF0096AB89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2568073C249FF3C00096AB89 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		25F347FD24A22FB400671D09 /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
+		25F347FF24A2304D00671D09 /* DurationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,8 @@
 				25680714249FF1FC0096AB89 /* AppDelegate.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
 				253455D524A149F7007CB6BF /* TestView.swift */,
+				25F347FD24A22FB400671D09 /* MultiPicker.swift */,
+				25F347FF24A2304D00671D09 /* DurationSelector.swift */,
 				253455D724A14B7B007CB6BF /* TestView3.swift */,
 				25680716249FF1FC0096AB89 /* SceneDelegate.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
@@ -232,11 +238,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				253455D824A14B7B007CB6BF /* TestView3.swift in Sources */,
+				25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */,
 				253455D624A149F7007CB6BF /* TestView.swift in Sources */,
 				25680715249FF1FC0096AB89 /* AppDelegate.swift in Sources */,
 				2568071A249FF1FC0096AB89 /* ManageMyTime.xcdatamodeld in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
 				2568073D249FF3C00096AB89 /* Task.swift in Sources */,
+				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
 				25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */,
 			);
