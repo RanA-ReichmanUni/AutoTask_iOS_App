@@ -28,36 +28,56 @@ struct AddTask: View {
     var body: some View {
         
         NavigationView {
-            Form {
-                Section(header: Text("New Task")) {
-                    TextField("Task Name", text: $taskName)
-                      Section {
-                                  Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
-                                      ForEach(0 ..< importanceValues.count) {
-                                          Text(self.importanceValues[$0])
+            VStack {
+                Form {
+                    Section(header:   HStack {
+                                        Image(systemName: "pencil")
+                                        Text("New Task")
+                          }) {
+                        
+                        TextField("Task Name", text: $taskName)
+                          Section {
+                                      Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
+                                          ForEach(0 ..< importanceValues.count) {
+                                              Text(self.importanceValues[$0])
+                                          }
                                       }
                                   }
-                              }
-                    TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
-                    
+                       
+                        
+                
+                        NavigationLink(destination: MultiPicker(data: data, selection: $selection,stringValue1: "Days",stringValue2:"                        Hours",stringValue3:"                        Minutes").frame(height: 150)) {
+                                              
+                                            
+                                  Text(verbatim: "Asstimated Work Time:  \(selection[0])Days \(selection[1])Hours \(selection[2])Min")
+                       
+                                              }
+                         TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
             
-                    NavigationLink(destination: MultiPicker(data: data, selection: $selection,stringValue1: "Days",stringValue2:"                        Hours",stringValue3:"                        Minutes").frame(height: 150)) {
-                                          
-                                        
-                              Text(verbatim: "Asstimated Work Time:  \(selection[0])Days \(selection[1])Hours \(selection[2])Min")
-                   
-                                          }
-        
-              
+                  
+                    }
+                    
+                    Section(header: HStack {
+                        Image(systemName:"pencil.and.ellipsis.rectangle")
+                        Text("Additional Info")
+                    }) {
+                        TextField("Notes", text: $notes)
+                    }
+                        Toggle(isOn: $activeTask) {
+                            Text("Active")
+                        }
+                    
+                    
                 }
                 
-                Section(header: Text("Additional Info")) {
-                    TextField("Notes", text: $notes)
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                                    Text("Save")
                 }
-                    Toggle(isOn: $activeTask) {
-                        Text("Active")
-                    }
-                }
+                    
+            }
+            
+          
+
             }
             .navigationBarTitle("Settings")
         }
