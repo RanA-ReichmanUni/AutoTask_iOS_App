@@ -49,7 +49,7 @@ struct AddTask: View {
                         NavigationLink(destination: MultiPicker(data: data, selection: $selection,stringValue1: "Days",stringValue2:"                        Hours",stringValue3:"                        Minutes").frame(height: 150)) {
                                               
                                             
-                                  Text(verbatim: "Asstimated Work Time:  \(selection[0])Days \(selection[1])Hours \(selection[2])Min")
+                                  Text(verbatim: "Asstimated Work Time:\n \(selection[0])Days \(selection[1])Hours \(selection[2])Min")
                        
                                               }
                          TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)

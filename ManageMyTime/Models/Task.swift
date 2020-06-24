@@ -8,18 +8,25 @@
 
 import Foundation
 
-enum TaskPriority {
+enum TaskImportance {
     
+  case veryHigh
   case high
   case medium
   case low
+  case veryLow
     
 }
 
 struct Task: Identifiable {//Commiting for the idnetifiable interface which requires us to create an 'id' field.
     
   var id: String = UUID().uuidString
-  var title: String
+  var taskName: String
+  var active: Bool
   var completed: Bool
-  var priority: TaskPriority
+  var importance: TaskImportance
+  var notes : String
+  var dueDate : Date
+  var asstimatedWorkTime : Date
+    
 }
