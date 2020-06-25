@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		251EE60824A52BDB00AC82F3 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60724A52BDB00AC82F3 /* TaskController.swift */; };
+		251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60924A52E2400AC82F3 /* TaskModel.swift */; };
 		253455D424A12539007CB6BF /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D324A12539007CB6BF /* AddTask.swift */; };
 		253455D624A149F7007CB6BF /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D524A149F7007CB6BF /* TestView.swift */; };
 		253455D824A14B7B007CB6BF /* TestView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D724A14B7B007CB6BF /* TestView3.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		251EE60724A52BDB00AC82F3 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
+		251EE60924A52E2400AC82F3 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		253455D324A12539007CB6BF /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		253455D524A149F7007CB6BF /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		253455D724A14B7B007CB6BF /* TestView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView3.swift; sourceTree = "<group>"; };
@@ -76,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		251EE60624A52BB600AC82F3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				251EE60724A52BDB00AC82F3 /* TaskController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		25680708249FF1FC0096AB89 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +111,7 @@
 		25680713249FF1FC0096AB89 /* ManageMyTime */ = {
 			isa = PBXGroup;
 			children = (
+				251EE60624A52BB600AC82F3 /* Controllers */,
 				25680739249FF34F0096AB89 /* Models */,
 				25680714249FF1FC0096AB89 /* AppDelegate.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
@@ -138,6 +151,7 @@
 		25680739249FF34F0096AB89 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				251EE60924A52E2400AC82F3 /* TaskModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -244,10 +258,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				253455D824A14B7B007CB6BF /* TestView3.swift in Sources */,
+				251EE60824A52BDB00AC82F3 /* TaskController.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,
 				25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */,
 				253455D624A149F7007CB6BF /* TestView.swift in Sources */,
 				25680715249FF1FC0096AB89 /* AppDelegate.swift in Sources */,
+				251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */,
 				2568071A249FF1FC0096AB89 /* ManageMyTime.xcdatamodeld in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,

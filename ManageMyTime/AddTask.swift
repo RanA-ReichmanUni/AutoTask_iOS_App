@@ -109,8 +109,8 @@ struct AddTask: View {
                          print(String(self.tasks[1].asstimatedWorkTime))
                          print(self.tasks[1].notes)
                     
-                       
-                          
+                    
+                        
                                    
                                   }) {
                                               
