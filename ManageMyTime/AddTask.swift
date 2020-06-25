@@ -9,6 +9,14 @@
 import SwiftUI
 
 struct AddTask: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+  @FetchRequest(
+        entity: Task.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Task.taskName, ascending: true)
+        ]
+    ) var tasks: FetchedResults<Task>
     
     @State var activeTask : Bool = true
     @State var taskName : String = ""
@@ -24,6 +32,8 @@ struct AddTask: View {
         ("Three", Array(0...59).map { "\($0)" })
     ]
     @State var selection: [String] = [0, 0, 0].map { "\($0)" }
+    
+    var fixedDate = Date()
     
     var body: some View {
         
@@ -70,9 +80,46 @@ struct AddTask: View {
                     
                 }
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                                    Text("Save")
+                HStack {
+                    Button(action: {
+                        
+                        let newTask = Task(context: self.managedObjectContext)
+                            newTask.taskName = self.taskName
+                            newTask.importance = self.importanceValues[self.selectedImportanceIndex]
+                            newTask.asstimatedWorkTime = 60
+                            newTask.dueDate = self.fixedDate
+                            newTask.notes=self.notes
+                            newTask.id = UUID()
+                            do {
+                             try self.managedObjectContext.save()
+                             print("Order saved.")
+                            } catch {
+                             print(error.localizedDescription)
+                             }
+                    }) {
+                                
+                        Text("Save")
+                    }
+                    
+                    
+                    Button(action: {
+            
+                        print(String(self.tasks[1].taskName ?? "none"))
+                         print(String(self.tasks[1].importance))
+                         print(String(self.tasks[1].asstimatedWorkTime))
+                         print(self.tasks[1].notes)
+                    
+                       
+                          
+                                   
+                                  }) {
+                                              
+                                      Text("Retrieve")
+                                  }
                 }
+                
+                
+                
                     
             }
             
