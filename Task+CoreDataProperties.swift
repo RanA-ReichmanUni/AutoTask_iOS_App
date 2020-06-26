@@ -23,7 +23,7 @@ extension Task: Identifiable {
     @NSManaged public var completed: Bool
     @NSManaged public var importance: String
     @NSManaged public var notes: String?
-    @NSManaged public var dueDate: Date?
+    @NSManaged public var dueDate: Date
     @NSManaged public var asstimatedWorkTime: Int32
     
     var taskImportance: TaskImportance {

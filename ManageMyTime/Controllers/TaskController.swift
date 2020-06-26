@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreData
 
 
 class TaskController
@@ -16,15 +16,21 @@ class TaskController
     var taskModel = TaskModel()
     
     
-    func AddTask(id:UUID,taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
+    func createTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
     {
         
-        taskModel.AddTask(id: id,taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
+        taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
         
     }
     
     
-    
+    func retrieveTask()
+      {
+          
+        taskModel.retrieveData()
+          
+      }
+      
     
     
 }

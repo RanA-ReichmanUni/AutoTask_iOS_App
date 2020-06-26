@@ -7,16 +7,20 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct AddTask: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    
-  @FetchRequest(
-        entity: Task.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Task.taskName, ascending: true)
-        ]
-    ) var tasks: FetchedResults<Task>
+    /*
+   @Environment(\.managedObjectContext) var managedObjectContext
+              
+            @FetchRequest(
+                  entity: Task.entity(),
+                  sortDescriptors: [
+                      NSSortDescriptor(keyPath: \Task.taskName, ascending: true)
+                  ]
+              ) var tasks: FetchedResults<Task>
+    */
+    var taskController = TaskController()
     
     @State var activeTask : Bool = true
     @State var taskName : String = ""
@@ -33,8 +37,8 @@ struct AddTask: View {
     ]
     @State var selection: [String] = [0, 0, 0].map { "\($0)" }
     
-    var fixedDate = Date()
-    
+
+  
     var body: some View {
         
         NavigationView {
@@ -83,19 +87,29 @@ struct AddTask: View {
                 HStack {
                     Button(action: {
                         
+                          
+                           
+                        var fixedDate = Date()
+                     
+                        self.taskController.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], asstimatedWorkTime: 60, dueDate: fixedDate, notes: self.notes)
+                    
+                      
+                            /*
                         let newTask = Task(context: self.managedObjectContext)
                             newTask.taskName = self.taskName
                             newTask.importance = self.importanceValues[self.selectedImportanceIndex]
                             newTask.asstimatedWorkTime = 60
-                            newTask.dueDate = self.fixedDate
+                            newTask.dueDate = fixedDate
                             newTask.notes=self.notes
                             newTask.id = UUID()
                             do {
                              try self.managedObjectContext.save()
                              print("Order saved.")
+                                print(newTask)
                             } catch {
                              print(error.localizedDescription)
                              }
+*/
                     }) {
                                 
                         Text("Save")
@@ -103,12 +117,13 @@ struct AddTask: View {
                     
                     
                     Button(action: {
-            
-                        print(String(self.tasks[1].taskName ?? "none"))
+         
+                        self.taskController.retrieveTask()
+                        /*print(String(self.tasks[1].taskName ?? "none"))
                          print(String(self.tasks[1].importance))
                          print(String(self.tasks[1].asstimatedWorkTime))
                          print(self.tasks[1].notes)
-                    
+                 */
                     
                         
                                    
