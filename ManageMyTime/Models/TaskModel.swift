@@ -79,6 +79,79 @@ class TaskModel : UIViewController
                 print("Failed")
             }
         }
+    
+    
+    func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime : Int32, newDueDate : Date, newNotes : String ){
+     
+         //As we know that container is set up in the AppDelegates so we need to refer that container.
+         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+         
+         //We need to create a context from this container
+         let managedContext = appDelegate.persistentContainer.viewContext
+         
+         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
+         fetchRequest.predicate = NSPredicate(format: "taskName = %@", orginalTaskName)
+         do
+         {
+             let requiredTask = try managedContext.fetch(fetchRequest)
+    
+                 let objectUpdate = requiredTask[0] as! NSManagedObject
+                 objectUpdate.setValue(newTaskName, forKey: "taskName")
+                 //objectUpdate.setValue("newImportance", forKey: "importance")
+                 //objectUpdate.setValue("newAsstimatedWorkTime", forKey: "asstimatedWorkTime")
+                 //objectUpdate.setValue("newDueDate", forKey: "dueDate")
+                 objectUpdate.setValue(newNotes, forKey: "notes")
+   
+                 do{
+                     try managedContext.save()
+                    print("Updated !.")
+                 }
+                 catch
+                 {
+                     print(error)
+                 }
+             }
+         catch
+         {
+             print(error)
+         }
+    
+     }
+    
+    func deleteTask(taskName : String){
+        
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "taskName = %@", taskName)
+       
+        do
+        {
+            let requiredTask = try managedContext.fetch(fetchRequest)
+            
+            let objectToDelete = requiredTask[0] as! NSManagedObject
+            managedContext.delete(objectToDelete)
+            
+            do{
+                try managedContext.save()
+                print("Deleted !.")
+            }
+            catch
+            {
+                print(error)
+            }
+            
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+    
     /*
     func AddTask(mangedObjectContext : NSMangedObjectContext,taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
     {

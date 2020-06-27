@@ -131,6 +131,27 @@ struct AddTask: View {
                                               
                                       Text("Retrieve")
                                   }
+                    
+                    Button(action: {
+                          
+                        self.taskController.updateData(orginalTaskName: "newTaskName", newTaskName: "infi b", newImportance: "VeryHigh", newAsstimatedWorkTime: 50, newDueDate: Date(), newNotes: "Hello")
+                                     
+                                         
+                                                    
+                                                   }) {
+                                                               
+                                                       Text("Update")
+                                                   }
+                    
+                    Button(action: {
+                                            
+                            self.taskController.deleteTask(taskName: "infi b")
+ 
+                        }) {
+                                                                                 
+                             Text("Delete")
+                            
+                            }
                 }
                 
                 
