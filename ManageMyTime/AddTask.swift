@@ -20,7 +20,10 @@ struct AddTask: View {
                   ]
               ) var tasks: FetchedResults<Task>
     */
-    var taskController = TaskController()
+    
+    //var taskViewModel = TaskViewModel()
+    
+    @ObservedObject var taskViewModel = TaskViewModel()
     
     @State var activeTask : Bool = true
     @State var taskName : String = ""
@@ -49,7 +52,7 @@ struct AddTask: View {
                                         Text("New Task")
                           }) {
                         
-                        TextField("Task Name", text: $taskName)
+                            TextField("Task Name", text: $taskName)
                           Section {
                                       Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
                                           ForEach(0 ..< importanceValues.count) {
@@ -91,8 +94,8 @@ struct AddTask: View {
                            
                         var fixedDate = Date()
                      
-                        self.taskController.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], asstimatedWorkTime: 60, dueDate: fixedDate, notes: self.notes)
-                    
+                       /* self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], asstimatedWorkTime: 60, dueDate: fixedDate, notes: self.notes)
+                    */
                       
                             /*
                         let newTask = Task(context: self.managedObjectContext)
@@ -118,9 +121,12 @@ struct AddTask: View {
                     
                     Button(action: {
          
+                        //A couple of calling option with function overload:
                        // try? self.taskController.retrieveTask(taskID : "8F9099DD-1D49-4A27-BFF0-DF1A42AE4D9C")
-                        self.taskController.retrieveTask(taskName: "MVC")
+                        //self.taskViewModel.retrieveTask(taskName: "MVC")
                         //self.taskController.retrieveAllTasks()
+                        
+                        self.taskViewModel.retrieveTask(taskName: "MVC")
                         
                         
                         /*print(String(self.tasks[1].taskName ?? "none"))
@@ -138,8 +144,8 @@ struct AddTask: View {
                     
                     Button(action: {
                           
-                        self.taskController.updateData(orginalTaskName: "newTaskName", newTaskName: "infi b", newImportance: "VeryHigh", newAsstimatedWorkTime: 50, newDueDate: Date(), newNotes: "Hello")
-                                     
+                       /* self.taskViewModel.updateData(orginalTaskName: "newTaskName", newTaskName: "infi b", newImportance: "VeryHigh", newAsstimatedWorkTime: 50, newDueDate: Date(), newNotes: "Hello")
+                     */
                                          
                                                     
                                                    }) {
@@ -149,7 +155,7 @@ struct AddTask: View {
                     
                     Button(action: {
                                             
-                            self.taskController.deleteTask(taskName: "infi b")
+                            self.taskViewModel.deleteTask(taskName: "infi b")
  
                         }) {
                                                                                  
@@ -166,7 +172,7 @@ struct AddTask: View {
           
 
             }
-            .navigationBarTitle("Settings")
+            .navigationBarTitle("Add Task")
         }
         
     
