@@ -51,7 +51,72 @@ class TaskModel : UIViewController
     }
     
     
-    func retrieveData() {
+    func retrieveTask(taskID : UUID) -> Task {
+                              
+                  let emptyTask = Task ()
+        
+                  //As we know that container is set up in the AppDelegates so we need to refer that container.
+                  guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return emptyTask }
+                  
+                  //We need to create a context from this container
+                  let managedContext = appDelegate.persistentContainer.viewContext
+                  
+                  let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
+                 fetchRequest.predicate = NSPredicate(format: "id = %@", taskID as CVarArg)
+                  do
+                  {
+                      let requiredTask = try managedContext.fetch(fetchRequest)
+             
+                          let retrievedObject = requiredTask[0] as! Task
+                       
+                    print("Name:",retrievedObject.taskName as! String)
+                    
+                      return retrievedObject
+                  }
+                    
+                  catch
+                  {
+                      print(error)
+                  }
+        
+            //Shouldn't get here theoretically
+            return emptyTask
+        }
+    
+    func retrieveTask(taskName : String) -> Task {
+                                 
+                     let emptyTask = Task ()
+           
+                     //As we know that container is set up in the AppDelegates so we need to refer that container.
+                     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return emptyTask }
+                     
+                     //We need to create a context from this container
+                     let managedContext = appDelegate.persistentContainer.viewContext
+                     
+                     let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
+                    fetchRequest.predicate = NSPredicate(format: "taskName = %@", taskName as CVarArg)
+                     do
+                     {
+                         let requiredTask = try managedContext.fetch(fetchRequest)
+                
+                             let retrievedObject = requiredTask[0] as! Task
+                          
+                       print("Name:",retrievedObject.taskName as! String)
+                       
+                         return retrievedObject
+                     }
+                       
+                     catch
+                     {
+                         print(error)
+                     }
+           
+               //Shouldn't get here theoretically
+               return emptyTask
+           }
+    
+    
+    func retrieveAllTasks() {
            
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -70,7 +135,7 @@ class TaskModel : UIViewController
                 let result = try managedContext.fetch(fetchRequest)
                 for data in result as! [NSManagedObject] {
               
-                    print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String)
+                    print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )
                
                 }
                 
@@ -79,7 +144,6 @@ class TaskModel : UIViewController
                 print("Failed")
             }
         }
-    
     
     func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime : Int32, newDueDate : Date, newNotes : String ){
      

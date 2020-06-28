@@ -10,8 +10,14 @@ import Foundation
 import CoreData
 
 
+
+
 class TaskController
 {
+    enum UUIDError: Error {
+        case notConfirmedToUUID
+        case badPassword
+    }
     
     var taskModel = TaskModel()
     
@@ -23,13 +29,42 @@ class TaskController
         
     }
     
-    
-    func retrieveTask()
+
+    func retrieveTask(taskID : String) throws -> Task
       {
+        let taskUUID = UUID(uuidString: taskID) ?? UUID()
+    
+       
+        
+       if taskUUID.uuidString != taskID
+       {
+            throw UUIDError.notConfirmedToUUID
+       }
+        
+
+        return taskModel.retrieveTask(taskID: taskUUID)
           
-        taskModel.retrieveData()
+        //taskModel.retrieveAllTasks()
           
       }
+    
+    
+    func retrieveTask(taskName : String) -> Task
+      {
+      
+
+        return taskModel.retrieveTask(taskName: taskName)
+          
+        //taskModel.retrieveAllTasks()
+          
+      }
+    
+    
+    func retrieveAllTasks()
+    {
+        
+        taskModel.retrieveAllTasks()
+    }
     
      func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime :Int32, newDueDate : Date, newNotes : String ){
         

@@ -9,8 +9,13 @@
         <attribute name="importance" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="taskName" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

@@ -118,7 +118,11 @@ struct AddTask: View {
                     
                     Button(action: {
          
-                        self.taskController.retrieveTask()
+                       // try? self.taskController.retrieveTask(taskID : "8F9099DD-1D49-4A27-BFF0-DF1A42AE4D9C")
+                        self.taskController.retrieveTask(taskName: "MVC")
+                        //self.taskController.retrieveAllTasks()
+                        
+                        
                         /*print(String(self.tasks[1].taskName ?? "none"))
                          print(String(self.tasks[1].importance))
                          print(String(self.tasks[1].asstimatedWorkTime))
