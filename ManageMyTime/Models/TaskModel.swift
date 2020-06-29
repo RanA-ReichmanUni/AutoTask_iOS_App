@@ -14,7 +14,7 @@ import UIKit
 class TaskModel : UIViewController
 {
 
-    
+    var allTasks : Set<Task> = []
     
     func createData(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String){
         
@@ -116,10 +116,10 @@ class TaskModel : UIViewController
            }
     
     
-    func retrieveAllTasks() {
+    func retrieveAllTasks() -> Set<Task> {
            
             //As we know that container is set up in the AppDelegates so we need to refer that container.
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
             
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
@@ -133,16 +133,22 @@ class TaskModel : UIViewController
     //
             do {
                 let result = try managedContext.fetch(fetchRequest)
-                for data in result as! [NSManagedObject] {
+                for data in result as! [Task] {
               
-                    print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )
+                    allTasks.insert(data)
+                    
+                    
+                    /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                
                 }
+                print("Retrived all tasks !")
                 
             } catch {
                 
                 print("Failed")
             }
+        
+        return allTasks
         }
     
     func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime : Int32, newDueDate : Date, newNotes : String ){

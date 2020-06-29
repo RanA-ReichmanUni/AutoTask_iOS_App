@@ -18,7 +18,8 @@ class TaskViewModel : ObservableObject
     
     private var ViewModelTask = Task()
     
-  
+    @Published var allTasks : Set<Task>
+    
     @Published var taskName : String
     
     @Published var importance : String
@@ -42,12 +43,12 @@ class TaskViewModel : ObservableObject
     
     init()
      {
-        taskName=""
-        importance=""
+        taskName="Default"
+        importance="Medium"
         asstimatedWorkTime=0
         dueDate=Date()
-        notes=""
-         
+        notes="None"
+        allTasks=[]
      }
     
     func CreateTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
@@ -117,7 +118,7 @@ class TaskViewModel : ObservableObject
     func retrieveAllTasks()
     {
         
-        taskModel.retrieveAllTasks()
+        allTasks=taskModel.retrieveAllTasks()
         
     }
     
