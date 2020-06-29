@@ -36,8 +36,9 @@ struct TaskList: View {
                 NavigationView {
                     
                    List(Array(taskViewModel.allTasks), id: \.self) { task in
-                     
-                    TaskRow(taskName1: task.taskName as! String, dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance)
+                    NavigationLink(destination: DetailedTask(task:task)){
+                        TaskRow(taskName1: task.taskName as! String, dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance)
+                        }
                          
                      }
                   .navigationBarTitle(Text("Active Tasks"))

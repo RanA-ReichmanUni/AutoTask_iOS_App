@@ -20,4 +20,20 @@ class HelperFuncs{
         return formatter1.string(from: date)
     }
     
+   
+      
+      
+      func initTask() -> Task{
+        
+         var task = Task()
+        
+          task.setValue("Test", forKey: "taskName")
+          task.setValue("Test", forKey: "importance")
+          task.setValue(Date(), forKey: "dueDate")
+          task.setValue("Test", forKey: "notes")
+          task.setValue(60, forKey: "asstimatedWorkTime")
+        
+        return task
+      }
+    
 }
