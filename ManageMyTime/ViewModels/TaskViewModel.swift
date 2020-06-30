@@ -132,7 +132,7 @@ class TaskViewModel : ObservableObject
     func deleteTask(taskName : String){
     
         taskModel.deleteTask(taskName : taskName)
-        
+         self.retrieveAllTasks()
     }
 }
 

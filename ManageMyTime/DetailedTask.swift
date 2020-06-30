@@ -68,8 +68,7 @@ struct DetailedTask: View {
                 Button(action: {
                                  
                 self.taskViewModel.deleteTask(taskName: self.taskName)
-                self.taskViewModel.retrieveAllTasks()
-                    
+
                 self.mode.wrappedValue.dismiss()
              
                                                            

@@ -211,6 +211,7 @@ class TaskModel : UIViewController
             do{
                 try managedContext.save()
                 print("Deleted !.")
+               
             }
             catch
             {
