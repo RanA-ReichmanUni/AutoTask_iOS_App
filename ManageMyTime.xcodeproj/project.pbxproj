@@ -88,12 +88,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		251EE60624A52BB600AC82F3 /* Controllers */ = {
+		251EE60624A52BB600AC82F3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */,
 			);
-			path = Controllers;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		25680708249FF1FC0096AB89 = {
@@ -119,7 +119,7 @@
 		25680713249FF1FC0096AB89 /* ManageMyTime */ = {
 			isa = PBXGroup;
 			children = (
-				251EE60624A52BB600AC82F3 /* Controllers */,
+				251EE60624A52BB600AC82F3 /* ViewModels */,
 				25680739249FF34F0096AB89 /* Models */,
 				25680714249FF1FC0096AB89 /* AppDelegate.swift */,
 				250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */,

@@ -10,9 +10,20 @@ import SwiftUI
 
 struct DetailedTask: View {
     
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    @ObservedObject var taskViewModel : TaskViewModel
+    
+    var taskName : String
+
     var helper = HelperFuncs()
     
-    var task :Task
+    //var task :Task
+  
+    var importance : String
+    var dueDate : Date
+    var notes :String
+    var asstimatedWorkTime : Int32
     
     var body: some View {
         
@@ -26,34 +37,47 @@ struct DetailedTask: View {
                 HStack {
                     
                     Text("Name: ")
-                    Text(task.taskName as! String).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text(taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                     
                 }
             
             
-                
+              
                 HStack {
                     Text("Due Date: ")
-                    Text(helper.dateToString(date: task.dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                 }
                 
                 HStack {
                     Text("Importance: ")
-                    Text(task.importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text(importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                 }
             
                 HStack {
                     Text("Work Time: ")
-                    Text(String(task.asstimatedWorkTime) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text(String(asstimatedWorkTime) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                 }
                 
                 HStack {
                     Text("Note: ")
-                    Text(task.notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                 }
-              
+          
              Spacer()
           
+                Button(action: {
+                                 
+                self.taskViewModel.deleteTask(taskName: self.taskName)
+                self.taskViewModel.retrieveAllTasks()
+                    
+                self.mode.wrappedValue.dismiss()
+             
+                                                           
+                                                          }) {
+                                                                      
+                                                              Text("Delete")
+                                                          }
+                
          }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }

@@ -14,7 +14,7 @@ import UIKit
 class TaskModel : UIViewController
 {
 
-    var allTasks : Set<Task> = []
+    var allTasks = [Task]()
     
     func createData(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String){
         
@@ -116,7 +116,7 @@ class TaskModel : UIViewController
            }
     
     
-    func retrieveAllTasks() -> Set<Task> {
+    func retrieveAllTasks() -> [Task] {
            
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
@@ -132,11 +132,13 @@ class TaskModel : UIViewController
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
     //
             do {
+                allTasks=[]
                 let result = try managedContext.fetch(fetchRequest)
                 for data in result as! [Task] {
-              
-                    allTasks.insert(data)
-                    
+                 
+                        allTasks.append(data)
+                        print(data.taskName)
+                
                     
                     /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                

@@ -17,8 +17,8 @@ extension Task: Identifiable {
         return NSFetchRequest<Task>(entityName: "Task")
     }
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var taskName: String?
+    @NSManaged public var id: UUID
+    @NSManaged public var taskName: String
     @NSManaged public var active: Bool
     @NSManaged public var completed: Bool
     @NSManaged public var importance: String

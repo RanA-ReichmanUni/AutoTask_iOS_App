@@ -16,9 +16,9 @@ class TaskViewModel : ObservableObject
 {
     
     
-    private var ViewModelTask = Task()
+    private var viewModelTask : Task
     
-    @Published var allTasks : Set<Task>
+    @Published var allTasks = [Task]()
     
     @Published var taskName : String
     
@@ -41,7 +41,7 @@ class TaskViewModel : ObservableObject
     var taskModel = TaskModel()
     
     
-    init()
+     init()
      {
         taskName="Default"
         importance="Medium"
@@ -49,22 +49,19 @@ class TaskViewModel : ObservableObject
         dueDate=Date()
         notes="None"
         allTasks=[]
+        viewModelTask=Task()
      }
     
-    func CreateTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
+    func createTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
     {
-        
-        ViewModelTask.setValue(taskName, forKeyPath: "taskName")
-        ViewModelTask.setValue(importance, forKeyPath: "importance")
-        ViewModelTask.setValue(asstimatedWorkTime, forKeyPath: "asstimatedWorkTime" )
-        ViewModelTask.setValue(dueDate, forKeyPath: "dueDate")
-        ViewModelTask.setValue(notes, forKeyPath: "notes")
+       
+  
             
-        self.taskName=ViewModelTask.taskName as! String
-        self.importance=ViewModelTask.importance
-        self.asstimatedWorkTime=ViewModelTask.asstimatedWorkTime
-        self.dueDate=ViewModelTask.dueDate
-        self.notes=ViewModelTask.notes as! String
+        self.taskName=taskName
+        self.importance=importance
+        self.asstimatedWorkTime=asstimatedWorkTime
+        self.dueDate=dueDate
+        self.notes=notes
         
         taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
         
@@ -83,13 +80,13 @@ class TaskViewModel : ObservableObject
        }
         
 
-         ViewModelTask=taskModel.retrieveTask(taskID: taskUUID)
+         viewModelTask=taskModel.retrieveTask(taskID: taskUUID)
           
-        self.taskName=ViewModelTask.taskName as! String
-        self.importance=ViewModelTask.importance
-        self.asstimatedWorkTime=ViewModelTask.asstimatedWorkTime
-        self.dueDate=ViewModelTask.dueDate
-        self.notes=ViewModelTask.notes as! String
+        self.taskName=viewModelTask.taskName as! String
+        self.importance=viewModelTask.importance
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        self.dueDate=viewModelTask.dueDate
+        self.notes=viewModelTask.notes as! String
         
         //taskModel.retrieveAllTasks()
           
@@ -100,13 +97,13 @@ class TaskViewModel : ObservableObject
       {
         
         
-        ViewModelTask=taskModel.retrieveTask(taskName: taskName)
+        viewModelTask=taskModel.retrieveTask(taskName: taskName)
           
-        self.taskName=ViewModelTask.taskName as! String
-        self.importance=ViewModelTask.importance
-        self.asstimatedWorkTime=ViewModelTask.asstimatedWorkTime
-        self.dueDate=ViewModelTask.dueDate
-        self.notes=ViewModelTask.notes as! String
+        self.taskName=viewModelTask.taskName as! String
+        self.importance=viewModelTask.importance
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        self.dueDate=viewModelTask.dueDate
+        self.notes=viewModelTask.notes as! String
         
        
           
@@ -119,6 +116,9 @@ class TaskViewModel : ObservableObject
     {
         
         allTasks=taskModel.retrieveAllTasks()
+        
+            
+        
         
     }
     

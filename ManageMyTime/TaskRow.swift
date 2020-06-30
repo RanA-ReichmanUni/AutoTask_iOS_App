@@ -13,7 +13,7 @@ struct TaskRow: View {
     var taskName1 : String
     var dueDate1 : String
     var importance1 : String
-    
+  
     var body: some View {
         
         HStack {
@@ -25,13 +25,13 @@ struct TaskRow: View {
             
             Text(taskName1).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10)).frame(width: 180, height: 90)
            
-           
+         
                 VStack {
                     Text(dueDate1).font(.system(size: 20))
                
             Text(importance1).font(.system(size: 20))
                 }.padding(EdgeInsets(top: 0, leading: 35, bottom: 0, trailing: 15)).frame(width: 130, height: 90)
-             
+           
             Spacer()
          
         }.padding()

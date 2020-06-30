@@ -17,44 +17,35 @@ struct TaskList: View {
      @ObservedObject var taskViewModel = TaskViewModel()
 
     var helper = HelperFuncs()
-    
+
     var body: some View {
-        
-        
-        VStack {
-            /*List {
-                     TaskRow(taskName: "Algebra execrise 1",dueDate: "22/16/20",importance: "VeryHigh")
-                
-                  TaskRow(taskName: "Algebra execrise 1",dueDate: "22/16/20",importance: "VeryHigh")
-            }
-            
-            */
-      
-       
-        
-            
-                NavigationView {
+
+        NavigationView {
+            VStack{
+                List(taskViewModel.allTasks, id: \.self) { task in
                     
-                   List(Array(taskViewModel.allTasks), id: \.self) { task in
-                    NavigationLink(destination: DetailedTask(task:task)){
-                        TaskRow(taskName1: task.taskName as! String, dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance)
+                    NavigationLink(destination: DetailedTask(taskViewModel: self.taskViewModel, taskName: task.taskName,importance: task.importance,dueDate: task.dueDate,notes: task.notes as! String, asstimatedWorkTime: task.asstimatedWorkTime)){
+                            TaskRow(taskName1: task.taskName as! String, dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance)
+                            }
+                             
+                         }
+                      .navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
+                        
+                        
+                        Button(action: {
+                                           
+                                self.taskViewModel.retrieveAllTasks()
+                                                    
+                                                                     
+                                    }) {
+                                            Text("Retrieve")
+                                        }
+                
                         }
-                         
-                     }
-                  .navigationBarTitle(Text("Active Tasks"))
              }
             
-              Button(action: {
-                    
-            
-                                   self.taskViewModel.retrieveAllTasks()
-                             
-                                              
-                                             }) {
-                                                         
-                                                 Text("Retrieve")
-                                             }
-        }
+         
+        
        
         
     }
