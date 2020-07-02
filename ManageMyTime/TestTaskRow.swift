@@ -17,7 +17,7 @@ struct TestTaskRow: View {
             VStack(spacing: 0) {
                 Text("Algebra excersize 1")
                     .frame(width: geometry.size.width, height: self.heightFactor * geometry.size.height)//rowHeight is as calculated above
-                    .background(Color.blue).foregroundColor(.white)
+                    .background(RoundedRectangle(cornerRadius: 5).fill(Color.pink)).foregroundColor(.white)
                 Spacer()
                 
         }
