@@ -42,8 +42,9 @@ struct DailyViewRow: View {
     }
 }
 
-struct DailyViewRow_Previews: PreviewProvider {
+/*struct DailyViewRow_Previews: PreviewProvider {
     static var previews: some View {
         DailyViewRow()
     }
 }
+*/

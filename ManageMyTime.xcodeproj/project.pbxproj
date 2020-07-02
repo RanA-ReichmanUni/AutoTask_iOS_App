@@ -34,6 +34,7 @@
 		25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E5847624ABD49F00F251D5 /* ScheduleView2.swift */; };
 		25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FD24A22FB400671D09 /* MultiPicker.swift */; };
 		25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FF24A2304D00671D09 /* DurationSelector.swift */; };
+		25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		25E5847624ABD49F00F251D5 /* ScheduleView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView2.swift; sourceTree = "<group>"; };
 		25F347FD24A22FB400671D09 /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
 		25F347FF24A2304D00671D09 /* DurationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelector.swift; sourceTree = "<group>"; };
+		25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTaskRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				25E5847624ABD49F00F251D5 /* ScheduleView2.swift */,
 				2577A5E524ACF3040006E1D2 /* ScheduleView.swift */,
 				2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */,
+				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
 				2577A5E924AD15690006E1D2 /* Column.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
@@ -286,6 +289,7 @@
 			files = (
 				250F5AFB24AA32DF00ABCDA4 /* TaskRow.swift in Sources */,
 				253455D824A14B7B007CB6BF /* TestView3.swift in Sources */,
+				25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */,
 				2577A5EC24AD5D8E0006E1D2 /* DailyViewRow.swift in Sources */,
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,
