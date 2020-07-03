@@ -29,6 +29,7 @@
 		2577A5E824AD13B80006E1D2 /* ScheduleViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */; };
 		2577A5EA24AD15690006E1D2 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E924AD15690006E1D2 /* Column.swift */; };
 		2577A5EC24AD5D8E0006E1D2 /* DailyViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */; };
+		258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
 		25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7603024A288D100C37C69 /* NewTaskText.swift */; };
 		25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E5847624ABD49F00F251D5 /* ScheduleView2.swift */; };
@@ -74,6 +75,7 @@
 		2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewRow.swift; sourceTree = "<group>"; };
 		2577A5E924AD15690006E1D2 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewRow.swift; sourceTree = "<group>"; };
+		258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksRow.swift; sourceTree = "<group>"; };
 		25A248E324AA861000E74F51 /* DetailedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTask.swift; sourceTree = "<group>"; };
 		25B7603024A288D100C37C69 /* NewTaskText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskText.swift; sourceTree = "<group>"; };
 		25E5847624ABD49F00F251D5 /* ScheduleView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView2.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				2577A5E524ACF3040006E1D2 /* ScheduleView.swift */,
 				2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */,
 				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
+				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
 				2577A5E924AD15690006E1D2 /* Column.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
@@ -308,6 +311,7 @@
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
 				2539FFEA24A3E1CC0059B831 /* Task+CoreDataProperties.swift in Sources */,
 				2539FFE924A3E1CC0059B831 /* Task+CoreDataClass.swift in Sources */,
+				258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */,
 				250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */,
 				25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */,
 				25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */,
