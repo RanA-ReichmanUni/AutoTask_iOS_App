@@ -17,6 +17,7 @@
 		253455D824A14B7B007CB6BF /* TestView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D724A14B7B007CB6BF /* TestView3.swift */; };
 		2539FFE924A3E1CC0059B831 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539FFE724A3E1CC0059B831 /* Task+CoreDataClass.swift */; };
 		2539FFEA24A3E1CC0059B831 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539FFE824A3E1CC0059B831 /* Task+CoreDataProperties.swift */; };
+		2565CC6524AF7A070006BF97 /* TaskSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2565CC6424AF7A070006BF97 /* TaskSchedule.swift */; };
 		25680715249FF1FC0096AB89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25680714249FF1FC0096AB89 /* AppDelegate.swift */; };
 		25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25680716249FF1FC0096AB89 /* SceneDelegate.swift */; };
 		2568071A249FF1FC0096AB89 /* ManageMyTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25680718249FF1FC0096AB89 /* ManageMyTime.xcdatamodeld */; };
@@ -60,6 +61,7 @@
 		253455D724A14B7B007CB6BF /* TestView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView3.swift; sourceTree = "<group>"; };
 		2539FFE724A3E1CC0059B831 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2539FFE824A3E1CC0059B831 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2565CC6424AF7A070006BF97 /* TaskSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSchedule.swift; sourceTree = "<group>"; };
 		25680711249FF1FC0096AB89 /* ManageMyTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManageMyTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25680714249FF1FC0096AB89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25680716249FF1FC0096AB89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				2577A5E524ACF3040006E1D2 /* ScheduleView.swift */,
 				2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */,
 				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
+				2565CC6424AF7A070006BF97 /* TaskSchedule.swift */,
 				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
 				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
@@ -297,6 +300,7 @@
 				253455D824A14B7B007CB6BF /* TestView3.swift in Sources */,
 				25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */,
 				2577A5EC24AD5D8E0006E1D2 /* DailyViewRow.swift in Sources */,
+				2565CC6524AF7A070006BF97 /* TaskSchedule.swift in Sources */,
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,
 				25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */,
