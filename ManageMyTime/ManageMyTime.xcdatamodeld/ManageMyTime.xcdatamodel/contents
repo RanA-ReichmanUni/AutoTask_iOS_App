@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="OccupiedTimeSpace" representedClassName="OccupiedTimeSpace" syncable="YES">
+        <attribute name="assignedTaskId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="assignedTaskName" optional="YES" attributeType="String"/>
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="day" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="month" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="restFreeSpace" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="RestrictedSpace" representedClassName="RestrictedSpace" syncable="YES">
+        <attribute name="dayOfTheWeek" optional="YES" attributeType="String"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="asstimatedWorkTime" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -16,6 +34,8 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="OccupiedTimeSpace" positionX="-63" positionY="45" width="128" height="193"/>
+        <element name="RestrictedSpace" positionX="-285.28125" positionY="44.69140625" width="128" height="103"/>
+        <element name="Task" positionX="-615.57421875" positionY="36.59375" width="128" height="163"/>
     </elements>
 </model>

@@ -1,21 +1,20 @@
 //
-//  TaskSchedule.swift
+//  RestrictedSpace.swift
 //  ManageMyTime
 //
-//  Created by רן א on 03/07/2020.
+//  Created by רן א on 06/07/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 
 import Foundation
 
-struct TaskSchedule: Identifiable {
+struct RestrictedSpace1: Identifiable {
     
     var id : UUID
-    var taskName : String
     var startTime : Date
     var endTime : Date
-    var day : dayOfTheWeek
-    var date : Date
+    var dayOfTheWeek : dayOfTheWeek
+
 }
 
 

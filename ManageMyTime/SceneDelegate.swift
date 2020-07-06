@@ -27,11 +27,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = ContentView().environment(\.managedObjectContext, context)
         let addTask = AddTask().environment(\.managedObjectContext, context)
         let taskList = TaskList().environment(\.managedObjectContext, context)
+ 
+               let buttonTestingView = ButtonTestingView().environment(\.managedObjectContext, context)
+
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: taskList)
+            window.rootViewController = UIHostingController(rootView: buttonTestingView)
             self.window = window
             window.makeKeyAndVisible()
         }
