@@ -17,16 +17,16 @@ struct ButtonTestingView: View {
     var body: some View {
         
         VStack {
-            Button(action: {self.timeManager.createData(taskName: "littleTestingTask", importance: "High", asstimatedWorkTime: 60, dueDate: Date(), notes: "Some notes")}) {
+            Button(action: {self.timeManager.createFreeTimeSpace()}) {
                 Text("Click to create space")
             }
             
-            Button(action: {try? self.timeManager.retrieveAllSpaces()}) {
+            Button(action: {try? self.timeManager.retrieveAllFreeTimeSpaces()}) {
                     Text("Click to retrieve space")
                 }
             
             Button(action: {try? self.timeManager.deleteSpace(assignedTaskName: "littleTestingTask")}) {
-                               Text("Click to retrieve space")
+                               Text("Click to delete space")
                            }
         }
     }
