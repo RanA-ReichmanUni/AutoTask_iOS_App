@@ -191,8 +191,10 @@ class Core{
                                 
                            }
                             
-                           //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month }
-
+                           //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
+                            
+                            
+                            //Sort by this order preference: year, month, day
                             retrivedFreeDays.sort {
                                 ($0.year, $0.month, $0.day) <
                                     ($1.year,$1.month,$1.day)
@@ -201,8 +203,20 @@ class Core{
                             for freeDay in retrivedFreeDays
                             
                             {
-                                print("Item:",String(freeDay.day)," ",String(freeDay.month)," ",String(freeDay.year))
-                                
+                               
+                                if (dueDate.year < freeDay.year)//If it's a future year then any date relevent
+                                {
+                                    print("Item:",String(freeDay.day)," ",String(freeDay.month)," ",String(freeDay.year))
+                                }
+                                else if(dueDate.year == freeDay.year && dueDate.month <= freeDay.month)//If it's the same year (so it won't be any past year in time) then check if it's a future or same month and not a past month.
+                                {
+                                                             
+                                    if((dueDate.day <= freeDay.day && dueDate.month == freeDay.month) || (dueDate.month < freeDay.month) )//If it's the same month, check for day, if it's a future month then all dates are relevent
+                                    {
+                                        print("Item:",String(freeDay.day)," ",String(freeDay.month)," ",String(freeDay.year))
+                                    }
+                                                                                              
+                                }
                                 
                             }
                             //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
