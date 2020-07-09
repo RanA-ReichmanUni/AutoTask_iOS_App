@@ -12,22 +12,22 @@ import SwiftUI
 
 struct ButtonTestingView: View {
     
-    var timeManager=TimeManagementCore()
+    var tm=Core()
     
     var body: some View {
         
         VStack {
-            Button(action: {self.timeManager.createFreeTimeSpace()}) {
-                Text("Click to create space")
-            }
-            
-            Button(action: {try? self.timeManager.retrieveAllFreeTimeSpaces()}) {
-                    Text("Click to retrieve space")
-                }
-            
-            Button(action: {try? self.timeManager.deleteSpace(assignedTaskName: "littleTestingTask")}) {
-                               Text("Click to delete space")
-                           }
+                   Button(action: {self.tm.createFreeSpace()}) {
+                     Text("Click to create space")
+                 }
+                 
+                 Button(action: {try? self.tm.retrieveAllFreeSpaces()}) {
+                         Text("Click to retrieve space")
+                     }
+                 
+                 Button(action: {try? self.tm.deleteSpace(assignedTaskName: "littleTestingTask")}) {
+                                    Text("Click to delete space")
+                                }
         }
     }
 }

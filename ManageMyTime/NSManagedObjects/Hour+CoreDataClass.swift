@@ -1,5 +1,5 @@
 //
-//  FreeTimeSpace+CoreDataClass.swift
+//  Hour+CoreDataClass.swift
 //  ManageMyTime
 //
 //  Created by רן א on 07/07/2020.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(FreeTimeSpace)
-public class FreeTimeSpace: NSManagedObject {
+@objc(Hour)
+public class Hour: NSManagedObject {
 
 }

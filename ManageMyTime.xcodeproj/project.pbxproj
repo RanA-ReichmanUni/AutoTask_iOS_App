@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25091FD724B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25091FD524B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift */; };
+		25091FD824B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25091FD624B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift */; };
 		250F5AFB24AA32DF00ABCDA4 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */; };
 		250F5B0024AA3C6800ABCDA4 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */; };
 		250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */; };
 		251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */; };
 		251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60924A52E2400AC82F3 /* TaskModel.swift */; };
+		252FCC8E24B518060026EB03 /* Hour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */; };
+		252FCC8F24B518060026EB03 /* Hour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */; };
 		253455D424A12539007CB6BF /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D324A12539007CB6BF /* AddTask.swift */; };
 		253455D624A149F7007CB6BF /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D524A149F7007CB6BF /* TestView.swift */; };
 		253455D824A14B7B007CB6BF /* TestView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D724A14B7B007CB6BF /* TestView3.swift */; };
@@ -39,16 +43,13 @@
 		258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
 		25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7603024A288D100C37C69 /* NewTaskText.swift */; };
-		25C409AC24B37F8C0014DD48 /* ButtonTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C409AB24B37F8B0014DD48 /* ButtonTestingView.swift */; };
-		25C409B924B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C409B724B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataClass.swift */; };
-		25C409BA24B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C409B824B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataProperties.swift */; };
+		25DB2DA924B632EB00E86600 /* FreeSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DB2DA724B632EB00E86600 /* FreeSpace+CoreDataClass.swift */; };
+		25DB2DAA24B632EB00E86600 /* FreeSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DB2DA824B632EB00E86600 /* FreeSpace+CoreDataProperties.swift */; };
+		25DB2DAC24B6633F00E86600 /* AvailableDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DB2DAB24B6633F00E86600 /* AvailableDay.swift */; };
 		25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E5847624ABD49F00F251D5 /* ScheduleView2.swift */; };
 		25EDA89F24B4C05200094B23 /* HourlyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA89E24B4C05200094B23 /* HourlyTime.swift */; };
 		25EDA8AA24B50A2500094B23 /* ManageMyTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8A824B50A2500094B23 /* ManageMyTime.xcdatamodeld */; };
-		25EDA8AD24B50B5E00094B23 /* FreeTimeSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8AB24B50B5E00094B23 /* FreeTimeSpace+CoreDataClass.swift */; };
-		25EDA8AE24B50B5E00094B23 /* FreeTimeSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8AC24B50B5E00094B23 /* FreeTimeSpace+CoreDataProperties.swift */; };
-		25EDA8B124B50B8B00094B23 /* TimeByHour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8AF24B50B8B00094B23 /* TimeByHour+CoreDataClass.swift */; };
-		25EDA8B224B50B8B00094B23 /* TimeByHour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8B024B50B8B00094B23 /* TimeByHour+CoreDataProperties.swift */; };
+		25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8B324B5135100094B23 /* ButtonTestingView.swift */; };
 		25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FD24A22FB400671D09 /* MultiPicker.swift */; };
 		25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FF24A2304D00671D09 /* DurationSelector.swift */; };
 		25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */; };
@@ -65,11 +66,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25091FD524B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OccuipiedSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
+		25091FD624B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OccuipiedSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
 		250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncs.swift; sourceTree = "<group>"; };
 		251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		251EE60924A52E2400AC82F3 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hour+CoreDataClass.swift"; sourceTree = "<group>"; };
+		252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hour+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		253455D324A12539007CB6BF /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		253455D524A149F7007CB6BF /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		253455D724A14B7B007CB6BF /* TestView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView3.swift; sourceTree = "<group>"; };
@@ -101,16 +106,13 @@
 		258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleBar.swift; sourceTree = "<group>"; };
 		25A248E324AA861000E74F51 /* DetailedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTask.swift; sourceTree = "<group>"; };
 		25B7603024A288D100C37C69 /* NewTaskText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskText.swift; sourceTree = "<group>"; };
-		25C409AB24B37F8B0014DD48 /* ButtonTestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTestingView.swift; sourceTree = "<group>"; };
-		25C409B724B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OccupiedTimeSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
-		25C409B824B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OccupiedTimeSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		25DB2DA724B632EB00E86600 /* FreeSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
+		25DB2DA824B632EB00E86600 /* FreeSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		25DB2DAB24B6633F00E86600 /* AvailableDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableDay.swift; sourceTree = "<group>"; };
 		25E5847624ABD49F00F251D5 /* ScheduleView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView2.swift; sourceTree = "<group>"; };
 		25EDA89E24B4C05200094B23 /* HourlyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTime.swift; sourceTree = "<group>"; };
 		25EDA8A924B50A2500094B23 /* ManageMyTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ManageMyTime.xcdatamodel; sourceTree = "<group>"; };
-		25EDA8AB24B50B5E00094B23 /* FreeTimeSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeTimeSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
-		25EDA8AC24B50B5E00094B23 /* FreeTimeSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeTimeSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		25EDA8AF24B50B8B00094B23 /* TimeByHour+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeByHour+CoreDataClass.swift"; sourceTree = "<group>"; };
-		25EDA8B024B50B8B00094B23 /* TimeByHour+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeByHour+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		25EDA8B324B5135100094B23 /* ButtonTestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTestingView.swift; sourceTree = "<group>"; };
 		25F347FD24A22FB400671D09 /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
 		25F347FF24A2304D00671D09 /* DurationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelector.swift; sourceTree = "<group>"; };
 		25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTaskRow.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				2565CC6424AF7A070006BF97 /* TaskSchedule.swift */,
 				253C5CE724B1193800C95A06 /* DayObject.swift */,
 				253C5CE924B11A0400C95A06 /* HourlyTask.swift */,
+				25DB2DAB24B6633F00E86600 /* AvailableDay.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -239,7 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				253C5CEB24B11AEA00C95A06 /* TimeManagementCore.swift */,
-				25C409AB24B37F8B0014DD48 /* ButtonTestingView.swift */,
+				25EDA8B324B5135100094B23 /* ButtonTestingView.swift */,
 			);
 			path = TimeCoreMangament;
 			sourceTree = "<group>";
@@ -247,12 +250,12 @@
 		257ECFEF24B287C5006051C5 /* NSManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
-				25EDA8AF24B50B8B00094B23 /* TimeByHour+CoreDataClass.swift */,
-				25EDA8B024B50B8B00094B23 /* TimeByHour+CoreDataProperties.swift */,
-				25EDA8AB24B50B5E00094B23 /* FreeTimeSpace+CoreDataClass.swift */,
-				25EDA8AC24B50B5E00094B23 /* FreeTimeSpace+CoreDataProperties.swift */,
-				25C409B724B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataClass.swift */,
-				25C409B824B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataProperties.swift */,
+				25DB2DA724B632EB00E86600 /* FreeSpace+CoreDataClass.swift */,
+				25DB2DA824B632EB00E86600 /* FreeSpace+CoreDataProperties.swift */,
+				25091FD524B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift */,
+				25091FD624B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift */,
+				252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */,
+				252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */,
 				257ECFEB24B287A6006051C5 /* RestrictedSpace+CoreDataClass.swift */,
 				257ECFEC24B287A6006051C5 /* RestrictedSpace+CoreDataProperties.swift */,
 				2539FFE724A3E1CC0059B831 /* Task+CoreDataClass.swift */,
@@ -372,28 +375,30 @@
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,
 				25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */,
+				25091FD724B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift in Sources */,
+				25091FD824B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift in Sources */,
 				2577A5E624ACF3040006E1D2 /* ScheduleView.swift in Sources */,
 				253455D624A149F7007CB6BF /* TestView.swift in Sources */,
 				2577A5E824AD13B80006E1D2 /* ScheduleViewRow.swift in Sources */,
-				25EDA8B124B50B8B00094B23 /* TimeByHour+CoreDataClass.swift in Sources */,
 				25680715249FF1FC0096AB89 /* AppDelegate.swift in Sources */,
 				251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */,
-				25EDA8AD24B50B5E00094B23 /* FreeTimeSpace+CoreDataClass.swift in Sources */,
+				252FCC8F24B518060026EB03 /* Hour+CoreDataProperties.swift in Sources */,
 				250F5B0024AA3C6800ABCDA4 /* TaskList.swift in Sources */,
-				25EDA8B224B50B8B00094B23 /* TimeByHour+CoreDataProperties.swift in Sources */,
 				25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */,
 				258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */,
+				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
-				25C409BA24B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataProperties.swift in Sources */,
+				25DB2DAA24B632EB00E86600 /* FreeSpace+CoreDataProperties.swift in Sources */,
 				2577A5EA24AD15690006E1D2 /* Column.swift in Sources */,
 				257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */,
+				25DB2DA924B632EB00E86600 /* FreeSpace+CoreDataClass.swift in Sources */,
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
-				25C409AC24B37F8C0014DD48 /* ButtonTestingView.swift in Sources */,
 				2539FFEA24A3E1CC0059B831 /* Task+CoreDataProperties.swift in Sources */,
-				25EDA8AE24B50B5E00094B23 /* FreeTimeSpace+CoreDataProperties.swift in Sources */,
 				253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */,
+				25DB2DAC24B6633F00E86600 /* AvailableDay.swift in Sources */,
 				2539FFE924A3E1CC0059B831 /* Task+CoreDataClass.swift in Sources */,
+				252FCC8E24B518060026EB03 /* Hour+CoreDataClass.swift in Sources */,
 				257ECFEE24B287A6006051C5 /* RestrictedSpace+CoreDataProperties.swift in Sources */,
 				257ECFED24B287A6006051C5 /* RestrictedSpace+CoreDataClass.swift in Sources */,
 				253C5CE824B1193800C95A06 /* DayObject.swift in Sources */,
@@ -402,7 +407,6 @@
 				250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */,
 				25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */,
 				25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */,
-				25C409B924B39DDF0014DD48 /* OccupiedTimeSpace+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
