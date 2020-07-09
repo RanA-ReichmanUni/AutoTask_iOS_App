@@ -17,8 +17,8 @@ struct ButtonTestingView: View {
     var body: some View {
         
         VStack {
-                   Button(action: {self.tm.createFreeSpace()}) {
-                     Text("Click to create space")
+            Button(action: { self.tm.ScheduleTask(taskName: "Some Name", importance: "High", asstimatedWorkTime: 60, dueDate: Date(), notes: "bla bla")}) {
+                     Text("Click to do some high risk testing")
                  }
                  
                  Button(action: {try? self.tm.retrieveAllFreeSpaces()}) {

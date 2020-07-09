@@ -23,12 +23,12 @@ class Core{
     
     
     
-    
-  /*  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
+   
+  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
     {
         
         let todayDay = Date().day
-        var retrivedFreeDays = [AvailableDay]()
+        var retrivedFreeDays = [FreeSpace]()
         var day : Int
         var spaceObj : FreeSpace
         
@@ -39,6 +39,8 @@ class Core{
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
+        
+        /*
             //Now let’s create an entity and new user records.
             let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
             
@@ -68,7 +70,7 @@ class Core{
             
             
             
-        
+        */
                         
         
            //Now let’s create an entity and new user records.
@@ -76,12 +78,97 @@ class Core{
                     
                     //final, we need to add some data to our newly created record for each keys using
                     //here adding 5 data with loop
-                     let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
+                    let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
                       
-                    let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
+      /*
+                    let startTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
+                    startTime.setValue(10, forKeyPath: "hour")
+                    startTime.setValue(45, forKeyPath: "minutes")
+            
+                           let endTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
+                            endTime.setValue(11, forKeyPath: "hour")
+                            endTime.setValue(15, forKeyPath: "minutes")
+            
+                    let duration = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
+                                          endTime.setValue(1, forKeyPath: "hour")
+                                          endTime.setValue(0, forKeyPath: "minutes")
+                          
+            
+                   var freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
+                    freeSpace.setValue(13, forKeyPath: "day")
+                    freeSpace.setValue(7, forKeyPath: "month")
+                    freeSpace.setValue(2020, forKeyPath: "year")
+                    freeSpace.setValue(startTime, forKeyPath: "starting")
+                    freeSpace.setValue(endTime, forKeyPath: "ending")
+                    freeSpace.setValue(duration, forKeyPath: "duration")
+                    freeSpace.setValue(UUID(), forKeyPath: "id")
+
+                  //Now we have set all the values. The next step is to save them inside the Core Data
+                  
+                  do {
+                      try managedContext.save()
+                          print("Saved !.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                  }
+
+                freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
+                    freeSpace.setValue(5, forKeyPath: "day")
+                    freeSpace.setValue(6, forKeyPath: "month")
+                    freeSpace.setValue(2025, forKeyPath: "year")
+                    freeSpace.setValue(startTime, forKeyPath: "starting")
+                    freeSpace.setValue(endTime, forKeyPath: "ending")
+                    freeSpace.setValue(duration, forKeyPath: "duration")
+                    freeSpace.setValue(UUID(), forKeyPath: "id")
+
+                  //Now we have set all the values. The next step is to save them inside the Core Data
+                  
+                  do {
+                      try managedContext.save()
+                          print("Saved !.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                  }
+                     freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
+                        freeSpace.setValue(2, forKeyPath: "day")
+                        freeSpace.setValue(5, forKeyPath: "month")
+                        freeSpace.setValue(2020, forKeyPath: "year")
+                        freeSpace.setValue(startTime, forKeyPath: "starting")
+                        freeSpace.setValue(endTime, forKeyPath: "ending")
+                        freeSpace.setValue(duration, forKeyPath: "duration")
+                        freeSpace.setValue(UUID(), forKeyPath: "id")
+
+                      //Now we have set all the values. The next step is to save them inside the Core Data
+                      
+                      do {
+                          try managedContext.save()
+                              print("Saved !.")
+                      } catch let error as NSError {
+                          print("Could not save. \(error), \(error.userInfo)")
+                      }
+        
+                freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
+                    freeSpace.setValue(7, forKeyPath: "day")
+                    freeSpace.setValue(9, forKeyPath: "month")
+                    freeSpace.setValue(2021, forKeyPath: "year")
+                    freeSpace.setValue(startTime, forKeyPath: "starting")
+                    freeSpace.setValue(endTime, forKeyPath: "ending")
+                    freeSpace.setValue(duration, forKeyPath: "duration")
+                    freeSpace.setValue(UUID(), forKeyPath: "id")
+
+                  //Now we have set all the values. The next step is to save them inside the Core Data
+                  
+                  do {
+                      try managedContext.save()
+                          print("Saved !.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                  }
+       */
+                let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
         
         
-                    fetchRequest.predicate = NSPredicate(format: "month <= %@ AND day <= %@ AND day >= %@", argumentArray: [dueDate.month,dueDate.day, todayDay])
+                    fetchRequest.predicate = NSPredicate(format: "year >= %@", argumentArray: [dueDate.year])
                                   
                               
                     do
@@ -100,22 +187,30 @@ class Core{
                                 var day = result.value(forKey: "day") as! Int
                                 var spaceObj = result as! FreeSpace
                             
-                            retrivedFreeDays.append(AvailableDay(freeSpaceObj : spaceObj ,day : day))
+                            retrivedFreeDays.append(spaceObj)
                                 
                            }
                             
-                            retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month }
+                           //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month }
 
                             retrivedFreeDays.sort {
-                              ($0.day, $0.month) <
-                                ($1.day, $1.month)
+                                ($0.year, $0.month, $0.day) <
+                                    ($1.year,$1.month,$1.day)
                             }
+                         
+                            for freeDay in retrivedFreeDays
                             
+                            {
+                                print("Item:",String(freeDay.day)," ",String(freeDay.month)," ",String(freeDay.year))
+                                
+                                
+                            }
                             //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
                             
                             
                         }
-                        
+                      
+                       /*
                         for dayInRange in todayDay...dueDate.day
                         {
                             if (retrivedFreeDays.contains(where: { $0.day == dayInRange}))
@@ -129,12 +224,15 @@ class Core{
                                 
                             }
                             
-                            
+                           
                         }
                                        
-                                                  // let retrievedObject = requiredTask[0] as! Task
+                        
+                       */
+                        
+                                // let retrievedObject = requiredTask[0] as! Task
                                                  
-                                             // print("Name:",retrievedObject.taskName as! String)
+                                            // print("Name:",retrievedObject.taskName as! String)
                                               
                                                
                          }
@@ -144,8 +242,8 @@ class Core{
                             print(error)
                          }
                                   
-                            
-              
+                       /*
+             
                       let task = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
                       task.setValue(7, forKeyPath: "day")
                       task.setValue(7, forKeyPath: "month")
@@ -218,9 +316,9 @@ class Core{
                       print("Could not save. \(error), \(error.userInfo)")
                   }
                   
+     */
         
-        
-    }*/
+    }
     
   func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
     {
@@ -289,6 +387,7 @@ class Core{
             
     }
     
+   
     
     func retrieveAllFreeSpaces() throws//We assume all appropriate days have been constructed beforehand
        {
@@ -387,14 +486,14 @@ class Core{
                                       endTime.setValue(0, forKeyPath: "minutes")
                       
         
-                let task = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                task.setValue(7, forKeyPath: "day")
-                task.setValue(7, forKeyPath: "month")
-                task.setValue(2020, forKeyPath: "year")
-                task.setValue(startTime, forKeyPath: "starting")
-                task.setValue(endTime, forKeyPath: "ending")
-                task.setValue(duration, forKeyPath: "duration")
-                task.setValue(UUID(), forKeyPath: "id")
+                let freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
+                freeSpace.setValue(7, forKeyPath: "day")
+                freeSpace.setValue(7, forKeyPath: "month")
+                freeSpace.setValue(2020, forKeyPath: "year")
+                freeSpace.setValue(startTime, forKeyPath: "starting")
+                freeSpace.setValue(endTime, forKeyPath: "ending")
+                freeSpace.setValue(duration, forKeyPath: "duration")
+                freeSpace.setValue(UUID(), forKeyPath: "id")
 
               //Now we have set all the values. The next step is to save them inside the Core Data
               
@@ -590,20 +689,20 @@ class Core{
 
 extension Date {
     
-    var month: String {
+    var month: Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M"
-        return dateFormatter.string(from: self)
+        return Int(dateFormatter.string(from: self)) ?? 0
     }
     var day: Int {
          let dateFormatter = DateFormatter()
          dateFormatter.dateFormat = "dd"
          return Int(dateFormatter.string(from: self)) ?? 0
      }
-    var year: String {
+    var year: Int {
          let dateFormatter = DateFormatter()
          dateFormatter.dateFormat = "yyyy"
-         return dateFormatter.string(from: self)
+         return Int(dateFormatter.string(from: self)) ?? 0
      }
     
     func dayOfWeek() -> String? {
