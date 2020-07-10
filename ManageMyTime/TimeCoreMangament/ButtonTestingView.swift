@@ -17,7 +17,7 @@ struct ButtonTestingView: View {
     var body: some View {
         
         VStack {
-            Button(action: { self.tm.ScheduleTask(taskName: "Some Name", importance: "High", asstimatedWorkTime: 60, dueDate: Date(), notes: "bla bla")}) {
+            Button(action: { self.tm.createCalanderSequence(startDate: CustomDate(year: 2020, month: 5, day: 28), endDate: CustomDate(year: 2021, month: 8, day: 1))}) {
                      Text("Click to do some high risk testing")
                  }
                  

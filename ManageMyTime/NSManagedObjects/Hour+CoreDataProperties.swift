@@ -17,7 +17,7 @@ extension Hour {
         return NSFetchRequest<Hour>(entityName: "Hour")
     }
 
-    @NSManaged public var hour: Int64
-    @NSManaged public var minutes: Int64
+    @NSManaged public var hour: Int
+    @NSManaged public var minutes: Int
 
 }
