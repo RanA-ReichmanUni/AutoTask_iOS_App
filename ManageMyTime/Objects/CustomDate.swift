@@ -12,7 +12,7 @@ struct CustomDate {
 
     
     var year : Int{
-         didSet{
+         didSet{//When setting the property, do:
           dateComponents.year = year
           let userCalendar = Calendar.current
           dateObj = userCalendar.date(from: dateComponents) ?? Date()
@@ -20,7 +20,7 @@ struct CustomDate {
        
     }
     var month : Int{
-         didSet{
+         didSet{//When setting the property, do:
           dateComponents.month = month
           let userCalendar = Calendar.current
           dateObj = userCalendar.date(from: dateComponents) ?? Date()
@@ -28,7 +28,7 @@ struct CustomDate {
 
     }
     var day : Int{
-         didSet{
+         didSet{//When setting the property, do:
           dateComponents.day = day
           let userCalendar = Calendar.current
           dateObj = userCalendar.date(from: dateComponents) ?? Date()

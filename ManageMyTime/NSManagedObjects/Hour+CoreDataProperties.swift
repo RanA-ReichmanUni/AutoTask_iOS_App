@@ -20,4 +20,40 @@ extension Hour {
     @NSManaged public var hour: Int
     @NSManaged public var minutes: Int
 
+    
+    func add(newHour:Hour)
+    {
+        guard newHour.hour>=0 && newHour.minutes>=0 else {
+            return
+        }
+        
+        if(self.minutes+newHour.minutes>60)
+        {
+            self.minutes=self.minutes+newHour.minutes-60
+            self.hour+=1
+            
+        }
+    
+        else{
+            
+            self.minutes=self.minutes+newHour.minutes
+        
+        }
+        
+        self.hour=self.hour+newHour.hour
+        
+    }
+    
+    func isBigger(newHour:Hour) -> Bool
+    {
+    
+        if(self.hour > newHour.hour || (self.hour == newHour.hour && self.minutes > newHour.minutes) )
+        {
+           return true
+        }
+  
+        return false
+      
+    }
+    
 }

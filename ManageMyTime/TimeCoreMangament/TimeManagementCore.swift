@@ -24,7 +24,7 @@ class Core{
 
     
    
-  /*func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
+  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
     {
         
         let todayDay = Date().day
@@ -32,7 +32,7 @@ class Core{
         var suitableFreeDays = [FreeSpace]()
         var day : Int
         var spaceObj : FreeSpace
-        
+        var calanderSequence:[CustomDate]
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -227,10 +227,12 @@ class Core{
                         }
                         
                         
-                        for day in Date().day...dueDate.day//not correct,needs to create an array of CustomDate object from one point on the calender to another and check against all of them
+                        calanderSequence = createCalanderSequence(startDate: CustomDate(year:Date().year,month:Date().month,day:Date().day), endDate: CustomDate(year:dueDate.year,month:dueDate.month,day:dueDate.day))
+                        
+                        for day in calanderSequence//not correct,needs to create an array of CustomDate object from one point on the calender to another and check against all of them
                         {
                             
-                            if(suitableFreeDays.contains(where: { $0.day == day}))
+                            if(suitableFreeDays.contains(where: { $0.day == day.day}))//needs to compare the entire customDate object and make freeTimeSpace use it instead of premetive types
                             {
                                 
                                 //recalculate free days and schedule occupiedSpace
@@ -245,12 +247,16 @@ class Core{
                                 let startsIn = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
                                    startsIn.setValue(startOfTheDay, forKeyPath: "hour")
                                    startsIn.setValue(0, forKeyPath: "minutes")
+                                
                                 let endsIn = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
                                      endsIn.setValue(endOfTheDay, forKeyPath: "hour")
                                      endsIn.setValue(0, forKeyPath: "minutes")
                                 
+                                let fullDuration = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
+                                    startsIn.setValue(endOfTheDay-startOfTheDay, forKeyPath: "hour")
+                                    startsIn.setValue(0, forKeyPath: "minutes")
                                 
-                                createFreeSpace(startTime: startsIn, endTime: endsIn, date: CustomDate, duration: <#T##Hour#>)
+                                createFreeSpace(startTime: startsIn as! Hour, endTime: endsIn as! Hour, date: day, duration: fullDuration as! Hour)
                             }
                             
                         }
@@ -363,7 +369,7 @@ class Core{
                   
      */
         
-    }*/
+    }
     
   func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
     {
@@ -503,7 +509,7 @@ class Core{
                
        }
     
-    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) 
+    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) -> [CustomDate]
     {
         var dateSequence=[CustomDate]()
                var currentIndexDate:CustomDate
@@ -547,12 +553,7 @@ class Core{
                                                                            
         }
        
-        //print
-        for s in dateSequence
-        {
-            
-            print("D: ",s.day,"M: ", s.month,"Y: ",s.year)
-        }
+        return dateSequence
 
     }
     
