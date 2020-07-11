@@ -61,6 +61,16 @@ struct CustomDate {
 
       
         }
+    func isEqual(year : Int,month : Int,day : Int) -> Bool
+    {
+        if(self.year==year && self.month==month  && self.day==day)
+        {
+            return true
+        }
+        return false
+    }
+    
+    
         
         var startOfMonth: Date {
 

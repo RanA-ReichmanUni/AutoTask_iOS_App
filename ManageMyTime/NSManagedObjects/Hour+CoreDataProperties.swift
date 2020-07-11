@@ -44,6 +44,7 @@ extension Hour {
         
     }
     
+    
     func isBigger(newHour:Hour) -> Bool
     {
     
@@ -56,4 +57,31 @@ extension Hour {
       
     }
     
+      func isBiggerOrEqual(newHour:Hour) -> Bool
+      {
+      
+          if(self.hour > newHour.hour || (self.hour == newHour.hour && self.minutes > newHour.minutes) )//Self is bigger
+          {
+             return true
+          }
+        
+        if(self.hour == newHour.hour && self.minutes==newHour.minutes)//Equal
+        {
+             return true
+        }
+               
+    
+          return false
+        
+      }
+    
+    static func < (left: Hour, right: Hour) -> Bool { // 1
+       
+        if(left.hour<right.hour || (left.hour == right.hour && left.minutes<right.minutes))
+        {
+            return true
+        }
+        return false
+    }
+
 }

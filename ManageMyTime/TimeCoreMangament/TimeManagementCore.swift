@@ -24,7 +24,7 @@ class Core{
 
     
    
-  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
+  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String)
     {
         
         let todayDay = Date().day
@@ -197,8 +197,8 @@ class Core{
                             
                             //Sort by this order preference: year, month, day
                             retrivedFreeDays.sort {
-                                ($0.year, $0.month, $0.day) <
-                                    ($1.year,$1.month,$1.day)
+                                ($0.year, $0.month, $0.day,$0.starting.hour) <
+                                    ($1.year,$1.month,$1.day,$0.starting.hour)
                             }
                          
                             for freeDay in retrivedFreeDays
@@ -227,19 +227,26 @@ class Core{
                         }
                         
                         
-                        calanderSequence = createCalanderSequence(startDate: CustomDate(year:Date().year,month:Date().month,day:Date().day), endDate: CustomDate(year:dueDate.year,month:dueDate.month,day:dueDate.day))
+                        var thisMoment = CustomDate(year:Date().year,month:Date().month,day:Date().day)
+                        var endDueDate = CustomDate(year:dueDate.year,month:dueDate.month,day:dueDate.day)
                         
-                        for day in calanderSequence//not correct,needs to create an array of CustomDate object from one point on the calender to another and check against all of them
+                        calanderSequence = createCalanderSequence(startDate:thisMoment, endDate: endDueDate)
+                        
+                        for day in calanderSequence
                         {
                             
-                            if(suitableFreeDays.contains(where: { $0.day == day.day}))//needs to compare the entire customDate object and make freeTimeSpace use it instead of premetive types
+                            if(suitableFreeDays.contains(where: { day.isEqual(year: $0.year, month: $0.month, day: $0.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)}) )//Check if we have FreeSpace object in that date sequance between this moment and dueDate
                             {
-                                
+                                var exsitingDay=suitableFreeDays.first(where: { day.isEqual(year: $0.year, month: $0.month, day: $0.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)})! //Contains closest FreeSpace slot
+                               
+                                 
+                                             
+                           
                                 //recalculate free days and schedule occupiedSpace
                                 
                             }
                             else{
-                                
+                                //Needs to create OS object and restrict FreeSpace Object, see notebook !!!!!!
                                 //create new freeSpace object for that day from begining to end
                                 
                                 let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
