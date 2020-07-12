@@ -22,7 +22,7 @@ extension CustomDate {
     @NSManaged public var year: Int
     
     
-    var dateObj:DateComponents{
+  /*  var dateObj:DateComponents{
         
        var dateComponents=DateComponents()
         dateComponents.year = year
@@ -31,15 +31,21 @@ extension CustomDate {
         
         return dateComponents
         
-    }
+    }*/
     
     var startOfMonth: Date {
 
-               let calendar = Calendar(identifier: .gregorian)
-               let components = calendar.dateComponents([.year, .month], from: Calendar.current.date(from: dateObj) ?? Date())
+        var dateComponents=DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month], from: Calendar.current.date(from: dateComponents) ?? Date())
 
-               return  calendar.date(from: components)!
-           }
+        return  calendar.date(from: components)!
+    }
+    
     
     var endOfMonth: Date {
         var components = DateComponents()
@@ -47,6 +53,7 @@ extension CustomDate {
         components.second = -1
         return Calendar(identifier: .gregorian).date(byAdding: components, to: startOfMonth)!
     }
+    
     
     func isEqual(year : Int,month : Int,day : Int) -> Bool
      {

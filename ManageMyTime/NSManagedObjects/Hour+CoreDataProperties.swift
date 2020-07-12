@@ -67,7 +67,45 @@ extension Hour {
         
         returnedHour=returnedHour+newHour.hour
         
-        var newHourlyTime = Hour()
+        let newHourlyTime = Hour()
+        
+        newHourlyTime.hour=returnedHour
+        newHourlyTime.minutes=returnedMinutes
+        
+        return newHourlyTime
+    }
+    
+    
+    func subtract(newHour:Hour) -> Hour
+    {
+        guard newHour.hour>=0 && newHour.minutes>=0 else {
+            return Hour()
+        }
+        
+        guard self.hour > newHour.hour || (newHour.hour==self.hour && self.minutes>newHour.minutes) else {
+                  return Hour()
+              }
+              
+        
+        var returnedMinutes = self.minutes
+        var returnedHour = self.hour
+        
+        if(returnedMinutes < newHour.minutes)
+        {
+            returnedMinutes=60-newHour.minutes+returnedMinutes
+            returnedHour-=1
+            
+        }
+    
+        else{
+            
+            returnedMinutes=returnedMinutes-newHour.minutes
+        
+        }
+        
+        returnedHour=returnedHour-newHour.hour
+        
+        let newHourlyTime = Hour()
         
         newHourlyTime.hour=returnedHour
         newHourlyTime.minutes=returnedMinutes

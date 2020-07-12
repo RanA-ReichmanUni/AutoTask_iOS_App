@@ -24,7 +24,7 @@ class Core{
 
     
    
- /* func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String) -> Task
+  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String) -> Task
     {
         
         let todayDay = Date().day
@@ -69,9 +69,9 @@ class Core{
                           for result in results as! [NSManagedObject] {
 
                                 var day = result.value(forKey: "day") as! Int
-                                var spaceObj = result as! FreeSpace
+                                let spaceObj = result as! FreeSpace
                             
-                            retrivedFreeDays.append(spaceObj)
+                                retrivedFreeDays.append(spaceObj)
                                 
                            }
                         
@@ -134,7 +134,7 @@ class Core{
                                 
                                 //Create task
                                 
-                                var newTask = Task()
+                                let newTask = Task(context: managedContext)
                                 newTask.taskName=taskName
                                 newTask.dueDate=dueDate
                                 newTask.date!.day=exsitingDay.date.day
@@ -143,35 +143,34 @@ class Core{
                                 newTask.startTime=exsitingDay.starting
                                 newTask.endTime=exsitingDay.starting.add(newHour: asstimatedWorkTime)
                                 newTask.asstimatedWorkTime=asstimatedWorkTime
-                                
-                                let startTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                    startTime.setValue(10, forKeyPath: "hour")
-                                    startTime.setValue(45, forKeyPath: "minutes")
-                                                
-                                let endTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                        endTime.setValue(11, forKeyPath: "hour")
-                                        endTime.setValue(15, forKeyPath: "minutes")
-                                 
+                                //Needs to send back this task at the end of execution
+                     
                                 if(!newTask.endTime!.isEqual(newHour: exsitingDay.ending))
                                 {
+                                    let startTime = newTask.endTime!
+                                    let endTime = exsitingDay.ending
+                                    
                                     let newDate = CustomDate(context:managedContext)
                                                       newDate.year=exsitingDay.date.year
                                                       newDate.month=exsitingDay.date.month
                                                       newDate.day=exsitingDay.date.day
                                     
-                                  /*  createFreeSpace(startTime:newTask.endTime! , endTime: exsitingDay.ending, date: newDate, duration: )*/
+                                    //Create new FreeSpace excluding new task window
+                                    createFreeSpace(startTime:startTime , endTime: endTime, date: newDate, duration: endTime.subtract(newHour: startTime))
                                     
-                                    
+                                  
                                 }
                                 
                                 
                                 //delete old FS object
                                 
-                                //recalculate free days and schedule occupiedSpace
+                                //Create new FS with fullyOccupied flag
+                                
+                            
                                 
                             }
                             else{
-                                //Needs to create OS object and restrict FreeSpace Object, see notebook !!!!!!
+                                //Needs to create task object and restrict FreeSpace Object,FS object will be for all day except the task duration window, see notebook !!!!!!
                                 //create new freeSpace object for that day from begining to end
                                 
                                 let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
@@ -193,30 +192,7 @@ class Core{
                             
                         }
                       
-                       /*
-                        for dayInRange in todayDay...dueDate.day
-                        {
-                            if (retrivedFreeDays.contains(where: { $0.day == dayInRange}))
-                            {
-                                if(
-                                
-                                
-                            }
-                            else{
-                                
-                                
-                            }
-                            
-                           
-                        }
-                                       
-                        
-                       */
-                        
-                                // let retrievedObject = requiredTask[0] as! Task
-                                                 
-                                            // print("Name:",retrievedObject.taskName as! String)
-                                              
+                     
                                                
                          }
                                               
@@ -225,85 +201,11 @@ class Core{
                             print(error)
                          }
                                   
-                       /*
-             
-                      let task = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                      task.setValue(7, forKeyPath: "day")
-                      task.setValue(7, forKeyPath: "month")
-                      task.setValue(2020, forKeyPath: "year")
-                      task.setValue(startTime, forKeyPath: "starting")
-                      task.setValue(endTime, forKeyPath: "ending")
-                      task.setValue(duration, forKeyPath: "duration")
-                      task.setValue(UUID(), forKeyPath: "id")
-
-                    //Now we have set all the values. The next step is to save them inside the Core Data
-                    
-                    do {
-                        try managedContext.save()
-                            print("Saved !.")
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-              
-            
-            
-            let startTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                 startTime.setValue(10, forKeyPath: "hour")
-                                 startTime.setValue(45, forKeyPath: "minutes")
-                         
-                                        let endTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                         endTime.setValue(11, forKeyPath: "hour")
-                                         endTime.setValue(15, forKeyPath: "minutes")
-                         
-                                 let duration = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                                       endTime.setValue(1, forKeyPath: "hour")
-                                                       endTime.setValue(0, forKeyPath: "minutes")
-            
-            
-
-            
-            
-            
-            
-            
-            
-            let spaceEntity = NSEntityDescription.entity(forEntityName: "OccupiedTimeSpace", in: managedContext)!
-                  
-                  //final, we need to add some data to our newly created record for each keys using
-                  //here adding 5 data with loop
-                  
-            let currentMinute=Calendar.current.component(.minute, from: Date())
-            
-            
-            var startTime = 8
-            var endTime = 9.5
-            
-                      let space = NSManagedObject(entity: spaceEntity, insertInto: managedContext)
-                      space.setValue(taskName, forKeyPath: "assignedTaskName")
-                      space.setValue(id, forKeyPath: "assignedTaskId")
-                      space.setValue(false, forKeyPath: "restFreeSpace")
-                      space.setValue(startTime, forKeyPath: "startTime")
-                      space.setValue(endTime, forKeyPath: "endTime")
-                      space.setValue("red", forKeyPath: "color")
-                      space.setValue(UUID(), forKeyPath: "id")
-                      space.setValue(7, forKeyPath: "day")
-                      space.setValue(8, forKeyPath: "month")
-                      space.setValue(2020, forKeyPath: "year")
-
-                  //Now we have set all the values. The next step is to save them inside the Core Data
-                  
-                  do {
-                      try managedContext.save()
-                          print("Saved space !.")
-                  } catch let error as NSError {
-                      print("Could not save. \(error), \(error.userInfo)")
-                  }
-                  
-     */
+         
         
     }
     
-    */
+    
     
   func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
     {
@@ -443,7 +345,7 @@ class Core{
                
        }
     
-   func createCalanderSequence(startDate:CustomDate,endDate:CustomDate)
+   func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) -> [CustomDate]
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -506,10 +408,8 @@ class Core{
                                                                            
         }
        
-        for data in dateSequence
-        {
-            print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
-        }
+        return dateSequence
+     
 
     }
     
