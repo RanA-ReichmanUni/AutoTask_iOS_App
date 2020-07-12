@@ -24,7 +24,7 @@ class TaskViewModel : ObservableObject
     
     @Published var importance : String
     
-    @Published var asstimatedWorkTime : Int32
+    @Published var asstimatedWorkTime : Int
     
     @Published var dueDate : Date
     
@@ -52,7 +52,7 @@ class TaskViewModel : ObservableObject
         viewModelTask=Task()
      }
     
-    func createTask(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
+    func createTask(taskName:String,importance:String,asstimatedWorkTime:Int,dueDate:Date,notes:String)
     {
        
   
@@ -83,8 +83,8 @@ class TaskViewModel : ObservableObject
          viewModelTask=taskModel.retrieveTask(taskID: taskUUID)
           
         self.taskName=viewModelTask.taskName as! String
-        self.importance=viewModelTask.importance
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        self.importance=viewModelTask.importance!
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime.hour
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes as! String
         
@@ -100,8 +100,8 @@ class TaskViewModel : ObservableObject
         viewModelTask=taskModel.retrieveTask(taskName: taskName)
           
         self.taskName=viewModelTask.taskName as! String
-        self.importance=viewModelTask.importance
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        self.importance=viewModelTask.importance!
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime.hour
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes as! String
         

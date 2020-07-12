@@ -16,7 +16,7 @@ class TaskModel : UIViewController
 
     var allTasks = [Task]()
     
-    func createData(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String){
+    func createData(taskName:String,importance:String,asstimatedWorkTime:Int,dueDate:Date,notes:String){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }

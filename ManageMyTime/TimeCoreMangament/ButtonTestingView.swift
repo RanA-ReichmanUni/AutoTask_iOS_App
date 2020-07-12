@@ -14,13 +14,15 @@ struct ButtonTestingView: View {
     
     var tm=Core()
     
+
+    
     var body: some View {
         
         VStack {
-            Button(action: { self.tm.createCalanderSequence(startDate: CustomDate(year: 2020, month: 5, day: 28), endDate: CustomDate(year: 2021, month: 8, day: 1))}) {
+           Button(action: { self.tm.createCalanderSequence(startDay: 10, startMonth: 5, startYear: 2020, endDay: 20, endMonth: 3, endYear: 2021)}) {
                      Text("Click to do some high risk testing")
                  }
-                 
+               
                  Button(action: {try? self.tm.retrieveAllFreeSpaces()}) {
                          Text("Click to retrieve space")
                      }

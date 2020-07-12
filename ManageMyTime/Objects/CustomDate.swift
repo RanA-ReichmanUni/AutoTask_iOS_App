@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CustomDate {
+struct CustomDate1 {
 
     
     var year : Int{

@@ -44,6 +44,37 @@ extension Hour {
         
     }
     
+    func add(newHour:Hour) -> Hour
+    {
+        guard newHour.hour>=0 && newHour.minutes>=0 else {
+            return Hour()
+        }
+        var returnedMinutes = self.minutes
+        var returnedHour = self.hour
+        
+        if(returnedMinutes+newHour.minutes>60)
+        {
+            returnedMinutes=returnedMinutes+newHour.minutes-60
+            returnedHour+=1
+            
+        }
+    
+        else{
+            
+            returnedMinutes=returnedMinutes+newHour.minutes
+        
+        }
+        
+        returnedHour=returnedHour+newHour.hour
+        
+        var newHourlyTime = Hour()
+        
+        newHourlyTime.hour=returnedHour
+        newHourlyTime.minutes=returnedMinutes
+        
+        return newHourlyTime
+    }
+    
     
     func isBigger(newHour:Hour) -> Bool
     {
@@ -70,6 +101,19 @@ extension Hour {
              return true
         }
                
+    
+          return false
+        
+      }
+    
+    func isEqual(newHour:Hour) -> Bool
+      {
+      
+        if(self.hour == newHour.hour && self.minutes == newHour.minutes )
+          {
+             return true
+          }
+ 
     
           return false
         

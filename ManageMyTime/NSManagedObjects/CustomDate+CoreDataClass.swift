@@ -1,5 +1,5 @@
 //
-//  Task+CoreDataClass.swift
+//  CustomDate+CoreDataClass.swift
 //  ManageMyTime
 //
 //  Created by רן א on 12/07/2020.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Task)
-public class Task: NSManagedObject {
+@objc(CustomDate)
+public class CustomDate: NSManagedObject {
 
 }

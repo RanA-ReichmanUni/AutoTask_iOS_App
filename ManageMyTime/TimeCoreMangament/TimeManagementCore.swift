@@ -24,7 +24,7 @@ class Core{
 
     
    
-  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String)
+ /* func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String) -> Task
     {
         
         let todayDay = Date().day
@@ -35,137 +35,20 @@ class Core{
         var calanderSequence:[CustomDate]
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Task()}
             
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
         
-        /*
-            //Now let’s create an entity and new user records.
-            let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
-            
-            //final, we need to add some data to our newly created record for each keys using
-            //here adding 5 data with loop
-            
 
-                
-            
-                let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
-                task.setValue(taskName, forKeyPath: "taskName")
-                task.setValue(importance, forKeyPath: "importance")
-                task.setValue(asstimatedWorkTime, forKeyPath: "asstimatedWorkTime")
-                task.setValue(dueDate, forKeyPath: "dueDate")
-                task.setValue(notes, forKeyPath: "notes")
-                let id = UUID()
-                task.setValue(id, forKeyPath: "id")
-
-            //Now we have set all the values. The next step is to save them inside the Core Data
-            
-            do {
-                try managedContext.save()
-                    print("Saved !.")
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
-            
-            
-            
-        */
                         
-        
-           //Now let’s create an entity and new user records.
-                    let freeTimeSpaceEntity = NSEntityDescription.entity(forEntityName: "FreeSpace", in: managedContext)!
-                    
-                    //final, we need to add some data to our newly created record for each keys using
-                    //here adding 5 data with loop
-                    let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
+
+                let freeTimeSpaceEntity = NSEntityDescription.entity(forEntityName: "FreeSpace", in: managedContext)!
+
+                let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
                       
-      /*
-                    let startTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                    startTime.setValue(10, forKeyPath: "hour")
-                    startTime.setValue(45, forKeyPath: "minutes")
-            
-                           let endTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                            endTime.setValue(11, forKeyPath: "hour")
-                            endTime.setValue(15, forKeyPath: "minutes")
-            
-                    let duration = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                          endTime.setValue(1, forKeyPath: "hour")
-                                          endTime.setValue(0, forKeyPath: "minutes")
-                          
-            
-                   var freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                    freeSpace.setValue(13, forKeyPath: "day")
-                    freeSpace.setValue(7, forKeyPath: "month")
-                    freeSpace.setValue(2020, forKeyPath: "year")
-                    freeSpace.setValue(startTime, forKeyPath: "starting")
-                    freeSpace.setValue(endTime, forKeyPath: "ending")
-                    freeSpace.setValue(duration, forKeyPath: "duration")
-                    freeSpace.setValue(UUID(), forKeyPath: "id")
 
-                  //Now we have set all the values. The next step is to save them inside the Core Data
-                  
-                  do {
-                      try managedContext.save()
-                          print("Saved !.")
-                  } catch let error as NSError {
-                      print("Could not save. \(error), \(error.userInfo)")
-                  }
-
-                freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                    freeSpace.setValue(5, forKeyPath: "day")
-                    freeSpace.setValue(6, forKeyPath: "month")
-                    freeSpace.setValue(2025, forKeyPath: "year")
-                    freeSpace.setValue(startTime, forKeyPath: "starting")
-                    freeSpace.setValue(endTime, forKeyPath: "ending")
-                    freeSpace.setValue(duration, forKeyPath: "duration")
-                    freeSpace.setValue(UUID(), forKeyPath: "id")
-
-                  //Now we have set all the values. The next step is to save them inside the Core Data
-                  
-                  do {
-                      try managedContext.save()
-                          print("Saved !.")
-                  } catch let error as NSError {
-                      print("Could not save. \(error), \(error.userInfo)")
-                  }
-                     freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                        freeSpace.setValue(2, forKeyPath: "day")
-                        freeSpace.setValue(5, forKeyPath: "month")
-                        freeSpace.setValue(2020, forKeyPath: "year")
-                        freeSpace.setValue(startTime, forKeyPath: "starting")
-                        freeSpace.setValue(endTime, forKeyPath: "ending")
-                        freeSpace.setValue(duration, forKeyPath: "duration")
-                        freeSpace.setValue(UUID(), forKeyPath: "id")
-
-                      //Now we have set all the values. The next step is to save them inside the Core Data
-                      
-                      do {
-                          try managedContext.save()
-                              print("Saved !.")
-                      } catch let error as NSError {
-                          print("Could not save. \(error), \(error.userInfo)")
-                      }
-        
-                freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                    freeSpace.setValue(7, forKeyPath: "day")
-                    freeSpace.setValue(9, forKeyPath: "month")
-                    freeSpace.setValue(2021, forKeyPath: "year")
-                    freeSpace.setValue(startTime, forKeyPath: "starting")
-                    freeSpace.setValue(endTime, forKeyPath: "ending")
-                    freeSpace.setValue(duration, forKeyPath: "duration")
-                    freeSpace.setValue(UUID(), forKeyPath: "id")
-
-                  //Now we have set all the values. The next step is to save them inside the Core Data
-                  
-                  do {
-                      try managedContext.save()
-                          print("Saved !.")
-                  } catch let error as NSError {
-                      print("Could not save. \(error), \(error.userInfo)")
-                  }
-       */
                 let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
         
         
@@ -191,28 +74,28 @@ class Core{
                             retrivedFreeDays.append(spaceObj)
                                 
                            }
-                            
+                        
                            //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
                             
                             
                             //Sort by this order preference: year, month, day
                             retrivedFreeDays.sort {
-                                ($0.year, $0.month, $0.day,$0.starting.hour) <
-                                    ($1.year,$1.month,$1.day,$0.starting.hour)
+                                ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$0.starting.hour)
                             }
                          
                             for freeDay in retrivedFreeDays
                             
                             {
                                
-                                if (dueDate.year < freeDay.year)//If it's a future year then any date relevent
+                                if (dueDate.year < freeDay.date.year)//If it's a future year then any date relevent
                                 {
-                                    print("Item:",String(freeDay.day)," ",String(freeDay.month)," ",String(freeDay.year))
+                                    print("Item:",String(freeDay.date.day)," ",String(freeDay.date.month)," ",String(freeDay.date.year))
                                 }
-                                else if(dueDate.year == freeDay.year && dueDate.month <= freeDay.month)//If it's the same year (so it won't be any past year in time) then check if it's a future or same month and not a past month.
+                                else if(dueDate.year == freeDay.date.year && dueDate.month <= freeDay.date.month)//If it's the same year (so it won't be any past year in time) then check if it's a future or same month and not a past month.
                                 {
                                                              
-                                    if((dueDate.day <= freeDay.day && dueDate.month == freeDay.month) || (dueDate.month < freeDay.month) )//If it's the same month, check for day, if it's a future month then all dates are relevent
+                                    if((dueDate.day <= freeDay.date.day && dueDate.month == freeDay.date.month) || (dueDate.month < freeDay.date.month) )//If it's the same month, check for day, if it's a future month then all dates are relevent
                                     {
                                         suitableFreeDays.append(freeDay)
                                         
@@ -227,21 +110,63 @@ class Core{
                         }
                         
                         
-                        var thisMoment = CustomDate(year:Date().year,month:Date().month,day:Date().day)
-                        var endDueDate = CustomDate(year:dueDate.year,month:dueDate.month,day:dueDate.day)
+                        let thisMoment = CustomDate(context:managedContext)
+                            
+                        thisMoment.year=Date().year
+                        thisMoment.month=Date().month
+                        thisMoment.day=Date().day
+                        
+                        let endDueDate = CustomDate(context:managedContext)
+                        endDueDate.year=dueDate.year
+                        endDueDate.month=dueDate.month
+                        endDueDate.day=dueDate.day
                         
                         calanderSequence = createCalanderSequence(startDate:thisMoment, endDate: endDueDate)
                         
                         for day in calanderSequence
                         {
                             
-                            if(suitableFreeDays.contains(where: { day.isEqual(year: $0.year, month: $0.month, day: $0.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)}) )//Check if we have FreeSpace object in that date sequance between this moment and dueDate
+                            if(suitableFreeDays.contains(where: { day.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)}) )//Check if we have FreeSpace object in that date sequance between this moment and dueDate
                             {
-                                var exsitingDay=suitableFreeDays.first(where: { day.isEqual(year: $0.year, month: $0.month, day: $0.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)})! //Contains closest FreeSpace slot
+                                let exsitingDay=suitableFreeDays.first(where: { day.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)})! //Contains closest FreeSpace slot
                                
+                                
+                                
+                                //Create task
+                                
+                                var newTask = Task()
+                                newTask.taskName=taskName
+                                newTask.dueDate=dueDate
+                                newTask.date!.day=exsitingDay.date.day
+                                newTask.date!.month=exsitingDay.date.month
+                                newTask.date!.year=exsitingDay.date.year
+                                newTask.startTime=exsitingDay.starting
+                                newTask.endTime=exsitingDay.starting.add(newHour: asstimatedWorkTime)
+                                newTask.asstimatedWorkTime=asstimatedWorkTime
+                                
+                                let startTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
+                                    startTime.setValue(10, forKeyPath: "hour")
+                                    startTime.setValue(45, forKeyPath: "minutes")
+                                                
+                                let endTime = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
+                                        endTime.setValue(11, forKeyPath: "hour")
+                                        endTime.setValue(15, forKeyPath: "minutes")
                                  
-                                             
-                           
+                                if(!newTask.endTime!.isEqual(newHour: exsitingDay.ending))
+                                {
+                                    let newDate = CustomDate(context:managedContext)
+                                                      newDate.year=exsitingDay.date.year
+                                                      newDate.month=exsitingDay.date.month
+                                                      newDate.day=exsitingDay.date.day
+                                    
+                                  /*  createFreeSpace(startTime:newTask.endTime! , endTime: exsitingDay.ending, date: newDate, duration: )*/
+                                    
+                                    
+                                }
+                                
+                                
+                                //delete old FS object
+                                
                                 //recalculate free days and schedule occupiedSpace
                                 
                             }
@@ -377,6 +302,8 @@ class Core{
      */
         
     }
+    
+    */
     
   func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
     {
@@ -516,8 +443,12 @@ class Core{
                
        }
     
-    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) -> [CustomDate]
+   func createCalanderSequence(startDate:CustomDate,endDate:CustomDate)
     {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
         var dateSequence=[CustomDate]()
                var currentIndexDate:CustomDate
                var startOfMonthIndex:Int
@@ -530,7 +461,12 @@ class Core{
             {
                 for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
                 {
-                      dateSequence.append(CustomDate(year:currentIndexDate.year,month:currentIndexDate.month,day:day))
+                    let newDate = CustomDate(context:managedContext)
+                        newDate.year=currentIndexDate.year
+                        newDate.month=currentIndexDate.month
+                        newDate.day=day
+                    
+                      dateSequence.append(newDate)
                                                              
                }
                 currentIndexDate.day=1
@@ -547,7 +483,12 @@ class Core{
              for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
               {
                 
-                dateSequence.append(CustomDate(year:currentIndexDate.year,month:currentIndexDate.month,day:day))
+                let newDate = CustomDate(context:managedContext)
+                               newDate.year=currentIndexDate.year
+                               newDate.month=currentIndexDate.month
+                               newDate.day=day
+                
+                dateSequence.append(newDate)
                                                                  
               }
                 currentIndexDate.day=1
@@ -556,13 +497,101 @@ class Core{
         //Same month
         for day in currentIndexDate.day...endDate.day
         {
-              dateSequence.append(CustomDate(year:currentIndexDate.year,month:currentIndexDate.month,day:day))
+            let newDate = CustomDate(context:managedContext)
+                                        newDate.year=currentIndexDate.year
+                                        newDate.month=currentIndexDate.month
+                                        newDate.day=day
+            
+              dateSequence.append(newDate)
                                                                            
         }
        
-        return dateSequence
+        for data in dateSequence
+        {
+            print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
+        }
 
     }
+    
+    func createCalanderSequence(startDay:Int,startMonth:Int,startYear:Int,endDay:Int,endMonth:Int,endYear:Int)
+       {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+           
+            let managedContext = appDelegate.persistentContainer.viewContext
+           
+            let startDate = CustomDate(context:managedContext)
+              startDate.year=startYear
+              startDate.month=startMonth
+              startDate.day=startDay
+        
+            let endDate = CustomDate(context:managedContext)
+               endDate.year=endYear
+               endDate.month=endMonth
+               endDate.day=endDay
+            
+           var dateSequence=[CustomDate]()
+                  var currentIndexDate:CustomDate
+                  var startOfMonthIndex:Int
+           
+           currentIndexDate=startDate
+           
+           while(currentIndexDate.year < endDate.year)
+           {
+               while(currentIndexDate.month < 13)
+               {
+                   for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
+                   {
+                       let newDate = CustomDate(context:managedContext)
+                           newDate.year=currentIndexDate.year
+                           newDate.month=currentIndexDate.month
+                           newDate.day=day
+                       
+                         dateSequence.append(newDate)
+                                                                
+                  }
+                   currentIndexDate.day=1
+                   currentIndexDate.month+=1
+               }
+               
+               currentIndexDate.month=1
+               currentIndexDate.year+=1
+           }
+           //Same year
+           
+           while(currentIndexDate.month < endDate.month)
+           {
+                for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
+                 {
+                   
+                   let newDate = CustomDate(context:managedContext)
+                                  newDate.year=currentIndexDate.year
+                                  newDate.month=currentIndexDate.month
+                                  newDate.day=day
+                   
+                   dateSequence.append(newDate)
+                                                                    
+                 }
+                   currentIndexDate.day=1
+                   currentIndexDate.month+=1
+           }
+           //Same month
+           for day in currentIndexDate.day...endDate.day
+           {
+               let newDate = CustomDate(context:managedContext)
+                                           newDate.year=currentIndexDate.year
+                                           newDate.month=currentIndexDate.month
+                                           newDate.day=day
+               
+                 dateSequence.append(newDate)
+                                                                              
+           }
+          
+           for data in dateSequence
+           {
+               print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
+           }
+
+       }
     
     func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour){
         
