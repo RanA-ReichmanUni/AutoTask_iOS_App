@@ -86,7 +86,7 @@ class Core{
                          
                             for freeDay in retrivedFreeDays
                             
-                            {
+                            {//Filter and find relevent future freeSpace days in context to dueDate of the new task
                                
                                 if (dueDate.year < freeDay.date.year)//If it's a future year then any date relevent
                                 {
@@ -123,12 +123,12 @@ class Core{
                         
                         calanderSequence = createCalanderSequence(startDate:thisMoment, endDate: endDueDate)
                         
-                        for day in calanderSequence
+                        for singleDate in calanderSequence
                         {
                             
-                            if(suitableFreeDays.contains(where: { day.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)}) )//Check if we have FreeSpace object in that date sequance between this moment and dueDate
+                            if(suitableFreeDays.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)}) )//Check if we have FreeSpace object in that date sequance between this moment and dueDate
                             {
-                                let exsitingDay=suitableFreeDays.first(where: { day.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)})! //Contains closest FreeSpace slot
+                                let exsitingDay=suitableFreeDays.first(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)})! //Contains closest FreeSpace slot
                                
                                 
                                 
@@ -177,7 +177,8 @@ class Core{
                                    endOfDayHour.minutes=0
                                 //Create new FS with fullyOccupied flag
                                 createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
-                            
+                                
+                                return newTask
                                 
                             }
                             else{//create new freeSpace object for that day that have no freeSpace object at all, from begining to end of day,excluding task window.
@@ -185,23 +186,34 @@ class Core{
                                 //In other words, needs to create task object and restrict FreeSpace Object,FS object will be for all day except the task duration window, see notebook !!!!!!
                                 
                                 
-                                let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
-                                            
-                                let startsIn = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                   startsIn.setValue(startOfTheDay, forKeyPath: "hour")
-                                   startsIn.setValue(0, forKeyPath: "minutes")
+                                let startOfDayHour = Hour(context: managedContext)
+                                  startOfDayHour.hour=startOfTheDay
+                                  startOfDayHour.minutes=0
+                                                       
+                                let endOfDayHour = Hour(context: managedContext)
+                                  endOfDayHour.hour=endOfTheDay
+                                  endOfDayHour.minutes=0
                                 
-                                let endsIn = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                     endsIn.setValue(endOfTheDay, forKeyPath: "hour")
-                                     endsIn.setValue(0, forKeyPath: "minutes")
+                                let newTask = Task(context: managedContext)
+                                    newTask.taskName=taskName
+                                    newTask.dueDate=dueDate
+                                    newTask.date!=singleDate
+                                    newTask.startTime=startOfDayHour
+                                    newTask.endTime=startOfDayHour.add(newHour: asstimatedWorkTime)
+                                    newTask.asstimatedWorkTime=asstimatedWorkTime
                                 
-                                let fullDuration = NSManagedObject(entity: timeByHourEntity, insertInto: managedContext)
-                                    startsIn.setValue(endOfTheDay-startOfTheDay, forKeyPath: "hour")
-                                    startsIn.setValue(0, forKeyPath: "minutes")
+               
                                 
                                 //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
+                                if(!newTask.endTime!.isEqual(newHour: endOfDayHour))//If it's a full day task
+                                {
+                                createFreeSpace(startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: true)
+                                }
+                                else{//If there is any free space
+                                    createFreeSpace(startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
+                                }
                                 
-                                createFreeSpace(startTime: startsIn as! Hour, endTime: endsIn as! Hour, date: day, duration: fullDuration as! Hour,fullyOccupiedDay: false)
+                                 return newTask
                             }
                             
                         }
@@ -215,7 +227,8 @@ class Core{
                             print(error)
                          }
                                   
-         
+                        //Shouldn't get here, if we do, return an empty task. Needs to check how to properly handle this.
+                        return Task()
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
     
