@@ -144,34 +144,46 @@ class Core{
                                 newTask.endTime=exsitingDay.starting.add(newHour: asstimatedWorkTime)
                                 newTask.asstimatedWorkTime=asstimatedWorkTime
                                 //Needs to send back this task at the end of execution
-                     
+                                    
+                                let startTime = newTask.endTime!
+                                let endTime = exsitingDay.ending
+                                     
+                                let freeSpaceDate = exsitingDay.date
+                      
+                                
                                 if(!newTask.endTime!.isEqual(newHour: exsitingDay.ending))
                                 {
-                                    let startTime = newTask.endTime!
-                                    let endTime = exsitingDay.ending
-                                    
-                                    let newDate = CustomDate(context:managedContext)
-                                                      newDate.year=exsitingDay.date.year
-                                                      newDate.month=exsitingDay.date.month
-                                                      newDate.day=exsitingDay.date.day
-                                    
+     
                                     //Create new FreeSpace excluding new task window
-                                    createFreeSpace(startTime:startTime , endTime: endTime, date: newDate, duration: endTime.subtract(newHour: startTime))
+                                    createFreeSpace(startTime:startTime , endTime: endTime, date: freeSpaceDate, duration: endTime.subtract(newHour: startTime),fullyOccupiedDay: false)
                                     
                                   
                                 }
                                 
                                 
                                 //delete old FS object
+                                deleteFreeSpace(freeSpaceId: exsitingDay.id)
                                 
+                                let startOfDayHour = Hour(context: managedContext)
+                                startOfDayHour.hour=startOfTheDay
+                                startOfDayHour.minutes=0
+                                
+                                let endOfDayHour = Hour(context: managedContext)
+                                 endOfDayHour.hour=endOfTheDay
+                                 endOfDayHour.minutes=0
+                                
+                                let newDuration = Hour(context: managedContext)
+                                   endOfDayHour.hour=0
+                                   endOfDayHour.minutes=0
                                 //Create new FS with fullyOccupied flag
-                                
+                                createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
                             
                                 
                             }
-                            else{
-                                //Needs to create task object and restrict FreeSpace Object,FS object will be for all day except the task duration window, see notebook !!!!!!
-                                //create new freeSpace object for that day from begining to end
+                            else{//create new freeSpace object for that day that have no freeSpace object at all, from begining to end of day,excluding task window.
+                                
+                                //In other words, needs to create task object and restrict FreeSpace Object,FS object will be for all day except the task duration window, see notebook !!!!!!
+                                
                                 
                                 let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
                                             
@@ -187,7 +199,9 @@ class Core{
                                     startsIn.setValue(endOfTheDay-startOfTheDay, forKeyPath: "hour")
                                     startsIn.setValue(0, forKeyPath: "minutes")
                                 
-                                createFreeSpace(startTime: startsIn as! Hour, endTime: endsIn as! Hour, date: day, duration: fullDuration as! Hour)
+                                //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
+                                
+                                createFreeSpace(startTime: startsIn as! Hour, endTime: endsIn as! Hour, date: day, duration: fullDuration as! Hour,fullyOccupiedDay: false)
                             }
                             
                         }
@@ -202,7 +216,7 @@ class Core{
                          }
                                   
          
-        
+        //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
     
     
@@ -347,7 +361,7 @@ class Core{
     
    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) -> [CustomDate]
     {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate] ()}
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
@@ -493,7 +507,42 @@ class Core{
 
        }
     
-    func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour){
+    func deleteFreeSpace(freeSpaceId : UUID){
+           
+           
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+           
+         
+            let managedContext = appDelegate.persistentContainer.viewContext
+           
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FreeSpace")
+            fetchRequest.predicate = NSPredicate(format: "Id = %@", freeSpaceId as CVarArg)
+          
+           do
+           {
+               let requiredFS = try managedContext.fetch(fetchRequest)
+               
+               let objectToDelete = requiredFS [0] as! NSManagedObject
+               managedContext.delete(objectToDelete)
+               
+               do{
+                   try managedContext.save()
+                   print("Deleted !.")
+                  
+               }
+               catch
+               {
+                   print(error)
+               }
+               
+           }
+           catch
+           {
+               print(error)
+           }
+       }
+    
+    func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
               guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -529,7 +578,8 @@ class Core{
                 freeSpace.setValue(endsIn, forKeyPath: "ending")
                 freeSpace.setValue(durationTime, forKeyPath: "duration")
                 freeSpace.setValue(UUID(), forKeyPath: "id")
-
+                freeSpace.setValue(fullyOccupiedDay, forKeyPath: "fullyOccupiedDay")
+        
               //Now we have set all the values. The next step is to save them inside the Core Data
               
               do {
