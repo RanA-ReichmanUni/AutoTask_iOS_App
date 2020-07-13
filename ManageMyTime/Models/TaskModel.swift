@@ -16,6 +16,47 @@ class TaskModel : UIViewController
     var coreManagment = Core()
     var allTasks = [Task]()
     
+    
+    func autoFillTesting()
+    {
+        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+
+
+        var dateComponents = DateComponents()
+        dateComponents.year = 2020
+        dateComponents.month = 7
+        dateComponents.day = 17
+
+
+        // Create date from components
+        let userCalendar = Calendar.current // user calendar
+        let someDateTime = userCalendar.date(from: dateComponents)
+        
+        let asstimatedWorkTime=Hour(context: managedContext)
+            asstimatedWorkTime.hour=2
+            asstimatedWorkTime.minutes=0
+        
+        for name in taskName
+        {
+            
+            
+            coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
+            
+            do {
+                      try managedContext.save()
+                          print("Saved Task !.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                  }
+        }
+        
+
+        
+    }
     func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.

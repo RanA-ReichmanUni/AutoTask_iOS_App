@@ -71,7 +71,10 @@ class TaskViewModel : ObservableObject
         
     }
     
-  
+  func autoFillTesting()
+  {
+    taskModel.autoFillTesting()
+    }
 
     func retrieveTask(taskID : String) throws
       {

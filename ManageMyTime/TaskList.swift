@@ -24,8 +24,8 @@ struct TaskList: View {
             VStack{
                 List(taskViewModel.allTasks, id: \.self) { task in
                     
-                    NavigationLink(destination: DetailedTask(taskViewModel: self.taskViewModel, taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes as! String, asstimatedWorkTime: Int32(task.asstimatedWorkTime.hour))){
-                            TaskRow(taskName1: task.taskName as! String, dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance!)
+                    NavigationLink(destination: DetailedTask(taskViewModel: self.taskViewModel, taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes!, asstimatedWorkTime: Int32(task.asstimatedWorkTime.hour))){
+                            TaskRow(taskName1: task.taskName , dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance!)
                             }
                              
                          }

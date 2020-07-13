@@ -95,6 +95,7 @@ class Core{
                                         newTask.color="Green"
                                         newTask.active=true
                                         newTask.importance=importance
+                                        newTask.notes=notes
                                         newTask.id=UUID()
                             
                             print(newTask.taskName)
@@ -191,6 +192,7 @@ class Core{
                                 newTask.color="Pink"
                                 newTask.active=true
                                 newTask.importance=importance
+                                newTask.notes=notes
                                 newTask.id=UUID()
                                 
                                 //Needs to send back this task at the end of execution
@@ -255,6 +257,7 @@ class Core{
                                     newTask.color="Blue"
                                     newTask.active=true
                                     newTask.importance=importance
+                                    newTask.notes=notes
                                     newTask.id=UUID()
                
                                 
@@ -588,7 +591,7 @@ class Core{
             let managedContext = appDelegate.persistentContainer.viewContext
            
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FreeSpace")
-            fetchRequest.predicate = NSPredicate(format: "Id = %@", freeSpaceId as CVarArg)
+            fetchRequest.predicate = NSPredicate(format: "id = %@", freeSpaceId as CVarArg)
           
            do
            {

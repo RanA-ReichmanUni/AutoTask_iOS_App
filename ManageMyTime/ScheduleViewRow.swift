@@ -22,7 +22,7 @@ struct ScheduleViewRow: View {
        VStack{
         
                 WeeklyScheduleBar()
-        
+        //Create special object for the view to achieve low coupling from the model, don't send task as is.
             List{
 
                    HStack
