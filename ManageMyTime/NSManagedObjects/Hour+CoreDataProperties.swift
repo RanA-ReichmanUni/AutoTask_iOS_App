@@ -9,7 +9,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension Hour {
 
@@ -66,8 +66,13 @@ extension Hour {
         }
         
         returnedHour=returnedHour+newHour.hour
+   
         
-        let newHourlyTime = Hour()
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
+
+             let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let newHourlyTime = Hour(context: managedContext)
         
         newHourlyTime.hour=returnedHour
         newHourlyTime.minutes=returnedMinutes
@@ -105,7 +110,12 @@ extension Hour {
         
         returnedHour=returnedHour-newHour.hour
         
-        let newHourlyTime = Hour()
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
+
+             let managedContext = appDelegate.persistentContainer.viewContext
+        
+        
+        let newHourlyTime = Hour(context: managedContext)
         
         newHourlyTime.hour=returnedHour
         newHourlyTime.minutes=returnedMinutes

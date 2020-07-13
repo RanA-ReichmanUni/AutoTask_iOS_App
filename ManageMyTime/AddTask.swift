@@ -94,7 +94,7 @@ struct AddTask: View {
                            
                         var fixedDate = Date()
                      
-                        self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], asstimatedWorkTime: 60, dueDate: fixedDate, notes: self.notes)
+                        self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: 5,workTimeMinutes: 30, dueDate: fixedDate, notes: self.notes)
                     
                       
                             /*

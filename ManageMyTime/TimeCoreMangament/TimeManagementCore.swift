@@ -30,8 +30,6 @@ class Core{
         let todayDay = Date().day
         var retrivedFreeDays = [FreeSpace]()
         var suitableFreeDays = [FreeSpace]()
-        var day : Int
-        var spaceObj : FreeSpace
         var calanderSequence:[CustomDate]
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -40,19 +38,13 @@ class Core{
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
-        
+            
 
                         
-
-                let freeTimeSpaceEntity = NSEntityDescription.entity(forEntityName: "FreeSpace", in: managedContext)!
-
-                let timeByHourEntity = NSEntityDescription.entity(forEntityName: "Hour", in: managedContext)!
-                      
-
                 let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
         
         
-                    fetchRequest.predicate = NSPredicate(format: "year >= %@", argumentArray: [dueDate.year])
+                    fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [dueDate.year])
                                   
                               
                     do
@@ -61,14 +53,68 @@ class Core{
                         
                         if (results.count == 0)
                         {
-                            print("It's 0 ")
+                            print("FreeSpace is at count of 0 ")
+                            
+                            let thisMoment = CustomDate(context:managedContext)
+                                                      
+                                thisMoment.year=Date().year
+                                thisMoment.month=Date().month
+                                thisMoment.day=Date().day
+                                                  
+                            let endDueDate = CustomDate(context:managedContext)
+                                endDueDate.year=dueDate.year
+                                endDueDate.month=dueDate.month
+                                endDueDate.day=dueDate.day
+                                                  
+                            calanderSequence = createCalanderSequence(startDate:thisMoment, endDate: endDueDate)
+                            
+                            let zeroDate = CustomDate(context: managedContext)
+                                zeroDate.day=0
+                                zeroDate.month=0
+                                zeroDate.year=0000
+                            
+                            let singleDate=calanderSequence.first(where: {dueDate.day <= $0.day && dueDate.month <= $0.month && dueDate.year <= $0.year}) ?? zeroDate
+                            
+                            
+                                    let startOfDayHour = Hour(context: managedContext)
+                                        startOfDayHour.hour=startOfTheDay
+                                        startOfDayHour.minutes=0
+                                                                              
+                                    let endOfDayHour = Hour(context: managedContext)
+                                        endOfDayHour.hour=endOfTheDay
+                                        endOfDayHour.minutes=0
+                                                       
+                                    let newTask = Task(context: managedContext)
+                                        newTask.taskName=taskName
+                                        newTask.dueDate=dueDate
+                                        newTask.date=singleDate
+                                        newTask.startTime=startOfDayHour
+                                        newTask.endTime=startOfDayHour.add(newHour: asstimatedWorkTime)
+                                        newTask.asstimatedWorkTime=asstimatedWorkTime
+                                        newTask.completed=false
+                                        newTask.color="Green"
+                                        newTask.active=true
+                                        newTask.importance=importance
+                                        newTask.id=UUID()
+                            
+                            print(newTask.taskName)
+                                                       
+                                    //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
+                                    if(!newTask.endTime!.isEqual(newHour: endOfDayHour))//If it's a full day task
+                                    {
+                                            createFreeSpace(startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: true)
+                                    }
+                                    else{//If there is any free space
+                                            createFreeSpace(startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
+                                    }
+                                                       
+                                    return newTask
                             
                         }else{
                             
                             
                           for result in results as! [NSManagedObject] {
 
-                                var day = result.value(forKey: "day") as! Int
                                 let spaceObj = result as! FreeSpace
                             
                                 retrivedFreeDays.append(spaceObj)
@@ -137,12 +183,16 @@ class Core{
                                 let newTask = Task(context: managedContext)
                                 newTask.taskName=taskName
                                 newTask.dueDate=dueDate
-                                newTask.date!.day=exsitingDay.date.day
-                                newTask.date!.month=exsitingDay.date.month
-                                newTask.date!.year=exsitingDay.date.year
+                                newTask.date=exsitingDay.date
                                 newTask.startTime=exsitingDay.starting
                                 newTask.endTime=exsitingDay.starting.add(newHour: asstimatedWorkTime)
                                 newTask.asstimatedWorkTime=asstimatedWorkTime
+                                newTask.completed=false
+                                newTask.color="Pink"
+                                newTask.active=true
+                                newTask.importance=importance
+                                newTask.id=UUID()
+                                
                                 //Needs to send back this task at the end of execution
                                     
                                 let startTime = newTask.endTime!
@@ -197,11 +247,15 @@ class Core{
                                 let newTask = Task(context: managedContext)
                                     newTask.taskName=taskName
                                     newTask.dueDate=dueDate
-                                    newTask.date!=singleDate
+                                    newTask.date=singleDate
                                     newTask.startTime=startOfDayHour
                                     newTask.endTime=startOfDayHour.add(newHour: asstimatedWorkTime)
                                     newTask.asstimatedWorkTime=asstimatedWorkTime
-                                
+                                    newTask.completed=false
+                                    newTask.color="Blue"
+                                    newTask.active=true
+                                    newTask.importance=importance
+                                    newTask.id=UUID()
                
                                 
                                 //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
@@ -435,6 +489,11 @@ class Core{
                                                                            
         }
        
+        for data in dateSequence
+        {
+            print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
+        }
+        
         return dateSequence
      
 
@@ -584,9 +643,7 @@ class Core{
                               
         
                 let freeSpace = NSManagedObject(entity: freeTimeSpaceEntity, insertInto: managedContext)
-                freeSpace.setValue(date.day, forKeyPath: "day")
-                freeSpace.setValue(date.month, forKeyPath: "month")
-                freeSpace.setValue(date.year, forKeyPath: "year")
+                freeSpace.setValue(date, forKeyPath: "date")
                 freeSpace.setValue(startsIn, forKeyPath: "starting")
                 freeSpace.setValue(endsIn, forKeyPath: "ending")
                 freeSpace.setValue(durationTime, forKeyPath: "duration")
@@ -597,7 +654,7 @@ class Core{
               
               do {
                   try managedContext.save()
-                      print("Saved !.")
+                      print("Saved Free Space !.")
               } catch let error as NSError {
                   print("Could not save. \(error), \(error.userInfo)")
               }

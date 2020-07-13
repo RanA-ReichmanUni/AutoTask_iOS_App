@@ -13,10 +13,10 @@ import UIKit
 
 class TaskModel : UIViewController
 {
-
+    var coreManagment = Core()
     var allTasks = [Task]()
     
-    func createData(taskName:String,importance:String,asstimatedWorkTime:Int,dueDate:Date,notes:String){
+    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -30,21 +30,28 @@ class TaskModel : UIViewController
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
         
-    
+        coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes)
             
-            let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
-            task.setValue(taskName, forKeyPath: "taskName")
-            task.setValue(importance, forKeyPath: "importance")
-            task.setValue(asstimatedWorkTime, forKeyPath: "asstimatedWorkTime")
-            task.setValue(dueDate, forKeyPath: "dueDate")
-            task.setValue(notes, forKeyPath: "notes")
-            task.setValue(UUID(), forKeyPath: "id")
+            /*let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
+            task.setValue(retrivedTask.taskName, forKeyPath: "taskName")
+            task.setValue(retrivedTask.importance, forKeyPath: "importance")
+            task.setValue(retrivedTask.asstimatedWorkTime, forKeyPath: "asstimatedWorkTime")
+            task.setValue(retrivedTask.dueDate, forKeyPath: "dueDate")
+            task.setValue(retrivedTask.notes, forKeyPath: "notes")
+            task.setValue(retrivedTask.startTime, forKeyPath: "startTime")
+            task.setValue(retrivedTask.date, forKeyPath: "date")
+            task.setValue(retrivedTask.endTime, forKeyPath: "endTime")
+            task.setValue(retrivedTask.completed, forKeyPath: "completed")
+            task.setValue(retrivedTask.color, forKeyPath: "color")
+            task.setValue(retrivedTask.active, forKeyPath: "active")
+            task.setValue(UUID(), forKeyPath: "id")*/
+        
 
         //Now we have set all the values. The next step is to save them inside the Core Data
         
         do {
             try managedContext.save()
-                print("Saved !.")
+                print("Saved Task !.")
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }

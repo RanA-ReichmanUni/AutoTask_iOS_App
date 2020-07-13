@@ -28,7 +28,7 @@ extension Task {
     @NSManaged public var asstimatedWorkTime: Hour
     @NSManaged public var endTime: Hour?
     @NSManaged public var startTime: Hour?
-    @NSManaged public var date: CustomDate?
+    @NSManaged public var date: CustomDate
     
     var taskImportance: TaskImportance {
                set {importance = newValue.rawValue}

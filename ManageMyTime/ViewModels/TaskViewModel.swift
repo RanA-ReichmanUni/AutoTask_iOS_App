@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 
 
@@ -24,7 +24,7 @@ class TaskViewModel : ObservableObject
     
     @Published var importance : String
     
-    @Published var asstimatedWorkTime : Int
+    @Published var asstimatedWorkTime : Hour
     
     @Published var dueDate : Date
     
@@ -43,30 +43,35 @@ class TaskViewModel : ObservableObject
     
      init()
      {
+     
         taskName="Default"
         importance="Medium"
-        asstimatedWorkTime=0
+        asstimatedWorkTime=Hour()
         dueDate=Date()
         notes="None"
         allTasks=[]
         viewModelTask=Task()
      }
     
-    func createTask(taskName:String,importance:String,asstimatedWorkTime:Int,dueDate:Date,notes:String)
+    func createTask(taskName:String,importance:String,workTimeHours:Int,workTimeMinutes:Int,dueDate:Date,notes:String)
     {
-       
-  
-            
+
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
         self.taskName=taskName
         self.importance=importance
-        self.asstimatedWorkTime=asstimatedWorkTime
         self.dueDate=dueDate
         self.notes=notes
+        asstimatedWorkTime=Hour(context: managedContext)
+        self.asstimatedWorkTime.hour=workTimeHours
+        self.asstimatedWorkTime.minutes=workTimeMinutes
+        
         
         taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
         
     }
     
+  
 
     func retrieveTask(taskID : String) throws
       {
@@ -82,11 +87,11 @@ class TaskViewModel : ObservableObject
 
          viewModelTask=taskModel.retrieveTask(taskID: taskUUID)
           
-        self.taskName=viewModelTask.taskName as! String
+        self.taskName=viewModelTask.taskName
         self.importance=viewModelTask.importance!
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime.hour
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         self.dueDate=viewModelTask.dueDate
-        self.notes=viewModelTask.notes as! String
+        self.notes=viewModelTask.notes!
         
         //taskModel.retrieveAllTasks()
           
@@ -99,11 +104,11 @@ class TaskViewModel : ObservableObject
         
         viewModelTask=taskModel.retrieveTask(taskName: taskName)
           
-        self.taskName=viewModelTask.taskName as! String
+        self.taskName=viewModelTask.taskName
         self.importance=viewModelTask.importance!
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime.hour
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         self.dueDate=viewModelTask.dueDate
-        self.notes=viewModelTask.notes as! String
+        self.notes=viewModelTask.notes!
         
        
           
