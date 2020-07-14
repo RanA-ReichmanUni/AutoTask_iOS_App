@@ -28,9 +28,9 @@ struct ScheduleView: View {
                      Text("S").foregroundColor(Color.red).padding()
                 }
                     
-                    ScheduleViewRow(timeChar:"8",columns: ["hello","what's up","infi b","algebra b","bla bla bla","sadfafas","fdsgfdsg"])
+                   /* ScheduleViewRow(timeChar:"8",columns: ["hello","what's up","infi b","algebra b","bla bla bla","sadfafas","fdsgfdsg"])
                 
-                
+                */
                
                 }
             }

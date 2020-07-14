@@ -201,6 +201,66 @@ class TaskModel : UIViewController
         return allTasks
         }
     
+    func retrieveAllTasksByHour() -> [TasksByHour] {
+           
+            var allTasks=[TasksByHour]()
+        
+            let startOfDay=7
+            let endOfDay=24
+            //As we know that container is set up in the AppDelegates so we need to refer that container.
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+            
+            //We need to create a context from this container
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            //Prepare the request of type NSFetchRequest  for the entity
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        
+            fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@", argumentArray: [Date().year,Date().month,12,18])
+        
+    //        fetchRequest.fetchLimit = 1
+    //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+    //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+    //
+            do {
+                
+                var result = try managedContext.fetch(fetchRequest) as! [Task]
+                
+                result.sort {
+                    ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour) <
+                        ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
+                }
+                
+                for index in startOfDay...endOfDay{
+                    
+                    var taskHour = TasksByHour(offSet:Int.random(in: -50 ... 100),hour:index,tasks: [])
+                    
+                    for data in result
+                    {
+                        if(data.startTime!.hour==index)
+                        {
+                            taskHour.tasks.append(data.taskName)
+                            print("Hour: ", index)
+                            print(data.taskName)
+                        }
+                    }
+                        //allTasks.append(TasksByHour(data)
+                        
+                    allTasks.append(taskHour)
+                    
+                    /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+               
+                }
+                print("Retrived all tasks !")
+                
+            } catch {
+                
+                print("Failed")
+            }
+        
+        return allTasks
+        }
+    
     func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime : Int32, newDueDate : Date, newNotes : String ){
      
          //As we know that container is set up in the AppDelegates so we need to refer that container.

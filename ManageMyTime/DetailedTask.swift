@@ -23,10 +23,18 @@ struct DetailedTask: View {
     var importance : String
     var dueDate : Date
     var notes :String
-    var asstimatedWorkTime : Int32
+    var asstimatedWorkTime : Int
+    var startTimeHour:Int
+    var startTimeMinutes:Int
+    var endTimeHour:Int
+    var endTimeMinutes:Int
+    var day:Int
+    var month:Int
+    var year:Int
     
     var body: some View {
-        
+        ScrollView{
+        VStack{
                VStack {
              Image("pink-Circle")
                  .resizable()
@@ -62,6 +70,34 @@ struct DetailedTask: View {
                     Text("Note: ")
                     Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                 }
+                
+                HStack {
+                        Text("Start Time: ")
+                       Text(String(startTimeHour)+":"+String(startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                            }
+                 HStack {
+                        Text("End Time: ")
+                             Text(String(endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                 }
+        
+                 VStack {
+                HStack {
+                                  Text("day: ")
+                                       Text(String(day)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                           }
+                
+                HStack {
+                                  Text("Month: ")
+                                       Text(String(month)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                           }
+                
+                
+                HStack {
+                                  Text("Year: ")
+                                       Text(String(year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                           }
+                }
+        }
           
              Spacer()
           
@@ -78,6 +114,7 @@ struct DetailedTask: View {
                                                           }
                 
          }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        }
     }
 }
 /*

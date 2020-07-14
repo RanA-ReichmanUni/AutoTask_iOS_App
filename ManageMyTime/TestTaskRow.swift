@@ -10,14 +10,18 @@ import SwiftUI
 
 struct TestTaskRow: View {
     
+    var taskName:String
+    
    var heightFactor : CGFloat
+    
+    var offSet:Int
     
     var body: some View {
     GeometryReader { geometry in
             VStack(spacing: 0) {
-                Text("Algebra excersize 1")
-                    .frame(width: geometry.size.width, height: self.heightFactor * geometry.size.height)//rowHeight is as calculated above
-                    .background(RoundedRectangle(cornerRadius: 5).fill(Color.pink)).foregroundColor(.white)
+                Text(self.taskName)
+                    .frame(width: geometry.size.width/8, height: self.heightFactor * geometry.size.height)//rowHeight is as calculated above
+                    .background(RoundedRectangle(cornerRadius: 5).fill(Color.pink)).foregroundColor(.white).offset(x: CGFloat(self.offSet))
                 Spacer()
                 
         }
@@ -27,6 +31,6 @@ struct TestTaskRow: View {
 
 struct TestTaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TestTaskRow(heightFactor: CGFloat(1.4))
+        TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),offSet:50)
     }
 }
