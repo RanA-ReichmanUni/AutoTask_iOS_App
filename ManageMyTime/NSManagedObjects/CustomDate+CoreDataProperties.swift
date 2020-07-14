@@ -54,6 +54,21 @@ extension CustomDate {
         return Calendar(identifier: .gregorian).date(byAdding: components, to: startOfMonth)!
     }
     
+    func dayOfWeek() -> String? {
+        var dateComponents = DateComponents()
+                   dateComponents.year = year
+            dateComponents.month = month
+            dateComponents.day = day
+
+        // Create date from components
+        let userCalendar = Calendar.current // user calendar
+        let dateTime = userCalendar.date(from: dateComponents)
+        
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "EEEE"
+           return dateFormatter.string(from: dateTime!).capitalized
+          
+       }//Get value by : "Date().dayOfWeek()!"
     
     func isEqual(year : Int,month : Int,day : Int) -> Bool
      {
@@ -63,6 +78,8 @@ extension CustomDate {
          }
          return false
      }
+    
+    
      
      
     

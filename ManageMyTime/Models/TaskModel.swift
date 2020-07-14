@@ -29,7 +29,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 7
-        dateComponents.day = 17
+        dateComponents.day = 18
 
 
         // Create date from components
@@ -204,6 +204,7 @@ class TaskModel : UIViewController
     func retrieveAllTasksByHour() -> [TasksByHour] {
            
             var allTasks=[TasksByHour]()
+            var coreManagment=Core()
         
             let startOfDay=7
             let endOfDay=24
@@ -217,7 +218,9 @@ class TaskModel : UIViewController
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         
             fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@", argumentArray: [Date().year,Date().month,12,18])
-        
+            var startOfTheWeek=12
+            var endOfTheWeek=18
+            var weekSequence=coreManagment.createCalanderSequence(startDay: 12, startMonth: 7, startYear: 2020, endDay: 18, endMonth: 7, endYear: 2020)
     //        fetchRequest.fetchLimit = 1
     //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -232,22 +235,40 @@ class TaskModel : UIViewController
                 }
                 
                 for index in startOfDay...endOfDay{
+
                     
-                    var taskHour = TasksByHour(offSet:Int.random(in: -50 ... 100),hour:index,tasks: [])
+                    var taskHour = TasksByHour(offSet:Int.random(in: -38 ... 50),hour:index,tasks: [])
                     
-                    for data in result
+                    for dayOfTheWeek in weekSequence
                     {
-                        if(data.startTime!.hour==index)
+                        if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==index}))
                         {
-                            taskHour.tasks.append(data.taskName)
+                            let data = result.first(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==index})
+                            
+                            taskHour.tasks.append(data!.taskName)
                             print("Hour: ", index)
-                            print(data.taskName)
+                            print(data!.taskName)
+                        }
+                        else{
+                             taskHour.tasks.append("")
                         }
                     }
+                        
+                    
                         //allTasks.append(TasksByHour(data)
                         
                     allTasks.append(taskHour)
                     
+                    for data in allTasks
+                    {
+                        
+                        print(data.hour)
+                        for oneString in data.tasks
+                        {
+                            print(oneString)
+                        }
+                        print("-----")
+                    }
                     /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                
                 }

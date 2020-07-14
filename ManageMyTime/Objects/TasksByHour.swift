@@ -14,13 +14,15 @@ struct TasksByHour:Identifiable{
     var hour : Int
     var tasks : [String]
     var offSet : Int
-        
+
+    
     init(offSet:Int,hour:Int,tasks:[String])
     {
         id=UUID()
         self.hour=hour
         self.tasks=tasks
         self.offSet=offSet
+
     }
  
 }

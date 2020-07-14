@@ -16,12 +16,16 @@ struct TestTaskRow: View {
     
     var offSet:Int
     
+    var fillColor:Color
+    
+    
     var body: some View {
     GeometryReader { geometry in
             VStack(spacing: 0) {
                 Text(self.taskName)
-                    .frame(width: geometry.size.width/8, height: self.heightFactor * geometry.size.height)//rowHeight is as calculated above
-                    .background(RoundedRectangle(cornerRadius: 5).fill(Color.pink)).foregroundColor(.white).offset(x: CGFloat(self.offSet))
+                    //geometry.size.width seems to be relatice to what ever exsits on the eidth axis, if it's empty, then it's all the screen width, if there something, then it's becomes relative
+                    .frame(width: geometry.size.width, height: self.heightFactor * geometry.size.height)//rowHeight is as calculated above
+                    .background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white)
                 Spacer()
                 
         }
@@ -31,6 +35,6 @@ struct TestTaskRow: View {
 
 struct TestTaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),offSet:50)
+        TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),offSet:50,fillColor:Color(.systemPink))
     }
 }

@@ -28,11 +28,11 @@ struct ScheduleViewRow: View {
             List(self.taskViewModel.retrieveAllTasksByHour()){
             tasksOfHour in
 
-               
-                 
+             
+                
                 WeeklyTasksRow(timeChar:String(tasksOfHour.hour),hourTasks: tasksOfHour.tasks, heightFactor: CGFloat(1.5),offSet:tasksOfHour.offSet)
                             
-                        
+                    
                         /*Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
                         
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-5, trailing: 0))

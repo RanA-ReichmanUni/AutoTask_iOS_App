@@ -22,13 +22,19 @@ struct WeeklyTasksRow: View {
          
    
                     HStack {
-                        Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
+                        Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 20))
                         
                         ForEach(self.hourTasks, id:\.self){
                              taskName in
                         HStack {
-                            TestTaskRow(taskName: taskName, heightFactor:     CGFloat(self.heightFactor),offSet:self.offSet).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))}
-
+                           // DviderTest(offSet:self.offSet)
+                            if(taskName.isEmpty){
+                                TestTaskRow(taskName: taskName, heightFactor:     CGFloat(self.heightFactor),offSet:self.offSet,fillColor: Color(.white)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                            }else{
+                                   TestTaskRow(taskName: taskName, heightFactor:     CGFloat(self.heightFactor),offSet:self.offSet,fillColor: Color(.systemPink)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                            }
+                           }
+                           
                     
                 }
               }

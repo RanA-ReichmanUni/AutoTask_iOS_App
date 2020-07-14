@@ -184,7 +184,7 @@ class Core{
                             print("a1",singleDate)
                             print(suitableFreeDays[0].date)
                             print("here to save the day from big a")
-                            if(suitableFreeDays.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//Check if we already have a FreeSpace object in that date
+                            if(suitableFreeDays.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//Check if we already have a FreeSpace object in that date, can't check if the duration in sufficient since this else case goes to create a new FreeSpace object for that day, assuming this term hasn't satisfied only because such an object doesn't exist at all and not because it doesn't match the duration needs. We will check this condition in the next if.
                             {
                                 print("entred d1")
                                 let exsitingFreeDay=suitableFreeDays.first(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) })! //Contains closest FreeSpace slot
@@ -524,9 +524,9 @@ class Core{
 
     }
     
-    func createCalanderSequence(startDay:Int,startMonth:Int,startYear:Int,endDay:Int,endMonth:Int,endYear:Int)
+    func createCalanderSequence(startDay:Int,startMonth:Int,startYear:Int,endDay:Int,endMonth:Int,endYear:Int)-> [CustomDate]
        {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate]() }
            
             let managedContext = appDelegate.persistentContainer.viewContext
            
@@ -601,6 +601,8 @@ class Core{
            {
                print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
            }
+        
+        return dateSequence
 
        }
     

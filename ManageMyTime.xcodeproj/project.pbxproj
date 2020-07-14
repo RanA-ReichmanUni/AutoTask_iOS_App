@@ -57,6 +57,7 @@
 		25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8B324B5135100094B23 /* ButtonTestingView.swift */; };
 		25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FD24A22FB400671D09 /* MultiPicker.swift */; };
 		25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FF24A2304D00671D09 /* DurationSelector.swift */; };
+		25F3918024BD61C4004AB978 /* DviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3917F24BD61C4004AB978 /* DviderTest.swift */; };
 		25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +135,7 @@
 		25EDA8B324B5135100094B23 /* ButtonTestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTestingView.swift; sourceTree = "<group>"; };
 		25F347FD24A22FB400671D09 /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
 		25F347FF24A2304D00671D09 /* DurationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelector.swift; sourceTree = "<group>"; };
+		25F3917F24BD61C4004AB978 /* DviderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DviderTest.swift; sourceTree = "<group>"; };
 		25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTaskRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +242,7 @@
 				2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */,
 				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
 				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
+				25F3917F24BD61C4004AB978 /* DviderTest.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
 				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
@@ -479,6 +482,7 @@
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
 				253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */,
 				25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */,
+				25F3918024BD61C4004AB978 /* DviderTest.swift in Sources */,
 				25DB2DAC24B6633F00E86600 /* AvailableDay.swift in Sources */,
 				252FCC8E24B518060026EB03 /* Hour+CoreDataClass.swift in Sources */,
 				257ECFEE24B287A6006051C5 /* RestrictedSpace+CoreDataProperties.swift in Sources */,
