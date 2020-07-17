@@ -15,7 +15,7 @@
 		251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */; };
 		251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60924A52E2400AC82F3 /* TaskModel.swift */; };
 		251F916824BCB80F005B0498 /* ManageMyTimeTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251F916724BCB80F005B0498 /* ManageMyTimeTests2.swift */; };
-		251F917024BD0E6B005B0498 /* TasksByHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251F916F24BD0E6B005B0498 /* TasksByHour.swift */; };
+		251F917024BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */; };
 		252FCC8E24B518060026EB03 /* Hour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */; };
 		252FCC8F24B518060026EB03 /* Hour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */; };
 		253455D424A12539007CB6BF /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D324A12539007CB6BF /* AddTask.swift */; };
@@ -43,6 +43,8 @@
 		2587D96024B7A89E00A3AFF9 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */; };
 		258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */; };
 		258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */; };
+		259303A024BF425600869932 /* TasksPerHourPerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593039F24BF425600869932 /* TasksPerHourPerDay.swift */; };
+		259303A224BF42C100869932 /* TaskPerHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259303A124BF42C100869932 /* TaskPerHour.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
 		25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7603024A288D100C37C69 /* NewTaskText.swift */; };
 		25CD218624BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218024BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift */; };
@@ -89,7 +91,7 @@
 		251F916524BCB80F005B0498 /* ManageMyTimeTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManageMyTimeTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		251F916724BCB80F005B0498 /* ManageMyTimeTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyTimeTests2.swift; sourceTree = "<group>"; };
 		251F916924BCB80F005B0498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		251F916F24BD0E6B005B0498 /* TasksByHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksByHour.swift; sourceTree = "<group>"; };
+		251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDayOfTheWeek.swift; sourceTree = "<group>"; };
 		252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hour+CoreDataClass.swift"; sourceTree = "<group>"; };
 		252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hour+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		253455D324A12539007CB6BF /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 		2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksRow.swift; sourceTree = "<group>"; };
 		258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleBar.swift; sourceTree = "<group>"; };
+		2593039F24BF425600869932 /* TasksPerHourPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDay.swift; sourceTree = "<group>"; };
+		259303A124BF42C100869932 /* TaskPerHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPerHour.swift; sourceTree = "<group>"; };
 		25A248E324AA861000E74F51 /* DetailedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTask.swift; sourceTree = "<group>"; };
 		25B7603024A288D100C37C69 /* NewTaskText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskText.swift; sourceTree = "<group>"; };
 		25CD218024BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -184,7 +188,9 @@
 		253C5CE624B118F100C95A06 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				251F916F24BD0E6B005B0498 /* TasksByHour.swift */,
+				251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */,
+				2593039F24BF425600869932 /* TasksPerHourPerDay.swift */,
+				259303A124BF42C100869932 /* TaskPerHour.swift */,
 				25EDA89E24B4C05200094B23 /* HourlyTime.swift */,
 				257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */,
 				2577A5E924AD15690006E1D2 /* Column.swift */,
@@ -452,8 +458,10 @@
 				25CD218A24BB59CF0048DDAC /* CustomDate+CoreDataClass.swift in Sources */,
 				25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */,
 				2577A5EC24AD5D8E0006E1D2 /* DailyViewRow.swift in Sources */,
-				251F917024BD0E6B005B0498 /* TasksByHour.swift in Sources */,
+				259303A224BF42C100869932 /* TaskPerHour.swift in Sources */,
+				251F917024BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift in Sources */,
 				2565CC6524AF7A070006BF97 /* TaskSchedule.swift in Sources */,
+				259303A024BF425600869932 /* TasksPerHourPerDay.swift in Sources */,
 				25EDA89F24B4C05200094B23 /* HourlyTime.swift in Sources */,
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
 				2535D71D24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld in Sources */,

@@ -19,7 +19,7 @@ class TaskModel : UIViewController
     
     func autoFillTesting()
     {
-        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
+        let taskName = ["Algebra","Infi",/*"Some nice Task!","Task King","Hello","Task Kinger"*/]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -37,12 +37,14 @@ class TaskModel : UIViewController
         let someDateTime = userCalendar.date(from: dateComponents)
         
         let asstimatedWorkTime=Hour(context: managedContext)
-            asstimatedWorkTime.hour=2
-            asstimatedWorkTime.minutes=0
+            asstimatedWorkTime.hour=0
+            asstimatedWorkTime.minutes=30
         
         for name in taskName
         {
             
+            //asstimatedWorkTime.hour=Int.random(in: 1 ... 2)
+           // asstimatedWorkTime.minutes=Int.random(in: 0 ... 50)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
             
@@ -201,9 +203,9 @@ class TaskModel : UIViewController
         return allTasks
         }
     
-    func retrieveAllTasksByHour() -> [TasksByHour] {
+    func retrieveAllTasksByHour(hour:Int) -> [TasksPerHourPerDay] {
            
-            var allTasks=[TasksByHour]()
+            var allTasks=[TasksPerHourPerDay]()
             var coreManagment=Core()
         
             let startOfDay=7
@@ -217,10 +219,9 @@ class TaskModel : UIViewController
             //Prepare the request of type NSFetchRequest  for the entity
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         
-            fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@", argumentArray: [Date().year,Date().month,12,18])
-            var startOfTheWeek=12
-            var endOfTheWeek=18
-            var weekSequence=coreManagment.createCalanderSequence(startDay: 12, startMonth: 7, startYear: 2020, endDay: 18, endMonth: 7, endYear: 2020)
+            fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@ AND startTime.hour = %@", argumentArray: [Date().year,Date().month,12,18,hour])
+   
+            let weekSequence=coreManagment.createCalanderSequence(startDay: 12, startMonth: 7, startYear: 2020, endDay: 18, endMonth: 7, endYear: 2020)
     //        fetchRequest.fetchLimit = 1
     //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -234,32 +235,45 @@ class TaskModel : UIViewController
                         ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
                 }
                 
-                for index in startOfDay...endOfDay{
-
-                    
-                    var taskHour = TasksByHour(offSet:Int.random(in: -38 ... 50),hour:index,tasks: [])
-                    
+                  //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                
+                var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                     for dayOfTheWeek in weekSequence
                     {
-                        if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==index}))
+                        if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==hour}))
                         {
-                            let data = result.first(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==index})
+                            let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==hour })
+
+                           tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                             
-                            taskHour.tasks.append(data!.taskName)
-                            print("Hour: ", index)
-                            print(data!.taskName)
+                            tasksPerHourPerDay.isEmptySlot=false
+                            
+                            for task in data{
+                                
+                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: CGFloat(task.asstimatedWorkTime.minutes)/60 * 1.5 , taskName: task.taskName))
+                                //Multiple tasks per hour
+                            }
+                            
+          
+                          
                         }
-                        else{
-                             taskHour.tasks.append("")
+                        else{//Case it's an empty hour for that day (index)
+                            tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
+                            //tasksPerHourPerDay.isEmptySlot=true
                         }
-                    }
                         
+                        allTasks.append(tasksPerHourPerDay)//Tasks per hour
+                       
+                        tasksPerHourPerDay.tasks=[]
+                    }
                     
+                
+                   
                         //allTasks.append(TasksByHour(data)
                         
-                    allTasks.append(taskHour)
+                   // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
                     
-                    for data in allTasks
+                 /*   for data in allTasks
                     {
                         
                         print(data.hour)
@@ -268,10 +282,10 @@ class TaskModel : UIViewController
                             print(oneString)
                         }
                         print("-----")
-                    }
+                    }*/
                     /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                
-                }
+                
                 print("Retrived all tasks !")
                 
             } catch {
@@ -381,5 +395,11 @@ class TaskModel : UIViewController
     
     
     
+}
+
+extension Array where Element: Equatable {
+    func all(where predicate: (Element) -> Bool) -> [Element]  {
+        return self.compactMap { predicate($0) ? $0 : nil }
+    }
 }
 

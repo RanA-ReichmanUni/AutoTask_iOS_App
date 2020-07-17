@@ -12,37 +12,47 @@ struct WeeklyTasksRow: View {
     
     var timeChar : String
       
-    var hourTasks : [String]
-    
-    var heightFactor : CGFloat
-    
-    var offSet:Int
+    var hourTasks : TasksPerHourPerDay
+
     
     var body: some View {
          
    
                     HStack {
-                        Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 20))
-                        
-                        ForEach(self.hourTasks, id:\.self){
-                             taskName in
-                        HStack {
-                           // DviderTest(offSet:self.offSet)
-                            if(taskName.isEmpty){
-                                TestTaskRow(taskName: taskName, heightFactor:     CGFloat(self.heightFactor),offSet:self.offSet,fillColor: Color(.white)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
-                            }else{
-                                   TestTaskRow(taskName: taskName, heightFactor:     CGFloat(self.heightFactor),offSet:self.offSet,fillColor: Color(.systemPink)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                 
+                        if(self.hourTasks.isEmptySlot)
+                        {
+                            HStack {
+                                TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.red)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                            
                             }
-                           }
+                              
+                        }
+                        else{
+                            VStack {
+                          
                            
+                        ForEach(self.hourTasks.tasks){
+                             task in
+           
+                                   // DviderTest(offSet:self.offSet)
+                                   
+                                    TestTaskRow(taskName: task.taskName, heightFactor:      CGFloat(1.5),fillColor: Color(.systemPink)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                                    
+                                   
+                                   
+                            }
+                                 }
+                        }
                     
                 }
-              }
+              
     }
 }
-
+/*
 struct WeeklyTasksRow_Previews: PreviewProvider {
     static var previews: some View {
-        WeeklyTasksRow(timeChar: "23" ,hourTasks: ["math","hello"], heightFactor: CGFloat(1.5),offSet:50)
+        WeeklyTasksRow(timeChar: "23" ,hourTasks: ["math","hello"])
     }
 }
+*/

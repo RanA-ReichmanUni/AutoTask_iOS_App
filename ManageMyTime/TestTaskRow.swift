@@ -12,9 +12,8 @@ struct TestTaskRow: View {
     
     var taskName:String
     
-   var heightFactor : CGFloat
-    
-    var offSet:Int
+    var heightFactor : CGFloat
+
     
     var fillColor:Color
     
@@ -35,6 +34,6 @@ struct TestTaskRow: View {
 
 struct TestTaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),offSet:50,fillColor:Color(.systemPink))
+        TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),fillColor:Color(.systemPink))
     }
 }

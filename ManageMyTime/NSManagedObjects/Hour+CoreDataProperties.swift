@@ -52,7 +52,7 @@ extension Hour {
         var returnedMinutes = self.minutes
         var returnedHour = self.hour
         
-        if(returnedMinutes+newHour.minutes>60)
+        if(returnedMinutes+newHour.minutes>=60)
         {
             returnedMinutes=returnedMinutes+newHour.minutes-60
             returnedHour+=1

@@ -7,22 +7,24 @@
 //
 
 import Foundation
+import UIKit
 
-struct TasksByHour:Identifiable{
+struct TasksPerHourPerDayOfTheWeek:Identifiable{
     
+
     var id:UUID
     var hour : Int
-    var tasks : [String]
-    var offSet : Int
-
+    var tasks : [TasksPerHourPerDay]
+   
     
-    init(offSet:Int,hour:Int,tasks:[String])
+    init(hour:Int,tasks:[TasksPerHourPerDay])
     {
         id=UUID()
         self.hour=hour
         self.tasks=tasks
-        self.offSet=offSet
+  
 
     }
  
+
 }
