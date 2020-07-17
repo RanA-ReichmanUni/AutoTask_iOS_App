@@ -32,7 +32,7 @@ struct ScheduleViewRow: View {
             List(self.dayRange,id:\.self){
                     hour in
                 
-                    Text(String(hour)).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 20))
+                Text(String(hour)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 20))
                 
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
                     {

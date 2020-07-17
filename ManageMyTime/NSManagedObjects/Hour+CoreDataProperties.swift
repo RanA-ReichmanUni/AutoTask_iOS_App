@@ -80,6 +80,39 @@ extension Hour {
         return newHourlyTime
     }
     
+    func add(minutesValue:Int) -> Hour
+       {
+         
+           var returnedMinutes = self.minutes
+           var returnedHour = self.hour
+           
+           if(returnedMinutes+minutesValue>=60)
+           {
+               returnedMinutes=returnedMinutes+minutesValue-60
+               returnedHour+=1
+               
+           }
+       
+           else{
+               
+               returnedMinutes=returnedMinutes+minutesValue
+           
+           }
+           
+           
+      
+           
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
+
+                let managedContext = appDelegate.persistentContainer.viewContext
+           
+           let newHourlyTime = Hour(context: managedContext)
+           
+           newHourlyTime.hour=returnedHour
+           newHourlyTime.minutes=returnedMinutes
+           
+           return newHourlyTime
+       }
     
     func subtract(newHour:Hour) -> Hour
     {

@@ -19,7 +19,7 @@ class TaskModel : UIViewController
     
     func autoFillTesting()
     {
-        let taskName = ["Algebra","Infi",/*"Some nice Task!","Task King","Hello","Task Kinger"*/]
+        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -44,7 +44,7 @@ class TaskModel : UIViewController
         {
             
             //asstimatedWorkTime.hour=Int.random(in: 1 ... 2)
-           // asstimatedWorkTime.minutes=Int.random(in: 0 ... 50)
+            asstimatedWorkTime.minutes=Int.random(in: 30 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
             
@@ -248,9 +248,20 @@ class TaskModel : UIViewController
                             
                             tasksPerHourPerDay.isEmptySlot=false
                             
+                            
+                            var heightFactor=CGFloat(1.6)
+                            
+                            if(data.count==2)
+                            {
+                                heightFactor=1.15*CGFloat(data.count)
+                            }
+                            else{
+                                heightFactor=1.6
+                            }
+                            
                             for task in data{
                                 
-                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: CGFloat(task.asstimatedWorkTime.minutes)/60 * 1.5 , taskName: task.taskName))
+                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName))
                                 //Multiple tasks per hour
                             }
                             

@@ -23,7 +23,7 @@ struct WeeklyTasksRow: View {
                         if(self.hourTasks.isEmptySlot)
                         {
                             HStack {
-                                TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.red)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                                TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                             
                             }
                               
@@ -37,7 +37,7 @@ struct WeeklyTasksRow: View {
            
                                    // DviderTest(offSet:self.offSet)
                                    
-                                    TestTaskRow(taskName: task.taskName, heightFactor:      CGFloat(1.5),fillColor: Color(.systemPink)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
+                            TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.systemPink)).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: 0))
                                     
                                    
                                    
