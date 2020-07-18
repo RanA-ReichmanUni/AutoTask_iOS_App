@@ -34,13 +34,12 @@ struct AddTask: View {
       @State private var selectedImportanceIndex = 2
     
     @State var data: [(String, [String])] = [
-        ("One", Array(0...30).map { "\($0)" }),
-        ("Two", Array(0...23).map { "\($0)" }),
-        ("Three", Array(0...59).map { "\($0)" })
+        ("One", Array(0...20).map { "\($0)" }),
+        ("Two", Array(0...59).map { "\($0)" })
     ]
     @State var selection: [String] = [0, 0, 0].map { "\($0)" }
     
-
+    @State var selectedDate = Date()
   
     var body: some View {
         
@@ -63,15 +62,21 @@ struct AddTask: View {
                        
                         
                 
-                        NavigationLink(destination: MultiPicker(data: data, selection: $selection,stringValue1: "Days",stringValue2:"                        Hours",stringValue3:"                        Minutes").frame(height: 150)) {
+                        NavigationLink(destination: MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 150)) {
                                               
                                             
-                                  Text(verbatim: "Asstimated Work Time:\n \(selection[0])Days \(selection[1])Hours \(selection[2])Min")
+                                  Text(verbatim: "Asstimated Work Time:\n \(selection[0]) Hours \(selection[1]) Minutes")
                        
                                               }
-                         TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
-            
-                  
+                            VStack{
+                            DatePicker(selection: $selectedDate, label: { /*@START_MENU_TOKEN@*/Text("Date")/*@END_MENU_TOKEN@*/ })
+                    
+                            }.animation(nil)
+                            //Handles IOS 13 date picker animation bug, shame it exsists.
+                            
+                            
+                       //TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                            
                     }
                     
                     Section(header: HStack {
@@ -80,9 +85,11 @@ struct AddTask: View {
                     }) {
                         TextField("Notes", text: $notes)
                     }
-                        Toggle(isOn: $activeTask) {
+                       /* Toggle(isOn: $activeTask) {
                             Text("Active")
-                        }
+                        }*/
+                    
+                    
                     
                     
                 }

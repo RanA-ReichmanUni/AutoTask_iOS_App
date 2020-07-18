@@ -210,6 +210,7 @@ class TaskModel : UIViewController
         
             let startOfDay=7
             let endOfDay=24
+        
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
             

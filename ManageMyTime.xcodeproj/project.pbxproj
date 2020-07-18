@@ -46,6 +46,7 @@
 		259303A024BF425600869932 /* TasksPerHourPerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593039F24BF425600869932 /* TasksPerHourPerDay.swift */; };
 		259303A224BF42C100869932 /* TaskPerHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259303A124BF42C100869932 /* TaskPerHour.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
+		25B6D52724C3B97E007A700A /* TwoRowsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6D52624C3B97E007A700A /* TwoRowsPicker.swift */; };
 		25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7603024A288D100C37C69 /* NewTaskText.swift */; };
 		25CD218624BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218024BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift */; };
 		25CD218724BB59CF0048DDAC /* FreeSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218124BB59CF0048DDAC /* FreeSpace+CoreDataProperties.swift */; };
@@ -126,6 +127,7 @@
 		2593039F24BF425600869932 /* TasksPerHourPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDay.swift; sourceTree = "<group>"; };
 		259303A124BF42C100869932 /* TaskPerHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPerHour.swift; sourceTree = "<group>"; };
 		25A248E324AA861000E74F51 /* DetailedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTask.swift; sourceTree = "<group>"; };
+		25B6D52624C3B97E007A700A /* TwoRowsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoRowsPicker.swift; sourceTree = "<group>"; };
 		25B7603024A288D100C37C69 /* NewTaskText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskText.swift; sourceTree = "<group>"; };
 		25CD218024BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25CD218124BB59CF0048DDAC /* FreeSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				25B7603024A288D100C37C69 /* NewTaskText.swift */,
 				253455D524A149F7007CB6BF /* TestView.swift */,
 				25F347FD24A22FB400671D09 /* MultiPicker.swift */,
+				25B6D52624C3B97E007A700A /* TwoRowsPicker.swift */,
 				25F347FF24A2304D00671D09 /* DurationSelector.swift */,
 				253455D724A14B7B007CB6BF /* TestView3.swift */,
 				25680716249FF1FC0096AB89 /* SceneDelegate.swift */,
@@ -488,6 +491,7 @@
 				25CD218624BB59CF0048DDAC /* FreeSpace+CoreDataClass.swift in Sources */,
 				257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */,
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
+				25B6D52724C3B97E007A700A /* TwoRowsPicker.swift in Sources */,
 				253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */,
 				25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */,
 				25F3918024BD61C4004AB978 /* DviderTest.swift in Sources */,
