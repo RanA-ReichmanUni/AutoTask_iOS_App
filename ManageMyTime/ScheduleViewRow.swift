@@ -32,7 +32,23 @@ struct ScheduleViewRow: View {
             List(self.dayRange,id:\.self){
                     hour in
                 
-                Text(String(hour)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 20))
+                if(hour > 9)
+                {
+                
+                Text(String(hour))
+                    
+                    Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 20))
+                }
+                else{
+                    
+                    HStack {
+                        Text(String(0)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 0))
+                        
+                        Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing: 6))
+                     
+                        Divider().padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing: 14))
+                    }
+                }
                 
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
                     {

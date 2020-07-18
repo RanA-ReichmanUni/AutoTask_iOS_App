@@ -208,5 +208,42 @@ extension Hour {
         }
         return false
     }
+    
+    static func == (left: Hour, right: Hour) -> Bool { // 1
+       
+        if(left.hour==right.hour && left.minutes==right.minutes)
+        {
+            return true
+        }
+        return false
+    }
+    
+    
+    static func <= (left: Hour, right: Hour) -> Bool { // 1
+       
+        if(left < right || left == right)
+        {
+            return true
+        }
+        return false
+    }
+    
+    static func > (left: Hour, right: Hour) -> Bool { // 1
+       
+        if(left.hour>right.hour || (left.hour == right.hour && left.minutes>right.minutes))
+        {
+            return true
+        }
+        return false
+    }
+    
+    static func >= (left: Hour, right: Hour) -> Bool { // 1
+       
+        if(left > right || left == right)
+        {
+            return true
+        }
+        return false
+    }
 
 }

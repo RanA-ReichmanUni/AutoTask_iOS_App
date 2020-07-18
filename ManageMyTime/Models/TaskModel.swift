@@ -29,7 +29,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 7
-        dateComponents.day = 18
+        dateComponents.day = 25
 
 
         // Create date from components
@@ -37,14 +37,14 @@ class TaskModel : UIViewController
         let someDateTime = userCalendar.date(from: dateComponents)
         
         let asstimatedWorkTime=Hour(context: managedContext)
-            asstimatedWorkTime.hour=0
-            asstimatedWorkTime.minutes=30
+            asstimatedWorkTime.hour=5
+            asstimatedWorkTime.minutes=15
         
         for name in taskName
         {
             
-            //asstimatedWorkTime.hour=Int.random(in: 1 ... 2)
-            asstimatedWorkTime.minutes=Int.random(in: 30 ... 59)
+            asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
+            asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
             
@@ -219,9 +219,17 @@ class TaskModel : UIViewController
             //Prepare the request of type NSFetchRequest  for the entity
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         
-            fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@ AND startTime.hour = %@", argumentArray: [Date().year,Date().month,12,18,hour])
-   
-            let weekSequence=coreManagment.createCalanderSequence(startDay: 12, startMonth: 7, startYear: 2020, endDay: 18, endMonth: 7, endYear: 2020)
+            fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@", argumentArray: [Date().year,Date().month,19,25])
+            
+        let nextHour = Hour(context: managedContext)
+            nextHour.hour=hour+1
+            nextHour.minutes=0
+        
+        let beginningOfHour = Hour(context: managedContext)
+        beginningOfHour.hour=hour
+        beginningOfHour.minutes=0
+        
+            let weekSequence=coreManagment.createCalanderSequence(startDay: 19, startMonth: 7, startYear: 2020, endDay: 25, endMonth: 7, endYear: 2020)
     //        fetchRequest.fetchLimit = 1
     //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -240,9 +248,9 @@ class TaskModel : UIViewController
                 var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                     for dayOfTheWeek in weekSequence
                     {
-                        if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==hour}))
+                        if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
                         {
-                            let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && $0.startTime!.hour==hour })
+                            let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
 
                            tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                             
@@ -251,20 +259,39 @@ class TaskModel : UIViewController
                             
                             var heightFactor=CGFloat(1.6)
                             
-                            if(data.count==2)
+                            if(data.count > 1)
                             {
-                                heightFactor=1.15*CGFloat(data.count)
-                            }
-                            else{
-                                heightFactor=1.6
-                            }
-                            
-                            for task in data{
+                                heightFactor=1.9
                                 
-                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName))
-                                //Multiple tasks per hour
+                                
+                                for task in data{
+                                                         
+                                    tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName))
+              
+                                }
+                                                     
                             }
-                            
+                            /*else{
+                                heightFactor=1.6
+                            }*/
+                            else{
+                                
+                                if(data[0].startTime!.isBigger(newHour: beginningOfHour))
+                                 {
+                                     tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: ""))
+                                 }
+                                
+                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName))
+                                        //Multiple tasks per hour
+                                
+                                if(data[0].endTime! < nextHour)
+                                 {
+                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: ""))
+                                 }
+                                
+                                
+                            }
+                     
           
                           
                         }
