@@ -63,7 +63,6 @@ struct ScheduleViewRow: View {
                         
                            
                             WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour)
-                            Divider().background(Color.red).padding(EdgeInsets(top: 0, leading: 10, bottom:0, trailing: 0))
                             
                         }
                         
