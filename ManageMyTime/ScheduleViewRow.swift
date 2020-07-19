@@ -37,16 +37,16 @@ struct ScheduleViewRow: View {
                 
                 Text(String(hour))
                     
-                    Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 20))
+                    Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 1))
                 }
                 else{
                     
                     HStack {
                         Text(String(0)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 0))
                         
-                        Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing: 6))
+                        Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing:0))
                      
-                        Divider().padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing: 14))
+                        Divider().padding(EdgeInsets(top: 5, leading: -2, bottom:0, trailing: 0))
                     }
                 }
                 
@@ -61,8 +61,10 @@ struct ScheduleViewRow: View {
                             }*/
                             
                         
-                            
+                           
                             WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour)
+                            Divider().background(Color.red).padding(EdgeInsets(top: 0, leading: 10, bottom:0, trailing: 0))
+                            
                         }
                         
                     }

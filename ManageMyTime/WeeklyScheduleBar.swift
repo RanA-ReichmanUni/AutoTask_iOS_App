@@ -11,7 +11,7 @@ import SwiftUI
 struct WeeklyScheduleBar: View {
     var body: some View {
          HStack{
-                                  Image(systemName: "clock").padding(EdgeInsets(top: 5, leading: 0, bottom: 1, trailing: 0)).foregroundColor(.orange)
+                                  Image(systemName: "clock").padding(EdgeInsets(top: 5, leading: 0, bottom: 3, trailing: 0)).foregroundColor(.orange)
                                   GeometryReader{geometry in
                                       Text("S").foregroundColor(Color.blue).frame(width: geometry.size.width/5.5, height:  geometry.size.height)
                                            

@@ -41,7 +41,8 @@ struct WeeklyTasksRow: View {
                                 TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: 0))
                             }
                             else{
-                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.systemTeal)).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: 0))
+                                
+                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.systemTeal)).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: -15))
                                     
                             }
                                    

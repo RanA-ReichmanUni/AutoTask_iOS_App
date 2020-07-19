@@ -17,11 +17,26 @@ struct TaskRow: View {
     var body: some View {
         
         HStack {
-            Image("pink-Circle")
+           /* Image("pink-Circle")
                 .resizable()
                 .frame(width: 50, height: 50)
-                .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
-           
+                .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))*/
+            ZStack {
+           LinearGradient(gradient: Gradient(colors: [.white, .blue, .pink]),
+                       startPoint: .top,
+                       endPoint: .bottom)
+            .mask(Text("A").font(.system(size: 30))).frame(width:30, height: 30).padding(EdgeInsets(top: 5, leading: 10, bottom:10, trailing: 0))
+            
+          
+                Circle()
+                            .stroke(LinearGradient(gradient: Gradient(colors: [.white, .blue, .pink]), startPoint: .top, endPoint: .bottom), lineWidth: 5)
+                    .frame(width: 45, height: 45)
+                Circle()
+                                .stroke(LinearGradient(gradient: Gradient(colors: [.white, .blue, .pink]), startPoint: .top, endPoint: .bottom), lineWidth: 5)
+                        .frame(width: 38, height: 38)
+                
+                
+            }
             
             Text(taskName1).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10)).frame(width: 180, height: 90)
            
