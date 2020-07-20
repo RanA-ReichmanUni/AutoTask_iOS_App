@@ -19,7 +19,7 @@ class TaskModel : UIViewController
     
     func autoFillTesting()
     {
-        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
+        let taskName = ["Algebra"/*,"Infi","Some nice Task!","Task King","Hello","Task Kinger"*/]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -47,8 +47,8 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
-                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
+                    asstimatedWorkTime.hour=2
+                    asstimatedWorkTime.minutes=0
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
             

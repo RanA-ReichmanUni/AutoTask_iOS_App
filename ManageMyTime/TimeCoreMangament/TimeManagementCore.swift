@@ -38,8 +38,14 @@ class Core{
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
+            var currentHour = Hour(context: managedContext)
+            currentHour.hour=Date().hour
+            currentHour.minutes=Date().minutes
+            
+            currentHour.add(minutesValue: 15)
             
 
+            
                         
                 let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
         
@@ -51,84 +57,7 @@ class Core{
                     {
                         let results = try managedContext.fetch(fetchRequest)
                         
-                        if (results.count == 0)
-                        {
-                            print("FreeSpace is at count of 0 ")
-                            
-                            let thisMoment = CustomDate(context:managedContext)
-                                                      
-                                thisMoment.year=Date().year
-                                thisMoment.month=Date().month
-                                thisMoment.day=Date().day
-                                                  
-                            let endDueDate = CustomDate(context:managedContext)
-                                endDueDate.year=dueDate.year
-                                endDueDate.month=dueDate.month
-                                endDueDate.day=dueDate.day
-                                                  
-                            calanderSequence = createCalanderSequence(startDate:thisMoment, endDate: endDueDate)
-                            
-                            let zeroDate = CustomDate(context: managedContext)
-                                zeroDate.day=0
-                                zeroDate.month=0
-                                zeroDate.year=0000
-                            
-                            
-                            let singleDate=calanderSequence[0]
-                            
-                            
-                            
-                            /*this statment in this annotation is not always correct !!:
-                             
-                            let singleDate=calanderSequence.first(where: {$0.day <= dueDate.day && $0.month <= dueDate.month && $0.year <= dueDate.year}) ?? zeroDate
-                            */
-                            
-                                   
-                                    let startOfDayHour = Hour(context: managedContext)
-                                        startOfDayHour.hour=startOfTheDay
-                                        startOfDayHour.minutes=0
-                                                                              
-                                    let endOfDayHour = Hour(context: managedContext)
-                                        endOfDayHour.hour=endOfTheDay
-                                        endOfDayHour.minutes=0
-                                                       
-                                    let newTask = Task(context: managedContext)
-                                        newTask.taskName=taskName
-                                        newTask.dueDate=dueDate
-                                        newTask.date=singleDate
-                                        newTask.startTime=startOfDayHour
-                                        newTask.endTime=startOfDayHour.add(newHour: asstimatedWorkTime)
-                                        newTask.asstimatedWorkTime=asstimatedWorkTime
-                                        newTask.completed=false
-                                        newTask.color="Green"
-                                        newTask.active=true
-                                        newTask.importance=importance
-                                        newTask.notes=notes
-                                        newTask.id=UUID()
-                            
-                            print(newTask.taskName)
-                                                       
-                                    //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
-                                    if(newTask.endTime!.isEqual(newHour: endOfDayHour))//If it's a full day task
-                                    {
-                                            var durationCalc=endOfDayHour.subtract(newHour: newTask.endTime!)
-                                                                                      
-                                            print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
-                                        
-                                        createFreeSpace(task:newTask,startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: true)
-                                    }
-                                    else{//If there is any free space
-                                        
-                                        var durationCalc=endOfDayHour.subtract(newHour: newTask.endTime!)
-                                                
-                                        print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
-                                        
-                                            createFreeSpace(task:newTask,startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
-                                    }
-                                                       
-                                    return newTask
-                            
-                        }else{
+                  
                             
                             
                           for result in results as! [NSManagedObject] {
@@ -168,25 +97,25 @@ class Core{
                                                                                               
                                 }
                                 
-                            }
+                            
                             //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
                             
                             
                         }
                         
                         
-                        let thisMoment = CustomDate(context:managedContext)
+                        let currentDate = CustomDate(context:managedContext)
                             
-                        thisMoment.year=Date().year
-                        thisMoment.month=Date().month
-                        thisMoment.day=Date().day
+                        currentDate.year=Date().year
+                        currentDate.month=Date().month
+                        currentDate.day=Date().day
                         
                         let endDueDate = CustomDate(context:managedContext)
                         endDueDate.year=dueDate.year
                         endDueDate.month=dueDate.month
                         endDueDate.day=dueDate.day
                         
-                        calanderSequence = createCalanderSequence(startDate:thisMoment, endDate: endDueDate)
+                        calanderSequence = createCalanderSequence(startDate:currentDate, endDate: endDueDate)
                         
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
@@ -207,7 +136,9 @@ class Core{
                                 
                                 if(exsitingFreeDay.duration.isBiggerOrEqual(newHour: asstimatedWorkTime) && exsitingFreeDay.fullyOccupiedDay==false)
                                 {
-                                
+                                    
+                                    if(exsitingFreeDay.ending > currentHour && exsitingFreeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
+                                    {
                                     //print("entered d3")
                                         //Create task
                                         
@@ -215,8 +146,15 @@ class Core{
                                         newTask.taskName=taskName
                                         newTask.dueDate=dueDate
                                         newTask.date=exsitingFreeDay.date
-                                        newTask.startTime=exsitingFreeDay.starting
-                                        newTask.endTime=exsitingFreeDay.starting.add(newHour: asstimatedWorkTime)
+                                        if(singleDate > currentDate)
+                                        {
+                                            newTask.startTime=exsitingFreeDay.starting
+                                        }
+                                        else{
+                                            newTask.startTime=currentHour
+                                        }
+                                        
+                                        newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                         newTask.asstimatedWorkTime=asstimatedWorkTime
                                         newTask.completed=false
                                         newTask.color="Pink"
@@ -264,6 +202,7 @@ class Core{
                                             createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
                                         }
                                         return newTask
+                                    }
                                 }
                             }
                             else{//If there is no FreeSpace object for that day, create one
@@ -277,12 +216,21 @@ class Core{
                                   endOfDayHour.hour=endOfTheDay
                                   endOfDayHour.minutes=0
                                 
+                                if(endOfDayHour.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
+                                {
+                                    
+                                
                                 let newTask = Task(context: managedContext)
                                     newTask.taskName=taskName
                                     newTask.dueDate=dueDate
                                     newTask.date=singleDate
-                                    newTask.startTime=startOfDayHour
-                                    newTask.endTime=startOfDayHour.add(newHour: asstimatedWorkTime)
+                                    if(singleDate > currentDate)
+                                    {
+                                        newTask.startTime=startOfDayHour
+                                    }else{
+                                        newTask.startTime=currentHour
+                                    }
+                                    newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                     newTask.asstimatedWorkTime=asstimatedWorkTime
                                     newTask.completed=false
                                     newTask.color="Blue"
@@ -305,6 +253,7 @@ class Core{
                                 
                                  return newTask
                             }
+                        }
                             
                         }
                       
@@ -924,6 +873,19 @@ extension Date {
          return Int(dateFormatter.string(from: self)) ?? 0
      }
     
+    
+    var hour: Int{
+        
+        let hour = Calendar.current.component(.hour, from: self)
+        return Int(hour)
+    }
+    
+    var minutes: Int{
+        
+        let minutes = Calendar.current.component(.minute, from: self)
+        return Int(minutes)
+    }
+    
     var endOfMonth: Date {
           var components = DateComponents()
           components.month = 1
@@ -945,6 +907,8 @@ extension Date {
            return dateFormatter.string(from: self).capitalized
           
        }//Get value by : "Date().dayOfWeek()!"
+    
+    
     
 }
 
