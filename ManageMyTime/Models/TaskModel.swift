@@ -14,7 +14,7 @@ import UIKit
 class TaskModel : UIViewController
 {
     var coreManagment = Core()
-    var allTasks = [Task]()
+    //var allTasks = [Task]()
     
     
     func autoFillTesting()
@@ -36,17 +36,22 @@ class TaskModel : UIViewController
         let userCalendar = Calendar.current // user calendar
         let someDateTime = userCalendar.date(from: dateComponents)
         
-        let asstimatedWorkTime=Hour(context: managedContext)
-            asstimatedWorkTime.hour=5
-            asstimatedWorkTime.minutes=15
-        
+       
         for name in taskName
         {
+            //Critical error, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
             
-            asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
-            asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
+            
+           /* asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
+            asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)*/
+            
+            
+            let asstimatedWorkTime=Hour(context: managedContext)
+                    asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
+                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
+            
             
             do {
                       try managedContext.save()
@@ -167,7 +172,7 @@ class TaskModel : UIViewController
     
     
     func retrieveAllTasks() -> [Task] {
-           
+           var allTasks=[Task]()
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
             
@@ -182,13 +187,24 @@ class TaskModel : UIViewController
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
     //
             do {
-                allTasks=[]
+                
                 let result = try managedContext.fetch(fetchRequest)
                 for data in result as! [Task] {
-                 
+                        
+                    if(data.taskName=="Task King")
+                    {
+                            print("Task Status: ")
+                            print(data.taskName)
+                            print("Duration ",data.asstimatedWorkTime.hour,":",data.asstimatedWorkTime.minutes)
+                            print("Start Time ",data.startTime!.hour,":",data.startTime!.minutes)
+                            print("End Time ",data.endTime!.hour,":",data.endTime!.minutes)
+                    }
+                    
                         allTasks.append(data)
-                        print(data.taskName)
-                
+                    /*    print(data.taskName)
+                    print(data.asstimatedWorkTime.hour,":",data.asstimatedWorkTime.minutes)
+                    print(data.startTime!.hour,":",data.startTime!.minutes)
+                    print(data.endTime!.hour,":",data.endTime!.minutes)*/
                     
                     /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                
@@ -277,7 +293,7 @@ class TaskModel : UIViewController
                             }*/
                             else{
                                 
-                                if(data[0].startTime!.isBigger(newHour: beginningOfHour))
+                                if(data[0].startTime! > beginningOfHour)
                                  {
                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: ""))
                                  }

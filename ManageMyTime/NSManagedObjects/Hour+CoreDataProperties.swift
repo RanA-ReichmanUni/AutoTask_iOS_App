@@ -68,9 +68,9 @@ extension Hour {
         returnedHour=returnedHour+newHour.hour
    
         
-             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
 
-             let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = appDelegate.persistentContainer.viewContext
         
         let newHourlyTime = Hour(context: managedContext)
         

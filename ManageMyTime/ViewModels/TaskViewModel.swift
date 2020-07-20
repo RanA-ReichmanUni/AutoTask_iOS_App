@@ -49,7 +49,7 @@ class TaskViewModel : ObservableObject
         asstimatedWorkTime=Hour()
         dueDate=Date()
         notes="None"
-        allTasks=[]
+        //allTasks=[]
         viewModelTask=Task()
      }
     

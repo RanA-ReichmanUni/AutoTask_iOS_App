@@ -23,7 +23,8 @@ struct DetailedTask: View {
     var importance : String
     var dueDate : Date
     var notes :String
-    var asstimatedWorkTime : Int
+    var asstimatedWorkTimeHour : Int
+    var asstimatedWorkTimeMinutes : Int
     var startTimeHour:Int
     var startTimeMinutes:Int
     var endTimeHour:Int
@@ -63,7 +64,12 @@ struct DetailedTask: View {
             
                 HStack {
                     Text("Work Time: ")
-                    Text(String(asstimatedWorkTime) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    ZStack{
+                    Text(String(asstimatedWorkTimeHour) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30)).frame(width: 180, height: 90)
+                 
+                     Text(String(asstimatedWorkTimeMinutes) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    }
+                    
                 }
                 
                 HStack {
