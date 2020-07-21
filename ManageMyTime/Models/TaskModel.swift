@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
-
+import SwiftUI
 
 class TaskModel : UIViewController
 {
@@ -17,9 +17,34 @@ class TaskModel : UIViewController
     //var allTasks = [Task]()
     
     
+    func getTaskColor (task:Task) -> Color
+    {
+        
+        switch task.color {
+        case "Red":
+            return Color(.systemRed)
+        case "Teal":
+            return Color(.systemTeal)
+        case "Green":
+            return Color(.systemGreen)
+        case "Orange":
+            return Color(.systemOrange)
+        case "Pink":
+            return Color(.systemPink)
+        case "Blue":
+            return Color(.systemBlue)
+        case "Indigo":
+            return Color(.systemIndigo)
+        default:
+            return Color(.systemTeal)
+        }
+        
+        
+    }
+    
     func autoFillTesting()
     {
-        let taskName = ["Algebra"/*,"Infi","Some nice Task!","Task King","Hello","Task Kinger"*/]
+        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -36,6 +61,7 @@ class TaskModel : UIViewController
         let userCalendar = Calendar.current // user calendar
         let someDateTime = userCalendar.date(from: dateComponents)
         
+        let colorArray = ["Green","Teal","Pink","Red","Orange","Blue","Indigo"].shuffled()
        
         for name in taskName
         {
@@ -47,10 +73,10 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=0
-                    asstimatedWorkTime.minutes=30
+                    asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
+                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
-            coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
+            coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
             
             
             do {
@@ -78,7 +104,7 @@ class TaskModel : UIViewController
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
         
-        coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes)
+        coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,color:"Pink")
             
             /*let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
             task.setValue(retrivedTask.taskName, forKeyPath: "taskName")
@@ -283,7 +309,7 @@ class TaskModel : UIViewController
                                 
                                 for task in data{
                                                          
-                                    tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName))
+                                    tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task)))
               
                                 }
                                                      
@@ -295,15 +321,15 @@ class TaskModel : UIViewController
                                 
                                 if(data[0].startTime! > beginningOfHour)
                                  {
-                                     tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: ""))
+                                    tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
                                  }
                                 
-                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName))
+                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
                                         //Multiple tasks per hour
                                 
                                 if(data[0].endTime! < nextHour)
                                  {
-                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: ""))
+                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
                                  }
                                 
                                 

@@ -24,7 +24,7 @@ class Core{
 
     
    
-  func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String) -> Task
+    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String) -> Task
     {
         
         let todayDay = Date().day
@@ -172,7 +172,7 @@ class Core{
                                         newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                         newTask.asstimatedWorkTime=asstimatedWorkTime
                                         newTask.completed=false
-                                        newTask.color="Pink"
+                                        newTask.color=color
                                         newTask.active=true
                                         newTask.importance=importance
                                         newTask.notes=notes
@@ -252,7 +252,7 @@ class Core{
                                     newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                     newTask.asstimatedWorkTime=asstimatedWorkTime
                                     newTask.completed=false
-                                    newTask.color="Blue"
+                                    newTask.color=color
                                     newTask.active=true
                                     newTask.importance=importance
                                     newTask.notes=notes

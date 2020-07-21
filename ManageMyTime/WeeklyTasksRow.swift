@@ -14,6 +14,7 @@ struct WeeklyTasksRow: View {
       
     var hourTasks : TasksPerHourPerDay
 
+    var taskViewModel = TaskViewModel()
     
     var body: some View {
          
@@ -42,7 +43,7 @@ struct WeeklyTasksRow: View {
                             }
                             else{
                                 
-                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.systemTeal)).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: -15))
+                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: task.color).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: -15))
                                     
                             }
                                    

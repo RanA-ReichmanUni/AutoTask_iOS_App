@@ -20,7 +20,7 @@ struct TaskList: View {
 
     var body: some View {
 
-        NavigationView {
+  
             VStack{
                 List(taskViewModel.allTasks, id: \.self) { task in
                     
@@ -42,7 +42,7 @@ struct TaskList: View {
                                         }
                 
                         }
-             }
+             
             
          
         

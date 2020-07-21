@@ -8,20 +8,21 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 struct TaskPerHour:Identifiable{
     
     var id:UUID
     var taskName : String
     var heightFactor:CGFloat
-
+    var color : Color
     
-    init(heightFactor:CGFloat,taskName:String)
+    init(heightFactor:CGFloat,taskName:String,color:Color)
     {
         id=UUID()
         self.taskName=taskName
         self.heightFactor=heightFactor
-
+        self.color=color
     }
  
 }

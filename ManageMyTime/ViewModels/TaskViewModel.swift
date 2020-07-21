@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
-
+import SwiftUI
 
 
 class TaskViewModel : ObservableObject
@@ -30,7 +30,7 @@ class TaskViewModel : ObservableObject
     
     @Published var notes : String
     
-
+    //@Published var color : Color
 
     
     enum UUIDError: Error {
@@ -51,7 +51,16 @@ class TaskViewModel : ObservableObject
         notes="None"
         //allTasks=[]
         viewModelTask=Task()
+        //color=Color(.systemTeal)
+        retrieveAllTasks()
      }
+    
+    func getTaskColor(task:Task) -> Color
+    {
+        
+        return taskModel.getTaskColor(task: task)
+        
+    }
     
     func createTask(taskName:String,importance:String,workTimeHours:Int,workTimeMinutes:Int,dueDate:Date,notes:String)
     {
