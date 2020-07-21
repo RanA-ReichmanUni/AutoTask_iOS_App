@@ -44,7 +44,13 @@ class Core{
             
             currentHour.add(minutesValue: 15)
             
-
+            let startOfDayHour = Hour(context: managedContext)
+               startOfDayHour.hour=startOfTheDay
+               startOfDayHour.minutes=0
+                                                           
+            let endOfDayHour = Hour(context: managedContext)
+               endOfDayHour.hour=endOfTheDay
+               endOfDayHour.minutes=0
             
                         
                 let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
@@ -146,12 +152,21 @@ class Core{
                                         newTask.taskName=taskName
                                         newTask.dueDate=dueDate
                                         newTask.date=exsitingFreeDay.date
-                                        if(singleDate > currentDate)
+                                        if(singleDate > currentDate)//if it's a following day, just start from the begining of free space.
                                         {
                                             newTask.startTime=exsitingFreeDay.starting
                                         }
-                                        else{
-                                            newTask.startTime=currentHour
+                                        else{//If we can schedule at the same day
+                                            if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of free space.
+                                            {
+                                                newTask.startTime=exsitingFreeDay.starting
+                                            }
+                                            else//If the task scheduled after the beginning of day, schedule from the current hour
+                                            {
+                                                 newTask.startTime=currentHour
+                                            }
+                                      
+                                          
                                         }
                                         
                                         newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
@@ -208,13 +223,7 @@ class Core{
                             else{//If there is no FreeSpace object for that day, create one
                                 
                                 
-                                let startOfDayHour = Hour(context: managedContext)
-                                  startOfDayHour.hour=startOfTheDay
-                                  startOfDayHour.minutes=0
-                                                       
-                                let endOfDayHour = Hour(context: managedContext)
-                                  endOfDayHour.hour=endOfTheDay
-                                  endOfDayHour.minutes=0
+                        
                                 
                                 if(endOfDayHour.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
                                 {
@@ -224,11 +233,21 @@ class Core{
                                     newTask.taskName=taskName
                                     newTask.dueDate=dueDate
                                     newTask.date=singleDate
-                                    if(singleDate > currentDate)
+                                    if(singleDate > currentDate)//In case a following day have the appropriate requirements for the task (end of day, and workTime)
                                     {
                                         newTask.startTime=startOfDayHour
-                                    }else{
-                                        newTask.startTime=currentHour
+                                    }
+                                    else//In case the same day have the appropriate requirements for the task (end of day, and workTime)
+                                    {
+                                        if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of day, which is the current day.
+                                          {
+                                              newTask.startTime=startOfDayHour
+                                          }
+                                          else
+                                          {
+                                              newTask.startTime=currentHour
+                                          }
+                                   
                                     }
                                     newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                     newTask.asstimatedWorkTime=asstimatedWorkTime

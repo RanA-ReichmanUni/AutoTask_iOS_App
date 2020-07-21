@@ -39,7 +39,7 @@ class TaskModel : UIViewController
        
         for name in taskName
         {
-            //Critical error, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
+            //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
             
             
            /* asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
@@ -47,8 +47,8 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=2
-                    asstimatedWorkTime.minutes=0
+                    asstimatedWorkTime.hour=0
+                    asstimatedWorkTime.minutes=30
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi")
             
