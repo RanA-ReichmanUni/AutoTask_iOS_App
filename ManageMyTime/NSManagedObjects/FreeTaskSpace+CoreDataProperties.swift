@@ -1,8 +1,8 @@
 //
-//  FreeSpace+CoreDataProperties.swift
+//  FreeTaskSpace+CoreDataProperties.swift
 //  ManageMyTime
 //
-//  Created by רן א on 12/07/2020.
+//  Created by רן א on 21/07/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
@@ -11,17 +11,17 @@ import Foundation
 import CoreData
 
 
-extension FreeSpace {
+extension FreeTaskSpace {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<FreeSpace> {
-        return NSFetchRequest<FreeSpace>(entityName: "FreeSpace")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FreeTaskSpace> {
+        return NSFetchRequest<FreeTaskSpace>(entityName: "FreeTaskSpace")
     }
 
     @NSManaged public var fullyOccupiedDay: Bool
     @NSManaged public var id: UUID
+    @NSManaged public var date: CustomDate
     @NSManaged public var duration: Hour
     @NSManaged public var ending: Hour
     @NSManaged public var starting: Hour
-    @NSManaged public var date: CustomDate
 
 }

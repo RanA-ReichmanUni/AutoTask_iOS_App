@@ -1,5 +1,5 @@
 //
-//  RestrictedSpace+CoreDataClass.swift
+//  DayFreeSpace+CoreDataClass.swift
 //  ManageMyTime
 //
 //  Created by רן א on 22/07/2020.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(RestrictedSpace)
-public class RestrictedSpace: NSManagedObject {
+@objc(DayFreeSpace)
+public class DayFreeSpace: NSManagedObject {
 
 }

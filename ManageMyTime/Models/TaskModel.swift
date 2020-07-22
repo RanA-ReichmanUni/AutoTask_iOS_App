@@ -44,7 +44,7 @@ class TaskModel : UIViewController
     
     func autoFillTesting()
     {
-        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
+        let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -63,6 +63,44 @@ class TaskModel : UIViewController
         
         let colorArray = ["Green","Teal","Pink","Red","Orange","Blue","Indigo"].shuffled()
        
+        let startTime=Hour(context: managedContext)
+            startTime.hour=7
+            startTime.minutes=0
+        let endTime=Hour(context: managedContext)
+            endTime.hour=15
+            endTime.minutes=0
+        
+        createRestrictedSpace(startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday")
+        
+        
+        let startTime2=Hour(context: managedContext)
+            startTime2.hour=12
+            startTime2.minutes=0
+        let endTime2=Hour(context: managedContext)
+            endTime2.hour=15
+            endTime2.minutes=0
+        
+        createRestrictedSpace(startTime: startTime2,endTime: endTime2,dayOfTheWeek: "Friday")
+        
+        
+       let startTime3=Hour(context: managedContext)
+                startTime3.hour=8
+                startTime3.minutes=0
+            let endTime3=Hour(context: managedContext)
+                endTime3.hour=11
+                endTime3.minutes=0
+            
+            createRestrictedSpace(startTime: startTime3,endTime: endTime3,dayOfTheWeek: "Friday")
+        
+        
+        let startTime4=Hour(context: managedContext)
+                   startTime4.hour=11
+                   startTime4.minutes=0
+               let endTime4=Hour(context: managedContext)
+                   endTime4.hour=13
+                   endTime4.minutes=0
+               
+               createRestrictedSpace(startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -73,7 +111,7 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
+                    asstimatedWorkTime.hour=Int.random(in: 1 ... 3)
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
@@ -129,6 +167,35 @@ class TaskModel : UIViewController
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+    }
+    
+    func createRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String)
+    {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+
+        
+        let restrictedSpace = RestrictedSpace(context: managedContext)
+        
+        restrictedSpace.startTime=startTime
+        restrictedSpace.endTime=endTime
+        restrictedSpace.dayOfTheWeek=dayOfTheWeek
+        restrictedSpace.id=UUID()
+        
+      //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
+
+        do {
+                 try managedContext.save()
+                     print("Saved RestrictedSpace + DayFreeSpace.")
+             } catch let error as NSError {
+                 print("Could not save. \(error), \(error.userInfo)")
+             }
+        
+        
     }
     
     

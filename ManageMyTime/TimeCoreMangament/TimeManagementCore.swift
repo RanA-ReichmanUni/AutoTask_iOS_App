@@ -28,8 +28,8 @@ class Core{
     {
         
         let todayDay = Date().day
-        var retrivedFreeDays = [FreeSpace]()
-        var suitableFreeDays = [FreeSpace]()
+        var retrivedFreeDays = [FreeTaskSpace]()
+        var suitableFreeDays = [FreeTaskSpace]()
         var calanderSequence:[CustomDate]
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -53,7 +53,7 @@ class Core{
                endOfDayHour.minutes=0
             
                         
-                let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
+                let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
         
         
                     fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [dueDate.year])
@@ -68,11 +68,16 @@ class Core{
                             
                           for result in results as! [NSManagedObject] {
 
-                                let spaceObj = result as! FreeSpace
+                                let spaceObj = result as! FreeTaskSpace
                             
                                 retrivedFreeDays.append(spaceObj)
                                 
                            }
+                    }
+                    catch
+                    {
+                        print(error)
+                    }
                         
                            //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
                             
@@ -115,7 +120,9 @@ class Core{
                         currentDate.year=Date().year
                         currentDate.month=Date().month
                         currentDate.day=Date().day
-                        
+        
+                        print(Date().day)
+        
                         let endDueDate = CustomDate(context:managedContext)
                         endDueDate.year=dueDate.year
                         endDueDate.month=dueDate.month
@@ -128,167 +135,657 @@ class Core{
                            // print("a1",singleDate)
                            // print(suitableFreeDays[0].date)
                             //print("here to save the day from big a")
+                            if(!suitableFreeDays.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//If there is no freeSpace objuect for that day, create one
+                            {
+                                scheduleFreeSpace(date: singleDate)
+                                suitableFreeDays=retriveAndSortFreeSpaces(dueDate: dueDate)
+                            }
+                            
                             if(suitableFreeDays.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//Check if we already have a FreeSpace object in that date, can't check if the duration in sufficient since this else case goes to create a new FreeSpace object for that day, assuming this term hasn't satisfied only because such an object doesn't exist at all and not because it doesn't match the duration needs. We will check this condition in the next if.
                             {
+                                
+                                var matchingDays=suitableFreeDays.all(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} )
+                                
                                // print("entred d1")
-                                let exsitingFreeDay=suitableFreeDays.first(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) })! //Contains closest FreeSpace slot
-                                
-                               /* print("entered d2")
-                                print(String(exsitingFreeDay.duration.hour))
-                                print(asstimatedWorkTime.hour)
-                                
-                                print("asstimated",asstimatedWorkTime)
-                                print("flag"+String(exsitingFreeDay.fullyOccupiedDay))*/
-                                
-                                if(exsitingFreeDay.duration.isBiggerOrEqual(newHour: asstimatedWorkTime) && exsitingFreeDay.fullyOccupiedDay==false)
+                                for freeDay in matchingDays
                                 {
+                                   // let freeDay=suitableFreeDays.first(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) })! //Contains closest FreeSpace slot
                                     
-                                    if(exsitingFreeDay.ending > currentHour && exsitingFreeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
+                                   /* print("entered d2")
+                                    print(String(exsitingFreeDay.duration.hour))
+                                    print(asstimatedWorkTime.hour)
+                                    
+                                    print("asstimated",asstimatedWorkTime)
+                                    print("flag"+String(exsitingFreeDay.fullyOccupiedDay))*/
+                                    
+                                
+                
+                                    if(freeDay.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)/* && exsitingFreeDay.fullyOccupiedDay==false*/)
                                     {
-                                    //print("entered d3")
-                                        //Create task
                                         
-                                        let newTask = Task(context: managedContext)
-                                        newTask.taskName=taskName
-                                        newTask.dueDate=dueDate
-                                        newTask.date=exsitingFreeDay.date
-                                        if(singleDate > currentDate)//if it's a following day, just start from the begining of free space.
+                                        if(freeDay.ending > currentHour && freeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
                                         {
-                                            newTask.startTime=exsitingFreeDay.starting
-                                        }
-                                        else{//If we can schedule at the same day
-                                            if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of free space.
-                                            {
-                                                newTask.startTime=exsitingFreeDay.starting
-                                            }
-                                            else//If the task scheduled after the beginning of day, schedule from the current hour
-                                            {
-                                                 newTask.startTime=currentHour
-                                            }
-                                      
-                                          
-                                        }
-                                        
-                                        newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
-                                        newTask.asstimatedWorkTime=asstimatedWorkTime
-                                        newTask.completed=false
-                                        newTask.color=color
-                                        newTask.active=true
-                                        newTask.importance=importance
-                                        newTask.notes=notes
-                                        newTask.id=UUID()
-                                        
-                                        //Needs to send back this task at the end of execution
                                             
-                                        let startTime = newTask.endTime!
-                                        let endTime = exsitingFreeDay.ending
-                                             
-                                        let freeSpaceDate = exsitingFreeDay.date
+                                            if(singleDate.day==22)
+                                            {
+                                                print("Here")
+                                                print(freeDay.duration)
+                                                print(freeDay.starting)
+                                                print(freeDay.ending)
+                                                print(freeDay.ending.hour)
+                                            }
+                                        //print("entered d3")
+                                            //Create task
+                                            
+                                            let newTask = Task(context: managedContext)
+                                            newTask.taskName=taskName
+                                            newTask.dueDate=dueDate
+                                            newTask.date=freeDay.date
+                                            
+                                            if(freeDay.date.day==24 && freeDay.starting.hour==19)
+                                            {
+                                                print("here")
+                                            }
+                                            if(singleDate > currentDate)//if it's a following day, just start from the begining of free space.
+                                            {
+                                                newTask.startTime=freeDay.starting
+                                            }
+                                            else{//If we can schedule at the same day
+                                                if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of free space.
+                                                {
+                                                    newTask.startTime=freeDay.starting
+                                                }
+                                                else//If the task scheduled after the beginning of day, schedule from the current hour
+                                                {
+                                                     newTask.startTime=currentHour
+                                                }
+                                          
+                                              
+                                            }
+                                            
+                                            newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
+                                            newTask.asstimatedWorkTime=asstimatedWorkTime
+                                            newTask.completed=false
+                                            newTask.color=color
+                                            newTask.active=true
+                                            newTask.importance=importance
+                                            newTask.notes=notes
+                                            newTask.id=UUID()
+                                            
+                                            //Needs to send back this task at the end of execution
+                                                
+                                            let startTime = newTask.endTime!
+                                            let endTime = freeDay.ending
+                                                 
+                                            let freeSpaceDate = freeDay.date
+                                  
+                                            
+                                            if(!newTask.endTime!.isEqual(newHour: freeDay.ending))
+                                            {
+                                                var durationCalc=endTime.subtract(newHour: startTime)
+                                               
+                                                print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
+                                                //Create new FreeSpace excluding new task window
+                                                createFreeSpace(task:newTask,startTime:startTime , endTime: endTime, date: freeSpaceDate, duration: endTime.subtract(newHour: startTime),fullyOccupiedDay: false)
+                                                
+                                                
+                                                  deleteFreeSpace(freeSpaceId: freeDay.id)
+                                              
+                                            }
+                                            
+                                            else{//If the day is now fully occupied
+                                                //delete old FS object
+                                                deleteFreeSpace(freeSpaceId: freeDay.id)
+                                                
+                                                let startOfDayHour = Hour(context: managedContext)
+                                                startOfDayHour.hour=startOfTheDay
+                                                startOfDayHour.minutes=0
+                                                
+                                                let endOfDayHour = Hour(context: managedContext)
+                                                 endOfDayHour.hour=endOfTheDay
+                                                 endOfDayHour.minutes=0
+                                                
+                                                let newDuration = Hour(context: managedContext)
+                                                   endOfDayHour.hour=0
+                                                   endOfDayHour.minutes=0
+                                                //Create new FS with fullyOccupied flag
+                                                createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
+                                            }
+                                            return newTask
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                           /* else{//If there is no FreeSpace object for that day, create one
+                                
                               
-                                        
-                                        if(!newTask.endTime!.isEqual(newHour: exsitingFreeDay.ending))
-                                        {
-                                            var durationCalc=endTime.subtract(newHour: startTime)
-                                           
-                                            print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
-                                            //Create new FreeSpace excluding new task window
-                                            createFreeSpace(task:newTask,startTime:startTime , endTime: endTime, date: freeSpaceDate, duration: endTime.subtract(newHour: startTime),fullyOccupiedDay: false)
-                                            
-                                              deleteFreeSpace(freeSpaceId: exsitingFreeDay.id)
-                                          
-                                        }
-                                        
-                                        else{//If the day is now fully occupied
-                                            //delete old FS object
-                                            deleteFreeSpace(freeSpaceId: exsitingFreeDay.id)
-                                            
-                                            let startOfDayHour = Hour(context: managedContext)
-                                            startOfDayHour.hour=startOfTheDay
-                                            startOfDayHour.minutes=0
-                                            
-                                            let endOfDayHour = Hour(context: managedContext)
-                                             endOfDayHour.hour=endOfTheDay
-                                             endOfDayHour.minutes=0
-                                            
-                                            let newDuration = Hour(context: managedContext)
-                                               endOfDayHour.hour=0
-                                               endOfDayHour.minutes=0
-                                            //Create new FS with fullyOccupied flag
-                                            createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
-                                        }
-                                        return newTask
-                                    }
-                                }
-                            }
-                            else{//If there is no FreeSpace object for that day, create one
-                                
-                                
-                        
-                                
-                                if(endOfDayHour.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
-                                {
+                                  
+                                  if(endOfDayHour.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
+                                  {
+                                      
+                                  
+                                  let newTask = Task(context: managedContext)
+                                      newTask.taskName=taskName
+                                      newTask.dueDate=dueDate
+                                      newTask.date=singleDate
+                                      if(singleDate > currentDate)//In case a following day have the appropriate requirements for the task (end of day, and workTime)
+                                      {
+                                          newTask.startTime=startOfDayHour
+                                      }
+                                      else//In case the same day have the appropriate requirements for the task (end of day, and workTime)
+                                      {
+                                          if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of day, which is the current day.
+                                            {
+                                                newTask.startTime=startOfDayHour
+                                            }
+                                            else
+                                            {
+                                                newTask.startTime=currentHour
+                                            }
+                                     
+                                      }
+                                      newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
+                                      newTask.asstimatedWorkTime=asstimatedWorkTime
+                                      newTask.completed=false
+                                      newTask.color=color
+                                      newTask.active=true
+                                      newTask.importance=importance
+                                      newTask.notes=notes
+                                      newTask.id=UUID()
+                 
+                                  
+                                  //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
+                                  
+                                  //Refactoring needed, the only reliable method to check that is by checking the task duration against the day duration (startOfDay-endOfDay)
+                                  if(newTask.endTime!.isEqual(newHour: endOfDayHour))//If it's a full day task
+                                  {
+                                      createFreeSpace(task:newTask,startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: true)
+                                  }
+                                  else{//If there is any free space
+                                      createFreeSpace(task:newTask,startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
+                                  }
+                                  
+                                   return newTask
                                     
-                                
-                                let newTask = Task(context: managedContext)
-                                    newTask.taskName=taskName
-                                    newTask.dueDate=dueDate
-                                    newTask.date=singleDate
-                                    if(singleDate > currentDate)//In case a following day have the appropriate requirements for the task (end of day, and workTime)
-                                    {
-                                        newTask.startTime=startOfDayHour
-                                    }
-                                    else//In case the same day have the appropriate requirements for the task (end of day, and workTime)
-                                    {
-                                        if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of day, which is the current day.
-                                          {
-                                              newTask.startTime=startOfDayHour
-                                          }
-                                          else
-                                          {
-                                              newTask.startTime=currentHour
-                                          }
-                                   
-                                    }
-                                    newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
-                                    newTask.asstimatedWorkTime=asstimatedWorkTime
-                                    newTask.completed=false
-                                    newTask.color=color
-                                    newTask.active=true
-                                    newTask.importance=importance
-                                    newTask.notes=notes
-                                    newTask.id=UUID()
-               
-                                
-                                //Needs to check if it's not a huge new task that actually takes all day, then the fullyOccuipiedDay should change and can't just be a default false.
-                                
-                                //**Refactoring needed, the only reliable method to check that is by checking the task duration against the day duration (startOfDay-endOfDay)
-                                if(newTask.endTime!.isEqual(newHour: endOfDayHour))//If it's a full day task
-                                {
-                                    createFreeSpace(task:newTask,startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: true)
-                                }
-                                else{//If there is any free space
-                                    createFreeSpace(task:newTask,startTime: newTask.endTime!, endTime: endOfDayHour, date: singleDate, duration: endOfDayHour.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
-                                }
-                                
-                                 return newTask
                             }
-                        }
+                        }*/
                             
                         }
                       
                      
                                                
-                         }
+                        
                                               
-                         catch
-                         {
-                            print(error)
-                         }
+                     
                                   
                         //Shouldn't get here, if we do, return an empty task. Needs to check how to properly handle this.
                         return Task()
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
+    
+ 
+    func retriveAndSortFreeSpaces(dueDate:Date) -> [FreeTaskSpace]
+    {
+        
+        var retrivedFreeDays = [FreeTaskSpace]()
+        var suitableFreeDays = [FreeTaskSpace]()
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [FreeTaskSpace]()}
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+              
+              
+                          fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [dueDate.year])
+                                        
+                                    
+                          do
+                          {
+                              let results = try managedContext.fetch(fetchRequest)
+                              
+                        
+                                  
+                                  
+                                for result in results as! [NSManagedObject] {
+
+                                      let spaceObj = result as! FreeTaskSpace
+                                  
+                                      retrivedFreeDays.append(spaceObj)
+                                      
+                                 }
+                          }
+                          catch
+                          {
+                              print(error)
+                          }
+                              
+                                 //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
+                                  
+                                  
+                                  //Sort by this order preference: year, month, day
+                                  retrivedFreeDays.sort {
+                                      ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
+                                          ($1.date.year,$1.date.month,$1.date.day,$0.starting.hour)
+                                  }
+                               
+                                  for freeDay in retrivedFreeDays
+                                  
+                                  {//Filter and find relevent future freeSpace days in context to dueDate of the new task
+                                      //print(freeDay.date.day," ",freeDay.date.month)
+                                      if (dueDate.year < freeDay.date.year)//If it's a future year then any date relevent
+                                      {
+                                            suitableFreeDays.append(freeDay)
+                                          /*print("Item:",String(freeDay.date.day)," ",String(freeDay.date.month)," ",String(freeDay.date.year))*/
+                                      }
+                                      else if(dueDate.year == freeDay.date.year && freeDay.date.month <= dueDate.month)//If it's the same year (so it won't be any past year in time) then check if it's a future or same month and not a past month.
+                                      {
+                                          //print("entered b1")
+                                          if(( freeDay.date.day <= dueDate.day && dueDate.month == freeDay.date.month) || (freeDay.date.month < dueDate.month) )//If it's the same month, check for day, if it's a future month then all dates are relevent
+                                          {
+                                              suitableFreeDays.append(freeDay)
+                                             // print("entered b2")
+                                          }
+                                                                                                    
+                                      }
+                                      
+                                  
+                                  //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
+                                  
+                                  
+                              }
+        
+                    return suitableFreeDays
+    }
+    func scheduleFreeSpace (date:CustomDate)
+    {
+        var retrivedRestrictedSlots = [RestrictedSpace]()
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                 
+         //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let startDayHour = Hour(context: managedContext)
+           startDayHour.hour=startOfTheDay
+           startDayHour.minutes=0
+                                                       
+        let endDayHour = Hour(context: managedContext)
+            endDayHour.hour=endOfTheDay
+            endDayHour.minutes=0
+      
+        let theZeroHour = Hour(context: managedContext)
+            theZeroHour.hour=0
+            theZeroHour.minutes=0
+            
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
+       
+       
+        fetchRequest.predicate = NSPredicate(format: "dayOfTheWeek = %@", argumentArray: [date.dayOfWeek()])
+                     
+                 
+       do
+       {
+           let results = try managedContext.fetch(fetchRequest)
+           
+     
+               
+               
+             for result in results as! [NSManagedObject] {
+
+                   let spaceObj = result as! RestrictedSpace
+               
+                   retrivedRestrictedSlots.append(spaceObj)
+                   
+              }
+        
+       }
+       catch
+       {
+           print(error)
+       }
+        if(retrivedRestrictedSlots.isEmpty)
+        {
+              let freeSpace = FreeTaskSpace(context: managedContext)
+             freeSpace.date=date
+             freeSpace.id=UUID()
+             freeSpace.starting=startDayHour
+             freeSpace.ending=endDayHour
+             freeSpace.duration=endDayHour.subtract(newHour: startDayHour)
+             freeSpace.fullyOccupiedDay=false
+            
+            do {
+                     try managedContext.save()
+                         print("Saved Task !.")
+                 } catch let error as NSError {
+                     print("Could not save. \(error), \(error.userInfo)")
+                 }
+        }
+        
+        for restrictedSlot in retrivedRestrictedSlots
+        {
+            var existingFreeSpaces = [FreeTaskSpace]()
+            
+               let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+              
+              
+               fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
+                            
+                        
+              do
+              {
+                  let results = try managedContext.fetch(fetchRequest)
+                  
+            
+                      
+                      
+                    for result in results as! [NSManagedObject] {
+
+                          let spaceObj = result as! FreeTaskSpace
+                      
+                          existingFreeSpaces.append(spaceObj)
+                          
+                     }
+               
+              }
+              catch
+              {
+                  print(error)
+              }
+      
+                  
+            if(!existingFreeSpaces.isEmpty)
+            {
+                for freeSpaceInstance in existingFreeSpaces{
+                
+         
+                    if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                    {
+                        
+                       
+                       let freeSpace = FreeTaskSpace(context: managedContext)
+                               freeSpace.date=date
+                               freeSpace.id=UUID()
+                       
+              
+                        freeSpace.starting=freeSpaceInstance.starting
+                         freeSpace.ending=restrictedSlot.startTime
+                         freeSpace.duration=restrictedSlot.startTime.subtract(newHour: freeSpaceInstance.starting)
+                         freeSpace.fullyOccupiedDay=false
+                         
+                         let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
+                         
+                         secondaryFreeSpace.starting=restrictedSlot.endTime
+                         secondaryFreeSpace.ending=freeSpaceInstance.ending
+                 
+                         secondaryFreeSpace.duration=freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting)
+                         print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
+                         secondaryFreeSpace.date=date
+                         secondaryFreeSpace.fullyOccupiedDay=false
+                         secondaryFreeSpace.id=UUID()
+                        
+                        deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                       
+                     }
+                     else if(restrictedSlot.startTime == freeSpaceInstance.starting && restrictedSlot.endTime == freeSpaceInstance.ending)
+                     {
+                        
+                        deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)
+                        
+                            let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+                                  
+                                  
+                            fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
+                            
+                            var availableFreeSpaces=[FreeTaskSpace]()
+                                        
+                              do
+                              {
+                                  let results = try managedContext.fetch(fetchRequest)
+                                  
+                            
+                                      
+                                      
+                                    for result in results as! [NSManagedObject] {
+
+                                          let spaceObj = result as! FreeTaskSpace
+                                      
+                                          availableFreeSpaces.append(spaceObj)
+                                          
+                                     }
+                               
+                              }
+                              catch
+                              {
+                                  print(error)
+                              }
+                        
+                        if(availableFreeSpaces.isEmpty)
+                        {
+                        
+                           let freeSpace = FreeTaskSpace(context: managedContext)
+                           freeSpace.date=date
+                           freeSpace.id=UUID()
+                           freeSpace.starting=startDayHour
+                           freeSpace.ending=endDayHour
+                           freeSpace.duration=theZeroHour
+                           freeSpace.fullyOccupiedDay=true
+                        }
+                             
+                     }
+                     else if(restrictedSlot.startTime == freeSpaceInstance.starting)
+                     {
+                         
+   
+                           let freeSpace = FreeTaskSpace(context: managedContext)
+                           freeSpace.date=date
+                           freeSpace.id=UUID()
+                           freeSpace.starting=restrictedSlot.endTime
+                           freeSpace.ending=freeSpaceInstance.ending
+                           freeSpace.duration=freeSpaceInstance.ending.subtract(newHour: freeSpace.starting)
+                           print(endDayHour.subtract(newHour: freeSpace.starting))
+                           print(freeSpace.duration)
+                           freeSpace.fullyOccupiedDay=false
+                            
+                            deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                           
+                        
+                            
+                         
+                     }
+                     else if (restrictedSlot.endTime == freeSpaceInstance.ending)
+                     {
+                           let freeSpace = FreeTaskSpace(context: managedContext)
+                             freeSpace.date=date
+                             freeSpace.id=UUID()
+                             freeSpace.starting=freeSpaceInstance.starting
+                             freeSpace.ending=restrictedSlot.startTime
+                             freeSpace.duration=restrictedSlot.startTime.subtract(newHour: freeSpaceInstance.starting)
+                             freeSpace.fullyOccupiedDay=false
+                        
+                            deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                       
+                         
+                     }
+                    
+               
+                    do {
+                           try managedContext.save()
+                               print("Saved Free Space !.")
+                       } catch let error as NSError {
+                           print("Could not save. \(error), \(error.userInfo)")
+                       }
+                    
+                
+                }
+                
+                
+            }
+                
+                
+            else{//If there isn't any exsiting free spaces yet
+                if(date.day==24)
+                {
+                    print("here")
+                }
+                if(restrictedSlot.startTime > startDayHour && restrictedSlot.endTime < endDayHour)
+                  {
+                               
+                    let freeSpace = FreeTaskSpace(context: managedContext)
+                            freeSpace.date=date
+                            freeSpace.id=UUID()
+                    
+           
+                      freeSpace.starting=startDayHour
+                      freeSpace.ending=restrictedSlot.startTime
+                      freeSpace.duration=restrictedSlot.startTime.subtract(newHour: startDayHour)
+                      freeSpace.fullyOccupiedDay=false
+                      
+                      let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
+                      
+                      secondaryFreeSpace.starting=restrictedSlot.endTime
+                      secondaryFreeSpace.ending=endDayHour
+                      secondaryFreeSpace.duration=endDayHour.subtract(newHour: secondaryFreeSpace.starting)
+                      print(endDayHour.subtract(newHour: secondaryFreeSpace.starting))
+                      secondaryFreeSpace.date=date
+                      secondaryFreeSpace.fullyOccupiedDay=false
+                      secondaryFreeSpace.id=UUID()
+                  }
+                  else if(restrictedSlot.startTime == startDayHour && restrictedSlot.endTime == endDayHour)
+                  {
+                        let freeSpace = FreeTaskSpace(context: managedContext)
+                        freeSpace.date=date
+                        freeSpace.id=UUID()
+                        freeSpace.starting=startDayHour
+                        freeSpace.ending=endDayHour
+                        freeSpace.duration=theZeroHour
+                        freeSpace.fullyOccupiedDay=true
+                          
+                  }
+                  else if(restrictedSlot.startTime == startDayHour)
+                  {
+                        let freeSpace = FreeTaskSpace(context: managedContext)
+                        freeSpace.date=date
+                        freeSpace.id=UUID()
+                        freeSpace.starting=restrictedSlot.endTime
+                        freeSpace.ending=endDayHour
+                        freeSpace.duration=endDayHour.subtract(newHour: freeSpace.starting)
+                        print(endDayHour.subtract(newHour: freeSpace.starting))
+                        print(freeSpace.duration)
+                        freeSpace.fullyOccupiedDay=false
+                      
+                  }
+                  else if (restrictedSlot.endTime == endDayHour)
+                  {
+                        let freeSpace = FreeTaskSpace(context: managedContext)
+                          freeSpace.date=date
+                          freeSpace.id=UUID()
+                          freeSpace.starting=startDayHour
+                          freeSpace.ending=restrictedSlot.startTime
+                          freeSpace.duration=restrictedSlot.startTime.subtract(newHour: startDayHour)
+                          freeSpace.fullyOccupiedDay=false
+                      
+                  }
+                
+                do {
+                      try managedContext.save()
+                          print("Saved Task !.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                  }
+            }
+              
+            
+            
+        }
+
+        
+        
+    }
+    
+    func createDayFreeSpace(restrictedStartTime:Hour,restrictedEndTime:Hour,dayOfTheWeek:String)
+    {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            
+            //We need to create a context from this container
+            let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let startDayHour = Hour(context: managedContext)
+             startDayHour.hour=startOfTheDay
+             startDayHour.minutes=0
+                                                         
+          let endDayHour = Hour(context: managedContext)
+             endDayHour.hour=endOfTheDay
+             endDayHour.minutes=0
+        
+        let theZeroHour = Hour(context: managedContext)
+           theZeroHour.hour=0
+           theZeroHour.minutes=0
+        
+        
+        
+        let dayFreeSpace = DayFreeSpace(context: managedContext)
+            dayFreeSpace.dayOfTheWeek=dayOfTheWeek
+            dayFreeSpace.id=UUID()
+        
+        if(restrictedStartTime > startDayHour && restrictedEndTime < endDayHour)
+        {
+            dayFreeSpace.startTime=startDayHour
+            dayFreeSpace.endTime=restrictedStartTime
+            dayFreeSpace.duration=restrictedStartTime.subtract(newHour: startDayHour)
+            dayFreeSpace.fullyRestrictedDay=false
+            
+            let secondaryDayFreeSpace=DayFreeSpace(context: managedContext)
+            
+            secondaryDayFreeSpace.startTime=restrictedEndTime
+            secondaryDayFreeSpace.endTime=endDayHour
+            secondaryDayFreeSpace.duration=endDayHour.subtract(newHour: secondaryDayFreeSpace.startTime)
+            print(endDayHour.subtract(newHour: secondaryDayFreeSpace.startTime))
+            secondaryDayFreeSpace.dayOfTheWeek=dayOfTheWeek
+            secondaryDayFreeSpace.fullyRestrictedDay=false
+            secondaryDayFreeSpace.id=UUID()
+        }
+        else if(restrictedStartTime == startDayHour && restrictedEndTime == endDayHour)
+        {
+            dayFreeSpace.startTime=startDayHour
+            dayFreeSpace.endTime=endDayHour
+            dayFreeSpace.duration=theZeroHour
+            dayFreeSpace.fullyRestrictedDay=true
+                
+        }
+        else if(restrictedStartTime == startDayHour)
+        {
+            dayFreeSpace.startTime=restrictedEndTime
+            dayFreeSpace.endTime=endDayHour
+            dayFreeSpace.duration=endDayHour.subtract(newHour: dayFreeSpace.startTime)
+            print(endDayHour.subtract(newHour: dayFreeSpace.startTime))
+            print(dayFreeSpace.duration)
+            dayFreeSpace.fullyRestrictedDay=false
+            
+        }
+        else if (restrictedEndTime == endDayHour)
+        {
+            dayFreeSpace.startTime=startDayHour
+            dayFreeSpace.endTime=restrictedStartTime
+            dayFreeSpace.duration=restrictedStartTime.subtract(newHour: startDayHour)
+            dayFreeSpace.fullyRestrictedDay=false
+            
+        }
+        
+        do {
+                          try managedContext.save()
+                              print("Saved Task !.")
+                      } catch let error as NSError {
+                          print("Could not save. \(error), \(error.userInfo)")
+                      }
+
+        
+        
+    }
+    
     
     
     
@@ -380,7 +877,7 @@ class Core{
                          
                 
                
-                       let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeSpace")
+                       let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
                       /* let predicate1 = NSPredicate(format: "month = %@",8)
                        let predicate2 = NSPredicate(format: "month <%@",15)
                        let predicate3 = NSPredicate(format: "year = %@",2020)
@@ -593,7 +1090,7 @@ class Core{
          
             let managedContext = appDelegate.persistentContainer.viewContext
            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FreeSpace")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FreeTaskSpace")
             fetchRequest.predicate = NSPredicate(format: "id = %@", freeSpaceId as CVarArg)
           
            do
@@ -631,7 +1128,7 @@ class Core{
 
                               
         
-                let freeSpace = FreeSpace(context: managedContext)
+                let freeSpace = FreeTaskSpace(context: managedContext)
                 freeSpace.date=date
                 freeSpace.starting=startTime
                 freeSpace.ending=endTime
@@ -674,7 +1171,7 @@ class Core{
 
                               
         
-                let freeSpace = FreeSpace(context: managedContext)
+                let freeSpace = FreeTaskSpace(context: managedContext)
                 freeSpace.date=date
                 freeSpace.starting=startTime
                 freeSpace.ending=endTime

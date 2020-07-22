@@ -54,7 +54,7 @@ extension CustomDate {
         return Calendar(identifier: .gregorian).date(byAdding: components, to: startOfMonth)!
     }
     
-    func dayOfWeek() -> String? {
+    func dayOfWeek() -> String {
         var dateComponents = DateComponents()
                    dateComponents.year = year
             dateComponents.month = month
@@ -78,6 +78,16 @@ extension CustomDate {
          }
          return false
      }
+    
+    
+    func isEqual(date:CustomDate) -> Bool
+      {
+        if(self.year==date.year && self.month==date.month  && self.day==date.day)
+          {
+              return true
+          }
+          return false
+      }
     
     static func > (left: CustomDate, right: CustomDate) -> Bool { // 1
          

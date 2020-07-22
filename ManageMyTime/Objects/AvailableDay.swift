@@ -11,11 +11,11 @@ import Foundation
 
 struct AvailableDay {
     
-    var freeSpaceObj : FreeSpace
+    var freeSpaceObj : FreeTaskSpace
     var day : Int
     
     
-    init(freeSpaceObj : FreeSpace, day : Int)
+    init(freeSpaceObj : FreeTaskSpace, day : Int)
     {
         
         self.freeSpaceObj=freeSpaceObj
