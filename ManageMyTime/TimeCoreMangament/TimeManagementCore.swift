@@ -705,87 +705,7 @@ class Core{
         
     }
     
-    func createDayFreeSpace(restrictedStartTime:Hour,restrictedEndTime:Hour,dayOfTheWeek:String)
-    {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            
-            //We need to create a context from this container
-            let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let startDayHour = Hour(context: managedContext)
-             startDayHour.hour=startOfTheDay
-             startDayHour.minutes=0
-                                                         
-          let endDayHour = Hour(context: managedContext)
-             endDayHour.hour=endOfTheDay
-             endDayHour.minutes=0
-        
-        let theZeroHour = Hour(context: managedContext)
-           theZeroHour.hour=0
-           theZeroHour.minutes=0
-        
-        
-        
-        let dayFreeSpace = DayFreeSpace(context: managedContext)
-            dayFreeSpace.dayOfTheWeek=dayOfTheWeek
-            dayFreeSpace.id=UUID()
-        
-        if(restrictedStartTime > startDayHour && restrictedEndTime < endDayHour)
-        {
-            dayFreeSpace.startTime=startDayHour
-            dayFreeSpace.endTime=restrictedStartTime
-            dayFreeSpace.duration=restrictedStartTime.subtract(newHour: startDayHour)
-            dayFreeSpace.fullyRestrictedDay=false
-            
-            let secondaryDayFreeSpace=DayFreeSpace(context: managedContext)
-            
-            secondaryDayFreeSpace.startTime=restrictedEndTime
-            secondaryDayFreeSpace.endTime=endDayHour
-            secondaryDayFreeSpace.duration=endDayHour.subtract(newHour: secondaryDayFreeSpace.startTime)
-            print(endDayHour.subtract(newHour: secondaryDayFreeSpace.startTime))
-            secondaryDayFreeSpace.dayOfTheWeek=dayOfTheWeek
-            secondaryDayFreeSpace.fullyRestrictedDay=false
-            secondaryDayFreeSpace.id=UUID()
-        }
-        else if(restrictedStartTime == startDayHour && restrictedEndTime == endDayHour)
-        {
-            dayFreeSpace.startTime=startDayHour
-            dayFreeSpace.endTime=endDayHour
-            dayFreeSpace.duration=theZeroHour
-            dayFreeSpace.fullyRestrictedDay=true
-                
-        }
-        else if(restrictedStartTime == startDayHour)
-        {
-            dayFreeSpace.startTime=restrictedEndTime
-            dayFreeSpace.endTime=endDayHour
-            dayFreeSpace.duration=endDayHour.subtract(newHour: dayFreeSpace.startTime)
-            print(endDayHour.subtract(newHour: dayFreeSpace.startTime))
-            print(dayFreeSpace.duration)
-            dayFreeSpace.fullyRestrictedDay=false
-            
-        }
-        else if (restrictedEndTime == endDayHour)
-        {
-            dayFreeSpace.startTime=startDayHour
-            dayFreeSpace.endTime=restrictedStartTime
-            dayFreeSpace.duration=restrictedStartTime.subtract(newHour: startDayHour)
-            dayFreeSpace.fullyRestrictedDay=false
-            
-        }
-        
-        do {
-                          try managedContext.save()
-                              print("Saved Task !.")
-                      } catch let error as NSError {
-                          print("Could not save. \(error), \(error.userInfo)")
-                      }
-
-        
-        
-    }
-    
     
     
     
@@ -1136,7 +1056,7 @@ class Core{
                 freeSpace.id=UUID()
                 freeSpace.fullyOccupiedDay=fullyOccupiedDay
         
-                
+               /*
                 print("Task Status: ")
                 print(task.taskName)
                 print("Duration ",task.asstimatedWorkTime.hour,":",task.asstimatedWorkTime.minutes)
@@ -1146,7 +1066,7 @@ class Core{
                 print("FreeSpace Status: ")
                 print("Duration ",duration.hour,":",duration.minutes)
                 print("Start Time ",startTime.hour,":",startTime.minutes)
-                print("End Time ",endTime.hour,":",endTime.minutes)
+                print("End Time ",endTime.hour,":",endTime.minutes)*/
                 
               //Now we have set all the values. The next step is to save them inside the Core Data
               
@@ -1159,6 +1079,11 @@ class Core{
         
         
     }
+    
+    
+    
+ 
+    
     
     func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool){
         

@@ -111,7 +111,7 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=Int.random(in: 1 ... 3)
+                    asstimatedWorkTime.hour=1
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
@@ -190,7 +190,7 @@ class TaskModel : UIViewController
 
         do {
                  try managedContext.save()
-                     print("Saved RestrictedSpace + DayFreeSpace.")
+                     print("Saved RestrictedSpace.")
              } catch let error as NSError {
                  print("Could not save. \(error), \(error.userInfo)")
              }
@@ -481,7 +481,7 @@ class TaskModel : UIViewController
     
      }
     
-    func deleteTask(taskName : String){
+    func deleteTask(taskId : UUID){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -490,17 +490,23 @@ class TaskModel : UIViewController
         let managedContext = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-        fetchRequest.predicate = NSPredicate(format: "taskName = %@", taskName)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", taskId as CVarArg)
+       
        
         do
         {
             let requiredTask = try managedContext.fetch(fetchRequest)
             
+            let taskToFreeSpace = requiredTask[0] as! Task
+            
+              coreManagment.createFreeSpace(startTime: taskToFreeSpace.startTime!, endTime: taskToFreeSpace.endTime!, date: taskToFreeSpace.date, duration: taskToFreeSpace.asstimatedWorkTime, fullyOccupiedDay: false)
+            
             let objectToDelete = requiredTask[0] as! NSManagedObject
             managedContext.delete(objectToDelete)
-            
+ 
             do{
                 try managedContext.save()
+ 
                 print("Deleted !.")
                
             }
@@ -514,6 +520,12 @@ class TaskModel : UIViewController
         {
             print(error)
         }
+        
+       
+        
+        
+        
+        
     }
     
     /*

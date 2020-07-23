@@ -151,10 +151,13 @@ class TaskViewModel : ObservableObject
     }
     
     
-    func deleteTask(taskName : String){
+    func deleteTask(taskId : UUID){
     
-        taskModel.deleteTask(taskName : taskName)
+        taskModel.deleteTask(taskId : taskId)
          self.retrieveAllTasks()//In order to update the published task array after deletion
     }
+    
+    
+ 
 }
 

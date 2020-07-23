@@ -33,6 +33,8 @@ struct DetailedTask: View {
     var month:Int
     var year:Int
     
+    var taskId:UUID
+    
     var body: some View {
         ScrollView{
         VStack{
@@ -109,7 +111,7 @@ struct DetailedTask: View {
           
                 Button(action: {
                                  
-                self.taskViewModel.deleteTask(taskName: self.taskName)
+                self.taskViewModel.deleteTask(taskId: self.taskId)
 
                 self.mode.wrappedValue.dismiss()
              

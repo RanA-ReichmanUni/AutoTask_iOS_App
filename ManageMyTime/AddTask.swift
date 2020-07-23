@@ -160,7 +160,7 @@ struct AddTask: View {
                                                        Text("Update")
                                                    }
                     
-                    Button(action: {
+                    /*Button(action: {
                                             
                             self.taskViewModel.deleteTask(taskName: "infi b")
  
@@ -168,7 +168,7 @@ struct AddTask: View {
                                                                                  
                              Text("Delete")
                             
-                            }
+                            }*/
                 }
                 
                 
