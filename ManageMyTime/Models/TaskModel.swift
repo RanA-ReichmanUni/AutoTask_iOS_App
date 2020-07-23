@@ -44,6 +44,8 @@ class TaskModel : UIViewController
     
     func autoFillTesting()
     {
+
+        
         let taskName = ["Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -112,7 +114,7 @@ class TaskModel : UIViewController
             
             let asstimatedWorkTime=Hour(context: managedContext)
                     asstimatedWorkTime.hour=1
-                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
+                    asstimatedWorkTime.minutes=30
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
             
@@ -522,7 +524,7 @@ class TaskModel : UIViewController
         }
         
        
-       // coreManagment.mergeFreeSpaces()
+        coreManagment.mergeFreeSpaces()
         
         
         

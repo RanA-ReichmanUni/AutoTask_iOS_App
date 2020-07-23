@@ -203,7 +203,7 @@ class Core{
                                                         newTask.startTime=freeDay.starting
                                                     }
                                                     else
-                                                    {   
+                                                    {
                                                      newTask.startTime=currentHour
                                                     }
                                                 }
@@ -349,23 +349,25 @@ class Core{
         
         var freeSpacesToDelete=[UUID]()
         
-        for index in 0...sortedFreeSpaces.count
+        for index in 0...sortedFreeSpaces.count-1
         {
-            if(sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
+            if(index != sortedFreeSpaces.count-1)
             {
-                
-                
-                createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
-                
-                if(!freeSpacesToDelete.contains(sortedFreeSpaces[index].id))//Check if we didn't already order to delete this free space, in case of three or mote sequntial FreeSpaces
+                if(sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
                 {
-                    freeSpacesToDelete.append(sortedFreeSpaces[index].id)
+                    
+                    
+                    createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
+                    
+                    if(!freeSpacesToDelete.contains(sortedFreeSpaces[index].id))//Check if we didn't already order to delete this free space, in case of three or mote sequntial FreeSpaces
+                    {
+                        freeSpacesToDelete.append(sortedFreeSpaces[index].id)
+                    }
+                    
+                    freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
+               
                 }
-                
-                freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
-           
             }
-            
             
         }
         
