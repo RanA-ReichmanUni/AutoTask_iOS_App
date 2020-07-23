@@ -137,6 +137,7 @@ class Core{
                             //print("here to save the day from big a")
                             if(!suitableFreeDays.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//If there is no freeSpace objuect for that day, create one
                             {
+                                
                                 scheduleFreeSpace(date: singleDate)
                                 suitableFreeDays=retriveAndSortFreeSpaces(dueDate: dueDate)
                             }
@@ -163,17 +164,17 @@ class Core{
                                     if(freeDay.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)/* && exsitingFreeDay.fullyOccupiedDay==false*/)
                                     {
                                         
-                                        if(freeDay.ending > currentHour && freeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime || singleDate > currentDate)
+                                        if(freeDay.ending > currentHour && freeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeDay.starting < currentHour || freeDay.starting > currentHour && freeDay.duration >= asstimatedWorkTime || singleDate > currentDate)
                                         {
                                             
-                                            if(singleDate.day==22)
-                                            {
+                                      
                                                 print("Here")
                                                 print(freeDay.duration)
                                                 print(freeDay.starting)
                                                 print(freeDay.ending)
                                                 print(freeDay.ending.hour)
-                                            }
+                                            print(freeDay.date.day)
+                                            
                                         //print("entered d3")
                                             //Create task
                                             
@@ -197,7 +198,14 @@ class Core{
                                                 }
                                                 else//If the task scheduled after the beginning of day, schedule from the current hour
                                                 {
+                                                    if(freeDay.starting > currentHour)
+                                                    {
+                                                        newTask.startTime=freeDay.starting
+                                                    }
+                                                    else
+                                                    {   
                                                      newTask.startTime=currentHour
+                                                    }
                                                 }
                                           
                                               
@@ -324,6 +332,53 @@ class Core{
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
     
+    func mergeFreeSpaces()
+     {
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = Date().year
+        dateComponents.month = Date().month+1
+        dateComponents.day = Date().day
+
+
+        // Create date from components
+        let userCalendar = Calendar.current // user calendar
+        let dateTime = userCalendar.date(from: dateComponents)!
+        
+        var sortedFreeSpaces=retriveAndSortFreeSpaces(dueDate:dateTime)
+        
+        var freeSpacesToDelete=[UUID]()
+        
+        for index in 0...sortedFreeSpaces.count
+        {
+            if(sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
+            {
+                
+                
+                createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
+                
+                if(!freeSpacesToDelete.contains(sortedFreeSpaces[index].id))//Check if we didn't already order to delete this free space, in case of three or mote sequntial FreeSpaces
+                {
+                    freeSpacesToDelete.append(sortedFreeSpaces[index].id)
+                }
+                
+                freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
+           
+            }
+            
+            
+        }
+        
+        for freeSpaceId in freeSpacesToDelete
+        {
+            
+            deleteFreeSpace(freeSpaceId: freeSpaceId)
+        }
+        
+        
+        
+         
+     }
  
     func retriveAndSortFreeSpaces(dueDate:Date) -> [FreeTaskSpace]
     {
@@ -338,67 +393,70 @@ class Core{
         
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
               
-              
-                          fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [dueDate.year])
-                                        
-                                    
-                          do
-                          {
-                              let results = try managedContext.fetch(fetchRequest)
-                              
-                        
-                                  
-                                  
-                                for result in results as! [NSManagedObject] {
 
-                                      let spaceObj = result as! FreeTaskSpace
-                                  
-                                      retrivedFreeDays.append(spaceObj)
-                                      
-                                 }
-                          }
-                          catch
-                          {
-                              print(error)
-                          }
-                              
-                                 //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
-                                  
-                                  
-                                  //Sort by this order preference: year, month, day
-                                  retrivedFreeDays.sort {
-                                      ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
-                                          ($1.date.year,$1.date.month,$1.date.day,$0.starting.hour)
-                                  }
-                               
-                                  for freeDay in retrivedFreeDays
-                                  
-                                  {//Filter and find relevent future freeSpace days in context to dueDate of the new task
-                                      //print(freeDay.date.day," ",freeDay.date.month)
-                                      if (dueDate.year < freeDay.date.year)//If it's a future year then any date relevent
-                                      {
-                                            suitableFreeDays.append(freeDay)
-                                          /*print("Item:",String(freeDay.date.day)," ",String(freeDay.date.month)," ",String(freeDay.date.year))*/
-                                      }
-                                      else if(dueDate.year == freeDay.date.year && freeDay.date.month <= dueDate.month)//If it's the same year (so it won't be any past year in time) then check if it's a future or same month and not a past month.
-                                      {
-                                          //print("entered b1")
-                                          if(( freeDay.date.day <= dueDate.day && dueDate.month == freeDay.date.month) || (freeDay.date.month < dueDate.month) )//If it's the same month, check for day, if it's a future month then all dates are relevent
-                                          {
-                                              suitableFreeDays.append(freeDay)
-                                             // print("entered b2")
-                                          }
-                                                                                                    
-                                      }
-                                      
-                                  
-                                  //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
-                                  
-                                  
-                              }
-        
-                    return suitableFreeDays
+              fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [dueDate.year])
+                            
+                        
+              do
+              {
+                  let results = try managedContext.fetch(fetchRequest)
+                  
+            
+                      
+                      
+                    for result in results as! [NSManagedObject] {
+
+                          let spaceObj = result as! FreeTaskSpace
+                      
+                          retrivedFreeDays.append(spaceObj)
+                          
+                     }
+              }
+              catch
+              {
+                  print(error)
+              }
+                  
+             //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
+              
+              
+              //Sort by this order preference: year, month, day
+              retrivedFreeDays.sort {
+                  ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
+                      ($1.date.year,$1.date.month,$1.date.day,$0.starting.hour)
+              }
+           
+              for freeDay in retrivedFreeDays
+              
+              {//Filter and find relevent future freeSpace days in context to dueDate of the new task
+                  //print(freeDay.date.day," ",freeDay.date.month)
+                  if (dueDate.year < freeDay.date.year)//If it's a future year then any date relevent
+                  {
+                        suitableFreeDays.append(freeDay)
+                      /*print("Item:",String(freeDay.date.day)," ",String(freeDay.date.month)," ",String(freeDay.date.year))*/
+                  }
+                  else if(dueDate.year == freeDay.date.year && freeDay.date.month <= dueDate.month)//If it's the same year (so it won't be any past year in time) then check if it's a future or same month and not a past month.
+                  {
+                      //print("entered b1")
+                      if(( freeDay.date.day <= dueDate.day && dueDate.month == freeDay.date.month) || (freeDay.date.month < dueDate.month) )//If it's the same month, check for day, if it's a future month then all dates are relevent
+                      {
+                          suitableFreeDays.append(freeDay)
+                         // print("entered b2")
+                      }
+                                                                                
+                  }
+                  
+              
+              //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
+              
+              
+          }
+
+        return suitableFreeDays
     }
+    
+    
+    
     func scheduleFreeSpace (date:CustomDate)
     {
         var retrivedRestrictedSlots = [RestrictedSpace]()

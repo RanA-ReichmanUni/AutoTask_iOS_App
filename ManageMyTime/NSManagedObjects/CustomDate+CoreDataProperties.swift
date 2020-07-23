@@ -80,6 +80,16 @@ extension CustomDate {
      }
     
     
+    static func == (left: CustomDate, right: CustomDate) -> Bool { // 1
+        
+         if(left.year==right.year && left.month==right.month && left.day==right.day)
+         {
+             return true
+         }
+         return false
+     }
+    
+    
     func isEqual(date:CustomDate) -> Bool
       {
         if(self.year==date.year && self.month==date.month  && self.day==date.day)

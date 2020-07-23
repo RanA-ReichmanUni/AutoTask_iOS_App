@@ -522,11 +522,13 @@ class TaskModel : UIViewController
         }
         
        
-        
+       // coreManagment.mergeFreeSpaces()
         
         
         
     }
+    
+ 
     
     /*
     func AddTask(mangedObjectContext : NSMangedObjectContext,taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String)
