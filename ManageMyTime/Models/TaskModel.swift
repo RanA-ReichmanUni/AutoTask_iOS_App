@@ -102,7 +102,7 @@ class TaskModel : UIViewController
                    endTime4.hour=13
                    endTime4.minutes=0
                
-               createRestrictedSpace(startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday")
+              createRestrictedSpace(startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -460,7 +460,7 @@ class TaskModel : UIViewController
            //Prepare the request of type NSFetchRequest  for the entity
            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
        
-           fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND date.month >= %@", argumentArray: [Date().year,Date().month])
+           fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [Date().year])
                
            let nextHour = Hour(context: managedContext)
                nextHour.hour=hour+1

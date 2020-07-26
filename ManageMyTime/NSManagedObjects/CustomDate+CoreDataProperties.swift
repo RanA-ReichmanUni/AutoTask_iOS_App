@@ -89,6 +89,14 @@ extension CustomDate {
          return false
      }
     
+    static func <= (left: CustomDate, right: CustomDate) -> Bool { // 1
+          
+           if(left.year==right.year && left.month==right.month && left.day==right.day || left < right )
+           {
+               return true
+           }
+           return false
+       }
     
     func isEqual(date:CustomDate) -> Bool
       {
@@ -107,6 +115,24 @@ extension CustomDate {
           }
           return false
       }
+    
+    static func >= (left: CustomDate, right: CustomDate) -> Bool { // 1
+           
+          if(left > right || left == right )
+            {
+                return true
+            }
+            return false
+        }
+    
+        static func < (left: CustomDate, right: CustomDate) -> Bool { // 1
+             
+            if(left.year < right.year || (left.year == right.year && left.month < right.month) || (left.year == right.year && left.month == right.month && left.day < right.day) )
+              {
+                  return true
+              }
+              return false
+          }
      
      
     
