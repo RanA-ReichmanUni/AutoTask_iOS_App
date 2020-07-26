@@ -20,6 +20,12 @@ struct TempNavigator: View {
                     Text("Weekly Schedule")
                 }
                 
+                NavigationLink(destination:DailyView()){
+                            
+                            Text("Daily Schedule")
+                        }
+            
+                
                 NavigationLink(destination:TaskList()){
                                  
                     Text("Task List")

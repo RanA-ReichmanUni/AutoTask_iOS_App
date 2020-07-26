@@ -55,8 +55,8 @@ class TaskModel : UIViewController
 
         var dateComponents = DateComponents()
         dateComponents.year = 2020
-        dateComponents.month = 7
-        dateComponents.day = 25
+        dateComponents.month = 8
+        dateComponents.day = 1
 
 
         // Create date from components
@@ -113,8 +113,8 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=1
-                    asstimatedWorkTime.minutes=30
+                    asstimatedWorkTime.hour=Int.random(in: 3 ... 5)
+                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
             
@@ -314,137 +314,267 @@ class TaskModel : UIViewController
         return allTasks
         }
     
-    func retrieveAllTasksByHour(hour:Int) -> [TasksPerHourPerDay] {
-           
-            var allTasks=[TasksPerHourPerDay]()
-            var coreManagment=Core()
+    func retrieveAllDayTasks(hour:Int) -> [TasksPerHourPerDay] {
         
-            let startOfDay=7
-            let endOfDay=24
         
-            //As we know that container is set up in the AppDelegates so we need to refer that container.
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
-            
-            //We need to create a context from this container
-            let managedContext = appDelegate.persistentContainer.viewContext
-            
-            //Prepare the request of type NSFetchRequest  for the entity
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-        
-            fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day >= %@ AND date.day <= %@", argumentArray: [Date().year,Date().month,19,25])
-            
-        let nextHour = Hour(context: managedContext)
-            nextHour.hour=hour+1
-            nextHour.minutes=0
-        
-        let beginningOfHour = Hour(context: managedContext)
-        beginningOfHour.hour=hour
-        beginningOfHour.minutes=0
-        
-            let weekSequence=coreManagment.createCalanderSequence(startDay: 19, startMonth: 7, startYear: 2020, endDay: 25, endMonth: 7, endYear: 2020)
-    //        fetchRequest.fetchLimit = 1
-    //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
-    //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
-    //
-            do {
-                
-                var result = try managedContext.fetch(fetchRequest) as! [Task]
-                
-                result.sort {
-                    ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour) <
-                        ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
-                }
-                
-                  //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                
-                var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                    for dayOfTheWeek in weekSequence
-                    {
-                        if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
-                        {
-                            let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
-
-                           tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                            
-                            tasksPerHourPerDay.isEmptySlot=false
-                            
-                            
-                            var heightFactor=CGFloat(1.6)
-                            
-                            if(data.count > 1)
-                            {
-                                heightFactor=1.9
-                                
-                                
-                                for task in data{
-                                                         
-                                    tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task)))
+              var allTasks=[TasksPerHourPerDay]()
               
-                                }
-                                                     
-                            }
-                            /*else{
-                                heightFactor=1.6
-                            }*/
-                            else{
-                                
-                                if(data[0].startTime! > beginningOfHour)
-                                 {
-                                    tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
-                                 }
-                                
-                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
-                                        //Multiple tasks per hour
-                                
-                                if(data[0].endTime! < nextHour)
-                                 {
-                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
-                                 }
-                                
-                                
-                            }
-                     
           
-                          
-                        }
-                        else{//Case it's an empty hour for that day (index)
-                            tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
-                            //tasksPerHourPerDay.isEmptySlot=true
-                        }
-                        
-                        allTasks.append(tasksPerHourPerDay)//Tasks per hour
-                       
-                        tasksPerHourPerDay.tasks=[]
-                    }
-                    
-                
+              //As we know that container is set up in the AppDelegates so we need to refer that container.
+              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+              
+              //We need to create a context from this container
+              let managedContext = appDelegate.persistentContainer.viewContext
+              
+              //Prepare the request of type NSFetchRequest  for the entity
+              let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+          
+        fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@", argumentArray: [Date().year,Date().month,Date().day])
+                  
+              let nextHour = Hour(context: managedContext)
+                  nextHour.hour=hour+1
+                  nextHour.minutes=0
+              
+              let beginningOfHour = Hour(context: managedContext)
+              beginningOfHour.hour=hour
+              beginningOfHour.minutes=0
+              
+                 // let weekSequence=coreManagment.createCalanderSequence(startDay: 26, startMonth: 7, startYear: 2020, endDay: 1, endMonth: 8, endYear: 2020)
+          //        fetchRequest.fetchLimit = 1
+          //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+          //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+          //
+                  do {
+                      
+                      var result = try managedContext.fetch(fetchRequest) as! [Task]
+                      
+                      result.sort {
+                          ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour) <
+                              ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
+                      }
+                      
+                        //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                      
+                      var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                    
-                        //allTasks.append(TasksByHour(data)
-                        
-                   // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
+                              if(result.contains(where: {(($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
+                              {
+                                  let data = result.all(where: { (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+
+                                 tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                                  
+                                  tasksPerHourPerDay.isEmptySlot=false
+                                  
+                                  
+                                  var heightFactor=CGFloat(1.6)
+                                  
+                                  if(data.count > 1)
+                                  {
+                                      heightFactor=1.9
+                                      
+                                      
+                                      for task in data{
+                                                               
+                                          tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task)))
                     
-                 /*   for data in allTasks
-                    {
-                        
-                        print(data.hour)
-                        for oneString in data.tasks
-                        {
-                            print(oneString)
-                        }
-                        print("-----")
-                    }*/
-                    /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+                                      }
+                                                           
+                                  }
+                                  /*else{
+                                      heightFactor=1.6
+                                  }*/
+                                  else{
+                                      
+                                      if(data[0].startTime! > beginningOfHour)
+                                       {
+                                          tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                       }
+                                      
+                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                              //Multiple tasks per hour
+                                      
+                                      if(data[0].endTime! < nextHour)
+                                       {
+                                            tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                       }
+                                      
+                                      
+                                  }
+                           
+                
+                                
+                              }
+                              else{//Case it's an empty hour for that day (index)
+                                  tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
+                                  //tasksPerHourPerDay.isEmptySlot=true
+                              }
+                              
+                              allTasks.append(tasksPerHourPerDay)//Tasks per hour
+                             
+                              tasksPerHourPerDay.tasks=[]
+                          
+                          
+                      
+                         
+                              //allTasks.append(TasksByHour(data)
+                              
+                         // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
+                          
+                       /*   for data in allTasks
+                          {
+                              
+                              print(data.hour)
+                              for oneString in data.tasks
+                              {
+                                  print(oneString)
+                              }
+                              print("-----")
+                          }*/
+                          /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+                     
+                      
+                      print("Retrived all tasks !")
+                      
+                    }       catch {
+                      
+                      print("Failed")
+                  }
+              
+              return allTasks
+    }
+    
+     func retrieveAllTasksByHour(hour:Int) -> [TasksPerHourPerDay] {
+              
+           var allTasks=[TasksPerHourPerDay]()
+           var coreManagment=Core()
+       
+           let startOfDay=7
+           let endOfDay=24
+       
+           //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+           //Prepare the request of type NSFetchRequest  for the entity
+           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+       
+           fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND date.month >= %@", argumentArray: [Date().year,Date().month])
                
-                
-                print("Retrived all tasks !")
-                
-            } catch {
-                
-                print("Failed")
-            }
-        
-        return allTasks
-        }
+           let nextHour = Hour(context: managedContext)
+               nextHour.hour=hour+1
+               nextHour.minutes=0
+           
+           let beginningOfHour = Hour(context: managedContext)
+           beginningOfHour.hour=hour
+           beginningOfHour.minutes=0
+           
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 26, startMonth: 7, startYear: 2020, endDay: 1, endMonth: 8, endYear: 2020)
+       //        fetchRequest.fetchLimit = 1
+       //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+       //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+       //
+               do {
+                   
+                   var result = try managedContext.fetch(fetchRequest) as! [Task]
+                   
+                   result.sort {
+                       ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour) <
+                           ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
+                   }
+                   
+                     //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                   
+                   var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                       for dayOfTheWeek in weekSequence
+                       {
+                           if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
+                           {
+                               let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+
+                              tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                               
+                               tasksPerHourPerDay.isEmptySlot=false
+                               
+                               
+                               var heightFactor=CGFloat(1.6)
+                               
+                               if(data.count > 1)
+                               {
+                                   heightFactor=1.9
+                                   
+                                   
+                                   for task in data{
+                                                            
+                                       tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task)))
+                 
+                                   }
+                                                        
+                               }
+                               /*else{
+                                   heightFactor=1.6
+                               }*/
+                               else{
+                                   
+                                   if(data[0].startTime! > beginningOfHour)
+                                    {
+                                       tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                    }
+                                   
+                                   tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                           //Multiple tasks per hour
+                                   
+                                   if(data[0].endTime! < nextHour)
+                                    {
+                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                    }
+                                   
+                                   
+                               }
+                        
+             
+                             
+                           }
+                           else{//Case it's an empty hour for that day (index)
+                               tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
+                               //tasksPerHourPerDay.isEmptySlot=true
+                           }
+                           
+                           allTasks.append(tasksPerHourPerDay)//Tasks per hour
+                          
+                           tasksPerHourPerDay.tasks=[]
+                       }
+                       
+                   
+                      
+                           //allTasks.append(TasksByHour(data)
+                           
+                      // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
+                       
+                    /*   for data in allTasks
+                       {
+                           
+                           print(data.hour)
+                           for oneString in data.tasks
+                           {
+                               print(oneString)
+                           }
+                           print("-----")
+                       }*/
+                       /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+                  
+                   
+                   print("Retrived all tasks !")
+                   
+               } catch {
+                   
+                   print("Failed")
+               }
+           
+           return allTasks
+           }
+    
     
     func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime : Int32, newDueDate : Date, newNotes : String ){
      

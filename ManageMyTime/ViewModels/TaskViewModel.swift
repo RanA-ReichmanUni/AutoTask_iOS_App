@@ -139,6 +139,14 @@ class TaskViewModel : ObservableObject
         
     }
     
+    
+    
+    func retrieveAllDayTasks(hour:Int) ->[TasksPerHourPerDay]
+    {
+        return taskModel.retrieveAllDayTasks(hour:hour)
+    }
+    
+    
     func retrieveAllTasksByHour(hour:Int) ->[TasksPerHourPerDay]
     {
         return taskModel.retrieveAllTasksByHour(hour:hour)

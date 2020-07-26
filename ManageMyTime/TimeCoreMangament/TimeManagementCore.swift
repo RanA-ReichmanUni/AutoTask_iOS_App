@@ -164,7 +164,7 @@ class Core{
                                     if(freeDay.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)/* && exsitingFreeDay.fullyOccupiedDay==false*/)
                                     {
                                         
-                                        if(freeDay.ending > currentHour && freeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeDay.starting < currentHour || freeDay.starting > currentHour && freeDay.duration >= asstimatedWorkTime || singleDate > currentDate)
+                                        if(freeDay.ending > currentHour && freeDay.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeDay.starting < currentHour || freeDay.starting > currentHour && freeDay.duration >= asstimatedWorkTime ||/*added this after bug no 6D ,needs checking*/ freeDay.starting == currentHour && freeDay.duration >= asstimatedWorkTime /*until here*/|| singleDate > currentDate)
                                         {
                                             
                                       
@@ -196,7 +196,7 @@ class Core{
                                                 {
                                                     newTask.startTime=freeDay.starting
                                                 }
-                                                else//If the task scheduled after the beginning of day, schedule from the current hour
+                                                else//If the task scheduled after or in the beginning of day, schedule from the current hour
                                                 {
                                                     if(freeDay.starting > currentHour)
                                                     {
@@ -356,6 +356,8 @@ class Core{
                 if(sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
                 {
                     
+                    print(sortedFreeSpaces[index].ending)
+                    print(sortedFreeSpaces[index+1].starting)
                     
                     createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
                     
@@ -914,10 +916,15 @@ class Core{
         let managedContext = appDelegate.persistentContainer.viewContext
         
         var dateSequence=[CustomDate]()
-               var currentIndexDate:CustomDate
-               var startOfMonthIndex:Int
+             
+        var startOfMonthIndex:Int
         
-        currentIndexDate=startDate
+        //Seems like a managedContext var is passed by refrence !, when we are moving to a new month for example, the currentIndexDate changes and thus we need to seperate it from the orginal object that the ScheduleTask method uses and create a new seperate object.
+        
+        var currentIndexDate=CustomDate(context: managedContext)
+        currentIndexDate.day=startDate.day
+        currentIndexDate.month=startDate.month
+        currentIndexDate.year=startDate.year
         
         while(currentIndexDate.year < endDate.year)
         {

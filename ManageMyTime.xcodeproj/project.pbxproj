@@ -61,6 +61,7 @@
 		25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E5847624ABD49F00F251D5 /* ScheduleView2.swift */; };
 		25EDA89F24B4C05200094B23 /* HourlyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA89E24B4C05200094B23 /* HourlyTime.swift */; };
 		25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8B324B5135100094B23 /* ButtonTestingView.swift */; };
+		25F047FA24CDB995003CC7D6 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F047F924CDB995003CC7D6 /* DailyView.swift */; };
 		25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FD24A22FB400671D09 /* MultiPicker.swift */; };
 		25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FF24A2304D00671D09 /* DurationSelector.swift */; };
 		25F3918024BD61C4004AB978 /* DviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3917F24BD61C4004AB978 /* DviderTest.swift */; };
@@ -145,6 +146,7 @@
 		25E5847624ABD49F00F251D5 /* ScheduleView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView2.swift; sourceTree = "<group>"; };
 		25EDA89E24B4C05200094B23 /* HourlyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTime.swift; sourceTree = "<group>"; };
 		25EDA8B324B5135100094B23 /* ButtonTestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTestingView.swift; sourceTree = "<group>"; };
+		25F047F924CDB995003CC7D6 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		25F347FD24A22FB400671D09 /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
 		25F347FF24A2304D00671D09 /* DurationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelector.swift; sourceTree = "<group>"; };
 		25F3917F24BD61C4004AB978 /* DviderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DviderTest.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				2519384A24C686290010E72D /* TempNavigator.swift */,
 				25F3917F24BD61C4004AB978 /* DviderTest.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
+				25F047F924CDB995003CC7D6 /* DailyView.swift */,
 				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
 				2568071D249FF1FF0096AB89 /* Assets.xcassets */,
@@ -501,6 +504,7 @@
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
 				2577A5EA24AD15690006E1D2 /* Column.swift in Sources */,
 				257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */,
+				25F047FA24CDB995003CC7D6 /* DailyView.swift in Sources */,
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
 				25B6D52724C3B97E007A700A /* TwoRowsPicker.swift in Sources */,
 				253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ScheduleViewRow: View {
+struct DailyView: View {
     
     
     var timeChar = "25"
@@ -24,7 +24,7 @@ struct ScheduleViewRow: View {
         
        VStack{
         
-                WeeklyScheduleBar()
+               // WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
         
        
@@ -35,9 +35,12 @@ struct ScheduleViewRow: View {
                 if(hour > 9)
                 {
                 
-                    Text(String(hour))
+                    HStack {
+                        Text(String(hour))
+                   
                     
                     Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 1))
+                         }
                 }
                 else{
                     
@@ -50,7 +53,7 @@ struct ScheduleViewRow: View {
                     }
                 }
                 
-                ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
+                ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
                     {
                         weekByHour in
                     
@@ -63,7 +66,7 @@ struct ScheduleViewRow: View {
                         
                            
                             WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour)
-                            Divider().padding(EdgeInsets(top: 0, leading: 10, bottom:0, trailing: 0))
+                        
                             
                         }
                         
@@ -100,10 +103,9 @@ struct ScheduleViewRow: View {
     }
 }
 
-struct ScheduleViewRow_Previews: PreviewProvider {
+struct DailyView_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleViewRow()/*.previewLayout(.fixed(width: 600, height: 300 ))*/
+        DailyView()/*.previewLayout(.fixed(width: 600, height: 300 ))*/
     }
 }
-
 
