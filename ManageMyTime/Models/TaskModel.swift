@@ -385,18 +385,29 @@ class TaskModel : UIViewController
                                   }*/
                                   else{
                                       
-                                      if(data[0].startTime! > beginningOfHour)
+                                     /* if(data[0].startTime! > beginningOfHour)
                                        {
                                           tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
                                        }
-                                      
-                                      tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                      */
+                                    if(data[0].endTime! < nextHour && data[0].endTime!.minutes > 45)
+                                    {
+                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
                                               //Multiple tasks per hour
+                                    }
+                                    else if(data[0].endTime! < nextHour && data[0].endTime!.minutes < 30)
+                                    {
+                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                                                                 //Multiple tasks per hour
+                                    }
+                                    else{
+                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                    }
                                       
-                                      if(data[0].endTime! < nextHour)
+                                  /*    if(data[0].endTime! < nextHour)
                                        {
                                             tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
-                                       }
+                                       }*/
                                       
                                       
                                   }

@@ -35,9 +35,9 @@ struct ScheduleViewRow: View {
                 if(hour > 9)
                 {
                 
-                    Text(String(hour))
+                    Text(String(hour)).frame(width: geometry.size.width/18.7, height:  geometry.size.height/30)
                     
-                    Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 1))
+                    Divider()
                 }
                 else{
                     
@@ -46,8 +46,8 @@ struct ScheduleViewRow: View {
                         
                         Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing:0))
                      
-                        Divider().padding(EdgeInsets(top: 5, leading: -2, bottom:0, trailing: 0))
-                    }
+                        Divider()
+                    }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)
                 }
                 
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
@@ -62,8 +62,8 @@ struct ScheduleViewRow: View {
                             
                         
                            
-                            WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour)
-                            Divider().padding(EdgeInsets(top: 0, leading: 10, bottom:0, trailing: 0))
+                            WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame(width: geometry.size.width/14.3, height:  geometry.size.height/15)
+                            Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
                             
                         }
                         

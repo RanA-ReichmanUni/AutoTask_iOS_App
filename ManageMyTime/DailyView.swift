@@ -65,7 +65,7 @@ struct DailyView: View {
                             
                         
                            
-                            WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour)
+                            WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom)
                         
                             
                         }

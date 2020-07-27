@@ -23,32 +23,36 @@ struct WeeklyTasksRow: View {
                  
                         if(self.hourTasks.isEmptySlot)
                         {
-                            HStack {
-                                TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
-                            
+                        GeometryReader { geometry in
+                                HStack {
+                                    TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
+                                
+                                }
                             }
                               
                         }
                         else{
+                       
                             VStack {
                           
                            
                         ForEach(self.hourTasks.tasks){
                              task in
-           
+            GeometryReader { geometry in
                                    // DviderTest(offSet:self.offSet)
                             if(task.taskName=="")
                             {
-                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: 0))
+                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
                             }
                             else{
                                 
-                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: task.color).padding(EdgeInsets(top: 7, leading: 0, bottom:0.1, trailing: -15))
+                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height).padding(EdgeInsets(top: 2, leading: 2, bottom: 4, trailing: 4))
                                     
-                            }
+                                        }
                                    
+                                    }
+                                }
                             }
-                                 }
                         }
                     
                 }
