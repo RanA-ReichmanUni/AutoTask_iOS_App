@@ -19,23 +19,30 @@ struct TempNavigator: View {
                     
                     Text("Weekly Schedule")
                 }
-                
+            
                 NavigationLink(destination:DailyView()){
                             
                             Text("Daily Schedule")
-                        }
+                }
             
                 
                 NavigationLink(destination:TaskList()){
                                  
                     Text("Task List")
                 }
+            
+                NavigationLink(destination:AddTask()){
+                                                        
+                            Text("Add Task")
+                }
+                        
                 
                 NavigationLink(destination:ButtonTestingView()){
                                                 
                     Text("Button Testing")
                 }
-                
+            
+
                 
           
             

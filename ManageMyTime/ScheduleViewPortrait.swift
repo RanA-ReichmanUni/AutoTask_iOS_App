@@ -1,17 +1,16 @@
 //
-//  ScheduleViewRow.swift
+//  ScheduleViewPortrait.swift
 //  ManageMyTime
 //
-//  Created by רן א on 01/07/2020.
+//  Created by רן א on 28/07/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 
 import SwiftUI
 
 
-
-struct ScheduleViewRow: View {
-          @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+struct ScheduleViewPortrait: View {
+    
     
     var timeChar = "25"
     //var columns : [String]
@@ -25,11 +24,11 @@ struct ScheduleViewRow: View {
             
         
        VStack{
-           
-        WeeklyScheduleBar()
+        
+                WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
         
-    
+       
         
             List(self.dayRange,id:\.self){
                     hour in
@@ -37,7 +36,9 @@ struct ScheduleViewRow: View {
                 if(hour > 9)
                 {
                 
-                 ListTextHourSelector(hour: hour, geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
+                    Text(String(hour)).frame(width: geometry.size.width/18.7, height:  geometry.size.height/30)
+                    
+                    Divider()
                 }
                 else{
                     
@@ -60,15 +61,14 @@ struct ScheduleViewRow: View {
                             Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
                             }*/
                             
-                            
-                            ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometryWidth:geometry.size.width,geometryHeight:geometry.size.height)
-              
                         
+                           
+                            WeeklyTasksPotrait(timeChar:String(hour),hourTasks: weekByHour).frame(width: geometry.size.width/9, height:  geometry.size.height/15)
+                            Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
                             
                         }
                         
                     }
-               
                 
                 
                         /*Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
@@ -81,9 +81,7 @@ struct ScheduleViewRow: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
-              
                     }
-          Spacer()
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
                 
@@ -97,14 +95,13 @@ struct ScheduleViewRow: View {
                                          TestTaskRow(taskName:"Algebra 1",heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                 }*/
         
-
-
+            
             }
         }
     }
 }
 
-struct ScheduleViewRow_Previews: PreviewProvider {
+struct ScheduleViewPortrait_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleViewRow()/*.previewLayout(.fixed(width: 600, height: 300 ))*/
     }

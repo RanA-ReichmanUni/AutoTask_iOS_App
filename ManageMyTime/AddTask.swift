@@ -25,52 +25,66 @@ struct AddTask: View {
     
     @ObservedObject var taskViewModel = TaskViewModel()
     
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     @State var activeTask : Bool = true
     @State var taskName : String = ""
     @State var notes : String = ""
   
     var importanceValues = ["Very High", "High", "Medium", "Low","Very Low"]
     
-      @State private var selectedImportanceIndex = 2
+    @State private var selectedImportanceIndex = 2
     
     @State var data: [(String, [String])] = [
-        ("One", Array(0...20).map { "\($0)" }),
-        ("Two", Array(0...59).map { "\($0)" })
+        ("Hours", Array(0...20).map { "\($0)" }),
+        ("Minutes", Array(0...59).map { "\($0)" })
     ]
     @State var selection: [String] = [0, 0, 0].map { "\($0)" }
     
     @State var selectedDate = Date()
   
+   var disableSave: Bool {
+        taskName == "" || (selection[0]=="0" && selection[1]=="0")
+    }
+    
     var body: some View {
         
-        NavigationView {
+        //NavigationView {
             VStack {
                 Form {
                     Section(header:   HStack {
-                                        Image(systemName: "pencil")
-                                        Text("New Task")
+                                        Image(systemName: "rays").foregroundColor(.green)
+                        Text("New Task").font(.system(size: 18)).foregroundColor(.blue)
+                        
                           }) {
                         
                             TextField("Task Name", text: $taskName)
-                          Section {
+                          Section {  HStack {        Image(systemName:"exclamationmark.circle").foregroundColor(.blue)
                                       Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
                                           ForEach(0 ..< importanceValues.count) {
-                                              Text(self.importanceValues[$0])
+                                            Text(self.importanceValues[$0])
                                           }
                                       }
+                                    }
                                   }
-                       
+                            
                         
-                
-                        NavigationLink(destination: MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 150)) {
-                                              
+                Section(header: HStack {
+                                   Image(systemName:"clock").foregroundColor(.blue)
+                                   Text("Work Time")
+                               }) {
+                            MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
+                            }
                                             
-                                  Text(verbatim: "Asstimated Work Time:\n \(selection[0]) Hours \(selection[1]) Minutes")
+             
                        
-                                              }
+                                     
                             VStack{
-                            DatePicker(selection: $selectedDate, label: { /*@START_MENU_TOKEN@*/Text("Date")/*@END_MENU_TOKEN@*/ })
-                    
+              
+                            DatePicker(selection: $selectedDate, in: Date()... ,label: {
+                                    HStack{ Image(systemName:"calendar").foregroundColor(.blue)
+                                        Text("Due Date")} })
+                                
                             }.animation(nil)
                             //Handles IOS 13 date picker animation bug, shame it exsists.
                             
@@ -94,83 +108,25 @@ struct AddTask: View {
                     
                 }
                 
-                HStack {
-                    Button(action: {
-                        
-                          
-                           
-                        var fixedDate = Date()
-                     
-                        self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: 5,workTimeMinutes: 30, dueDate: fixedDate, notes: self.notes)
-                    
-                      
-                            /*
-                        let newTask = Task(context: self.managedObjectContext)
-                            newTask.taskName = self.taskName
-                            newTask.importance = self.importanceValues[self.selectedImportanceIndex]
-                            newTask.asstimatedWorkTime = 60
-                            newTask.dueDate = fixedDate
-                            newTask.notes=self.notes
-                            newTask.id = UUID()
-                            do {
-                             try self.managedObjectContext.save()
-                             print("Order saved.")
-                                print(newTask)
-                            } catch {
-                             print(error.localizedDescription)
-                             }
-*/
-                    }) {
-                                
-                        Text("Save")
-                    }
-                    
-                    
-                    Button(action: {
-         
-                        //A couple of calling option with function overload:
-                       // try? self.taskController.retrieveTask(taskID : "8F9099DD-1D49-4A27-BFF0-DF1A42AE4D9C")
-                        //self.taskViewModel.retrieveTask(taskName: "MVC")
-                        //self.taskController.retrieveAllTasks()
-                        
-                        self.taskViewModel.retrieveTask(taskName: "MVC")
-                        
-                        
-                        /*print(String(self.tasks[1].taskName ?? "none"))
-                         print(String(self.tasks[1].importance))
-                         print(String(self.tasks[1].asstimatedWorkTime))
-                         print(self.tasks[1].notes)
-                 */
-                    
-                        
-                                   
-                                  }) {
-                                              
-                                      Text("Retrieve")
-                                  }
-                    
-                    Button(action: {
-                          
-                       /* self.taskViewModel.updateData(orginalTaskName: "newTaskName", newTaskName: "infi b", newImportance: "VeryHigh", newAsstimatedWorkTime: 50, newDueDate: Date(), newNotes: "Hello")
-                     */
-                                         
-                                                    
-                                                   }) {
-                                                               
-                                                       Text("Update")
-                                                   }
-                    
-                    /*Button(action: {
-                                            
-                            self.taskViewModel.deleteTask(taskName: "infi b")
- 
-                        }) {
-                                                                                 
-                             Text("Delete")
-                            
-                            }*/
-                }
+           
                 
+                        Button(action: {
+                            
+               
+                           
+                         
+                            self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes)
+                        
+                          self.mode.wrappedValue.dismiss()
+               
+
+                            }) {
+                                    
+                            Text("Save")
+                        }
+                        .disabled(disableSave)
+                    
+           
                 
                 
                     
@@ -178,8 +134,7 @@ struct AddTask: View {
             
           
 
-            }
-            .navigationBarTitle("Add Task")
+           // }.navigationBarTitle("Add Task")
         }
         
     

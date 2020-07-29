@@ -62,18 +62,19 @@ class TaskViewModel : ObservableObject
         
     }
     
-    func createTask(taskName:String,importance:String,workTimeHours:Int,workTimeMinutes:Int,dueDate:Date,notes:String)
+    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String)
     {
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
+        
         self.taskName=taskName
         self.importance=importance
         self.dueDate=dueDate
         self.notes=notes
         asstimatedWorkTime=Hour(context: managedContext)
-        self.asstimatedWorkTime.hour=workTimeHours
-        self.asstimatedWorkTime.minutes=workTimeMinutes
+        self.asstimatedWorkTime.hour=Int(workTimeHours) ?? 0
+        self.asstimatedWorkTime.minutes=Int(workTimeMinutes) ?? 30
         
         
         taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
