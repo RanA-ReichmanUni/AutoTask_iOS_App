@@ -14,26 +14,26 @@ struct ScehduleSelector: View {
     var hour:String
     var weekByHour:TasksPerHourPerDay
     
-    var geometryWidth:CGFloat
-    var geometryHeight:CGFloat
+    var geometry:GeometryProxy
+
     
       @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     
     var body: some View {
-         VStack {
-            
-         if self.horizontalSizeClass == .compact {
-                              
-            WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometryWidth:self.geometryWidth,geometryHeight:self.geometryHeight)
+       VStack {
+               
+            if self.horizontalSizeClass == .compact {
+                                 
+               CompactViewSelector(hour:String(hour),weekByHour: weekByHour,geometry:self.geometry)
 
-                                             
-            } else if self.horizontalSizeClass == .regular{
-                     
-                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometryWidth:self.geometryWidth,geometryHeight:self.geometryHeight)
-                    
-            }
-        }
+                                                
+               } else if self.horizontalSizeClass == .regular{
+                        
+                    RegularViewSelector(hour:String(hour),weekByHour: weekByHour,geometry:self.geometry)
+                       
+               }
+           }
        
     }
 }

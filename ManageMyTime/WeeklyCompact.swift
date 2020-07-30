@@ -12,14 +12,15 @@ struct WeeklyCompact: View {
     var timeChar : String
     var hourTasks : TasksPerHourPerDay
     
-    var geometryWidth:CGFloat
-    var geometryHeight:CGFloat
+    var geometry:GeometryProxy
+    var widthFactor:CGFloat
+    var heightFactor:CGFloat
     
     var body: some View {
         
         HStack{
  
-                WeeklyTasksRow(timeChar:String(self.timeChar),hourTasks: self.hourTasks).frame(width: geometryWidth/14.3, height:  geometryHeight/15)
+            WeeklyTasksRow(timeChar:String(self.timeChar),hourTasks: self.hourTasks).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor)
                                     
                         Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
             

@@ -12,6 +12,9 @@
 		250F5AFB24AA32DF00ABCDA4 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */; };
 		250F5B0024AA3C6800ABCDA4 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */; };
 		250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */; };
+		251649A424D34DBE003018BE /* LowRes750Compact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A324D34DBE003018BE /* LowRes750Compact.swift */; };
+		251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A524D36ADC003018BE /* CompactViewSelector.swift */; };
+		251649A824D36B1F003018BE /* RegularViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A724D36B1F003018BE /* RegularViewSelector.swift */; };
 		2519384B24C686290010E72D /* TempNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519384A24C686290010E72D /* TempNavigator.swift */; };
 		251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */; };
 		251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60924A52E2400AC82F3 /* TaskModel.swift */; };
@@ -41,7 +44,9 @@
 		2577A5E824AD13B80006E1D2 /* ScheduleViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */; };
 		2577A5EA24AD15690006E1D2 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E924AD15690006E1D2 /* Column.swift */; };
 		2577A5EC24AD5D8E0006E1D2 /* DailyViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */; };
+		257E557324D1B6880056911B /* RestrictedSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E557224D1B6880056911B /* RestrictedSpaceView.swift */; };
 		257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */; };
+		2583029D24D34701003935B7 /* TableTestD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583029C24D34701003935B7 /* TableTestD.swift */; };
 		2587D96024B7A89E00A3AFF9 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */; };
 		258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */; };
 		258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */; };
@@ -98,6 +103,9 @@
 		250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
 		250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncs.swift; sourceTree = "<group>"; };
+		251649A324D34DBE003018BE /* LowRes750Compact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowRes750Compact.swift; sourceTree = "<group>"; };
+		251649A524D36ADC003018BE /* CompactViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViewSelector.swift; sourceTree = "<group>"; };
+		251649A724D36B1F003018BE /* RegularViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularViewSelector.swift; sourceTree = "<group>"; };
 		2519384A24C686290010E72D /* TempNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigator.swift; sourceTree = "<group>"; };
 		251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		251EE60924A52E2400AC82F3 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
@@ -133,7 +141,9 @@
 		2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewRow.swift; sourceTree = "<group>"; };
 		2577A5E924AD15690006E1D2 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewRow.swift; sourceTree = "<group>"; };
+		257E557224D1B6880056911B /* RestrictedSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceView.swift; sourceTree = "<group>"; };
 		257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RestrictedSpace.swift; path = ManageMyTime/RestrictedSpace.swift; sourceTree = SOURCE_ROOT; };
+		2583029C24D34701003935B7 /* TableTestD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestD.swift; sourceTree = "<group>"; };
 		2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksRow.swift; sourceTree = "<group>"; };
 		258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleBar.swift; sourceTree = "<group>"; };
@@ -270,6 +280,8 @@
 				257ECFE624B27AD9006051C5 /* TimeCoreMangament */,
 				253C5CE624B118F100C95A06 /* Objects */,
 				2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */,
+				2583029C24D34701003935B7 /* TableTestD.swift */,
+				257E557224D1B6880056911B /* RestrictedSpaceView.swift */,
 				2577A5E524ACF3040006E1D2 /* ScheduleView.swift */,
 				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
 				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
@@ -278,9 +290,12 @@
 				25D920B324CFA36A00A852BF /* WeeklyCompact.swift */,
 				25D920B524CFA37800A852BF /* WeeklyRegular.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
+				251649A324D34DBE003018BE /* LowRes750Compact.swift */,
 				2558924B24D084F600346AC6 /* ListTextHourSelector.swift */,
 				25D920AB24CF97D700A852BF /* ScheduleViewPortrait.swift */,
 				25D920B124CF9A5700A852BF /* ScehduleSelector.swift */,
+				251649A524D36ADC003018BE /* CompactViewSelector.swift */,
+				251649A724D36B1F003018BE /* RegularViewSelector.swift */,
 				25D920AD24CF981D00A852BF /* WeeklyTasksPotrait.swift */,
 				25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */,
 				25F047F924CDB995003CC7D6 /* DailyView.swift */,
@@ -489,6 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				251649A824D36B1F003018BE /* RegularViewSelector.swift in Sources */,
 				250F5AFB24AA32DF00ABCDA4 /* TaskRow.swift in Sources */,
 				253455D824A14B7B007CB6BF /* TestView3.swift in Sources */,
 				25CD218A24BB59CF0048DDAC /* CustomDate+CoreDataClass.swift in Sources */,
@@ -523,10 +539,13 @@
 				258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */,
 				259AAD4424C797A100A085E9 /* RestrictedSpace+CoreDataClass.swift in Sources */,
 				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
+				251649A424D34DBE003018BE /* LowRes750Compact.swift in Sources */,
+				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
 				2577A5EA24AD15690006E1D2 /* Column.swift in Sources */,
 				257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */,
+				257E557324D1B6880056911B /* RestrictedSpaceView.swift in Sources */,
 				25F047FA24CDB995003CC7D6 /* DailyView.swift in Sources */,
 				25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */,
 				25D920AC24CF97D700A852BF /* ScheduleViewPortrait.swift in Sources */,
@@ -545,6 +564,7 @@
 				259AAD3C24C7658600A085E9 /* FreeTaskSpace+CoreDataClass.swift in Sources */,
 				253C5CEA24B11A0400C95A06 /* HourlyTask.swift in Sources */,
 				250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */,
+				2583029D24D34701003935B7 /* TableTestD.swift in Sources */,
 				2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */,
 				259AAD4524C797A100A085E9 /* RestrictedSpace+CoreDataProperties.swift in Sources */,
 				25D920B424CFA36A00A852BF /* WeeklyCompact.swift in Sources */,

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TempNavigator: View {
     var body: some View {
+        
       NavigationView {
         List(){
             

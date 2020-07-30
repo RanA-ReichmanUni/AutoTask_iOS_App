@@ -14,12 +14,13 @@ struct WeeklyRegular: View {
     
     var timeChar : String
     var hourTasks : TasksPerHourPerDay
-    var geometryWidth:CGFloat
-    var geometryHeight:CGFloat
+    var geometry:GeometryProxy
+    var widthFactor:CGFloat
+    var heightFactor:CGFloat
     
     var body: some View {
         HStack{
-            WeeklyTasksPotrait(timeChar:String(timeChar),hourTasks: hourTasks).frame(width: geometryWidth/10.3, height:  geometryHeight/13).padding(EdgeInsets(top: 2, leading: 1, bottom: 1, trailing: 1))
+            WeeklyTasksPotrait(timeChar:String(timeChar),hourTasks: hourTasks).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor).padding(EdgeInsets(top: 2, leading: 1, bottom: 1, trailing: 1))
  
                     Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
         }

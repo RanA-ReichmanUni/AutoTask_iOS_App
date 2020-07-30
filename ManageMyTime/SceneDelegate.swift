@@ -28,9 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let addTask = AddTask().environment(\.managedObjectContext, context)
         let taskList = TaskList().environment(\.managedObjectContext, context)
          let buttonTestingView = ButtonTestingView().environment(\.managedObjectContext, context)
-         let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
+        // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
         let tempNavigator = TempNavigator().environment(\.managedObjectContext, context)
-       
+        let tableTestD = TableTestD().environment(\.managedObjectContext, context)
         
       
         // Use a UIHostingController as window root view controller.
