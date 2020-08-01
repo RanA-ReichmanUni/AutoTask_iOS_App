@@ -478,10 +478,10 @@ class Core{
                  
                  
                  //Sort by this order preference: year, month, day
-                 retrivedFreeDays.sort {
-                     ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
-                         ($1.date.year,$1.date.month,$1.date.day,$0.starting.hour)
-                 }
+                  retrivedFreeDays.sort {
+                               ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
+                                   ($1.date.year,$1.date.month,$1.date.day,$1.starting.hour)
+                           }
               
                  for freeDay in retrivedFreeDays
                  
