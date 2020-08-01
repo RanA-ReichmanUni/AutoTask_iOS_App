@@ -56,7 +56,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 8
-        dateComponents.day = 1
+        dateComponents.day = 8
 
 
         // Create date from components
@@ -481,7 +481,7 @@ class TaskModel : UIViewController
            beginningOfHour.hour=hour
            beginningOfHour.minutes=0
            
-               let weekSequence=coreManagment.createCalanderSequence(startDay: 26, startMonth: 7, startYear: 2020, endDay: 1, endMonth: 8, endYear: 2020)
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 2, startMonth: 8, startYear: 2020, endDay: 8, endMonth: 8, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -491,8 +491,8 @@ class TaskModel : UIViewController
                    var result = try managedContext.fetch(fetchRequest) as! [Task]
                    
                    result.sort {
-                       ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour) <
-                           ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
+                       ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                           ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
                    }
                    
                      //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())

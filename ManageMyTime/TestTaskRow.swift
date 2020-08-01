@@ -24,7 +24,7 @@ struct TestTaskRow: View {
     var body: some View {
     GeometryReader { geometry in
         VStack() {
-            Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).minimumScaleFactor(0.9)
+            Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height)//.minimumScaleFactor(0.9)
                     //geometry.size.width seems to be relative to what ever exsits on the eidth axis, if it's empty, then it's all the screen width, if there something, then it's becomes relative
                     //rowHeight is as calculated above
                 .background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white)
