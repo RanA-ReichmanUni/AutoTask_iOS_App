@@ -61,8 +61,11 @@ struct ScheduleViewRow: View {
                             }*/
                             
                          
-                            ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry)
-              
+                            //ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry)
+                            
+                            WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame(height:  geometry.size.height*0.098)
+                            
+                            Divider()
                             
                             
                         }
