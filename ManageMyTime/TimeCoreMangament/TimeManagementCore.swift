@@ -191,11 +191,15 @@ class Core{
                                             newTask.notes=notes
                                             newTask.id=UUID()
                                             
+                                            handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
+                                            
                                             //Needs to send back this task at the end of execution
                                                 
                                             let startTime = newTask.endTime!
                                             let endTime = freeDay.ending
-                                                 
+                                            
+                                            
+                                            
                                             let freeSpaceDate = freeDay.date
                                   
                                             
@@ -302,6 +306,61 @@ class Core{
                         return Task()
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
+    
+    func handleLoad(date:CustomDate,duration:Hour)
+    {
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "LoadLevel")
+                                              
+                          
+            fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
+                                                    
+            var loadLevels = [LoadLevel]()
+                
+              do
+              {
+                  let results = try managedContext.fetch(fetchRequest)
+                  
+            
+                      
+                      
+                    for result in results as! [NSManagedObject] {
+
+                          let spaceObj = result as! LoadLevel
+                      
+                          loadLevels.append(spaceObj)
+                          
+                     }
+              }
+              catch
+              {
+                  print(error)
+              }
+                
+                if(loadLevels.isEmpty)
+                {
+                
+                   let loadLevel=LoadLevel(context: managedContext)
+                    loadLevel.date=date
+                    loadLevel.loadLevel=CGFloat(duration.hourInMinutes())/CGFloat((endOfTheDay-startOfTheDay)*60)
+
+                    loadLevel.id=UUID()
+                    
+                }
+                
+                else{
+                    
+                    loadLevels[0].loadLevel = loadLevels[0].loadLevel+CGFloat(duration.hourInMinutes())/CGFloat((endOfTheDay-startOfTheDay)*60)
+                    
+                }
+        
+    }
+    
     
     func mergeFreeSpaces()
      {

@@ -36,7 +36,11 @@ struct TempNavigator: View {
                                                         
                             Text("Add Task")
                 }
-                        
+                NavigationLink(destination:StressDailyView()){
+                                                                  
+                            Text("Daily Work Load")
+                }
+                 
                 
                 NavigationLink(destination:ButtonTestingView()){
                                                 

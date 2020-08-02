@@ -11,6 +11,7 @@ import SwiftUI
 struct CircularBar: View {
     
     @State var progress: CGFloat = 0
+    var percentage:CGFloat
     
     var body: some View {
         VStack {
@@ -32,10 +33,10 @@ struct CircularBar: View {
     }
     
     func startLoading() {
-        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
             withAnimation() {
-                self.progress += 0.045
-                if self.progress >= 0.8 {
+                self.progress += 0.01
+                if self.progress >= self.percentage {
                     timer.invalidate()
                 }
             }
@@ -45,6 +46,6 @@ struct CircularBar: View {
 
 struct CircularBar_Previews: PreviewProvider {
     static var previews: some View {
-       CircularBar()
+        CircularBar(percentage:CGFloat(0.4))
     }
 }

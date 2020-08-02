@@ -156,6 +156,13 @@ extension Hour {
         return newHourlyTime
     }
     
+    func hourInMinutes() -> Int
+    {
+        
+        return (self.hour*60+self.minutes)
+  
+    }
+    
     
     func isBigger(newHour:Hour) -> Bool
     {

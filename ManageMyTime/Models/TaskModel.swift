@@ -586,6 +586,52 @@ class TaskModel : UIViewController
            return allTasks
            }
     
+    func getAllDailyLoads() -> [LoadLevel]
+    {
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [LoadLevel]()}
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+        
+           let currentDate = CustomDate(context:managedContext)
+            currentDate.year=Date().year
+            currentDate.month=Date().month
+            currentDate.day=Date().day
+        
+        
+           let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "LoadLevel")
+                                                 
+                             
+               fetchRequest.predicate = NSPredicate(format: "date >= %@", argumentArray: [currentDate])
+                                                       
+               var loadLevels = [LoadLevel]()
+                   
+                 do
+                 {
+                     let results = try managedContext.fetch(fetchRequest)
+                     
+               
+                         
+                         
+                       for result in results as! [NSManagedObject] {
+
+                             let spaceObj = result as! LoadLevel
+                         
+                             loadLevels.append(spaceObj)
+                             
+                        }
+                 }
+                 catch
+                 {
+                     print(error)
+                 }
+                   
+        
+                return loadLevels
+    
+    
+    }
     
     func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime : Int32, newDueDate : Date, newNotes : String ){
      
