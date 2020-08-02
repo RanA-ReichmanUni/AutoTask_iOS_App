@@ -25,7 +25,7 @@ struct WeeklyTasksRow: View {
                         {
                         GeometryReader { geometry in
                                 HStack {
-                                    TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 1, bottom: 4, trailing: 1))
+                                    TestTaskRow(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                                 
                                 }
                             }
@@ -42,11 +42,11 @@ struct WeeklyTasksRow: View {
                                    // DviderTest(offSet:self.offSet)
                             if(task.taskName=="")
                             {
-                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 1, bottom: 4, trailing: 1))
+                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                             }
                             else{
                                 
-                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height).padding(EdgeInsets(top: 2, leading: 1, bottom: 4, trailing: 1))
+                                TestTaskRow(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height).padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                                     
                                         }
                                    
