@@ -12,6 +12,7 @@ struct CircularBar: View {
     
     @State var progress: CGFloat = 0
     var percentage:CGFloat
+   
     
     var body: some View {
         VStack {
