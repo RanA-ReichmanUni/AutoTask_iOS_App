@@ -13,14 +13,14 @@ struct WeeklyScheduleBar: View {
          HStack(alignment: .top){
                                   Image(systemName: "clock").padding(EdgeInsets(top: 9, leading: 5, bottom: 0, trailing: -6)).foregroundColor(.red)
                                   GeometryReader{geometry in
-                                      Text("S").foregroundColor(Color.blue).frame(width: geometry.size.width/5, height:  geometry.size.height)
+                                      Text("Sun").foregroundColor(Color.blue).frame(width: geometry.size.width/5, height:  geometry.size.height)
                                            
-                                    Text("M").foregroundColor(Color.red).frame(width: geometry.size.width/2.09, height:  geometry.size.height)
-                                      Text("T").foregroundColor(Color.blue).frame(width: geometry.size.width/1.32, height:  geometry.size.height)
-                                      Text("W").foregroundColor(Color.red).frame(width: geometry.size.width/0.96, height:  geometry.size.height)
-                                      Text("T").foregroundColor(Color.blue).frame(width: geometry.size.width/0.775, height:  geometry.size.height)
-                                      Text("F").foregroundColor(Color.red).frame(width: geometry.size.width/0.645, height:  geometry.size.height)
-                                      Text("S").foregroundColor(Color.blue).frame(width: geometry.size.width/0.545, height:  geometry.size.height)
+                                    Text("Mon").foregroundColor(Color.red).frame(width: geometry.size.width/2.09, height:  geometry.size.height)
+                                      Text("Tue").foregroundColor(Color.blue).frame(width: geometry.size.width/1.32, height:  geometry.size.height)
+                                      Text("Wen").foregroundColor(Color.red).frame(width: geometry.size.width/0.96, height:  geometry.size.height)
+                                      Text("Tue").foregroundColor(Color.blue).frame(width: geometry.size.width/0.775, height:  geometry.size.height)
+                                      Text("Fri").foregroundColor(Color.red).frame(width: geometry.size.width/0.645, height:  geometry.size.height)
+                                      Text("Sat").foregroundColor(Color.blue).frame(width: geometry.size.width/0.545, height:  geometry.size.height)
                                   }
             }.frame(height: 30).padding()//was 30 in height
     }

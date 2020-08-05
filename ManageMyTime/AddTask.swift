@@ -59,6 +59,14 @@ struct AddTask: View {
                           }) {
                         
                             TextField("Task Name", text: $taskName)
+                            
+                        Section(header: HStack {
+                                                Image(systemName:"clock").foregroundColor(.blue)
+                                                Text("Work Time")
+                                            }) {
+                                         MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
+                                         }
+                            
                           Section {  HStack {        Image(systemName:"exclamationmark.circle").foregroundColor(.blue)
                                       Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
                                           ForEach(0 ..< importanceValues.count) {
@@ -69,12 +77,7 @@ struct AddTask: View {
                                   }
                             
                         
-                Section(header: HStack {
-                                   Image(systemName:"clock").foregroundColor(.blue)
-                                   Text("Work Time")
-                               }) {
-                            MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
-                            }
+     
                                             
              
                        

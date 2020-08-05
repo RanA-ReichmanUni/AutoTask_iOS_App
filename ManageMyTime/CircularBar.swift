@@ -34,7 +34,7 @@ struct CircularBar: View {
     }
     
     func startLoading() {
-        _ = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.04, repeats: true) { timer in
             withAnimation() {
                 self.progress += 0.01
                 if self.progress >= self.percentage {

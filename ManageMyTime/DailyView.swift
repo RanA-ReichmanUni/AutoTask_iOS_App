@@ -16,6 +16,7 @@ struct DailyView: View {
     
     var taskViewModel = TaskViewModel()
     var dayRange = 7...24
+
     
     var body: some View {
         
@@ -35,22 +36,11 @@ struct DailyView: View {
                 if(hour > 9)
                 {
                 
-                    HStack {
-                        Text(String(hour))
-                   
-                    
-                    Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 1))
-                         }
+                    BigChar(hour:hour)
                 }
                 else{
                     
-                    HStack {
-                        Text(String(0)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 0))
-                        
-                        Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing:0))
-                     
-                        Divider().padding(EdgeInsets(top: 5, leading: -2, bottom:0, trailing: 0))
-                    }
+                    SmallChar(hour:hour)
                 }
                 
                 ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
