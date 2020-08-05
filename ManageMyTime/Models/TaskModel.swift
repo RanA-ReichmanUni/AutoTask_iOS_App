@@ -221,6 +221,9 @@ class TaskModel : UIViewController
                        
                   //  print("Name:",retrievedObject.taskName as! String)
                     
+                    print(retrievedObject.taskName)
+                    print(retrievedObject.id)
+                    
                       return retrievedObject
                   }
                     

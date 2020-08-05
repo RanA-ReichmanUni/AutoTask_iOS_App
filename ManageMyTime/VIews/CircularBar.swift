@@ -39,6 +39,10 @@ struct CircularBar: View {
                 self.progress += 0.01
                 if self.progress >= self.percentage {
                     timer.invalidate()
+                    if(self.progress>self.percentage)
+                    {
+                        self.progress=self.percentage
+                    }
                 }
             }
         }

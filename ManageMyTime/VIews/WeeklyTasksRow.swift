@@ -14,7 +14,8 @@ struct WeeklyTasksRow: View {
       
     var hourTasks : TasksPerHourPerDay
 
-    var taskViewModel = TaskViewModel()
+
+  // @EnvironmentObject var taskViewModel:TaskViewModel
     
     var body: some View {
          

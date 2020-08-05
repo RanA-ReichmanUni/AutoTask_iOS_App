@@ -12,13 +12,13 @@ import SwiftUI
 
 struct ScheduleViewRow: View {
           @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-    
+  //  @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var timeChar = "25"
     //var columns : [String]
     
-    var taskViewModel = TaskViewModel()
+    @EnvironmentObject var taskViewModel:TaskViewModel
     var dayRange = 7...24
-    
+
     var body: some View {
         
         GeometryReader { geometry in
@@ -70,7 +70,7 @@ struct ScheduleViewRow: View {
                             
                         }
                         
-                    }
+                }
                
                 
                 
@@ -85,7 +85,7 @@ struct ScheduleViewRow: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
               
-                    }
+        }
           Spacer()
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
@@ -103,14 +103,14 @@ struct ScheduleViewRow: View {
 
 
             }
-        }
+        }.onDisappear{self.taskViewModel.retrieveAllTasks()}
     }
 }
 
-struct ScheduleViewRow_Previews: PreviewProvider {
+/*struct ScheduleViewRow_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleViewRow()/*.previewLayout(.fixed(width: 600, height: 300 ))*/
     }
 }
-
+*/
 

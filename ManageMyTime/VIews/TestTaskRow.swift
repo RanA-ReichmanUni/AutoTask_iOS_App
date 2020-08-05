@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TestTaskRow: View {
-    @ObservedObject var taskViewModel = TaskViewModel()
+    @EnvironmentObject var taskViewModel:TaskViewModel
     var taskName:String
     var taskId:UUID?
     var heightFactor : CGFloat
@@ -23,7 +23,7 @@ struct TestTaskRow: View {
     
     var body: some View {
     GeometryReader { geometry in
-
+        ZStack{
             VStack() {
                 
                 //.minimumScaleFactor(0.9)
@@ -32,20 +32,22 @@ struct TestTaskRow: View {
                     
         
                    
-                        Text(self.taskName).frame(width: geometry.size.width+10, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white).onTapGesture{
+                        Text(self.taskName).frame(width: geometry.size.width+8, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white).onTapGesture{
                             if(self.taskId != nil)
                                                        {
-                                                           self.taskViewModel.getTask(taskId: self.taskId!)
-                                                            self.displayItem.toggle()
+                                                          // self.taskViewModel.getTask(taskId: self.taskId!)
+                                                           self.displayItem.toggle()
                                                        }
                         
-                        
+                          
     
                                     
                     }
+           
+            }
                     .popover(isPresented: self.$displayItem) {
                         VStack {
-                            DetailedTaskWithObj(taskViewModel: self.taskViewModel,displayItem:self.$displayItem)
+                            DetailedTaskWithObj(displayItem:self.$displayItem,taskId:self.taskId!).environmentObject(self.taskViewModel)
                         }
                     }
                 }
@@ -64,10 +66,10 @@ struct TestTaskRow: View {
     }
 }
 
-struct TestTaskRow_Previews: PreviewProvider {
+/*struct TestTaskRow_Previews: PreviewProvider {
     static var previews: some View {
         TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),fillColor:Color(.systemPink))
     }
-}
+}*/
 
 

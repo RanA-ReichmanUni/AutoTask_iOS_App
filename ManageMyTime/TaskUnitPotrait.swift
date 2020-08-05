@@ -41,9 +41,10 @@ struct TaskUnitPotrait: View {
     }
 
 
-struct TaskUnitPotrait_Previews: PreviewProvider {
+/*struct TaskUnitPotrait_Previews: PreviewProvider {
     static var previews: some View {
         TestTaskRow(taskName:"Algebra",heightFactor: CGFloat(1.4),fillColor:Color(.systemPink))
     }
 }
 
+*/

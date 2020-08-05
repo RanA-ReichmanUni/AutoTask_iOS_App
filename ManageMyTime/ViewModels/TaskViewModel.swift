@@ -48,23 +48,42 @@ class TaskViewModel : ObservableObject
     
     var taskModel = TaskModel()
     
+
+    
     
      init()
      {
-     
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                         
+                         //We need to create a context from this container
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        
         taskName="Default"
         importance="Medium"
-        asstimatedWorkTime=Hour()
+        asstimatedWorkTime=Hour(context: managedContext)
+
         dueDate=Date()
         notes="None"
         //allTasks=[]
         viewModelTask=Task()
         //color=Color(.systemTeal)
         id=UUID()
-        startTime=Hour()
-        endTime=Hour()
-        date=CustomDate()
-        retrieveAllTasks()
+        startTime=Hour(context: managedContext)
+        endTime=Hour(context: managedContext)
+        date=CustomDate(context: managedContext)
+        
+        asstimatedWorkTime.hour=0
+        asstimatedWorkTime.minutes=0
+        startTime.hour=0
+        startTime.minutes=0
+        endTime.hour=0
+        endTime.minutes=0
+        
+        date.day=0
+        date.month=0
+        date.year=0
+        
+        //retrieveAllTasks()
     
      }
     
@@ -187,6 +206,7 @@ class TaskViewModel : ObservableObject
         self.taskName=viewModelTask.taskName
         self.importance=viewModelTask.importance!
         self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        print(viewModelTask.asstimatedWorkTime)
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes!
         self.date=viewModelTask.date

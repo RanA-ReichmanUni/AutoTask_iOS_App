@@ -16,6 +16,7 @@ struct WeeklyCompact: View {
     var widthFactor:CGFloat
     var heightFactor:CGFloat
     
+     @ObservedObject var taskViewModel = TaskViewModel()
     var body: some View {
         
         HStack{

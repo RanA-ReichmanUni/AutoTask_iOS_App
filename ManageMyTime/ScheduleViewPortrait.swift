@@ -101,10 +101,11 @@ struct ScheduleViewPortrait: View {
     }
 }
 
-struct ScheduleViewPortrait_Previews: PreviewProvider {
+/*struct ScheduleViewPortrait_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleViewRow()/*.previewLayout(.fixed(width: 600, height: 300 ))*/
     }
 }
 
 
+*/

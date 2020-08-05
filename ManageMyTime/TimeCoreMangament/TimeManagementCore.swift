@@ -119,7 +119,7 @@ class Core{
         
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
-                            var determination=densityHandler(date: singleDate, algorithm: scheduleAlgorithm.spacious, includePersonalTime: false)
+                            var determination=densityHandler(date: singleDate, algorithm: scheduleAlgorithm.maximumCapacity, includePersonalTime: false)
                             if(determination)
                             {
                                 

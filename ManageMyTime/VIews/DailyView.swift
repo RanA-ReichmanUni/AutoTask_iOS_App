@@ -13,8 +13,8 @@ struct DailyView: View {
     
     var timeChar = "25"
     //var columns : [String]
-    
-    var taskViewModel = TaskViewModel()
+    //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @EnvironmentObject var taskViewModel:TaskViewModel
     var dayRange = 7...24
 
     
@@ -93,9 +93,10 @@ struct DailyView: View {
     }
 }
 
-struct DailyView_Previews: PreviewProvider {
+/*struct DailyView_Previews: PreviewProvider {
     static var previews: some View {
         DailyView()/*.previewLayout(.fixed(width: 600, height: 300 ))*/
     }
 }
 
+*/

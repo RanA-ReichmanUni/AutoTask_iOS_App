@@ -12,7 +12,6 @@
 		250F5AFB24AA32DF00ABCDA4 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */; };
 		250F5B0024AA3C6800ABCDA4 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */; };
 		250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */; };
-		251649A424D34DBE003018BE /* LowRes750Compact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A324D34DBE003018BE /* LowRes750Compact.swift */; };
 		251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A524D36ADC003018BE /* CompactViewSelector.swift */; };
 		251649A824D36B1F003018BE /* RegularViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A724D36B1F003018BE /* RegularViewSelector.swift */; };
 		2519384B24C686290010E72D /* TempNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519384A24C686290010E72D /* TempNavigator.swift */; };
@@ -29,6 +28,7 @@
 		253C5CE824B1193800C95A06 /* DayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CE724B1193800C95A06 /* DayObject.swift */; };
 		253C5CEA24B11A0400C95A06 /* HourlyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CE924B11A0400C95A06 /* HourlyTask.swift */; };
 		253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CEB24B11AEA00C95A06 /* TimeManagementCore.swift */; };
+		253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C7DFB24DAE8300063952B /* EmptyCell.swift */; };
 		25407EE724D71F3E003110E9 /* CircularBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25407EE624D71F3E003110E9 /* CircularBar.swift */; };
 		25407EEA24D72290003110E9 /* LoadLevel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25407EE824D72290003110E9 /* LoadLevel+CoreDataClass.swift */; };
 		25407EEB24D72290003110E9 /* LoadLevel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25407EE924D72290003110E9 /* LoadLevel+CoreDataProperties.swift */; };
@@ -110,7 +110,6 @@
 		250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
 		250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncs.swift; sourceTree = "<group>"; };
-		251649A324D34DBE003018BE /* LowRes750Compact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowRes750Compact.swift; sourceTree = "<group>"; };
 		251649A524D36ADC003018BE /* CompactViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViewSelector.swift; sourceTree = "<group>"; };
 		251649A724D36B1F003018BE /* RegularViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularViewSelector.swift; sourceTree = "<group>"; };
 		2519384A24C686290010E72D /* TempNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigator.swift; sourceTree = "<group>"; };
@@ -129,6 +128,7 @@
 		253C5CE724B1193800C95A06 /* DayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayObject.swift; sourceTree = "<group>"; };
 		253C5CE924B11A0400C95A06 /* HourlyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTask.swift; sourceTree = "<group>"; };
 		253C5CEB24B11AEA00C95A06 /* TimeManagementCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagementCore.swift; sourceTree = "<group>"; };
+		253C7DFB24DAE8300063952B /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		25407EE624D71F3E003110E9 /* CircularBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularBar.swift; sourceTree = "<group>"; };
 		25407EE824D72290003110E9 /* LoadLevel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadLevel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25407EE924D72290003110E9 /* LoadLevel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadLevel+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -251,6 +251,24 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		253C7DFD24DAEA370063952B /* VIews */ = {
+			isa = PBXGroup;
+			children = (
+				2519384A24C686290010E72D /* TempNavigator.swift */,
+				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
+				25F047F924CDB995003CC7D6 /* DailyView.swift */,
+				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
+				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
+				25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */,
+				250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */,
+				25A248E324AA861000E74F51 /* DetailedTask.swift */,
+				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
+				25407EE624D71F3E003110E9 /* CircularBar.swift */,
+				253455D324A12539007CB6BF /* AddTask.swift */,
+			);
+			path = VIews;
+			sourceTree = "<group>";
+		};
 		25680708249FF1FC0096AB89 = {
 			isa = PBXGroup;
 			children = (
@@ -280,11 +298,6 @@
 				25680714249FF1FC0096AB89 /* AppDelegate.swift */,
 				250F5B0124AA707100ABCDA4 /* HelperFuncs.swift */,
 				250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */,
-				250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */,
-				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
-				25407EE624D71F3E003110E9 /* CircularBar.swift */,
-				25A248E324AA861000E74F51 /* DetailedTask.swift */,
-				253455D324A12539007CB6BF /* AddTask.swift */,
 				25B7603024A288D100C37C69 /* NewTaskText.swift */,
 				253455D524A149F7007CB6BF /* TestView.swift */,
 				25F347FD24A22FB400671D09 /* MultiPicker.swift */,
@@ -297,17 +310,13 @@
 				253C5CE624B118F100C95A06 /* Objects */,
 				2577A5EB24AD5D8E0006E1D2 /* DailyViewRow.swift */,
 				2583029C24D34701003935B7 /* TableTestD.swift */,
+				253C7DFD24DAEA370063952B /* VIews */,
 				257E557224D1B6880056911B /* RestrictedSpaceView.swift */,
 				2577A5E524ACF3040006E1D2 /* ScheduleView.swift */,
-				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
-				25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */,
-				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
-				2519384A24C686290010E72D /* TempNavigator.swift */,
+				253C7DFB24DAE8300063952B /* EmptyCell.swift */,
 				25F3917F24BD61C4004AB978 /* DviderTest.swift */,
 				25D920B324CFA36A00A852BF /* WeeklyCompact.swift */,
 				25D920B524CFA37800A852BF /* WeeklyRegular.swift */,
-				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
-				251649A324D34DBE003018BE /* LowRes750Compact.swift */,
 				2558924B24D084F600346AC6 /* ListTextHourSelector.swift */,
 				25D920AB24CF97D700A852BF /* ScheduleViewPortrait.swift */,
 				25D920B124CF9A5700A852BF /* ScehduleSelector.swift */,
@@ -315,7 +324,6 @@
 				251649A724D36B1F003018BE /* RegularViewSelector.swift */,
 				25D920AD24CF981D00A852BF /* WeeklyTasksPotrait.swift */,
 				25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */,
-				25F047F924CDB995003CC7D6 /* DailyView.swift */,
 				25FBD2FA24D95B0100A5B78B /* BigChar.swift */,
 				25FBD2F824D95A7A00A5B78B /* SmallChar.swift */,
 				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
@@ -562,7 +570,7 @@
 				258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */,
 				259AAD4424C797A100A085E9 /* RestrictedSpace+CoreDataClass.swift in Sources */,
 				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
-				251649A424D34DBE003018BE /* LowRes750Compact.swift in Sources */,
+				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
@@ -640,7 +648,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ManageMyTimeTests2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -649,6 +658,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.ManageMyTimeTests2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
@@ -659,7 +670,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ManageMyTimeTests2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -668,6 +680,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.ManageMyTimeTests2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
@@ -724,7 +738,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -778,7 +792,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -792,16 +806,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ManageMyTime/Preview Content\"";
+				DEVELOPMENT_TEAM = 36RVW45G38;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ManageMyTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.ManageMyTime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.Test.ManageMyTIme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -811,16 +828,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ManageMyTime/Preview Content\"";
+				DEVELOPMENT_TEAM = 36RVW45G38;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ManageMyTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.ManageMyTime;
+				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.Test.ManageMyTIme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -831,7 +851,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ManageMyTimeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -841,6 +862,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.ManageMyTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
@@ -852,7 +875,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ManageMyTimeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -862,6 +886,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.ManageMyTimeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";

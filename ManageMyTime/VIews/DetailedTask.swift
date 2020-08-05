@@ -12,7 +12,7 @@ struct DetailedTask: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    @ObservedObject var taskViewModel : TaskViewModel
+    @EnvironmentObject var taskViewModel:TaskViewModel
     
     var taskName : String
 
@@ -112,7 +112,7 @@ struct DetailedTask: View {
                                        Text(String(year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                            }
                 }
-        }
+        }.frame( maxWidth: .infinity, maxHeight: .infinity)
           
              Spacer()
           
