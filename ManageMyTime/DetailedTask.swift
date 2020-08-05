@@ -51,6 +51,13 @@ struct DetailedTask: View {
                     Text(taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                     
                 }
+                
+                HStack {
+                                 
+                    Text("Id: ")
+                    Text(taskId.uuidString).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                 
+                }
             
             
               

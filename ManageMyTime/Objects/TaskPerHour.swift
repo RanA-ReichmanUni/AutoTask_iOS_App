@@ -14,6 +14,7 @@ struct TaskPerHour:Identifiable{
     
     var id:UUID
     var taskName : String
+    var taskId:UUID?
     var heightFactor:CGFloat
     var color : Color
     
@@ -23,6 +24,7 @@ struct TaskPerHour:Identifiable{
         self.taskName=taskName
         self.heightFactor=heightFactor
         self.color=color
+        
     }
  
 }

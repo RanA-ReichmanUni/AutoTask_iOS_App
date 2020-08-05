@@ -24,11 +24,19 @@ class TaskViewModel : ObservableObject
     
     @Published var importance : String
     
+    @Published var startTime : Hour
+    
+    @Published var endTime : Hour
+    
+    @Published var date : CustomDate
+    
     @Published var asstimatedWorkTime : Hour
     
     @Published var dueDate : Date
     
     @Published var notes : String
+    
+    @Published var id : UUID
     
     //@Published var color : Color
 
@@ -52,7 +60,12 @@ class TaskViewModel : ObservableObject
         //allTasks=[]
         viewModelTask=Task()
         //color=Color(.systemTeal)
+        id=UUID()
+        startTime=Hour()
+        endTime=Hour()
+        date=CustomDate()
         retrieveAllTasks()
+    
      }
     
     func getTaskColor(task:Task) -> Color
@@ -164,6 +177,23 @@ class TaskViewModel : ObservableObject
     
         taskModel.deleteTask(taskId : taskId)
          self.retrieveAllTasks()//In order to update the published task array after deletion
+    }
+    
+    func getTask(taskId:UUID)
+    {
+        
+        viewModelTask=taskModel.retrieveTask(taskID: taskId)
+        
+        self.taskName=viewModelTask.taskName
+        self.importance=viewModelTask.importance!
+        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        self.dueDate=viewModelTask.dueDate
+        self.notes=viewModelTask.notes!
+        self.date=viewModelTask.date
+        self.startTime=viewModelTask.startTime!
+        self.endTime=viewModelTask.endTime!
+        self.id=viewModelTask.id
+        
     }
     
     

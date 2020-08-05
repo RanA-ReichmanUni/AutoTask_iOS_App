@@ -28,12 +28,7 @@ struct TaskUnitPotrait: View {
                     //geometry.size.width seems to be relative to what ever exsits on the eidth axis, if it's empty, then it's all the screen width, if there something, then it's becomes relative
                     //rowHeight is as calculated above
                     .background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white)
-                    .modifier(AnimatingCellHeight(height: self.change ? 50 : geometry.size.height))
-                               .foregroundColor(Color.red)
-                               .onTapGesture {
-                                   withAnimation {
-                                       self.change.toggle()
-                                   }
+               
             }
                     
                 Spacer()
@@ -44,7 +39,7 @@ struct TaskUnitPotrait: View {
         }
         }
     }
-}
+
 
 struct TaskUnitPotrait_Previews: PreviewProvider {
     static var previews: some View {

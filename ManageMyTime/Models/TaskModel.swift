@@ -202,7 +202,7 @@ class TaskModel : UIViewController
     
     
     func retrieveTask(taskID : UUID) -> Task {
-                              
+        print(taskID.uuidString)
                   let emptyTask = Task ()
         
                   //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -216,10 +216,10 @@ class TaskModel : UIViewController
                   do
                   {
                       let requiredTask = try managedContext.fetch(fetchRequest)
-             
+                        
                           let retrievedObject = requiredTask[0] as! Task
                        
-                    print("Name:",retrievedObject.taskName as! String)
+                  //  print("Name:",retrievedObject.taskName as! String)
                     
                       return retrievedObject
                   }
@@ -374,8 +374,12 @@ class TaskModel : UIViewController
                                       
                                       
                                       for task in data{
-                                                               
-                                          tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task)))
+                                        
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task))
+                                        
+                                        taskPerHour.id=task.id
+                                        
+                                        tasksPerHourPerDay.tasks.append(taskPerHour)
                     
                                       }
                                                            
@@ -392,16 +396,29 @@ class TaskModel : UIViewController
                                       */
                                     if(data[0].endTime! < nextHour && data[0].endTime!.minutes > 45)
                                     {
-                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                                                           
+                                        taskPerHour.id=data[0].id
+                                        
+                                        tasksPerHourPerDay.tasks.append(taskPerHour)
                                               //Multiple tasks per hour
                                     }
                                     else if(data[0].endTime! < nextHour && data[0].endTime!.minutes < 30)
                                     {
-                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                                                                                            
+                                        taskPerHour.id=data[0].id
+                                        
+                                        tasksPerHourPerDay.tasks.append(taskPerHour)
                                                                                  //Multiple tasks per hour
                                     }
                                     else{
-                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                        
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                                                                                                                            
+                                        taskPerHour.id=data[0].id
+                                        
+                                         tasksPerHourPerDay.tasks.append(taskPerHour)
                                     }
                                       
                                   /*    if(data[0].endTime! < nextHour)
@@ -517,8 +534,12 @@ class TaskModel : UIViewController
                                    
                                    
                                    for task in data{
-                                                            
-                                       tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task)))
+                                              
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task))
+                                                                                                                                                                           
+                                        taskPerHour.id=task.id
+                                    
+                                       tasksPerHourPerDay.tasks.append(taskPerHour)
                  
                                    }
                                                         
@@ -530,10 +551,13 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].startTime! > beginningOfHour)
                                     {
-                                       tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
                                     }
                                    
-                                   tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0])))
+                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                    taskPerHour.id=data[0].id
+                                
+                                   tasksPerHourPerDay.tasks.append(taskPerHour)
                                            //Multiple tasks per hour
                                    
                                    if(data[0].endTime! < nextHour)

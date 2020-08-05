@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct TestTaskRow: View {
-    
+    @ObservedObject var taskViewModel = TaskViewModel()
     var taskName:String
-    
+    var taskId:UUID?
     var heightFactor : CGFloat
 
     
@@ -19,22 +19,40 @@ struct TestTaskRow: View {
     
      @State var change: Bool = false
     
-        
+    @State var displayItem: Bool = false
     
     var body: some View {
     GeometryReader { geometry in
-        VStack() {
-            Text(self.taskName).frame(width: geometry.size.width+10, height:  geometry.size.height)//.minimumScaleFactor(0.9)
-                    //geometry.size.width seems to be relative to what ever exsits on the eidth axis, if it's empty, then it's all the screen width, if there something, then it's becomes relative
-                    //rowHeight is as calculated above
-                .background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white)
-                    .modifier(AnimatingCellHeight(height: self.change ? 50 : geometry.size.height))
-                               .foregroundColor(Color.red)
-                               .onTapGesture {
-                                   withAnimation {
-                                       self.change.toggle()
-                                   }
-            }
+
+            VStack() {
+                
+                //.minimumScaleFactor(0.9)
+                        //geometry.size.width seems to be relative to what ever exsits on the eidth axis, if it's empty, then it's all the screen width, if there something, then it's becomes relative
+                        //rowHeight is as calculated above
+                    
+        
+                   
+                        Text(self.taskName).frame(width: geometry.size.width+10, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white).onTapGesture{
+                            if(self.taskId != nil)
+                                                       {
+                                                           self.taskViewModel.getTask(taskId: self.taskId!)
+                                                            self.displayItem.toggle()
+                                                       }
+                        
+                        
+    
+                                    
+                    }
+                    .popover(isPresented: self.$displayItem) {
+                        VStack {
+                            DetailedTaskWithObj(taskViewModel: self.taskViewModel,displayItem:self.$displayItem)
+                        }
+                    }
+                }
+                .frame( maxWidth: .infinity, maxHeight: .infinity)
+            
+        
+            Spacer()
                     
                 Spacer()
             Spacer()
@@ -42,7 +60,7 @@ struct TestTaskRow: View {
             
                 
         }
-        }
+        
     }
 }
 
@@ -53,15 +71,3 @@ struct TestTaskRow_Previews: PreviewProvider {
 }
 
 
-struct AnimatingCellHeight: AnimatableModifier {
-    var height: CGFloat = 0
-
-    var animatableData: CGFloat {
-        get { height }
-        set { height = newValue }
-    }
-
-    func body(content: Content) -> some View {
-        content.frame(height: height)
-    }
-}
