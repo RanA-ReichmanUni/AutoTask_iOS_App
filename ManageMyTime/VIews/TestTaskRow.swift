@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct TestTaskRow: View {
-    @EnvironmentObject var taskViewModel:TaskViewModel
+    
+    @ObservedObject var taskViewModel=TaskViewModel()
+    @EnvironmentObject var taskViewModelEnv:TaskViewModel
     var taskName:String
     var taskId:UUID?
     var heightFactor : CGFloat
@@ -35,7 +37,8 @@ struct TestTaskRow: View {
                         Text(self.taskName).frame(width: geometry.size.width+8, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor)).foregroundColor(.white).onTapGesture{
                             if(self.taskId != nil)
                                                        {
-                                                          // self.taskViewModel.getTask(taskId: self.taskId!)
+                                                          self.taskViewModel.getTask(taskId: self.taskId!)
+                                                            
                                                            self.displayItem.toggle()
                                                        }
                         
@@ -47,10 +50,10 @@ struct TestTaskRow: View {
             }
                     .popover(isPresented: self.$displayItem) {
                         VStack {
-                            DetailedTaskWithObj(displayItem:self.$displayItem,taskId:self.taskId!).environmentObject(self.taskViewModel)
+                            DetailedTaskWithObj(taskViewModel:self.taskViewModel,displayItem:self.$displayItem,taskId:self.taskId!).environmentObject(self.taskViewModel)
                         }
                     }
-                }
+        }
                 .frame( maxWidth: .infinity, maxHeight: .infinity)
             
         

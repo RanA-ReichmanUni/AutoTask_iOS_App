@@ -12,7 +12,7 @@ struct DetailedTaskWithObj: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-   @ObservedObject var taskViewModel=TaskViewModel()
+   @ObservedObject var taskViewModel:TaskViewModel
     
     
     @Binding var displayItem:Bool
