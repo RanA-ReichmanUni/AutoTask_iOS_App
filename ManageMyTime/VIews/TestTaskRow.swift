@@ -10,8 +10,8 @@ import SwiftUI
 
 struct TestTaskRow: View {
     
-    @ObservedObject var taskViewModel=TaskViewModel()
-    @EnvironmentObject var taskViewModelEnv:TaskViewModel
+    @ObservedObject var taskViewModel:TaskViewModel
+    //@EnvironmentObject var taskViewModelEnv:TaskViewModel
     var taskName:String
     var taskId:UUID?
     var heightFactor : CGFloat
@@ -25,6 +25,9 @@ struct TestTaskRow: View {
     
     @State var borderColor = Color.blue
     @State var dashCount :CGFloat = 0
+    
+   
+    
     var body: some View {
     GeometryReader { geometry in
         ZStack{
@@ -37,18 +40,18 @@ struct TestTaskRow: View {
                    
                 Text(self.taskName).frame(width: geometry.size.width+8, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor).overlay(
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(self.borderColor,style: StrokeStyle(lineWidth: 2, dash: [self.dashCount]))
+                        .stroke(self.borderColor,style: StrokeStyle(lineWidth: 1, dash: [self.dashCount]))
                 )).foregroundColor(.white).onAppear{self.borderColor=self.fillColor}.onTapGesture{
                             if(self.taskId != nil)
                                {
                         
                                   self.taskViewModel.getTask(taskId: self.taskId!)
-                                    
+                                print("here" ,self.taskViewModel.taskName)
                                    self.displayItem.toggle()
-                                
+                                 print("here" ,self.displayItem)
                                 self.borderColor=Color.init(red: 0, green: 0, blue: 102)
                                 
-                                    self.dashCount = 90
+                                    self.dashCount = 0
                                }
             
                     }
@@ -56,7 +59,7 @@ struct TestTaskRow: View {
             }
                     .popover(isPresented: self.$displayItem) {
                         VStack {
-                            DetailedTaskWithObj(taskViewModel:self.taskViewModel,displayItem:self.$displayItem,taskId:self.taskId!).environmentObject(self.taskViewModel).animation(.ripple()).onDisappear{self.borderColor=self.fillColor
+                            DetailedTaskWithObj(displayItem:self.$displayItem, taskName: self.taskViewModel.taskName,importance: self.taskViewModel.importance,dueDate: self.taskViewModel.dueDate,notes: self.taskViewModel.notes, asstimatedWorkTimeHour: self.taskViewModel.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:self.taskViewModel.asstimatedWorkTime.minutes,startTimeHour:self.taskViewModel.startTime.hour,startTimeMinutes:self.taskViewModel.startTime.minutes,endTimeHour:self.taskViewModel.endTime.hour,endTimeMinutes:self.taskViewModel.endTime.minutes,day:self.taskViewModel.date.day,month:self.taskViewModel.date.month,year:self.taskViewModel.date.year,taskId:self.taskViewModel.id).animation(.ripple()).onDisappear{self.borderColor=self.fillColor
                                  self.dashCount = 0
                             }
                                    

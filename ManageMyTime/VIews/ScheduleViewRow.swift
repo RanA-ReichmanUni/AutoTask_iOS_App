@@ -30,7 +30,7 @@ struct ScheduleViewRow: View {
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
         
     
-        
+     
             List(self.dayRange,id:\.self){
                     hour in
                 
@@ -54,7 +54,7 @@ struct ScheduleViewRow: View {
                     {
                         weekByHour in
                     
-                        HStack {
+                        HStack{
                            /* if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).count > 4)
                             {
                             Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
@@ -67,10 +67,12 @@ struct ScheduleViewRow: View {
                             
                             Divider()
                             
-                            
+                          
                         }
                         
+                        
                 }
+         
                
                 
                 
