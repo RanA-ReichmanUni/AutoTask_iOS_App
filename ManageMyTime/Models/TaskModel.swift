@@ -464,7 +464,7 @@ class TaskModel : UIViewController
                           /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                      
                       
-                      print("Retrived all tasks !")
+                      print("Retrived all day tasks !")
                       
                     }       catch {
                       
@@ -603,7 +603,7 @@ class TaskModel : UIViewController
                        /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                   
                    
-                   print("Retrived all tasks !")
+                   print("Retrived all tasks by hour !")
                    
                } catch {
                    

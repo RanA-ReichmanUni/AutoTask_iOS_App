@@ -16,7 +16,8 @@ struct DailyView: View {
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var taskViewModel:TaskViewModel
     var dayRange = 7...24
-
+    
+    @State var blurEffect:CGFloat = 0
     
     var body: some View {
         

@@ -256,6 +256,7 @@
 			children = (
 				2519384A24C686290010E72D /* TempNavigator.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
+				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
 				25F047F924CDB995003CC7D6 /* DailyView.swift */,
 				258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */,
 				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
@@ -326,7 +327,6 @@
 				25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */,
 				25118A0E24DB52870062D518 /* BigChar.swift */,
 				253C7E0024DB4A2C0063952B /* SmallChar.swift */,
-				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
 				2568071D249FF1FF0096AB89 /* Assets.xcassets */,
 				25680722249FF1FF0096AB89 /* LaunchScreen.storyboard */,

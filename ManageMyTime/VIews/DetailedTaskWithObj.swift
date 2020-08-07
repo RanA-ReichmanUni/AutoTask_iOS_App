@@ -37,7 +37,7 @@ struct DetailedTaskWithObj: View {
     var helper = HelperFuncs()
     
     //var task :Task
- 
+
     
     var body: some View {
         ScrollView{
@@ -117,6 +117,7 @@ struct DetailedTaskWithObj: View {
          }
         }.onTapGesture {
             self.displayItem = false
+           
         }
     }
 }

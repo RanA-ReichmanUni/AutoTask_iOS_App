@@ -15,7 +15,7 @@ struct WeeklyCompact: View {
     var geometry:GeometryProxy
     var widthFactor:CGFloat
     var heightFactor:CGFloat
-    
+    @State var blurEffect:CGFloat = 0
      @ObservedObject var taskViewModel = TaskViewModel()
     var body: some View {
         

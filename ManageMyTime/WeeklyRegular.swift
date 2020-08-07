@@ -19,10 +19,10 @@ struct WeeklyRegular: View {
     var heightFactor:CGFloat
     
     var body: some View {
-        HStack{
+        HStack(spacing:0){
             WeeklyTasksPotrait(timeChar:String(timeChar),hourTasks: hourTasks).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor).padding(EdgeInsets(top: 2, leading: 1, bottom: 1, trailing: 1))
  
-                    Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
+                    Divider().padding(EdgeInsets(top: 2, leading: 20, bottom: 1, trailing: 1))
         }
     }
 }

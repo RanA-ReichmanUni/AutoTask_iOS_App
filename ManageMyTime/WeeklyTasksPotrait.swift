@@ -15,7 +15,7 @@ struct WeeklyTasksPotrait: View {
       
     var hourTasks : TasksPerHourPerDay
 
-    var taskViewModel = TaskViewModel()
+    @ObservedObject var taskViewModel=TaskViewModel()
     
     var body: some View {
          
@@ -26,7 +26,7 @@ struct WeeklyTasksPotrait: View {
                         {
                         GeometryReader { geometry in
                                 HStack {
-                                    TaskUnitPotrait(taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
+                                    TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
                                 
                                 }
                             }
@@ -43,11 +43,11 @@ struct WeeklyTasksPotrait: View {
                                    // DviderTest(offSet:self.offSet)
                             if(task.taskName=="")
                             {
-                                TaskUnitPotrait(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
+                                TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
                             }
                             else{
                                 
-                                TaskUnitPotrait(taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height).padding(EdgeInsets(top: 2, leading: 2, bottom: 4, trailing: 4))
+                                TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height).padding(EdgeInsets(top: 2, leading: 2, bottom: 4, trailing: 4))
                                     
                                         }
                                    
