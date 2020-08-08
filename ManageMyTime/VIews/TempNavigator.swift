@@ -16,7 +16,7 @@ struct TempNavigator: View {
             
       
                 
-                NavigationLink(destination:ScheduleViewRow()){
+            NavigationLink(destination:ScheduleViewRow()){
                     
                     Text("Weekly Schedule")
                 }
@@ -63,3 +63,4 @@ struct TempNavigator_Previews: PreviewProvider {
         TempNavigator()
     }
 }
+

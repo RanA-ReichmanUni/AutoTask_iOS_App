@@ -34,9 +34,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
         let tempNavigator = TempNavigator().environment(\.managedObjectContext, context).environmentObject(taskViewModel)
         let tableTestD = TableTestD().environment(\.managedObjectContext, context)
-        
+          
        
-        
+      
       
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

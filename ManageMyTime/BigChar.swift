@@ -9,21 +9,21 @@
 import SwiftUI
 
 struct BigChar: View {
-    var hour:Int
+    var hour:String
     var body: some View {
         HStack {
-            if(hour==Date().hour)
+            if(Int(hour)==Date().hour)
             {
-                Text(String(hour)).background(RoundedRectangle(cornerRadius: 6).fill(Color.red)).foregroundColor(.white)
+                Text(hour).background(RoundedRectangle(cornerRadius: 6).fill(Color.red)).foregroundColor(.white)
                 
                  
-                 Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 1))
+                 Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))
             }
             else{
-                Text(String(hour))
+                Text(hour)
                                
                                 
-                Divider().padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 1))
+                Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))
             }
               }
     }

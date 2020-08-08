@@ -19,7 +19,7 @@ struct WeeklyCompact: View {
      @ObservedObject var taskViewModel = TaskViewModel()
     var body: some View {
         
-        HStack{
+        HStack(spacing:0){
  
             WeeklyTasksRow(timeChar:String(self.timeChar),hourTasks: self.hourTasks, taskViewModel: taskViewModel).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor)
                                     

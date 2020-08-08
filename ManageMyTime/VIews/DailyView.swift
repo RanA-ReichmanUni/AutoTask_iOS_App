@@ -14,7 +14,9 @@ struct DailyView: View {
     var timeChar = "25"
     //var columns : [String]
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @EnvironmentObject var taskViewModel:TaskViewModel
+    
+    @ObservedObject var taskViewModel=TaskViewModel()
+    
     var dayRange = 7...24
     
     @State var blurEffect:CGFloat = 0
@@ -33,36 +35,39 @@ struct DailyView: View {
         
             List(self.dayRange,id:\.self){
                     hour in
-                
+                HStack{
                 if(hour > 9)
                 {
                 
-                    BigChar(hour:hour)
+                    BigChar(hour:String(hour))
                 }
                 else{
                     
-                    SmallChar(hour:hour)
+                    BigChar(hour:"0"+String(hour))
                 }
                 
                 ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
                     {
                         weekByHour in
-                    
-                        HStack {
-                           /* if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).count > 4)
-                            {
-                            Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
-                            }*/
+                        GeometryReader{
+                            geometry in
+                       
+                            HStack {
+                               /* if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).count > 4)
+                                {
+                                Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
+                                }*/
+                                
                             
-                        
-                           
-                            WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour, taskViewModel: self.taskViewModel).frame( alignment: .bottom)
-                        
+                               
+                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width*0.8)
                             
-                        }
+                                
+                            }
+                         }
                         
                     }
-                
+        }
                 
                         /*Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
                         

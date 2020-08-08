@@ -16,7 +16,7 @@ struct SmallChar: View {
                             
                             Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing:0))
                          
-                            Divider().padding(EdgeInsets(top: 5, leading: -2, bottom:0, trailing: 0))
+                            Divider().padding(EdgeInsets(top: 5, leading: -2, bottom:0, trailing: 40))
                         }
     }
 }

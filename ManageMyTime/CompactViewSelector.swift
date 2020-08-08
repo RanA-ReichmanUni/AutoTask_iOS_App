@@ -19,23 +19,23 @@ struct CompactViewSelector: View {
       @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     var body: some View {
-         VStack {
+         HStack(spacing:0) {
                    
           
                   
             if(geometry.size.width <= 414 && geometry.size.width > 375)//IPhone 11,IPhone 8
              {
                                   
-                 WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:14.3,heightFactor:15)
+                WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:11,heightFactor:10)//.scaledToFill()
                                                                 
              }
                          
              else if(geometry.size.width <= 667 && geometry.size.width > 375 )//iphone 6s,8,7,SE.. on the side
              {
-                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:10.8,heightFactor:15)
+                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:12.1,heightFactor:8)
              }
            else {//iphone 6s,8,7,SE
-                WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:15.3,heightFactor:9)
+                WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:12,heightFactor:9)
             }
 
         }
