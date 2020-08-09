@@ -42,6 +42,31 @@ class TaskModel : UIViewController
         
     }
     
+    func getTaskColor (color:String) -> Color
+       {
+           
+           switch color {
+           case "Red":
+               return Color(.systemRed)
+           case "Teal":
+               return Color(.systemTeal)
+           case "Green":
+               return Color(.systemGreen)
+           case "Orange":
+               return Color(.systemOrange)
+           case "Pink":
+               return Color(.systemPink)
+           case "Blue":
+               return Color(.systemBlue)
+           case "Indigo":
+               return Color(.systemIndigo)
+           default:
+               return Color(.systemTeal)
+           }
+           
+           
+       }
+    
     func autoFillTesting()
     {
 
@@ -113,8 +138,8 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=1
-                    asstimatedWorkTime.minutes=0
+                    asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
+                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
             
             coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
             

@@ -11,20 +11,25 @@ import SwiftUI
 struct BigChar: View {
     var hour:String
     var body: some View {
-        HStack {
-            if(Int(hour)==Date().hour)
-            {
-                Text(hour).background(RoundedRectangle(cornerRadius: 6).fill(Color.red)).foregroundColor(.white)
-                
-                 
-                 Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))
-            }
-            else{
-                Text(hour)
-                               
-                                
-                Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))
-            }
-              }
+        GeometryReader{ geometry in
+            HStack {
+                if(Int(self.hour)==Date().hour)
+                {
+                    
+                    ListTextHourSelector(hour: self.hour, geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
+                    /*Text(hour).background(RoundedRectangle(cornerRadius: 6).fill(Color.red)).foregroundColor(.white)
+                    
+                     
+                     Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))*/
+                }
+                else{
+                             ListTextHourSelector(hour: self.hour, geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
+                   /* Text(hour)
+                                   
+                                    
+                    Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))*/
+                }
+                  }
+        }
     }
 }

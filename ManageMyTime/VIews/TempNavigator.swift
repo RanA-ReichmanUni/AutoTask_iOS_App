@@ -12,6 +12,7 @@ struct TempNavigator: View {
     var body: some View {
         
       NavigationView {
+        
         List(){
             
       
@@ -49,9 +50,9 @@ struct TempNavigator: View {
             
 
                 
-          
+          .hiddenNavigationBarStyle()
             
-        }
+        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green))
             
             
         }
@@ -64,3 +65,17 @@ struct TempNavigator_Previews: PreviewProvider {
     }
 }
 
+
+struct HiddenNavigationBar: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarHidden(true)
+    }
+}
+
+extension View {
+    func hiddenNavigationBarStyle() -> some View {
+        modifier( HiddenNavigationBar() )
+    }
+}

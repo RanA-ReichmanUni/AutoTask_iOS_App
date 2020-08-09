@@ -15,10 +15,17 @@ struct ButtonTestingView: View {
     var tm=Core()
     
     var viewModel=TaskViewModel()
-    
+      @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var body: some View {
         
         VStack {
+            
+            Button(action: {     self.mode.wrappedValue.dismiss()}) {
+                                  Text("Go Back")
+                                  }
+            Spacer()
+            Spacer()
+            Spacer()
            Button(action: { self.tm.createCalanderSequence(startDay: 10, startMonth: 5, startYear: 2020, endDay: 20, endMonth: 3, endYear: 2021)}) {
                      Text("Click to do some high risk testing")
                  }
@@ -34,8 +41,9 @@ struct ButtonTestingView: View {
                     Text("Click to Auto Fill")
                     }
             
+    
             
-        }
+        }.navigationBarTitle(Text("Testing"))
     }
 }
 

@@ -12,7 +12,7 @@ struct DetailedTaskWithObj: View {
     
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-   //@ObservedObject var taskViewModel:TaskViewModel
+   @ObservedObject var taskViewModel=TaskViewModel()
     
     
     @Binding var displayItem:Bool
@@ -32,8 +32,8 @@ struct DetailedTaskWithObj: View {
     var year:Int
    
    var taskId:UUID
-       
-
+    var color:String
+    
     var helper = HelperFuncs()
     
     //var task :Task
@@ -115,7 +115,11 @@ struct DetailedTaskWithObj: View {
      
                 
          }
-        }.onTapGesture {
+            }.background(LinearGradient(
+                gradient: Gradient(colors: [.white,self.taskViewModel.getTaskColor(color:self.color)]),
+              startPoint: UnitPoint(x: 0.2, y: 0.2),
+              endPoint:UnitPoint(x: 0.1, y: 0.1)
+            )).onTapGesture {
             self.displayItem = false
            
         }

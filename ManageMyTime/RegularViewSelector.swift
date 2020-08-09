@@ -26,31 +26,31 @@ struct RegularViewSelector: View {
                 {
                    
                 
-                        WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:10,heightFactor:20)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.5,heightFactor:10)
                     
                 }
             if(geometry.size.width <= 990.5 && geometry.size.width > 808)//IPad Pro 12.9 inch on the side
                  {
                       
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:10.1,heightFactor:20)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.5,heightFactor:10)
                                         
                  }
                 else if(geometry.size.width <= 808 && geometry.size.width > 768)//IPhone 11,11 Pro, 11 Pro Max
                 {
                      
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:11,heightFactor:13)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.7,heightFactor:8)
                                                    
                 }
                 else if(geometry.size.width <= 768 && geometry.size.width > 736)//IPad 6th
                 {
                      
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:11.2,heightFactor:10)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9,heightFactor:10)
                                                    
                 }
                 else if(geometry.size.width <= 736 && geometry.size.width > 703.5)//IPhone 8 Plus expanded
                {
                     
-                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:13.3,heightFactor:7)
+                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9.7,heightFactor:7)
                                                   
                }
                     
@@ -58,13 +58,13 @@ struct RegularViewSelector: View {
                 {
                            
                     //Text(geometry.size.width.description)
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:11.7,heightFactor:8)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9,heightFactor:8)
                                                               
                 }
                 else if(geometry.size.width <= 416)//IPhone 8 Plus on the side
                {
                     
-                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:18,heightFactor:5)
+                WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:11,heightFactor:5)
                                                   
                }
            

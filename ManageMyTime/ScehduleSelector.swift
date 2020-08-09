@@ -21,7 +21,7 @@ struct ScehduleSelector: View {
     
     
     var body: some View {
-       VStack {
+        VStack {
                
             if self.horizontalSizeClass == .compact {
                                  

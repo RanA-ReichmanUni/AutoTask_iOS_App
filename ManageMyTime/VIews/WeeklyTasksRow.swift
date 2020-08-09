@@ -20,13 +20,13 @@ struct WeeklyTasksRow: View {
     var body: some View {
          
    
-                    HStack {
+        VStack(spacing:3) {
                  
                         if(self.hourTasks.isEmptySlot)
                         {
                         GeometryReader { geometry in
                                 HStack {
-                                    TestTaskRow(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
+                                    TestTaskRow(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                                 
                                 }
                             }
@@ -34,7 +34,7 @@ struct WeeklyTasksRow: View {
                         }
                         else{
                        
-                            VStack {
+                        
                           
                            
                         ForEach(self.hourTasks.tasks){
@@ -43,17 +43,17 @@ struct WeeklyTasksRow: View {
                                    // DviderTest(offSet:self.offSet)
                             if(task.taskName=="")
                             {
-                                TestTaskRow(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2).padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
+                                TestTaskRow(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: Color(.white)).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                             }
                             else{
                                 
-                                TestTaskRow(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height).padding(EdgeInsets(top: 2, leading: -geometry.size.width/10, bottom: 4, trailing: 0))
+                                TestTaskRow(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: task.color).frame(width: geometry.size.width, height:  geometry.size.height)//.padding(EdgeInsets(top: 2, leading: -geometry.size.width/10, bottom: 4, trailing: 0))
                                     
                                         }
                                    
                                     }
                                 }
-                            }
+                            
                         }
                     
                 }

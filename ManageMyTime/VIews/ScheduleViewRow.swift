@@ -37,24 +37,25 @@ struct ScheduleViewRow: View {
                 if(hour > 9)
                 {
                 
-                 ListTextHourSelector(hour: hour, geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
+                 ListTextHourSelector(hour: String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
                 }
                 else{
+                    ListTextHourSelector(hour: "0"+String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
                     
-                    HStack {
+                  /*  HStack {
                         Text(String(0)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 0))
                         
                         Text(String(hour)).padding(EdgeInsets(top: 5, leading: -8, bottom:0, trailing:0))
                      
                         Divider()
-                    }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)
+                    }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)*/
                 }
-                
+                HStack(spacing:4){
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
                     {
                         weekByHour in
                     
-                        HStack{
+                        VStack{
                            /* if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).count > 4)
                             {
                             Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
@@ -62,7 +63,7 @@ struct ScheduleViewRow: View {
                            // Text(geometry.size.width.description)
                          
                             ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry)
-                            
+                        }
                           //  WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame(height:  geometry.size.height*0.098)
                             
                           //  Divider()
@@ -105,7 +106,7 @@ struct ScheduleViewRow: View {
 
 
             }
-        }.onDisappear{self.taskViewModel.retrieveAllTasks()}
+        }.onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue))
     }
 }
 

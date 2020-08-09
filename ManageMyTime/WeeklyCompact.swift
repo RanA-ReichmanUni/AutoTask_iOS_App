@@ -19,11 +19,11 @@ struct WeeklyCompact: View {
      @ObservedObject var taskViewModel = TaskViewModel()
     var body: some View {
         
-        HStack(spacing:0){
+        HStack(spacing:4){
  
             WeeklyTasksRow(timeChar:String(self.timeChar),hourTasks: self.hourTasks, taskViewModel: taskViewModel).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor)
                                     
-                        Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
+            Divider()//.padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
             
         }
     }

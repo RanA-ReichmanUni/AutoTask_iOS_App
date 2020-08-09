@@ -12,7 +12,7 @@ struct ListTextHourSelector: View {
     
      @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
-    var hour:Int
+    var hour:String
     var geometryWidth:CGFloat
     var geometryHeight:CGFloat
     
@@ -20,8 +20,8 @@ struct ListTextHourSelector: View {
           HStack {
              if self.horizontalSizeClass == .compact {
                 
-                    Text(String(hour)).frame(width: geometryWidth/18.5, height:  geometryHeight/30)
-                                  
+                    Text(String(hour)).frame(width: geometryWidth/18, height:  geometryHeight/30)
+                     
                                   Divider()
                                                 
                } else if self.horizontalSizeClass == .regular{

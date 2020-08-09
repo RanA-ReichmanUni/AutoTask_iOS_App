@@ -95,7 +95,7 @@ struct DailyView: View {
         
             
             }
-        }
+        }  .navigationBarTitle(Text("Daily Schedule").foregroundColor(.green))
     }
 }
 
