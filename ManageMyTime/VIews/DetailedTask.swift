@@ -34,16 +34,20 @@ struct DetailedTask: View {
     var year:Int
     
     var taskId:UUID
+  
+    var color: Color
+
     
     var body: some View {
         ScrollView{
         VStack{
                VStack {
-             Image("pink-Circle")
+                
+            Image("pink-Circle")
                  .resizable()
                  .frame(width: 50, height: 50)
                  .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
-            
+     
              
                 HStack {
                     
@@ -112,7 +116,11 @@ struct DetailedTask: View {
                                        Text(String(year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                            }
                 }
-        }.frame( maxWidth: .infinity, maxHeight: .infinity)
+        }.frame( maxWidth: .infinity, maxHeight: .infinity).background(LinearGradient(
+            gradient: Gradient(colors: [.white,self.color]),
+          startPoint: UnitPoint(x: 0.2, y: 0.2),
+          endPoint:.bottomLeading
+        ))
           
              Spacer()
           
@@ -125,8 +133,12 @@ struct DetailedTask: View {
                                                            
                                                           }) {
                                                                       
-                                                              Text("Delete")
-                                                          }
+                                                            Text("Delete").padding().background(Capsule()
+                                                                .stroke(LinearGradient(gradient: Gradient(colors: [Color.white, Color.pink,Color.red]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                                                            .saturation(1.8))
+                                                              
+                                                              
+                }
                 
          }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
@@ -145,3 +157,4 @@ struct DetailedTask_Previews: PreviewProvider {
 }
 
 */
+

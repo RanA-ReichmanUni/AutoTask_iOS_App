@@ -117,7 +117,7 @@ struct DetailedTaskWithObj: View {
          }
             }.background(LinearGradient(
                 gradient: Gradient(colors: [.white,self.taskViewModel.getTaskColor(color:self.color)]),
-              startPoint: UnitPoint(x: 0.2, y: 0.2),
+              startPoint: UnitPoint(x: 0.2, y: 0.4),
               endPoint:UnitPoint(x: 0.1, y: 0.1)
             )).onTapGesture {
             self.displayItem = false
