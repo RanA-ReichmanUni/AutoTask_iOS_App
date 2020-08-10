@@ -123,7 +123,21 @@ struct DetailedTask: View {
         ))
           
              Spacer()
-          
+            VStack{
+                Button(action: {
+                                                        
+                     
+                                                                                  
+                             }) {
+                              
+                                HStack{  Image(systemName: "pencil").foregroundColor(Color.blue)
+                                    Text("Edit Task")}.padding().background(Capsule()
+                                   .stroke(LinearGradient(gradient: Gradient(colors: [Color.blue]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                               .saturation(1.8))
+                                                             
+                                                             
+               }
+
                 Button(action: {
                                  
                 self.taskViewModel.deleteTask(taskId: self.taskId)
@@ -131,14 +145,18 @@ struct DetailedTask: View {
                 self.mode.wrappedValue.dismiss()
              
                                                            
-                                                          }) {
-                                                                      
-                                                            Text("Delete").padding().background(Capsule()
-                                                                .stroke(LinearGradient(gradient: Gradient(colors: [Color.white, Color.pink,Color.red]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                                                            .saturation(1.8))
+                              }) {
+                                HStack{
+                                 Image(systemName: "trash").foregroundColor(Color.red)
+                                    Text("Delete").foregroundColor(Color.pink)}.padding().background(Capsule()
+                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color.red, Color.pink,Color.red]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                                .saturation(1.8))
                                                               
                                                               
                 }
+            
+             
+            }
                 
          }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }

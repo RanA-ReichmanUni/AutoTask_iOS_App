@@ -42,7 +42,7 @@ struct DetailedTaskWithObj: View {
     var body: some View {
         ScrollView{
         VStack{
-               VStack {
+             
              Image("pink-Circle")
                  .resizable()
                  .frame(width: 50, height: 50)
@@ -107,7 +107,7 @@ struct DetailedTaskWithObj: View {
                                   Text("Year: ")
                                        Text(String(self.year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                            }
-                }
+                
             }   .frame( maxWidth: .infinity, maxHeight: .infinity)
           
              Spacer()
@@ -118,7 +118,7 @@ struct DetailedTaskWithObj: View {
             }.background(LinearGradient(
                 gradient: Gradient(colors: [.white,self.taskViewModel.getTaskColor(color:self.color)]),
               startPoint: UnitPoint(x: 0.2, y: 0.4),
-              endPoint:UnitPoint(x: 0.1, y: 0.1)
+              endPoint:.bottom
             )).onTapGesture {
             self.displayItem = false
            
