@@ -42,7 +42,22 @@ struct DetailedTask: View {
         ScrollView{
         VStack{
                VStack {
-                
+                Spacer()
+                HStack (){
+                    Spacer()
+                    
+                    Button(action: {
+                                                            
+                               }) {
+                                
+                                  HStack{  Image(systemName: "pencil").foregroundColor(Color.blue)
+                                    /*Text("Edit Task")*/}.padding().background(Capsule().stroke(Color.blue))
+                                                                           
+                                                                           
+                    }.padding()
+                }
+                Spacer()
+                VStack{
             Image("pink-Circle")
                  .resizable()
                  .frame(width: 50, height: 50)
@@ -55,7 +70,7 @@ struct DetailedTask: View {
                     Text(taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                     
                 }
-                
+              
                 HStack {
                                  
                     Text("Id: ")
@@ -63,8 +78,7 @@ struct DetailedTask: View {
                                  
                 }
             
-            
-              
+             
                 HStack {
                     Text("Due Date: ")
                     Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
@@ -74,7 +88,7 @@ struct DetailedTask: View {
                     Text("Importance: ")
                     Text(importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                 }
-            
+             }
                 HStack {
                     Text("Work Time: ")
                     ZStack{
@@ -116,28 +130,14 @@ struct DetailedTask: View {
                                        Text(String(year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                            }
                 }
-        }.frame( maxWidth: .infinity, maxHeight: .infinity).background(LinearGradient(
-            gradient: Gradient(colors: [.white,self.color]),
-          startPoint: UnitPoint(x: 0.2, y: 0.2),
-          endPoint:.bottomLeading
-        ))
+        }.frame( maxWidth: .infinity, maxHeight: .infinity)
           
              Spacer()
-            VStack{
-                Button(action: {
-                                                        
-                     
-                                                                                  
-                             }) {
-                              
-                                HStack{  Image(systemName: "pencil").foregroundColor(Color.blue)
-                                    Text("Edit Task")}.padding().background(Capsule()
-                                   .stroke(LinearGradient(gradient: Gradient(colors: [Color.blue]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                               .saturation(1.8))
-                                                             
-                                                             
-               }
-
+            HStack{
+          
+                
+             
+                
                 Button(action: {
                                  
                 self.taskViewModel.deleteTask(taskId: self.taskId)
@@ -147,19 +147,20 @@ struct DetailedTask: View {
                                                            
                               }) {
                                 HStack{
-                                 Image(systemName: "trash").foregroundColor(Color.red)
-                                    Text("Delete").foregroundColor(Color.pink)}.padding().background(Capsule()
-                                    .stroke(LinearGradient(gradient: Gradient(colors: [Color.red, Color.pink,Color.red]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                                .saturation(1.8))
+                                 Image(systemName: "trash").foregroundColor(Color.black)
+                                    /*Text("Delete").foregroundColor(Color.white)*/}.padding().background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
                                                               
                                                               
                 }
             
              
-            }
+            }.padding()
                 
-         }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-        }
+         }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).background(LinearGradient(
+             gradient: Gradient(colors: [.white,self.color]),
+           startPoint: UnitPoint(x: 0.2, y: 0.2),
+           endPoint:.bottomLeading
+         )).clipShape(RoundedRectangle(cornerRadius: 15))        }
     }
 }
 /*
