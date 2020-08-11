@@ -18,7 +18,7 @@ struct TestTaskRow: View {
 
     
     var fillColor:Color
-    
+    var opacity:CGFloat
      @State var change: Bool = false
     
     @State var displayItem: Bool = false
@@ -38,7 +38,7 @@ struct TestTaskRow: View {
                         //rowHeight is as calculated above
 
                    
-        Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor).overlay(
+        Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor.opacity(Double(self.opacity))).overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(self.borderColor,style: StrokeStyle(lineWidth: 1, dash: [self.dashCount]))
                 )).foregroundColor(.white).onAppear{self.borderColor=self.fillColor}.onTapGesture{

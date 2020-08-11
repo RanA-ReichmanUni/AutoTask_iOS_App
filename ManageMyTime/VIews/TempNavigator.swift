@@ -47,9 +47,13 @@ struct TempNavigator: View {
                                                 
                     Text("Button Testing")
                 }
-            
+            NavigationLink(destination:RestrictedSpaceView()){
+                                                         
+                             Text("Test")
+                         }
+                     
                     
-                    
+                  
                            
                 
           .hiddenNavigationBarStyle()

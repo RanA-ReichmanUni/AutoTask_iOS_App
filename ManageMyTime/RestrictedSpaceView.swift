@@ -10,26 +10,32 @@ import SwiftUI
 
 struct RestrictedSpaceView: View {
     @State private var age = 18
-    @State private var selection = 1
+   // @State private var selection = 1
+   
+@State private var numberOfControlls = 0
+    
+  
+    @State var data: [(String, [String])] = [
+         ("Hours", Array(0...20).map { "\($0)" }),
+         ("Minutes", Array(0...59).map { "\($0)" })
+     ]
+     @State var selection: [String] = [0, 0, 0].map { "\($0)" }
+    
     var body: some View {
-        NavigationView {
+
         
         
-        Form{
-            
-         Picker(selection: $selection, label: Text("Day")) {
-                        Text("Sunday").tag(1)
-                        Text("Monday").tag(2)
-                        Text("Tuesday").tag(3)
-                        Text("Wendsday").tag(4)
-                        Text("Thursday").tag(5)
-                        Text("Friday").tag(6)
-                        Text("Saturday").tag(7)
-
-                    }
-
-        }
-        }
+          VStack {
+          Button(action: {
+              self.numberOfControlls += 1
+          }) {
+              Text("Tap to create")
+          }
+          ForEach(0 ..< numberOfControlls, id: \.self) { _ in
+            MultiPicker(data: self.data, selection: self.$selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
+          }
+      }
+        
     }
 }
 

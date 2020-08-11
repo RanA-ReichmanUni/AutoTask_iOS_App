@@ -36,14 +36,15 @@ struct DailyView: View {
             List(self.dayRange,id:\.self){
                     hour in
                 HStack{
+                    
                 if(hour > 9)
                 {
                 
-                    BigChar(hour:String(hour))
+                    BigChar(hour:String(hour)).padding(.leading,-170)
                 }
                 else{
                     
-                    BigChar(hour:"0"+String(hour))
+                    BigChar(hour:"0"+String(hour)).padding(.leading,-170)
                 }
                 
                 ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
@@ -58,9 +59,10 @@ struct DailyView: View {
                                 Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
                                 }*/
                                 
-                            
+                    
                                
                                 WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width*0.8)
+                                   
                             
                                 
                             }

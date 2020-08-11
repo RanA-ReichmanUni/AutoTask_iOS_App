@@ -15,7 +15,7 @@ struct TaskUnitPotrait: View {
     var taskId:UUID?
     var heightFactor : CGFloat
     var fillColor:Color
-    
+    var opacity:CGFloat
        @State var change: Bool = false
          
          @State var displayItem: Bool = false
@@ -34,7 +34,7 @@ struct TaskUnitPotrait: View {
                              //rowHeight is as calculated above
         
                         
-                     Text(self.taskName).frame(width: geometry.size.width+8, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor).overlay(
+                     Text(self.taskName).frame(width: geometry.size.width+8, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor.opacity(Double(self.opacity))).overlay(
                          RoundedRectangle(cornerRadius: 5)
                              .stroke(self.borderColor,style: StrokeStyle(lineWidth: 1, dash: [self.dashCount]))
                      )).foregroundColor(.white).onAppear{self.borderColor=self.fillColor}.onTapGesture{

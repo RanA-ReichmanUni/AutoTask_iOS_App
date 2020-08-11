@@ -16,6 +16,8 @@ class TaskModel : UIViewController
     var coreManagment = Core()
     //var allTasks = [Task]()
     
+    let lowOpacity:CGFloat=0.6
+    let standardOpacity:CGFloat=1
     
     func getTaskColor (task:Task) -> Color
     {
@@ -346,7 +348,7 @@ class TaskModel : UIViewController
         
         
               var allTasks=[TasksPerHourPerDay]()
-              
+              var opacity:CGFloat
           
               //As we know that container is set up in the AppDelegates so we need to refer that container.
               guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
@@ -366,7 +368,17 @@ class TaskModel : UIViewController
               let beginningOfHour = Hour(context: managedContext)
               beginningOfHour.hour=hour
               beginningOfHour.minutes=0
+        
+            let currentTime=Hour(context: managedContext)
+            currentTime.hour=Date().hour
+            currentTime.minutes=Date().minutes
               
+        
+            let currentDate = CustomDate(context:managedContext)
+                 currentDate.year=Date().year
+                 currentDate.month=Date().month
+                 currentDate.day=Date().day
+             
                  // let weekSequence=coreManagment.createCalanderSequence(startDay: 26, startMonth: 7, startYear: 2020, endDay: 1, endMonth: 8, endYear: 2020)
           //        fetchRequest.fetchLimit = 1
           //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
@@ -403,7 +415,14 @@ class TaskModel : UIViewController
                                       
                                       for task in data{
                                         
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task))
+                                        if(task.date <= currentDate || task.date == currentDate && task.endTime! <= currentTime)
+                                        {
+                                            opacity=lowOpacity
+                                        }else
+                                        {
+                                            opacity=standardOpacity
+                                        }
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
                                         
                                         taskPerHour.id=task.id
                                         
@@ -424,7 +443,15 @@ class TaskModel : UIViewController
                                       */
                                     if(data[0].endTime! < nextHour && data[0].endTime!.minutes > 45)
                                     {
-                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                           {
+                                               opacity=lowOpacity
+                                           }else
+                                           {
+                                               opacity=standardOpacity
+                                           }
+                                        
+                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
                                                                            
                                         taskPerHour.id=data[0].id
                                         
@@ -433,7 +460,14 @@ class TaskModel : UIViewController
                                     }
                                     else if(data[0].endTime! < nextHour && data[0].endTime!.minutes < 30)
                                     {
-                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)//SET LOW OPACITY to past tasks
+                                           {
+                                               opacity=lowOpacity
+                                           }else
+                                           {
+                                               opacity=standardOpacity
+                                           }
+                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
                                                                                                             
                                         taskPerHour.id=data[0].id
                                         
@@ -441,8 +475,14 @@ class TaskModel : UIViewController
                                                                                  //Multiple tasks per hour
                                     }
                                     else{
-                                        
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)//SET LOW OPACITY to past tasks
+                                            {
+                                                opacity=lowOpacity
+                                            }else
+                                            {
+                                                opacity=standardOpacity
+                                            }
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
                                                                                                                                             
                                         taskPerHour.id=data[0].id
                                         
@@ -504,6 +544,8 @@ class TaskModel : UIViewController
            var allTasks=[TasksPerHourPerDay]()
            var coreManagment=Core()
        
+           var opacity:CGFloat
+        
            let startOfDay=7
            let endOfDay=24
        
@@ -526,6 +568,16 @@ class TaskModel : UIViewController
            beginningOfHour.hour=hour
            beginningOfHour.minutes=0
            
+            let currentTime=Hour(context: managedContext)
+                     currentTime.hour=Date().hour
+                     currentTime.minutes=Date().minutes
+                   
+         
+             let currentDate = CustomDate(context:managedContext)
+                  currentDate.year=Date().year
+                  currentDate.month=Date().month
+                  currentDate.day=Date().day
+        
                let weekSequence=coreManagment.createCalanderSequence(startDay: 9, startMonth: 8, startYear: 2020, endDay: 15, endMonth: 8, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
@@ -562,8 +614,14 @@ class TaskModel : UIViewController
                                    
                                    
                                    for task in data{
-                                              
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task))
+                                        if(task.date <= currentDate || task.date == currentDate && task.endTime! <= currentTime)
+                                           {
+                                               opacity=lowOpacity
+                                           }else
+                                           {
+                                               opacity=standardOpacity
+                                           }
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
                                                                                                                                                                            
                                         taskPerHour.id=task.id
                                     
@@ -579,10 +637,25 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].startTime! > beginningOfHour)
                                     {
-                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                          {
+                                              opacity=lowOpacity
+                                          }else
+                                          {
+                                              opacity=standardOpacity
+                                          }
+                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
                                     }
+                                
+                                    if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                      {
+                                          opacity=lowOpacity
+                                      }else
+                                      {
+                                          opacity=standardOpacity
+                                      }
                                    
-                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]))
+                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
                                     taskPerHour.id=data[0].id
                                 
                                    tasksPerHourPerDay.tasks.append(taskPerHour)
@@ -590,7 +663,15 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].endTime! < nextHour)
                                     {
-                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
+                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                         {
+                                             opacity=lowOpacity
+                                         }else
+                                         {
+                                             opacity=standardOpacity
+                                         }
+                                        
+                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
                                     }
                                    
                                    

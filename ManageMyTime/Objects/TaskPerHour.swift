@@ -17,14 +17,15 @@ struct TaskPerHour:Identifiable{
     var taskId:UUID?
     var heightFactor:CGFloat
     var color : Color
+    var opacity : CGFloat
     
-    init(heightFactor:CGFloat,taskName:String,color:Color)
+    init(heightFactor:CGFloat,taskName:String,color:Color,opacity:CGFloat)
     {
         id=UUID()
         self.taskName=taskName
         self.heightFactor=heightFactor
         self.color=color
-        
+        self.opacity=opacity
     }
  
 }
