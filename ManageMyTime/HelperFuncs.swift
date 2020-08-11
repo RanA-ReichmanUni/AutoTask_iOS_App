@@ -21,6 +21,14 @@ class HelperFuncs{
     }
     
    
+    func dateToString(date : CustomDate) -> String
+       {
+            
+           var dateString=String(date.day)+"/"+String(date.month)+"/"+String(date.year)
+
+           return dateString
+       }
+       
       
       
       func initTask() -> Task{
