@@ -48,7 +48,9 @@ struct TempNavigator: View {
                     Text("Button Testing")
                 }
             
-
+                    
+                    
+                           
                 
           .hiddenNavigationBarStyle()
             
