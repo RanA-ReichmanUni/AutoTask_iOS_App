@@ -16,7 +16,7 @@ class TaskModel : UIViewController
     var coreManagment = Core()
     //var allTasks = [Task]()
     
-    let lowOpacity:CGFloat=0.6
+    let lowOpacity:CGFloat=0.2
     let standardOpacity:CGFloat=1
     
     func getTaskColor (task:Task) -> Color
@@ -415,7 +415,7 @@ class TaskModel : UIViewController
                                       
                                       for task in data{
                                         
-                                        if(task.date <= currentDate || task.date == currentDate && task.endTime! <= currentTime)
+                                        if(task.date < currentDate || task.date == currentDate && task.endTime! <= currentTime)
                                         {
                                             opacity=lowOpacity
                                         }else
@@ -443,7 +443,7 @@ class TaskModel : UIViewController
                                       */
                                     if(data[0].endTime! < nextHour && data[0].endTime!.minutes > 45)
                                     {
-                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                        if(data[0].date < currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
                                            {
                                                opacity=lowOpacity
                                            }else
@@ -460,7 +460,7 @@ class TaskModel : UIViewController
                                     }
                                     else if(data[0].endTime! < nextHour && data[0].endTime!.minutes < 30)
                                     {
-                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)//SET LOW OPACITY to past tasks
+                                        if(data[0].date < currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)//SET LOW OPACITY to past tasks
                                            {
                                                opacity=lowOpacity
                                            }else
@@ -475,7 +475,7 @@ class TaskModel : UIViewController
                                                                                  //Multiple tasks per hour
                                     }
                                     else{
-                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)//SET LOW OPACITY to past tasks
+                                        if(data[0].date < currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)//SET LOW OPACITY to past tasks
                                             {
                                                 opacity=lowOpacity
                                             }else
@@ -614,7 +614,7 @@ class TaskModel : UIViewController
                                    
                                    
                                    for task in data{
-                                        if(task.date <= currentDate || task.date == currentDate && task.endTime! <= currentTime)
+                                        if(task.date < currentDate || task.date == currentDate && task.endTime! <= currentTime)
                                            {
                                                opacity=lowOpacity
                                            }else
@@ -637,7 +637,7 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].startTime! > beginningOfHour)
                                     {
-                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                        if(data[0].date < currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
                                           {
                                               opacity=lowOpacity
                                           }else
@@ -647,7 +647,7 @@ class TaskModel : UIViewController
                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
                                     }
                                 
-                                    if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                    if(data[0].date < currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
                                       {
                                           opacity=lowOpacity
                                       }else
@@ -663,7 +663,7 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].endTime! < nextHour)
                                     {
-                                        if(data[0].date <= currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
+                                        if(data[0].date < currentDate || data[0].date == currentDate && data[0].endTime! <= currentTime)
                                          {
                                              opacity=lowOpacity
                                          }else

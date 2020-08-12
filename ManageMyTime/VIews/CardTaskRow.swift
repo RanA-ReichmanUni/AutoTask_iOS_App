@@ -19,177 +19,189 @@ struct CardTaskRow: View {
     var startTimeMinutes:Int
     var endTimeHour:Int
     var endTimeMinutes:Int
-    var scheduledDate: [String]
+    var scheduledDate: String
     var color: Color
+    @Binding var offset:CGFloat
+  
+    
+    //@Binding var position:CGFloat
+    
+ 
     
     var body: some View {
            
         ZStack(alignment: .leading) {
    
-                    Color.flatDarkCardBackground
-                    Spacer()
+                Color.flatDarkCardBackground
+                Spacer()
+                HStack {
+                     Spacer()
+                   
+                    
                     HStack {
-                         Spacer()
-                       
-                        
-                        HStack {
-                            VStack{
-                                HStack{
-                                   // Spacer()
-                                    Text(self.taskName1)
-                                .font(.system(size: 20))
-                                //.font(.headline)
-                               
-                                .fontWeight(.bold).padding(4)
-                                        .lineLimit(2).foregroundColor(.white)
-                                .background(RoundedRectangle(cornerRadius: 5).fill(self.color))
-                                //.padding(.bottom, 2)
-                                   Spacer()
-                                }.padding(.bottom,10)
-                                
-                           // Text("Due:"+dueDate1)
-                                //.padding(.bottom, 5)
+                        VStack{
                             HStack{
-                                CategoryPill(categoryName: self.dueDate1,color:            LinearGradient(
-                                    gradient: Gradient(colors: [self.color,self.color]),
-                                                                                                             startPoint: .top,
-                                                                                                             endPoint: .bottom
-                                                                                                         ))
-                            Spacer()
-                                HStack{
-                                               ZStack() {
-                                                                         RoundedRectangle(cornerRadius: 10)
-                                                                              .fill(
-                                                                                  LinearGradient(
-                                                                                   gradient: Gradient(colors: [self.color, self.color]),
-                                                                                      startPoint: .topLeading,
-                                                                                      endPoint: .bottomTrailing
-                                                                                  )
-                                                                              )
-                                                                          
-                                                                          VStack {
-                                                                           Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                                                                  .font(.system(size: 20, weight: .bold))
-                                                                                  .foregroundColor(.white)
-                                                                           
-                                                                          }
-                                                                      }
-                                                                      .frame(width: 60, height: 30, alignment: .center)
-                                               
-                                              //
-                                               ZStack() {
-                                                                                                 RoundedRectangle(cornerRadius: 10)
-                                                                                                   .fill(
-                                                                                                       LinearGradient(
-                                                                                                           gradient: Gradient(colors: [self.color, self.color]),
-                                                                                                           startPoint: .topLeading,
-                                                                                                           endPoint: .bottomTrailing
-                                                                                                       )
-                                                                                                   )
-                                                                                               
-                                                                                               VStack {
-                                                                                                   Text("\(self.endTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                                                                                       .font(.system(size: 20, weight: .bold))
-                                                                                                       .foregroundColor(.white)
-                                                                                                   
-                                                              
-                                                                                               }
-                                                                                           }
-                                                                                           .frame(width: 60, height: 30, alignment: .center)
-                                                
-                                           }
-                                          
-                                }
-                            HStack {
-                                HStack{
-                                Image(systemName: "exclamationmark.circle")
-                                    Text(self.importance1).foregroundColor(Color.white)
-                                }
                                // Spacer()
-                                Spacer()
-                            }
-                         
+                                Text(self.taskName1)
+                            .font(.system(size: 20))
+                            //.font(.headline)
+                           
+                            .fontWeight(.bold).padding(4)
+                                    .lineLimit(2).foregroundColor(.white)
+                            .background(RoundedRectangle(cornerRadius: 5).fill(self.color))
+                            //.padding(.bottom, 2)
+                               Spacer()
+                            }.padding(.bottom,10)
+                            
+                       // Text("Due:"+dueDate1)
                             //.padding(.bottom, 5)
-                            }
-                            //Spacer()
-                       
-                            Spacer()
-                                  // Rectangle().fill(Color.white).frame(width:10)
-                           /* VStack {
-                                ForEach(scheduledDate, id: \.self) { category in
-                                    CategoryPill(categoryName: category,color:LinearGradient(
-                                        gradient: Gradient(colors: [Color(hex:"#3CD3AD"),Color(hex:"#4CB8C4")]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )).padding(EdgeInsets(top: 2, leading: 1, bottom: 2, trailing: 1))
-                                }
-                              
-                            
-                            }*/
-                            
-                        }
-                        .padding(.horizontal, 5)
-                        /* VStack{
-                        //Spacer()
-                           HStack{
-                        ZStack() {
-                                                  RoundedRectangle(cornerRadius: 10)
-                                                       .fill(
-                                                           LinearGradient(
-                                                            gradient: Gradient(colors: [self.color, self.color]),
-                                                               startPoint: .topLeading,
-                                                               endPoint: .bottomTrailing
-                                                           )
-                                                       )
-                                                   
-                                                   VStack {
-                                                    Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                                           .font(.system(size: 20, weight: .bold))
-                                                           .foregroundColor(.white)
-                                                    
-                                                   }
-                                               }
-                                               .frame(width: 60, height: 30, alignment: .center)
-                        
-                       //
-                        ZStack() {
-                                                                          RoundedRectangle(cornerRadius: 10)
-                                                                            .fill(
-                                                                                LinearGradient(
-                                                                                    gradient: Gradient(colors: [self.color, self.color]),
-                                                                                    startPoint: .topLeading,
-                                                                                    endPoint: .bottomTrailing
-                                                                                )
-                                                                            )
-                                                                        
-                                                                        VStack {
-                                                                            Text("\(self.endTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                                                                .font(.system(size: 20, weight: .bold))
-                                                                                .foregroundColor(.white)
-                                                                            
+                        HStack{
+                            CategoryPill(categoryName: self.scheduledDate,color:            LinearGradient(
+                                gradient: Gradient(colors: [self.color,self.color]),
+                                                                                                         startPoint: .top,
+                                                                                                         endPoint: .bottom
+                                                                                                     ))
+                        Spacer()
+                            HStack{
+                               ZStack() {
+                                     RoundedRectangle(cornerRadius: 10)
+                                          .fill(
+                                              LinearGradient(
+                                               gradient: Gradient(colors: [self.color, self.color]),
+                                                  startPoint: .topLeading,
+                                                  endPoint: .bottomTrailing
+                                              )
+                                          )
+                                      
+                                      VStack {
+                                       Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
+                                              .font(.system(size: 20, weight: .bold))
+                                              .foregroundColor(.white)
                                        
-                                                                        }
-                                                                    }
-                                                                    .frame(width: 60, height: 30, alignment: .center)
-                         
-                    }
-                    .padding(15)
-                 /**/
-                        }.padding()*/
+                                      }
+                                  }
+                                  .frame(width: 60, height: 30, alignment: .center)
+                                           
+                                          //
+                               ZStack() {
+                                     RoundedRectangle(cornerRadius: 10)
+                                       .fill(
+                                           LinearGradient(
+                                               gradient: Gradient(colors: [self.color, self.color]),
+                                               startPoint: .topLeading,
+                                               endPoint: .bottomTrailing
+                                           )
+                                       )
+                                   
+                                   VStack {
+                                       Text("\(self.endTimeHour)"+":"+"\(self.startTimeMinutes)")
+                                           .font(.system(size: 20, weight: .bold))
+                                           .foregroundColor(.white)
+                                       
+  
+                                   }
+                               }
+                               .frame(width: 60, height: 30, alignment: .center)
+                                
+                           }
+                                      
+                        }
+                        HStack {
+                            HStack{
+                            Image(systemName: "exclamationmark.circle").isHidden(true)
+                                Text(self.importance1).foregroundColor(Color.white).isHidden(true)
+                            }
+                           // Spacer()
+                            Spacer()
+                        }
+                     
+                        //.padding(.bottom, 5)
+                        }
+                        //Spacer()
+                   
+                        Spacer()
+                              // Rectangle().fill(Color.white).frame(width:10)
+                       /* VStack {
+                            ForEach(scheduledDate, id: \.self) { category in
+                                CategoryPill(categoryName: category,color:LinearGradient(
+                                    gradient: Gradient(colors: [Color(hex:"#3CD3AD"),Color(hex:"#4CB8C4")]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )).padding(EdgeInsets(top: 2, leading: 1, bottom: 2, trailing: 1))
+                            }
+                          
                         
-            }.padding() .background(RoundedRectangle(cornerRadius: 10).fill(self.color))
-            }
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-              
+                        }*/
+                        
+                    }
+                    .padding(.horizontal, 5)
+                    /* VStack{
+                    //Spacer()
+                       HStack{
+                    ZStack() {
+                                              RoundedRectangle(cornerRadius: 10)
+                                                   .fill(
+                                                       LinearGradient(
+                                                        gradient: Gradient(colors: [self.color, self.color]),
+                                                           startPoint: .topLeading,
+                                                           endPoint: .bottomTrailing
+                                                       )
+                                                   )
+                                               
+                                               VStack {
+                                                Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
+                                                       .font(.system(size: 20, weight: .bold))
+                                                       .foregroundColor(.white)
+                                                
+                                               }
+                                           }
+                                           .frame(width: 60, height: 30, alignment: .center)
+                    
+                   //
+                    ZStack() {
+                                                                      RoundedRectangle(cornerRadius: 10)
+                                                                        .fill(
+                                                                            LinearGradient(
+                                                                                gradient: Gradient(colors: [self.color, self.color]),
+                                                                                startPoint: .topLeading,
+                                                                                endPoint: .bottomTrailing
+                                                                            )
+                                                                        )
+                                                                    
+                                                                    VStack {
+                                                                        Text("\(self.endTimeHour)"+":"+"\(self.startTimeMinutes)")
+                                                                            .font(.system(size: 20, weight: .bold))
+                                                                            .foregroundColor(.white)
+                                                                        
+                                   
+                                                                    }
+                                                                }
+                                                                .frame(width: 60, height: 30, alignment: .center)
+                     
+                }
+                .padding(15)
+             /**/
+                    }.padding()*/
+                   
+                }.padding() .background(RoundedRectangle(cornerRadius: 20).fill(LinearGradient(
+                    gradient: Gradient(colors: [.white,self.color,self.color]),
+                    startPoint: .top,
+                  endPoint:.bottomLeading
+                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:0.5))
+
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset)
+          
         
     }
 }
 
-struct CardTaskRow_Previews: PreviewProvider {
+/*struct CardTaskRow_Previews: PreviewProvider {
+   @State var position:CGFloat=4
     static var previews: some View {
-        CardTaskRow(taskName1: "Check", dueDate1: "28/09/05", importance1: "High", workTimeHour: 6, workTimeMinutes: 30,startTimeHour:5,startTimeMinutes:30,endTimeHour:7,endTimeMinutes:50, scheduledDate: ["28/09/05"], color: Color(.systemPink))
+       CardTaskRow(taskName1: "Check", dueDate1: "28/09/05", importance1: "High", workTimeHour: 6, workTimeMinutes: 30,startTimeHour:5,startTimeMinutes:30,endTimeHour:7,endTimeMinutes:50, scheduledDate: "28/09/05", color: Color(.systemPink),position: $position)
     }
-}
+}*/
 
 extension UIColor {
     

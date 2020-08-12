@@ -40,7 +40,7 @@ class TaskViewModel : ObservableObject
     
     @Published var color : String
     //@Published var color : Color
-
+    
     
     enum UUIDError: Error {
         case notConfirmedToUUID

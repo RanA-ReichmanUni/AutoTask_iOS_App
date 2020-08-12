@@ -30,7 +30,7 @@ struct TempNavigator: View {
                 
                 NavigationLink(destination:TaskList()){
                                  
-                    Text("Task List")
+                    Text("All Tasks")
                 }
             
                 NavigationLink(destination:AddTask()){
