@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CardTaskRow: View {
-    
+    @ObservedObject var taskViewModel:TaskViewModel
     var taskName1 : String
     var dueDate1 : String
     var importance1 : String
@@ -197,7 +197,13 @@ struct CardTaskRow: View {
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).popover(isPresented: self.$displayItem) {
-                            DetailedTaskUI( taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
+            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
+                    self.displayItem=false
+                    self.padding = 0
+                 self.height=170
+                 self.paddingBottom=15
+                 self.padding = 0
+            }.onDisappear{
                                 self.displayItem=false
                                 self.padding = 0
                                 self.height=170

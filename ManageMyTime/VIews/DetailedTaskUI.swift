@@ -12,7 +12,7 @@ struct DetailedTaskUI: View {
     
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-     @EnvironmentObject var taskViewModel:TaskViewModel
+    @ObservedObject var taskViewModel:TaskViewModel
     @State private var showingAlert = false
 
     
