@@ -22,8 +22,14 @@ struct CardTaskRow: View {
     var scheduledDate: String
     var color: Color
     @Binding var offset:CGFloat
-  
-    
+    var date:CustomDate
+    var notes:String
+    var id:UUID
+    var dueDate:Date
+    @State var padding:CGFloat=0
+    @State var displayItem=false
+    @State var height:CGFloat?
+    @State var paddingBottom:CGFloat=15
     //@Binding var position:CGFloat
     
  
@@ -183,15 +189,42 @@ struct CardTaskRow: View {
              /**/
                     }.padding()*/
                    
-                }.padding() .background(RoundedRectangle(cornerRadius: 20).fill(LinearGradient(
+                }.padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(RoundedRectangle(cornerRadius: 20).fill(LinearGradient(
                     gradient: Gradient(colors: [.white,self.color,self.color]),
                     startPoint: .top,
                   endPoint:.bottomLeading
                 ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:0.5))
 
         }
-        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset)
-          
+        .clipShape(RoundedRectangle(cornerRadius: 20)).frame(height:self.height).offset(y: self.offset).padding(EdgeInsets(top: 0, leading: 0, bottom: self.padding, trailing: 0)).popover(isPresented: self.$displayItem) {
+                            DetailedTaskUI( taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
+                                self.displayItem=false
+                                self.padding = 0
+                                self.height=nil
+                                self.paddingBottom=15
+                                
+                            }
+        }
+        .simultaneousGesture(TapGesture().onEnded{
+                                                      print("Got Tap")
+                                                    
+            withAnimation(.ripple2()) {self.height=300
+                self.paddingBottom=150
+                self.padding = 50
+                                        
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                              self.displayItem=true
+                                           }
+                                   
+            }
+                                //delay(0.5)
+                                
+        })
+        
+        /*.onTapGesture {
+            withAnimation(.easeIn(duration: 0.5)) { self.padding = 100 }
+        }
+          */
         
     }
 }
@@ -318,4 +351,13 @@ extension Color {
             self.init(.sRGB, red: 1, green: 1, blue: 1, opacity: 1)
         }
     }
+}
+
+extension Animation {
+    static func ripple2() -> Animation {
+        Animation.spring(dampingFraction: 0.15)
+            .speed(3)
+    }
+    
+
 }
