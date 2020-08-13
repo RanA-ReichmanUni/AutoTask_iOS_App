@@ -59,7 +59,7 @@ struct TaskList: View {
                                             Text("Retrieve")
                                         }*/
                 
-            }.onAppear{self.taskViewModel.retrieveAllTasks()} //.padding(.top,5)//.background(Color.black)
+            }.onAppear{self.taskViewModel.retrieveAllTasks()} //.padding(.top,5)
              
             
          

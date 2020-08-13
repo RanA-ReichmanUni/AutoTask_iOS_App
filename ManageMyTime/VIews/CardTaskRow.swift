@@ -28,7 +28,7 @@ struct CardTaskRow: View {
     var dueDate:Date
     @State var padding:CGFloat=0
     @State var displayItem=false
-    @State var height:CGFloat?
+    @State var height:CGFloat=170
     @State var paddingBottom:CGFloat=15
     //@Binding var position:CGFloat
     
@@ -193,26 +193,27 @@ struct CardTaskRow: View {
                     gradient: Gradient(colors: [.white,self.color,self.color]),
                     startPoint: .top,
                   endPoint:.bottomLeading
-                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:0.5))
+                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:2)).frame(height:self.height)
 
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 20)).frame(height:self.height).offset(y: self.offset).padding(EdgeInsets(top: 0, leading: 0, bottom: self.padding, trailing: 0)).popover(isPresented: self.$displayItem) {
+            }
+        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).popover(isPresented: self.$displayItem) {
                             DetailedTaskUI( taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
                                 self.displayItem=false
                                 self.padding = 0
-                                self.height=nil
+                                self.height=170
                                 self.paddingBottom=15
+                                self.padding = 0
                                 
                             }
-        }
+        }.padding(EdgeInsets(top: padding, leading: 0, bottom: padding, trailing: 0))
         .simultaneousGesture(TapGesture().onEnded{
-                                                      print("Got Tap")
+                                                     // print("Got Tap")
                                                     
-            withAnimation(.ripple2()) {self.height=300
-                self.paddingBottom=150
-                self.padding = 50
+            withAnimation(.easeInOut) {self.height=340
+                self.paddingBottom=200
+                self.padding = -80
                                         
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+               DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                                               self.displayItem=true
                                            }
                                    
