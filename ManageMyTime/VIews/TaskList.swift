@@ -25,11 +25,15 @@ struct TaskList: View {
 
   
             ScrollView{
-                
+                VStack{Spacer()
+                    Spacer()
+                    Spacer()
+                }
                 ForEach(taskViewModel.allTasks, id: \.self) { task in
                     VStack{
                         NavigationLink(destination: DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes!, asstimatedWorkTimeHour: task.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes,day:task.date.day,month:task.date.month,year:task.date.year,taskId:task.id,color:self.taskViewModel.getTaskColor(task:task))){
                        
+                            
                             CardTaskRow( taskViewModel:self.taskViewModel,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -40, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}/*.onTapGesture {
                                 withAnimation(.easeIn(duration: 5)) { self.offset = 50 }
                             }*/
@@ -47,7 +51,7 @@ struct TaskList: View {
                         }
                              
                 }
-                      .navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
+                .navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
                         
                         
                         /*Button(action: {
@@ -59,7 +63,13 @@ struct TaskList: View {
                                             Text("Retrieve")
                                         }*/
                 
-            }.onAppear{self.taskViewModel.retrieveAllTasks()} //.padding(.top,5)
+            }.onAppear{self.taskViewModel.retrieveAllTasks()
+                self.taskViewModel.getFirstTaskColor()
+            }.background((LinearGradient(
+                gradient: Gradient(colors: [.white,taskViewModel.firstTaskColor,.black]),
+                startPoint: .top,
+              endPoint:.bottomLeading
+            ))) //.padding(.top,5)
              
             
          

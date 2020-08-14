@@ -54,7 +54,7 @@ struct CardTaskRow: View {
                            
                             .fontWeight(.bold).padding(4)
                                     .lineLimit(2).foregroundColor(.white)
-                            .background(RoundedRectangle(cornerRadius: 5).fill(self.color))
+                            //.background(Capsule().fill(self.color))
                             //.padding(.bottom, 2)
                                Spacer()
                             }.padding(.bottom,10)
@@ -190,25 +190,29 @@ struct CardTaskRow: View {
                     }.padding()*/
                    
                 }.padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(RoundedRectangle(cornerRadius: 20).fill(LinearGradient(
-                    gradient: Gradient(colors: [.white,self.color,self.color]),
+                    gradient: Gradient(colors: [.white,self.color,self.color,self.color]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                     startPoint: .top,
                   endPoint:.bottomLeading
-                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:2)).frame(height:self.height)
+                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height)
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
             DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
+                self.taskViewModel.getFirstTaskColor()
                     self.displayItem=false
                    
                 withAnimation(.easeInOut(duration:1.5)) {  self.height=170
                  self.paddingBottom=15
                     self.padding = 0}
+                 
             }.onDisappear{
+                self.taskViewModel.getFirstTaskColor()
                                 self.displayItem=false
                                 //self.padding = 0
                 withAnimation(.easeInOut(duration:1.5)) {self.height=170
                                 self.paddingBottom=15
                                     self.padding = 0}
+                                self.taskViewModel.getFirstTaskColor()
                                 
                             }
         }.padding(EdgeInsets(top: padding, leading: 0, bottom: padding, trailing: 0))
@@ -227,6 +231,21 @@ struct CardTaskRow: View {
                                 //delay(0.5)
                                 
         })
+        /*.simultaneousGesture(LongPressGesture().onEnded{ _ in
+                                                           // print("Got Tap")
+                                                          
+                  withAnimation(.easeInOut) {self.height=340
+                      self.paddingBottom=200
+                      self.padding = -80
+                                              
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                                    self.displayItem=true
+                                                 }
+                                         
+                  }
+                                      //delay(0.5)
+                                      
+              })*/
         
         /*.onTapGesture {
             withAnimation(.easeIn(duration: 0.5)) { self.padding = 100 }

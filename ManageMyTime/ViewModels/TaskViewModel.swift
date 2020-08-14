@@ -40,7 +40,7 @@ class TaskViewModel : ObservableObject
     
     @Published var color : String
     //@Published var color : Color
-    
+    @Published var firstTaskColor:Color
     
     enum UUIDError: Error {
         case notConfirmedToUUID
@@ -73,6 +73,7 @@ class TaskViewModel : ObservableObject
         startTime=Hour(context: managedContext)
         endTime=Hour(context: managedContext)
         date=CustomDate(context: managedContext)
+        firstTaskColor=Color.white
         
         asstimatedWorkTime.hour=0
         asstimatedWorkTime.minutes=0
@@ -88,6 +89,13 @@ class TaskViewModel : ObservableObject
         //retrieveAllTasks()
     
      }
+    
+    func getFirstTaskColor()
+    {
+        
+        self.firstTaskColor=taskModel.getFirstTaskColor()
+       
+    }
     
     func getTaskColor(task:Task) -> Color
     {

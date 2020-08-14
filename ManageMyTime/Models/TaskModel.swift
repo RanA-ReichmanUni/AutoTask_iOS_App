@@ -68,6 +68,33 @@ class TaskModel : UIViewController
            
            
        }
+    func getFirstTaskColor() ->Color
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Color.white }
+                  
+              //We need to create a context from this container
+              let managedContext = appDelegate.persistentContainer.viewContext
+              
+              //Prepare the request of type NSFetchRequest  for the entity
+              let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+
+              do {
+                  
+                  let result = try managedContext.fetch(fetchRequest)
+                  
+                if (!result.isEmpty)
+                {
+                    return getTaskColor(color: (result[0] as! Task).color!)
+                }
+            
+                 
+              } catch {
+                  
+                  print("Failed retriving first color")
+              }
+        
+        return Color.white
+    }
     
     func autoFillTesting()
     {
