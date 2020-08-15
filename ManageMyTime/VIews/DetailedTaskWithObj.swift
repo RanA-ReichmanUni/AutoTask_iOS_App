@@ -35,10 +35,13 @@ struct DetailedTaskWithObj: View {
     var color:String
     
     var helper = HelperFuncs()
+    @Environment(\.colorScheme) var colorScheme
+
+   // var lightModeGradient:LinearGradient=
     
     //var task :Task
 
-    
+  
     var body: some View {
         ScrollView{
         VStack{
@@ -50,62 +53,62 @@ struct DetailedTaskWithObj: View {
              
                 HStack {
                     
-                    Text("Name: ")
-                    Text(self.taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(self.taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     
                 }
             
             
               
                 HStack {
-                    Text("Due Date: ")
-                    Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Due Date: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
                 
                 HStack {
-                    Text("Importance: ")
-                    Text(self.importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Importance: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(self.importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
             
               HStack {
-                    Text("Work Time: ")
+                    Text("Work Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     ZStack{
-                        Text(String(self.asstimatedWorkTimeHour) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30)).frame(width: 180, height: 90)
+                        Text(String(self.asstimatedWorkTimeHour) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                  
-                        Text(String(self.asstimatedWorkTimeMinutes) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                        Text(String(self.asstimatedWorkTimeMinutes) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     }
                     
                 }
                
                 HStack {
-                    Text("Note: ")
-                    Text(self.notes).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Note: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(self.notes).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
                 
              HStack {
-                        Text("Start Time: ")
-                    Text(String(self.startTimeHour)+":"+String(self.startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                        Text("Start Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(String(self.startTimeHour)+":"+String(self.startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                             }
                  HStack {
-                        Text("End Time: ")
-                             Text(String(self.endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                        Text("End Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                             Text(String(self.endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                  }
         
                  VStack {
                 HStack {
-                                  Text("day: ")
-                                    Text(String(self.day)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                  Text("day: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                    Text(String(self.day)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
                 
                 HStack {
-                                  Text("Month: ")
-                                       Text(String(self.month)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                  Text("Month: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                       Text(String(self.month)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
                 
                 
                 HStack {
-                                  Text("Year: ")
-                                       Text(String(self.year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                  Text("Year: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                       Text(String(self.year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
                 
             }   .frame( maxWidth: .infinity, maxHeight: .infinity)
@@ -114,12 +117,18 @@ struct DetailedTaskWithObj: View {
           
      
                 
-         }
-            }.background(LinearGradient(
-                gradient: Gradient(colors: [.white,self.taskViewModel.getTaskColor(color:self.color)]),
+         }//Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518")
+            }.background(
+                self.colorScheme == .dark ? ( LinearGradient(
+                    gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.taskViewModel.getTaskColor(color:self.color)]),
+                             startPoint: UnitPoint(x: 0.2, y: 0.4),
+                             endPoint:.bottom
+                           )) :(
+                LinearGradient(
+                gradient: Gradient(colors: [Color.white,self.taskViewModel.getTaskColor(color:self.color)]),
               startPoint: UnitPoint(x: 0.2, y: 0.4),
               endPoint:.bottom
-            )).onTapGesture {
+            ))).onTapGesture {
             self.displayItem = false
            
         }

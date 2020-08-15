@@ -66,9 +66,9 @@ struct TaskList: View {
             }.onAppear{self.taskViewModel.retrieveAllTasks()
                 self.taskViewModel.getFirstTaskColor()
             }.background((LinearGradient(
-                gradient: Gradient(colors: [.white,taskViewModel.firstTaskColor,.black]),
-                startPoint: .top,
-              endPoint:.bottomLeading
+                gradient: Gradient(colors: [Color(hex:"#DDEFBB"),Color(hex:"#FFEEEE")]),
+                startPoint: .trailing,
+              endPoint:.leading
             ))) //.padding(.top,5)
              
             

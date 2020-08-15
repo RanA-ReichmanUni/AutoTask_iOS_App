@@ -13,6 +13,7 @@ struct DetailedTask: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @EnvironmentObject var taskViewModel:TaskViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     var taskName : String
 
@@ -51,69 +52,69 @@ struct DetailedTask: View {
              
                 HStack {
                     
-                    Text("Name: ")
-                    Text(taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     
                 }
                 
                 HStack {
                                  
-                    Text("Id: ")
-                    Text(taskId.uuidString).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Id: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(taskId.uuidString).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                                  
                 }
             
             
               
                 HStack {
-                    Text("Due Date: ")
-                    Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Due Date: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
                 
                 HStack {
-                    Text("Importance: ")
-                    Text(importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Importance: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(importance).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
             
                 HStack {
-                    Text("Work Time: ")
+                    Text("Work Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     ZStack{
-                    Text(String(asstimatedWorkTimeHour) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30)).frame(width: 180, height: 90)
+                    Text(String(asstimatedWorkTimeHour) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                  
-                     Text(String(asstimatedWorkTimeMinutes) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                     Text(String(asstimatedWorkTimeMinutes) ).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     }
                     
                 }
                 
                 HStack {
-                    Text("Note: ")
-                    Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    Text("Note: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
                 
                 HStack {
-                        Text("Start Time: ")
-                       Text(String(startTimeHour)+":"+String(startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                        Text("Start Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                       Text(String(startTimeHour)+":"+String(startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                             }
                  HStack {
-                        Text("End Time: ")
-                             Text(String(endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                        Text("End Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                             Text(String(endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                  }
         
                  VStack {
                 HStack {
-                                  Text("day: ")
-                                       Text(String(day)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                  Text("day: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                       Text(String(day)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
                 
                 HStack {
-                                  Text("Month: ")
-                                       Text(String(month)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                  Text("Month: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                       Text(String(month)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
                 
                 
                 HStack {
-                                  Text("Year: ")
-                                       Text(String(year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                                  Text("Year: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                       Text(String(year)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
                 }
         }.frame( maxWidth: .infinity, maxHeight: .infinity)

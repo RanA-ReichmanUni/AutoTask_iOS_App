@@ -14,7 +14,7 @@ struct DetailedTaskUI: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @ObservedObject var taskViewModel:TaskViewModel
     @State private var showingAlert = false
-
+    @Environment(\.colorScheme) var colorScheme
     
          var taskName : String
     var importance : String
@@ -44,6 +44,7 @@ struct DetailedTaskUI: View {
          
             
           HStack{
+            
             Spacer()
               Button(action: {
                                                       
@@ -51,8 +52,8 @@ struct DetailedTaskUI: View {
                                                                                 
                            }) {
                             
-                              VStack{  Image(systemName: "pencil").foregroundColor(Color.black)
-                                Text("Edit Task").foregroundColor(Color.black)}.padding()
+                              VStack{  Image(systemName: "pencil").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                Text("Edit Task").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                            
                                                            
              }
@@ -66,8 +67,8 @@ struct DetailedTaskUI: View {
                                                          
                             }) {
                               VStack{
-                               Image(systemName: "trash").foregroundColor(Color.black)
-                                Text("Delete").foregroundColor(Color.black)}.padding()
+                                Image(systemName: "trash").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                Text("Delete").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                             
                                                             
               } .alert(isPresented:$showingAlert) {
@@ -79,13 +80,23 @@ struct DetailedTaskUI: View {
             Spacer()
           
            
-          }.padding().background(self.color.opacity(0)).clipShape(RoundedRectangle(cornerRadius: 15))
+          }.padding().background(self.color.opacity(0))
             
-        }.background(LinearGradient(
-            gradient: Gradient(colors: [.white,self.color,.white]),
-          startPoint: UnitPoint(x: 0.2, y: 0.2),
-          endPoint:.bottomLeading
-        ))
+        }
+        
+        .background(
+            self.colorScheme == .dark ? ( LinearGradient(
+                gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.color]),
+                         startPoint: UnitPoint(x: 0.2, y: 0.4),
+                         endPoint:.bottom
+                       )) :(
+           LinearGradient(
+                gradient: Gradient(colors: [.white,self.color,.white]),
+              startPoint: UnitPoint(x: 0.2, y: 0.2),
+              endPoint:.bottomLeading
+            )))
+            
+        
     }
 }
 
