@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CardTaskRow: View {
     @ObservedObject var taskViewModel:TaskViewModel
+     @Environment(\.colorScheme) var colorScheme
     var taskName1 : String
     var dueDate1 : String
     var importance1 : String
@@ -189,11 +190,18 @@ struct CardTaskRow: View {
              /**/
                     }.padding()*/
                    
-                }.padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(RoundedRectangle(cornerRadius: 20).fill(LinearGradient(
-                    gradient: Gradient(colors: [.white,self.color,self.color,self.color]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                    startPoint: .top,
-                  endPoint:.bottomLeading
-                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height)
+                }.padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(
+                    self.colorScheme == .dark ? ( LinearGradient(
+                        gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
+                        startPoint: .topTrailing,
+                                 endPoint:.bottomTrailing
+                               )) :(
+                   LinearGradient(
+                        gradient: Gradient(colors: [.white,self.color,self.color,self.color,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                     //self.color,.purple,.purple,.purple
+                        startPoint: .topLeading,
+                      endPoint:.bottomTrailing
+                    ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height)
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
