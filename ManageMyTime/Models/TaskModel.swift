@@ -343,14 +343,14 @@ class TaskModel : UIViewController
                 let result = try managedContext.fetch(fetchRequest)
                 for data in result as! [Task] {
                         
-                    if(data.taskName=="Task King")
+                    /*if(data.taskName=="Task King")
                     {
                             print("Task Status: ")
                             print(data.taskName)
                             print("Duration ",data.asstimatedWorkTime.hour,":",data.asstimatedWorkTime.minutes)
                             print("Start Time ",data.startTime!.hour,":",data.startTime!.minutes)
                             print("End Time ",data.endTime!.hour,":",data.endTime!.minutes)
-                    }
+                    }*/
                     
                         allTasks.append(data)
                     /*    print(data.taskName)
@@ -841,14 +841,15 @@ class TaskModel : UIViewController
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         fetchRequest.predicate = NSPredicate(format: "id = %@", taskId as CVarArg)
        
-       
+        var freeSpaceId=UUID()
+        
         do
         {
             let requiredTask = try managedContext.fetch(fetchRequest)
             
             let taskToFreeSpace = requiredTask[0] as! Task
             
-              coreManagment.createFreeSpace(startTime: taskToFreeSpace.startTime!, endTime: taskToFreeSpace.endTime!, date: taskToFreeSpace.date, duration: taskToFreeSpace.asstimatedWorkTime, fullyOccupiedDay: false)
+              freeSpaceId=coreManagment.createFreeSpace(startTime: taskToFreeSpace.startTime!, endTime: taskToFreeSpace.endTime!, date: taskToFreeSpace.date, duration: taskToFreeSpace.asstimatedWorkTime, fullyOccupiedDay: false)
             
             let objectToDelete = requiredTask[0] as! NSManagedObject
             managedContext.delete(objectToDelete)
@@ -871,7 +872,7 @@ class TaskModel : UIViewController
         }
         
        
-        coreManagment.mergeFreeSpaces()
+        coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
         
         
         

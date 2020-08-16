@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TempNavigator: View {
+    @ObservedObject var taskViewModel=TaskViewModel()
     var body: some View {
         
       NavigationView {
@@ -28,7 +29,7 @@ struct TempNavigator: View {
                 }
             
                 
-                NavigationLink(destination:TaskList()){
+            NavigationLink(destination:TaskList(taskViewModel:taskViewModel)){
                                  
                     Text("All Tasks")
                 }
@@ -58,7 +59,7 @@ struct TempNavigator: View {
                 
           .hiddenNavigationBarStyle()
             
-        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green))
+        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green)).onAppear{self.taskViewModel.retrieveAllTasks()}
             
             
         }

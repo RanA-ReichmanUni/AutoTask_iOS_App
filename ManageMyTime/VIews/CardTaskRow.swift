@@ -101,7 +101,7 @@ struct CardTaskRow: View {
                                        )
                                    
                                    VStack {
-                                       Text("\(self.endTimeHour)"+":"+"\(self.startTimeMinutes)")
+                                       Text("\(self.endTimeHour)"+":"+"\(self.endTimeMinutes)")
                                            .font(.system(size: 20, weight: .bold))
                                            .foregroundColor(.white)
                                        

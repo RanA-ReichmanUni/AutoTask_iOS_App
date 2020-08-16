@@ -14,7 +14,7 @@ struct TaskList: View {
     //var taskData : Task
    // var taskViewModel = TaskViewModel()
     
-     @EnvironmentObject var taskViewModel:TaskViewModel
+     @ObservedObject var taskViewModel:TaskViewModel
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @State private var offset: CGFloat = 0

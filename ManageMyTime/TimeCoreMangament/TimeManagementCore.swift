@@ -559,7 +559,7 @@ class Core{
         
     }*/
     
-    func mergeFreeSpaces()
+    /*func mergeFreeSpaces()
      {
         
         var dateComponents = DateComponents()
@@ -576,25 +576,30 @@ class Core{
         
         var freeSpacesToDelete=[UUID]()
         
+        
         for index in 0...sortedFreeSpaces.count-1
         {
             if(index != sortedFreeSpaces.count-1)
             {
-                if(sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
+                if(sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
                 {
                     
                     print(sortedFreeSpaces[index].ending)
                     print(sortedFreeSpaces[index+1].starting)
                     
                     createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
+                      print("on day: " ,sortedFreeSpaces[index+1].date.day,"Creating free space. from: " ,sortedFreeSpaces[index].starting.hour,":",sortedFreeSpaces[index].starting.minutes,"to ",sortedFreeSpaces[index+1].ending.hour,":",sortedFreeSpaces[index+1].ending.minutes)
                     
-                    if(!freeSpacesToDelete.contains(sortedFreeSpaces[index].id))//Check if we didn't already order to delete this free space, in case of three or mote sequntial FreeSpaces
+                    if(!freeSpacesToDelete.contains(sortedFreeSpaces[index].id))//Check if we didn't already order to delete this free space, in case of three or more sequntial FreeSpaces
                     {
                         freeSpacesToDelete.append(sortedFreeSpaces[index].id)
+                        print("Ordered to delete ",sortedFreeSpaces[index].id.description)
+                        print("on day: " ,sortedFreeSpaces[index].date.day,"delete from: " ,sortedFreeSpaces[index].starting.hour,":",sortedFreeSpaces[index].starting.minutes,"to ",sortedFreeSpaces[index].ending.hour,":",sortedFreeSpaces[index].ending.minutes)
                     }
                     
                     freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
-               
+                    print("Ordered to delete ",sortedFreeSpaces[index+1].id.description)
+                    print("on day: " ,sortedFreeSpaces[index+1].date.day," delete from: " ,sortedFreeSpaces[index+1].starting.hour,":",sortedFreeSpaces[index+1].starting.minutes,"to ",sortedFreeSpaces[index+1].ending.hour,":",sortedFreeSpaces[index+1].ending.minutes)
                 }
             }
             
@@ -602,14 +607,90 @@ class Core{
         
         for freeSpaceId in freeSpacesToDelete
         {
-            
+            print("Going to delete ",freeSpaceId.description)
             deleteFreeSpace(freeSpaceId: freeSpaceId)
         }
         
         
         
          
-     }
+     }*/
+    
+    func mergeFreeSpaces(createdFreeSpace:UUID)
+    {
+       
+       var dateComponents = DateComponents()
+       dateComponents.year = Date().year
+       dateComponents.month = Date().month+1
+       dateComponents.day = Date().day
+
+
+       // Create date from components
+       let userCalendar = Calendar.current // user calendar
+       let dateTime = userCalendar.date(from: dateComponents)!
+       
+       var sortedFreeSpaces=retriveAndSortFreeSpaces(dueDate:dateTime)
+       
+       var freeSpacesToDelete=[UUID]()
+        var createdFreeSpaceId=UUID()
+        
+       var didCreateFreeSpace = false
+        
+       for index in 0...sortedFreeSpaces.count-1
+       {
+            if(sortedFreeSpaces[index].id==createdFreeSpace)
+           {
+            
+            
+               if(index > 0 && sortedFreeSpaces[index].date==sortedFreeSpaces[index-1].date && sortedFreeSpaces[index].starting == sortedFreeSpaces[index-1].ending)//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
+               {
+                   didCreateFreeSpace=true
+                
+                   print(sortedFreeSpaces[index].ending)
+                   print(sortedFreeSpaces[index-1].starting)
+                   
+                    
+                   createdFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                    freeSpacesToDelete.append(createdFreeSpace)
+                    freeSpacesToDelete.append(sortedFreeSpaces[index-1].id)
+                  
+                
+               }
+                
+               if(index+1 <= sortedFreeSpaces.count-1 && sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
+               {
+                   if(didCreateFreeSpace)
+                   {
+                        createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                        freeSpacesToDelete.append(createdFreeSpaceId)
+                    }
+                   else{
+                      createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
+                    }
+                
+                        if(!freeSpacesToDelete.contains(createdFreeSpace))
+                        {
+                                freeSpacesToDelete.append(createdFreeSpace)
+                        }
+                
+                        freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
+                    
+                
+                }
+           }
+           
+       }
+       
+       for freeSpaceId in freeSpacesToDelete
+       {
+           print("Going to delete ",freeSpaceId.description)
+           deleteFreeSpace(freeSpaceId: freeSpaceId)
+       }
+       
+       
+       
+        
+    }
  
     func retriveAndSortFreeSpaces(currentDate:CustomDate,dueDate:Date) -> [FreeTaskSpace]
     {
@@ -1451,10 +1532,10 @@ class Core{
  
     
     
-    func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool){
+    func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool) -> UUID{
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
-              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return UUID() }
               
               //We need to create a context from this container
               let managedContext = appDelegate.persistentContainer.viewContext
@@ -1481,8 +1562,11 @@ class Core{
                   print("Could not save. \(error), \(error.userInfo)")
               }
         
-        
+        return freeSpace.id
     }
+    
+    
+   
     
     
     func deleteSpace(assignedTaskName : String){
