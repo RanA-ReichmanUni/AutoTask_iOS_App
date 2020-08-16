@@ -74,7 +74,7 @@ struct DetailedTaskUI: View {
               } .alert(isPresented:$showingAlert) {
                          Alert(title: Text("Are you sure you want to delete this task ?"), message: Text("You can`t undo this action"), primaryButton: .destructive(Text("Delete")) {
                                       self.taskViewModel.deleteTask(taskId: self.taskId)
-
+                                            self.taskViewModel.getFirstTaskColor()
                                           self.mode.wrappedValue.dismiss()
                             }, secondaryButton: .cancel())}
             Spacer()

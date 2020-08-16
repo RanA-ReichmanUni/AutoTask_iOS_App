@@ -10,8 +10,15 @@ import SwiftUI
 
 struct TempNavigator: View {
     @ObservedObject var taskViewModel=TaskViewModel()
+    
+   /* init() { // for navigation bar title color
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.red]
+    // For navigation bar background color
+    UINavigationBar.appearance().backgroundColor = UIColor(Color(hex:"#2193b0"))
+       }*/
+    
     var body: some View {
-        
+ 
       NavigationView {
         
         List(){
@@ -28,7 +35,7 @@ struct TempNavigator: View {
                             Text("Daily Schedule")
                 }
             
-                
+                //previously we didn't pass the taskViewModel
             NavigationLink(destination:TaskList(taskViewModel:taskViewModel)){
                                  
                     Text("All Tasks")
@@ -59,7 +66,7 @@ struct TempNavigator: View {
                 
           .hiddenNavigationBarStyle()
             
-        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green)).onAppear{self.taskViewModel.retrieveAllTasks()}
+        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green)).onAppear{self.taskViewModel.retrieveAllTasks()}//Previouslt we didn't have on appear.
             
             
         }

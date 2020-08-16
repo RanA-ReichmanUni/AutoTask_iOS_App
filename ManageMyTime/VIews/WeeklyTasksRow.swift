@@ -26,7 +26,7 @@ struct WeeklyTasksRow: View {
                         {
                         GeometryReader { geometry in
                                 HStack {
-                                    TestTaskRow(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: (self.colorScheme == .dark ? Color.black : Color.white),opacity:1).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
+                                    TestTaskRow(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: (self.colorScheme == .dark ? Color.black : Color.white),opacity:1).frame(width: geometry.size.width, height:  geometry.size.height/2).isHidden(true)//.padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                                 
                                 }
                             }
@@ -43,7 +43,7 @@ struct WeeklyTasksRow: View {
                                    // DviderTest(offSet:self.offSet)
                             if(task.taskName=="")
                             {
-                                TestTaskRow(taskViewModel:self.taskViewModel,taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: (self.colorScheme == .dark ? Color.black : Color.white),opacity:task.opacity).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
+                                TestTaskRow(taskViewModel:self.taskViewModel,taskName: task.taskName, heightFactor:   task.heightFactor,fillColor: (self.colorScheme == .dark ? Color.black : Color.white),opacity:task.opacity).frame(width: geometry.size.width, height:  geometry.size.height/2).isHidden(true)//.padding(EdgeInsets(top: 2, leading: 0, bottom: 4, trailing: 0))
                             }
                             else{
                                 

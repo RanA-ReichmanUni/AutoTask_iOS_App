@@ -227,9 +227,9 @@ struct CardTaskRow: View {
         .simultaneousGesture(TapGesture().onEnded{
                                                      // print("Got Tap")
                                                     
-            withAnimation(.easeInOut) {self.height=340
-                self.paddingBottom=200
-                self.padding = -80
+            withAnimation(.easeInOut) {self.height=340//Higher height settings: 400
+                self.paddingBottom=200//260
+                self.padding = -80//-115
                                         
                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                                               self.displayItem=true

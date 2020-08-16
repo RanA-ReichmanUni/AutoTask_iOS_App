@@ -14,8 +14,11 @@ struct TaskList: View {
     //var taskData : Task
    // var taskViewModel = TaskViewModel()
     
-     @ObservedObject var taskViewModel:TaskViewModel
+    
+     @ObservedObject var taskViewModel:TaskViewModel//previously it was @EnvironmentObject
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var offset: CGFloat = 0
      @State private var padding: CGFloat = 0
@@ -64,11 +67,11 @@ struct TaskList: View {
                                         }*/
                 
             }.onAppear{self.taskViewModel.retrieveAllTasks()
-                self.taskViewModel.getFirstTaskColor()
+                self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
             }.background((LinearGradient(
-                gradient: Gradient(colors: [Color(hex:"#DDEFBB"),Color(hex:"#FFEEEE")]),
-                startPoint: .trailing,
-              endPoint:.leading
+                gradient: Gradient(colors: [ (self.colorScheme == .dark ? .black : .white),self.taskViewModel.firstTaskColor]),
+                startPoint: .leading,
+              endPoint:.trailing
             ))) //.padding(.top,5)
              
             
