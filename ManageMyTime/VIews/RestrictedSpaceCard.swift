@@ -23,7 +23,7 @@ struct RestrictedSpaceCard: View {
     var color:Color=Color(.systemTeal)
     @State var padding:CGFloat=0
     @State var displayItem=false
-    @State var height:CGFloat=170
+    @State var height:CGFloat=370
     @State var paddingBottom:CGFloat=15
     //@Binding var position:CGFloat
     
@@ -34,12 +34,39 @@ struct RestrictedSpaceCard: View {
         ZStack(alignment: .leading) {
    
                 Color.flatDarkCardBackground
-                Spacer()
+               
                 HStack {
-                     Spacer()
+                   
                    
                     
                     HStack {
+                          Button(action: {
+                                                                   
+                                
+                                                                                             
+                                    }) {
+                                     
+                                       VStack{  Image(systemName: "pencil").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                         Text("Edit Task").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                        
+                                                                        
+                          }
+                           
+                        
+                           
+                           Button(action: {
+                                            
+                      
+                                 
+                                                                      
+                                 }) {
+                                   VStack{
+                                     Image(systemName: "trash").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                     Text("Delete").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                         
+                                                                         
+                           }
+                        Spacer()
                         VStack{
                            HStack{
                                // Spacer()
@@ -47,12 +74,12 @@ struct RestrictedSpaceCard: View {
                             .font(.system(size: 20))
                             //.font(.headline)
                            
-                            .fontWeight(.bold).padding(4)
+                            .fontWeight(.bold).padding(1)
                                     .lineLimit(2).foregroundColor(.white)
                             //.background(Capsule().fill(self.color))
                             //.padding(.bottom, 2)
                                Spacer()
-                            }.padding(.bottom,10)
+                            }.padding(.bottom,7)
                             
                        // Text("Due:"+dueDate1)
                             //.padding(.bottom, 5)
@@ -76,7 +103,7 @@ struct RestrictedSpaceCard: View {
                                               .foregroundColor(.white)
                                        
                                       }
-                                  }
+                                  }.padding(.bottom,20)
                                   .frame(width: 60, height: 30, alignment: .center)
                                            
                                           //
@@ -97,7 +124,7 @@ struct RestrictedSpaceCard: View {
                                        
   
                                    }
-                               }
+                               }.padding(.bottom,20)
                                .frame(width: 60, height: 30, alignment: .center)
                                 
                            }
@@ -173,75 +200,53 @@ struct RestrictedSpaceCard: View {
              /**/
                     }.padding()*/
                    
-                }.padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(
+                }.padding(EdgeInsets(top: 15, leading: paddingBottom, bottom: 15, trailing: 15)).frame(width:self.height,height:130) .background(
                     self.colorScheme == .dark ? ( LinearGradient(
                         gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
                         startPoint: .topTrailing,
                                  endPoint:.bottomTrailing
                                )) :(
                    LinearGradient(
-                        gradient: Gradient(colors: [.white,self.color,self.color,self.color,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                    gradient: Gradient(colors: [.white,self.color,self.color,self.color,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
-                        startPoint: .topLeading,
-                      endPoint:.bottomTrailing
-                    ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height)
+                        startPoint: .top,
+                      endPoint:.bottom
+                    ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(width:self.height)
 
             }
-        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset)/*.sheet(isPresented: self.$displayItem) {
-            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
-                self.taskViewModel.getFirstTaskColor()
-                    self.displayItem=false
-                   
-                withAnimation(.easeInOut(duration:1.5)) {  self.height=170
-                 self.paddingBottom=15
-                    self.padding = 0}
-                 
-            }.onDisappear{
-                self.taskViewModel.getFirstTaskColor()
-                                self.displayItem=false
-                                //self.padding = 0
-                withAnimation(.easeInOut(duration:1.5)) {self.height=170
-                                self.paddingBottom=15
-                                    self.padding = 0}
-                                self.taskViewModel.getFirstTaskColor()
-                                
-                            }
-        }*/.padding(EdgeInsets(top: padding, leading: 0, bottom: padding, trailing: 0))
+        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).padding(EdgeInsets(top: 15, leading: paddingBottom, bottom: 15, trailing: 450)).frame(width:self.height,height:130)
         .simultaneousGesture(TapGesture().onEnded{
                                                      // print("Got Tap")
                                                     
-            withAnimation(.easeInOut) {self.height=340//Higher height settings: 400
-                self.paddingBottom=200//260
-                self.padding = -85//-115
-                                        
-               DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                              self.displayItem=true
+            withAnimation(.easeInOut) {
+                if(!self.displayItem)
+                {
+                    self.height=570//Higher height settings: 400
+                    self.paddingBottom=200//260
+                    self.padding = -85//-115
+                     self.displayItem=true
+                }
+                else{
+                    self.height=370
+                    self.paddingBottom=15
+                    self.padding = 0
+                     self.displayItem=false
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation(.easeInOut(duration: 1.5)) {
+                                                self.height=370
+                                                                self.paddingBottom=15
+                                                                self.padding = 0
+                                                                 self.displayItem=false
+                    }
                                            }
                                    
             }
                                 //delay(0.5)
                                 
         })
-        /*.simultaneousGesture(LongPressGesture().onEnded{ _ in
-                                                           // print("Got Tap")
-                                                          
-                  withAnimation(.easeInOut) {self.height=340
-                      self.paddingBottom=200
-                      self.padding = -80
-                                              
-                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                                    self.displayItem=true
-                                                 }
-                                         
-                  }
-                                      //delay(0.5)
-                                      
-              })*/
-        
-        /*.onTapGesture {
-            withAnimation(.easeIn(duration: 0.5)) { self.padding = 100 }
-        }
-          */
+       
         
     }
 }
