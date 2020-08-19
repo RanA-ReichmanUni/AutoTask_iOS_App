@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TempNavigator: View {
     @ObservedObject var taskViewModel=TaskViewModel()
+    @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     
    /* init() { // for navigation bar title color
             UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.red]
@@ -55,18 +56,32 @@ struct TempNavigator: View {
                                                 
                     Text("Button Testing")
                 }
-            NavigationLink(destination:RestrictedSpaceView()){
+          
+            
+            NavigationLink(destination:RestrictedSpaceUI(restrictedSpaceViewModel:restrictedSpaceViewModel)){
+                                                                        
+                Text("RestrictedSpaces")
+            }
+            
+            NavigationLink(destination:RestrictedDayUI()){
+                                                                 
+                Text("Test1")
+            }
+                
+          /*  NavigationLink(destination:RestrictedSpaceView(numberOfControlls:0)){
                                                          
                              Text("Test")
-                         }
+                         }*/
                      
-                    
+               
                   
                            
                 
           .hiddenNavigationBarStyle()
             
-        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green)).onAppear{self.taskViewModel.retrieveAllTasks()}//Previouslt we didn't have on appear.
+        }.navigationBarTitle(Text("Manage My Time").foregroundColor(.green)).onAppear{self.taskViewModel.retrieveAllTasks()
+            self.restrictedSpaceViewModel.getAllRestrictedSpace()
+        }//Previouslt we didn't have on appear.
             
             
         }

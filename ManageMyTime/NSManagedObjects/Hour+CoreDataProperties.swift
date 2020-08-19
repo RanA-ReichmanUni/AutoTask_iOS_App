@@ -176,6 +176,8 @@ extension Hour {
       
     }
     
+    
+    
       func isBiggerOrEqual(newHour:Hour) -> Bool
       {
       

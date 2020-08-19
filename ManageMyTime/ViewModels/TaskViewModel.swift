@@ -104,6 +104,8 @@ class TaskViewModel : ObservableObject
         
     }
     
+  
+    
     func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String)
     {
 
