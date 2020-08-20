@@ -24,7 +24,7 @@ struct TempNavigator: View {
         
         List(){
             
-      
+      Spacer()
                 
             NavigationLink(destination:ScheduleViewRow()){
                     
@@ -63,6 +63,10 @@ struct TempNavigator: View {
                 Text("RestrictedSpaces")
             }
             
+            NavigationLink(destination:AddRestrictedSpace()){
+                                                                         
+                Text("Add Restricted Space")
+            }
             NavigationLink(destination:RestrictedDayUI()){
                                                                  
                 Text("Test1")

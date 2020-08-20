@@ -12,6 +12,7 @@ import SwiftUI
 struct RestrictedSpaceCard: View {
     //@ObservedObject var taskViewModel:TaskViewModel
      @Environment(\.colorScheme) var colorScheme
+    
     var dayOfTheWeek : String
     var startTimeHour:Int
     var startTimeMinutes:Int
@@ -20,7 +21,7 @@ struct RestrictedSpaceCard: View {
     @Binding var offset:CGFloat
 
     var id:UUID
-    var color:Color=Color(.systemTeal)
+    var color:Color
     @State var padding:CGFloat=0
     @State var displayItem=false
     @State var height:CGFloat=370
@@ -209,8 +210,8 @@ struct RestrictedSpaceCard: View {
                    LinearGradient(
                     gradient: Gradient(colors: [.white,self.color,self.color,self.color,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
-                        startPoint: .top,
-                      endPoint:.bottom
+                        startPoint: .topLeading,
+                        endPoint:.bottomTrailing
                     ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(width:self.height)
 
             }

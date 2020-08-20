@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
-
+import SwiftUI
 
 
 class RestrictedSpaceViewModel : ObservableObject
@@ -22,6 +22,15 @@ class RestrictedSpaceViewModel : ObservableObject
     func getAllRestrictedSpace ()
     {
         self.allRestrictedSpaces = restrictedSpaceModel.getAllRestrictedSpace()
+    }
+    
+    func getRandomColor() -> Color
+    {
+        
+        let colorArray = [Color.green,Color.pink,Color.red,Color.orange,Color.blue,Color(UIColor.systemTeal)].shuffled()
+            
+        return colorArray[0]
+        
     }
     
     

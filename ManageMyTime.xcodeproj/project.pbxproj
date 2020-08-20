@@ -19,6 +19,8 @@
 		251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A524D36ADC003018BE /* CompactViewSelector.swift */; };
 		251649A824D36B1F003018BE /* RegularViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A724D36B1F003018BE /* RegularViewSelector.swift */; };
 		2519384B24C686290010E72D /* TempNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519384A24C686290010E72D /* TempNavigator.swift */; };
+		251CDB2224EED06F00026911 /* AddRestrictedSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */; };
+		251CDB2424EF0B3000026911 /* MainUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251CDB2324EF0B3000026911 /* MainUI.swift */; };
 		251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */; };
 		251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60924A52E2400AC82F3 /* TaskModel.swift */; };
 		251F916824BCB80F005B0498 /* ManageMyTimeTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251F916724BCB80F005B0498 /* ManageMyTimeTests2.swift */; };
@@ -126,6 +128,8 @@
 		251649A524D36ADC003018BE /* CompactViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViewSelector.swift; sourceTree = "<group>"; };
 		251649A724D36B1F003018BE /* RegularViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularViewSelector.swift; sourceTree = "<group>"; };
 		2519384A24C686290010E72D /* TempNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigator.swift; sourceTree = "<group>"; };
+		251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRestrictedSpace.swift; sourceTree = "<group>"; };
+		251CDB2324EF0B3000026911 /* MainUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUI.swift; sourceTree = "<group>"; };
 		251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		251EE60924A52E2400AC82F3 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		251F916524BCB80F005B0498 /* ManageMyTimeTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManageMyTimeTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,6 +294,8 @@
 				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
 				25407EE624D71F3E003110E9 /* CircularBar.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
+				251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */,
+				251CDB2324EF0B3000026911 /* MainUI.swift */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -600,11 +606,13 @@
 				250F5B0024AA3C6800ABCDA4 /* TaskList.swift in Sources */,
 				25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */,
 				258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */,
+				251CDB2224EED06F00026911 /* AddRestrictedSpace.swift in Sources */,
 				25118A0F24DB52870062D518 /* BigChar.swift in Sources */,
 				259AAD4424C797A100A085E9 /* RestrictedSpace+CoreDataClass.swift in Sources */,
 				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
+				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
 				2577A5EA24AD15690006E1D2 /* Column.swift in Sources */,

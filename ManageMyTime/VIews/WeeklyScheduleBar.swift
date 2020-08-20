@@ -22,11 +22,12 @@ struct WeeklyScheduleBar: View {
                                       Text("Fri").foregroundColor(Color.red).frame(width: geometry.size.width/0.61, height:  geometry.size.height)
                                       Text("Sat").foregroundColor(Color.blue).frame(width: geometry.size.width/0.52, height:  geometry.size.height)
                                   }
-            }.frame(height: 30).padding().background((LinearGradient(
-                gradient: Gradient(colors: [Color(hex:"#59C173"),Color(hex:"#a17fe0"),Color(hex:"#5D26C1"),Color.white]),
-                startPoint: .leading,
-                endPoint:.bottom
-            )))//was 30 in height
+            }.frame(height: 30).padding().background(    LinearGradient(
+            gradient: Gradient(colors: [.white,Color(hex:"#fff3d4")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                         //self.color,.purple,.purple,.purple
+                            startPoint: .topLeading,
+                          endPoint:.bottomTrailing
+                        ))//was 30 in height
     }
 }
 

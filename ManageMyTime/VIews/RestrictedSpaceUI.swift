@@ -43,7 +43,7 @@ struct RestrictedSpaceUI: View {
                        /* NavigationLink(destination: DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: restrictedSpace.taskName,importance: restrictedSpace.importance!,dueDate: restrictedSpace.dueDate,notes: restrictedSpace.notes!, asstimatedWorkTimeHour: restrictedSpace.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:restrictedSpace.asstimatedWorkTime.minutes,startTimeHour:restrictedSpace.startTime!.hour,startTimeMinutes:restrictedSpace.startTime!.minutes,endTimeHour:restrictedSpace.endTime!.hour,endTimeMinutes:restrictedSpace.endTime!.minutes,day:restrictedSpace.date.day,month:restrictedSpace.date.month,year:restrictedSpace.date.year,taskId:restrictedSpace.id,color:self.taskViewModel.getTaskColor(task:restrictedSpace)))*/
                        
                             
-                            RestrictedSpaceCard(dayOfTheWeek: restrictedSpace.dayOfTheWeek,startTimeHour:restrictedSpace.startTime.hour,startTimeMinutes:restrictedSpace.startTime.minutes,endTimeHour:restrictedSpace.endTime.hour,endTimeMinutes:restrictedSpace.endTime.minutes,offset:self.$offset,id:restrictedSpace.id).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: 0, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}/*.onTapGesture {
+                        RestrictedSpaceCard(dayOfTheWeek: restrictedSpace.dayOfTheWeek,startTimeHour:restrictedSpace.startTime.hour,startTimeMinutes:restrictedSpace.startTime.minutes,endTimeHour:restrictedSpace.endTime.hour,endTimeMinutes:restrictedSpace.endTime.minutes,offset:self.$offset,id:restrictedSpace.id, color: self.restrictedSpaceViewModel.getRandomColor()).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: 0, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}/*.onTapGesture {
                                 withAnimation(.easeIn(duration: 5)) { self.offset = 50 }
                             }*/
                             
@@ -74,11 +74,12 @@ struct RestrictedSpaceUI: View {
                 
             }.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
                 //self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.background((LinearGradient(
-                gradient: Gradient(colors: [ (self.colorScheme == .dark ? .black : .white),Color.blue]),
-                startPoint: .leading,
-              endPoint:.trailing
-            ))) //.padding(.top,5)
+            } .background(    LinearGradient(
+            gradient: Gradient(colors: [.white,Color(hex:"#fff3d4")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                         //self.color,.purple,.purple,.purple
+                            startPoint: .topLeading,
+                          endPoint:.bottomTrailing
+                        )) //.padding(.top,5)
              
             
          
