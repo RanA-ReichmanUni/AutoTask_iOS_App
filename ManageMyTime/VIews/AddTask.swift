@@ -50,7 +50,7 @@ struct AddTask: View {
     var body: some View {
         
         //NavigationView {
-            VStack {
+        VStack(spacing:0) {
                 Form {
                     Section(header:   HStack {
                                         Image(systemName: "rays").foregroundColor(.green)
@@ -109,10 +109,11 @@ struct AddTask: View {
                     
                     
                     
-                }
+             }
                 
            
-                
+                HStack{
+                       Spacer()
                         Button(action: {
                             
                
@@ -129,8 +130,8 @@ struct AddTask: View {
                         }
                         .disabled(disableSave)
                     
-           
-                
+              Spacer()
+                }.background(Color.white).frame(height:30)
                 
                     
             }

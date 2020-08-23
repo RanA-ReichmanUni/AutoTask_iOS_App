@@ -68,11 +68,11 @@ struct TaskList: View {
                 
             }.onAppear{self.taskViewModel.retrieveAllTasks()
                 self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.background(    LinearGradient(
-            gradient: Gradient(colors: [.white,Color(hex:"#fff3d4")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+            }.background( LinearGradient(
+            gradient: Gradient(colors: [.white,Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                          //self.color,.purple,.purple,.purple
-                            startPoint: .leading,
-                          endPoint:.trailing
+                          startPoint: .topLeading,
+                         endPoint:.bottomTrailing
                         )) //.padding(.top,5)
              
             

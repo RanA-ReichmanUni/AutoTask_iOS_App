@@ -24,7 +24,7 @@ struct ScheduleViewRow: View {
         GeometryReader { geometry in
             
         
-       VStack{
+            VStack(spacing:0){
            
         WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
@@ -89,7 +89,7 @@ struct ScheduleViewRow: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
               
                 }.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
-          Spacer()
+        //  Spacer()
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
                 

@@ -23,7 +23,7 @@ struct WeeklyScheduleBar: View {
                                       Text("Sat").foregroundColor(Color.blue).frame(width: geometry.size.width/0.52, height:  geometry.size.height)
                                   }
             }.frame(height: 30).padding().background(    LinearGradient(
-            gradient: Gradient(colors: [.white,Color(hex:"#fff3d4")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                gradient: Gradient(colors: [.white,Color(hex:"#00d2ff"),Color(hex:"#3a7bd5"),.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                          //self.color,.purple,.purple,.purple
                             startPoint: .topLeading,
                           endPoint:.bottomTrailing

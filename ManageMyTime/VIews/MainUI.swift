@@ -23,13 +23,8 @@ struct MainUI: View {
   
             
             
-            
-            
-            Spacer()
-            Spacer()
-            Spacer()
-            Spacer()
-          
+
+            VStack{
                    
                      if(settingsFlag)
                      {
@@ -38,36 +33,45 @@ struct MainUI: View {
                      
                      else if (addTaskFlag)
                      {
-                         AddTask()
+                         AddTask().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                      }
                      else if(dailyViewFlag)
                      {
-                         DailyView()
+                        DailyView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                                           
+                        
                      }
                      else if(weeklyScheduleFlag)
                      {
-                        ScheduleViewRow()
+                        ScheduleViewRow().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                      }
                      else if(listFlag)
                      {
-                         TaskList(taskViewModel:self.taskViewModel)
+                         TaskList(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                      }
-          
-                    
-          
+                     else{
+                           
+                        Spacer()
+                             Spacer()
+                             Spacer()
+                             Spacer()
+                    }
+            }.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+       Spacer()
+            BottomMainMenu(settingsFlag: $settingsFlag, addTaskFlag: $addTaskFlag, dailyViewFlag: $dailyViewFlag, weeklyScheduleFlag: $weeklyScheduleFlag, listFlag: $listFlag).frame(height:10)
             
-            
-            HStack{
+           /* HStack{
               
               
                 Button(action: {
-                    
-                    self.addTaskFlag=true
-                    self.settingsFlag=false
-                   
-                    self.dailyViewFlag=false
-                    self.weeklyScheduleFlag=false
-                   self.listFlag=false
+                    withAnimation(.easeInOut){
+                        self.addTaskFlag=true
+                        self.settingsFlag=false
+                       
+                        self.dailyViewFlag=false
+                        self.weeklyScheduleFlag=false
+                        self.listFlag=false
+                    }
                 }) {
                     Image(systemName: "wand.and.stars").resizable()
                         .frame(width: 25, height: 25).foregroundColor(self.addTaskFlag ?  Color.green : Color.white)
@@ -78,12 +82,14 @@ struct MainUI: View {
              
               
                 Button(action: {
-                    self.weeklyScheduleFlag=true
-                     self.settingsFlag=false
-                     self.addTaskFlag=false
-                     self.dailyViewFlag=false
-                   
-                    self.listFlag=false
+                    withAnimation(.easeInOut){
+                         self.weeklyScheduleFlag=true
+                         self.settingsFlag=false
+                         self.addTaskFlag=false
+                         self.dailyViewFlag=false
+                       
+                         self.listFlag=false
+                    }
                   
                 }) {
                       Image(systemName: "calendar").resizable()
@@ -91,24 +97,27 @@ struct MainUI: View {
                     }.background(Circle().frame(width:60,height:60).foregroundColor(Color.blue)).padding(20)
                 
                 Button(action: {
-                    self.dailyViewFlag=true
-                     self.settingsFlag=false
-                     self.addTaskFlag=false
-        
-                     self.weeklyScheduleFlag=false
-                    self.listFlag=false
+                    withAnimation(.easeInOut){
+                         self.dailyViewFlag=true
+                         self.settingsFlag=false
+                         self.addTaskFlag=false
+            
+                         self.weeklyScheduleFlag=false
+                         self.listFlag=false
+                    }
                 }) {
                     Image(systemName: String(String(Date().day)+".square")).resizable()
                     .frame(width: 25, height: 25).foregroundColor((self.dailyViewFlag ?  Color.green : Color.white))
                  }.background(Circle().frame(width:60,height:60).foregroundColor(Color.blue)).padding(20)
                 
                 Button(action: {
-                    self.listFlag=true
-                     self.settingsFlag=false
-                     self.addTaskFlag=false
-                     self.dailyViewFlag=false
-                     self.weeklyScheduleFlag=false
-        
+                    withAnimation(.easeInOut){
+                         self.listFlag=true
+                         self.settingsFlag=false
+                         self.addTaskFlag=false
+                         self.dailyViewFlag=false
+                         self.weeklyScheduleFlag=false
+                    }
                     
                 }) {
                     Image(systemName: "list.dash").resizable()
@@ -116,14 +125,15 @@ struct MainUI: View {
                 }.background(Circle().frame(width:60,height:60).foregroundColor(Color.blue)).padding(20)
                 
                 Button(action: {
-                    
-                    self.settingsFlag=true
-                    
- 
-                     self.addTaskFlag=false
-                     self.dailyViewFlag=false
-                     self.weeklyScheduleFlag=false
-                    self.listFlag=false
+                    withAnimation(.easeInOut){
+                         self.settingsFlag=true
+                        
+     
+                         self.addTaskFlag=false
+                         self.dailyViewFlag=false
+                         self.weeklyScheduleFlag=false
+                         self.listFlag=false
+                    }
                 }) {
                           Image(systemName: "gear").resizable()
                               .frame(width: 30, height: 30).foregroundColor((self.settingsFlag ?  Color.green : Color.white))
@@ -133,7 +143,7 @@ struct MainUI: View {
                            
                 
             }
-            
+            */
             
             
             
