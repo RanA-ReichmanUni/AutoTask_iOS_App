@@ -111,7 +111,8 @@ class TaskModel : UIViewController
         dateComponents.year = 2020
         dateComponents.month = 8
         dateComponents.day = 29
-
+        dateComponents.hour=22
+        dateComponents.minute=0
 
         // Create date from components
         let userCalendar = Calendar.current // user calendar
@@ -175,7 +176,7 @@ class TaskModel : UIViewController
             
             do {
                       try managedContext.save()
-                          print("Saved Task !.")
+                          print("Try save OP at model.")
                   } catch let error as NSError {
                       print("Could not save. \(error), \(error.userInfo)")
                   }
@@ -637,7 +638,7 @@ class TaskModel : UIViewController
                   currentDate.year=Date().year
                   currentDate.month=Date().month
                   currentDate.day=Date().day
-        
+                    
                let weekSequence=coreManagment.createCalanderSequence(startDay: 23, startMonth: 8, startYear: 2020, endDay: 29, endMonth: 8, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")

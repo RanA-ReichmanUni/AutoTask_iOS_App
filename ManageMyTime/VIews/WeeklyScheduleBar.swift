@@ -14,20 +14,14 @@ struct WeeklyScheduleBar: View {
                                   Image(systemName: "clock").padding(EdgeInsets(top: 9, leading: 5, bottom: 0, trailing: -6)).foregroundColor(.red)
                                   GeometryReader{geometry in
                                       Text("Sun").foregroundColor(Color.blue).frame(width: geometry.size.width/5, height:  geometry.size.height)
-                                           
-                                    Text("Mon").foregroundColor(Color.red).frame(width: geometry.size.width/2.04, height:  geometry.size.height)
+                                      Text("Mon").foregroundColor(Color.red).frame(width: geometry.size.width/2.04, height:  geometry.size.height)
                                       Text("Tue").foregroundColor(Color.blue).frame(width: geometry.size.width/1.319, height:  geometry.size.height)
                                       Text("Wen").foregroundColor(Color.red).frame(width: geometry.size.width/0.95, height:  geometry.size.height)
                                       Text("Tue").foregroundColor(Color.blue).frame(width: geometry.size.width/0.74, height:  geometry.size.height)
                                       Text("Fri").foregroundColor(Color.red).frame(width: geometry.size.width/0.61, height:  geometry.size.height)
                                       Text("Sat").foregroundColor(Color.blue).frame(width: geometry.size.width/0.52, height:  geometry.size.height)
                                   }
-            }.frame(height: 30).padding().background(    LinearGradient(
-                gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                         //self.color,.purple,.purple,.purple
-                       startPoint: .bottomLeading,
-                                                            endPoint:.bottomTrailing
-                        ))//was 30 in height
+            }.frame(height: 30).padding().background(    Color(hex:"#00d2ff"))//was 30 in height
     }
 }
 
