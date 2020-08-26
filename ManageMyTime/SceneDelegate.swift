@@ -35,13 +35,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tempNavigator = TempNavigator().environment(\.managedObjectContext, context).environmentObject(taskViewModel)
         let tableTestD = TableTestD().environment(\.managedObjectContext, context)
          let mainUI = MainUI().environment(\.managedObjectContext, context)
-       
-      
+        let source = Source().environment(\.managedObjectContext, context)
+       let mainUI2 = MainUI2().environment(\.managedObjectContext, context)
       
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: mainUI)
+            window.rootViewController = UIHostingController(rootView: mainUI2)
             self.window = window
             window.makeKeyAndVisible()
         }

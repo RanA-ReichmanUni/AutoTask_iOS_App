@@ -88,6 +88,9 @@
 		25D920B624CFA37800A852BF /* WeeklyRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920B524CFA37800A852BF /* WeeklyRegular.swift */; };
 		25DB2DAC24B6633F00E86600 /* AvailableDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DB2DAB24B6633F00E86600 /* AvailableDay.swift */; };
 		25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E5847624ABD49F00F251D5 /* ScheduleView2.swift */; };
+		25E75A7324F2BD0500C772B5 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E75A7224F2BD0500C772B5 /* MenuView.swift */; };
+		25E75A7524F2BD4800C772B5 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E75A7424F2BD4800C772B5 /* Source.swift */; };
+		25E75A7724F2E4D400C772B5 /* MainUi2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E75A7624F2E4D400C772B5 /* MainUi2.swift */; };
 		25EDA89F24B4C05200094B23 /* HourlyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA89E24B4C05200094B23 /* HourlyTime.swift */; };
 		25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDA8B324B5135100094B23 /* ButtonTestingView.swift */; };
 		25EE9F4D24EC1ACC002A2E5A /* RestrictedSpaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE9F4C24EC1ACC002A2E5A /* RestrictedSpaceCard.swift */; };
@@ -204,6 +207,9 @@
 		25D920B524CFA37800A852BF /* WeeklyRegular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRegular.swift; sourceTree = "<group>"; };
 		25DB2DAB24B6633F00E86600 /* AvailableDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableDay.swift; sourceTree = "<group>"; };
 		25E5847624ABD49F00F251D5 /* ScheduleView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView2.swift; sourceTree = "<group>"; };
+		25E75A7224F2BD0500C772B5 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		25E75A7424F2BD4800C772B5 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		25E75A7624F2E4D400C772B5 /* MainUi2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUi2.swift; sourceTree = "<group>"; };
 		25EDA89E24B4C05200094B23 /* HourlyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTime.swift; sourceTree = "<group>"; };
 		25EDA8B324B5135100094B23 /* ButtonTestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTestingView.swift; sourceTree = "<group>"; };
 		25EE9F4C24EC1ACC002A2E5A /* RestrictedSpaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceCard.swift; sourceTree = "<group>"; };
@@ -280,6 +286,9 @@
 			isa = PBXGroup;
 			children = (
 				2519384A24C686290010E72D /* TempNavigator.swift */,
+				25E75A7624F2E4D400C772B5 /* MainUi2.swift */,
+				25E75A7224F2BD0500C772B5 /* MenuView.swift */,
+				25E75A7424F2BD4800C772B5 /* Source.swift */,
 				2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */,
 				258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */,
 				25F047F924CDB995003CC7D6 /* DailyView.swift */,
@@ -643,13 +652,16 @@
 				25407EEB24D72290003110E9 /* LoadLevel+CoreDataProperties.swift in Sources */,
 				25419FC324C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift in Sources */,
 				259AAD3C24C7658600A085E9 /* FreeTaskSpace+CoreDataClass.swift in Sources */,
+				25E75A7524F2BD4800C772B5 /* Source.swift in Sources */,
 				25105F9624E1AB540066758B /* DetailedTaskUI.swift in Sources */,
 				253C5CEA24B11A0400C95A06 /* HourlyTask.swift in Sources */,
+				25E75A7724F2E4D400C772B5 /* MainUi2.swift in Sources */,
 				250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */,
 				2583029D24D34701003935B7 /* TableTestD.swift in Sources */,
 				2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */,
 				259AAD4524C797A100A085E9 /* RestrictedSpace+CoreDataProperties.swift in Sources */,
 				2585C76724F1EE9A00539FDD /* BottomMainMenu.swift in Sources */,
+				25E75A7324F2BD0500C772B5 /* MenuView.swift in Sources */,
 				25407EEA24D72290003110E9 /* LoadLevel+CoreDataClass.swift in Sources */,
 				25D920B424CFA36A00A852BF /* WeeklyCompact.swift in Sources */,
 				25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */,

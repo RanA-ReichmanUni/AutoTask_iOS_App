@@ -54,7 +54,7 @@ struct TaskList: View {
                         }
                              
                 }
-                .navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
+                //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
                         
                         
                         /*Button(action: {
@@ -68,15 +68,14 @@ struct TaskList: View {
                 
             }.onAppear{self.taskViewModel.retrieveAllTasks()
                 self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.background( LinearGradient(
-            gradient: Gradient(colors: [.white,Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                         //self.color,.purple,.purple,.purple
-                          startPoint: .topLeading,
-                         endPoint:.bottomTrailing
-                        )) //.padding(.top,5)
-             
+            }.background(    LinearGradient(
+            gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                     //self.color,.purple,.purple,.purple
+                          startPoint: .bottomLeading,
+                                   endPoint:.bottomTrailing
+                    ))
             
-         
+         //.background(Color(hex:"#fcfcfc"))
         
        
         

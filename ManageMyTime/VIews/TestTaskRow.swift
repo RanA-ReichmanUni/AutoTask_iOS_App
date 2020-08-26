@@ -57,7 +57,7 @@ struct TestTaskRow: View {
                     }
            
             }
-                    .popover(isPresented: self.$displayItem) {
+                    .sheet(isPresented: self.$displayItem) {
                         VStack {
                             DetailedTaskWithObj(displayItem:self.$displayItem, taskName: self.taskViewModel.taskName,importance: self.taskViewModel.importance,dueDate: self.taskViewModel.dueDate,notes: self.taskViewModel.notes, asstimatedWorkTimeHour: self.taskViewModel.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:self.taskViewModel.asstimatedWorkTime.minutes,startTimeHour:self.taskViewModel.startTime.hour,startTimeMinutes:self.taskViewModel.startTime.minutes,endTimeHour:self.taskViewModel.endTime.hour,endTimeMinutes:self.taskViewModel.endTime.minutes,day:self.taskViewModel.date.day,month:self.taskViewModel.date.month,year:self.taskViewModel.date.year,taskId:self.taskViewModel.id,color:self.taskViewModel.color).animation(.ripple()).onDisappear{self.borderColor=self.fillColor
                                  self.dashCount = 0

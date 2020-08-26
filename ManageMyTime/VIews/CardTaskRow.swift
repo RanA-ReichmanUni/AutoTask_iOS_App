@@ -78,7 +78,7 @@ struct CardTaskRow: View {
                                                   startPoint: .topLeading,
                                                   endPoint: .bottomTrailing
                                               )
-                                          )
+                                     ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.1))
                                       
                                       VStack {
                                        Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
@@ -98,7 +98,7 @@ struct CardTaskRow: View {
                                                startPoint: .topLeading,
                                                endPoint: .bottomTrailing
                                            )
-                                       )
+                                       ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.1))
                                    
                                    VStack {
                                        Text("\(self.endTimeHour)"+":"+"\(self.endTimeMinutes)")
@@ -208,30 +208,40 @@ struct CardTaskRow: View {
             DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
                 self.taskViewModel.getFirstTaskColor()
                     self.displayItem=false
-                   
-                withAnimation(.easeInOut(duration:1.5)) {  self.height=170
-                 self.paddingBottom=15
-                    self.padding = 0}
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                                   
+                                  
+                    withAnimation(.easeInOut(duration:1.2)) {  self.height=170
+                         self.paddingBottom=15
+                            self.padding = 0}
+                }
                  
             }.onDisappear{
                 self.taskViewModel.getFirstTaskColor()
                                 self.displayItem=false
                                 //self.padding = 0
-                withAnimation(.easeInOut(duration:1.5)) {self.height=170
+                    self.taskViewModel.getFirstTaskColor()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                          
+                withAnimation(.easeInOut(duration:1.2)) {self.height=170
                                 self.paddingBottom=15
                                     self.padding = 0}
-                                self.taskViewModel.getFirstTaskColor()
-                                
-                            }
+                    }
+            }
+                            
+                
+            
         }.padding(EdgeInsets(top: padding, leading: 0, bottom: padding, trailing: 0))
         .simultaneousGesture(TapGesture().onEnded{
                                                      // print("Got Tap")
                                                     
-            withAnimation(.easeInOut) {self.height=340//Higher height settings: 400
-                self.paddingBottom=200//260
-                self.padding = -85//-115
+            withAnimation(.easeInOut) {self.height=400//Higher height settings: 400
+                self.paddingBottom=260//260
+                self.padding = -115//-115
                                         
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                               self.displayItem=true
                 }
                                    

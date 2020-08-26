@@ -110,7 +110,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 8
-        dateComponents.day = 22
+        dateComponents.day = 29
 
 
         // Create date from components
@@ -638,7 +638,7 @@ class TaskModel : UIViewController
                   currentDate.month=Date().month
                   currentDate.day=Date().day
         
-               let weekSequence=coreManagment.createCalanderSequence(startDay: 16, startMonth: 8, startYear: 2020, endDay: 22, endMonth: 8, endYear: 2020)
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 23, startMonth: 8, startYear: 2020, endDay: 29, endMonth: 8, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
