@@ -42,7 +42,9 @@ struct AddTask: View {
     @State var selection: [String] = [0, 0, 0].map { "\($0)" }
     
     @State var selectedDate = Date()
-  
+    
+    @State private var isError = false
+    
    var disableSave: Bool {
         taskName == "" || (selection[0]=="0" && selection[1]=="0")
     }
@@ -118,16 +120,29 @@ struct AddTask: View {
                             
                
                            
-                         
-                            self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes)
+                            do{
+                                try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes)
+                            }
+                             catch DatabaseError.taskCanNotBeScheduledInDue {
+                                self.isError = true
+                            }
+                            catch {
+                                       self.isError = true
+                                   }
+                            
                         
                           self.mode.wrappedValue.dismiss()
                
 
                             }) {
                                     
-                            Text("Save")
-                        }
+                            Text("Schedule")
+                        } .alert(isPresented: $isError) {
+                               Alert(title: Text("Task can not be scheduled"),
+                                     message: Text("\nThere is not enough room in your schedule for the new task.\n\nTry making some room or change the due date."),
+                                     dismissButton: .default(Text("OK")))
+
+                           }
                         .disabled(disableSave)
                     
               Spacer()

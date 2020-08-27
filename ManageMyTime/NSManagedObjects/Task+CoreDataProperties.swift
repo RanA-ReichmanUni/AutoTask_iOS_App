@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  ManageMyTime
 //
-//  Created by רן א on 12/07/2020.
+//  Created by רן א on 26/08/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
@@ -25,11 +25,12 @@ extension Task {
     @NSManaged public var importance: String?
     @NSManaged public var notes: String?
     @NSManaged public var taskName: String
+    @NSManaged public var isTaskBreakWindow:Bool
     @NSManaged public var asstimatedWorkTime: Hour
+    @NSManaged public var date: CustomDate
     @NSManaged public var endTime: Hour?
     @NSManaged public var startTime: Hour?
-    @NSManaged public var date: CustomDate
-    
+
     var taskImportance: TaskImportance {
                set {importance = newValue.rawValue}
                get {TaskImportance(rawValue: importance!) ?? .medium}

@@ -37,7 +37,7 @@ struct ButtonTestingView: View {
                  Button(action: {try? self.tm.deleteSpace(assignedTaskName: "littleTestingTask")}) {
                                     Text("Click to delete space")
                                 }
-            Button(action: { self.viewModel.autoFillTesting()}) {
+            Button(action: { try? self.viewModel.autoFillTesting()}) {
                     Text("Click to Auto Fill")
                     }
             

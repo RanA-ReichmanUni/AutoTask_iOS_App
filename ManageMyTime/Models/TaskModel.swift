@@ -96,7 +96,7 @@ class TaskModel : UIViewController
         return Color.white
     }
     
-    func autoFillTesting()
+    func autoFillTesting() throws
     {
 
         
@@ -170,8 +170,12 @@ class TaskModel : UIViewController
             let asstimatedWorkTime=Hour(context: managedContext)
                     asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
-            
-            coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
+           do {
+            try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
+           }
+            catch{
+                 throw DatabaseError.taskCanNotBeScheduledInDue
+            }
             
             
             do {
@@ -185,7 +189,7 @@ class TaskModel : UIViewController
 
         
     }
-    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String){
+    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String) throws {
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -198,8 +202,12 @@ class TaskModel : UIViewController
         
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
-        
-        coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,color:"Pink")
+        do {
+            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,color:"Pink")
+        }
+        catch{
+            throw DatabaseError.taskCanNotBeScheduledInDue
+        }
             
             /*let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
             task.setValue(retrivedTask.taskName, forKeyPath: "taskName")
@@ -366,7 +374,7 @@ class TaskModel : UIViewController
             
             //Prepare the request of type NSFetchRequest  for the entity
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-            
+             fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [false])
     //        fetchRequest.fetchLimit = 1
     //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -418,8 +426,8 @@ class TaskModel : UIViewController
               
               //Prepare the request of type NSFetchRequest  for the entity
               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-          
-        fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@", argumentArray: [Date().year,Date().month,Date().day])
+         
+        fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@ AND isTaskBreakWindow = %@", argumentArray: [Date().year,Date().month,Date().day,false])
                   
               let nextHour = Hour(context: managedContext)
                   nextHour.hour=hour+1
@@ -618,8 +626,8 @@ class TaskModel : UIViewController
            
            //Prepare the request of type NSFetchRequest  for the entity
            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-       
-           fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [Date().year])
+      
+           fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND  isTaskBreakWindow = %@", argumentArray: [Date().year,false])
                
            let nextHour = Hour(context: managedContext)
                nextHour.hour=hour+1

@@ -40,7 +40,7 @@ class Core{
 
     
    
-    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String) -> Task
+    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String) throws -> Task
     {
         
         let todayDay = Date().day
@@ -48,7 +48,7 @@ class Core{
         var suitableFreeSpaces = [FreeTaskSpace]()
         var calanderSequence:[CustomDate]
         
-
+        
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Task()}
             
@@ -121,13 +121,22 @@ class Core{
                         endDueDate.year=dueDate.year
                         endDueDate.month=dueDate.month
                         endDueDate.day=dueDate.day
-                        
-                        calanderSequence = createCalanderSequence(startDate:currentDate, endDate: endDueDate)
+                        do{
+                            try calanderSequence = createCalanderSequence(startDate:currentDate, endDate: endDueDate)
+                        }
+                        catch{
+                           throw    DateBoundsError.dueDateIsInPastTime
+                        }
                         suitableFreeSpaces=retriveAndSortFreeSpaces(currentDate:currentDate,dueDate: dueDate)
         
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
                             var determination=densityHandler(date: singleDate, algorithm: scheduleAlgorithm.maximumCapacity, includePersonalTime: false)
+                            
+                            if(singleDate.day==30)
+                            {
+                                print("here")
+                            }
                             if(determination)
                             {
                                 
@@ -220,6 +229,7 @@ class Core{
                                                     newTask.importance=importance
                                                     newTask.notes=notes
                                                     newTask.id=UUID()
+                                                    newTask.isTaskBreakWindow=false
                                                     
                                                     handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                     
@@ -270,6 +280,7 @@ class Core{
                                         }
                                     }
                                 }
+                                
                             }
                            /* else{//If there is no FreeSpace object for that day, create one
                                 
@@ -332,7 +343,7 @@ class Core{
                         
                                               
                      
-                                  
+                        throw DatabaseError.taskCanNotBeScheduledInDue
                         //Shouldn't get here, if we do, return an empty task. Needs to check how to properly handle this.
                         return Task()
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
@@ -1301,7 +1312,7 @@ class Core{
                
        }
     
-   func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) -> [CustomDate]
+   func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate] ()}
         
@@ -1358,15 +1369,20 @@ class Core{
                 currentIndexDate.month+=1
         }
         //Same month
-        for day in currentIndexDate.day...endDate.day
-        {
-            let newDate = CustomDate(context:managedContext)
-                                        newDate.year=currentIndexDate.year
-                                        newDate.month=currentIndexDate.month
-                                        newDate.day=day
-            
-              dateSequence.append(newDate)
-                                                                           
+        do{
+            for day in currentIndexDate.day...endDate.day
+            {
+                let newDate = CustomDate(context:managedContext)
+                                            newDate.year=currentIndexDate.year
+                                            newDate.month=currentIndexDate.month
+                                            newDate.day=day
+                
+                  dateSequence.append(newDate)
+                                                                               
+            }
+        }
+        catch{
+            throw   DateBoundsError.dueDateIsInPastTime
         }
        
       /*  for data in dateSequence

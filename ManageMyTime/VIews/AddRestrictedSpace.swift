@@ -106,7 +106,7 @@ struct AddRestrictedSpace: View {
                
                            
                          
-                            self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.fromSelection[0],workTimeMinutes: self.fromSelection[1], dueDate: self.selectedDate, notes: self.notes)
+                           /* self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.fromSelection[0],workTimeMinutes: self.fromSelection[1], dueDate: self.selectedDate, notes: self.notes)*/
                         
                           self.mode.wrappedValue.dismiss()
                

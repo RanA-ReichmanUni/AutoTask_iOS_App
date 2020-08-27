@@ -11,6 +11,23 @@ import CoreData
 import UIKit
 import SwiftUI
 
+enum UUIDError: Error {
+      case notConfirmedToUUID
+      case badPassword
+      
+  }
+  
+  enum DatabaseError: Error {
+        case taskCanNotBeScheduledInDue
+      
+        
+    }
+
+enum DateBoundsError: Error {
+      case dueDateIsInPastTime
+
+      
+  }
 
 class TaskViewModel : ObservableObject
 {
@@ -42,10 +59,7 @@ class TaskViewModel : ObservableObject
     //@Published var color : Color
     @Published var firstTaskColor:Color
     
-    enum UUIDError: Error {
-        case notConfirmedToUUID
-        case badPassword
-    }
+  
     
     var taskModel = TaskModel()
     
@@ -106,7 +120,7 @@ class TaskViewModel : ObservableObject
     
   
     
-    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String)
+    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String) throws
     {
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -120,15 +134,26 @@ class TaskViewModel : ObservableObject
         self.asstimatedWorkTime.hour=Int(workTimeHours) ?? 0
         self.asstimatedWorkTime.minutes=Int(workTimeMinutes) ?? 30
         
+        do{
+            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
+        }
         
-        taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes)
-        
+        catch{
+            throw DatabaseError.taskCanNotBeScheduledInDue
+        }
     }
     
-  func autoFillTesting()
+  func autoFillTesting() throws
   {
-    taskModel.autoFillTesting()
-    }
+        do{
+            try taskModel.autoFillTesting()
+        
+        }
+        catch{
+            throw DatabaseError.taskCanNotBeScheduledInDue
+        }
+    
+  }
 
     func retrieveTask(taskID : String) throws
       {
