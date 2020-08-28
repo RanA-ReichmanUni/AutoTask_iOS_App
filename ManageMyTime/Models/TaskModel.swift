@@ -171,7 +171,7 @@ class TaskModel : UIViewController
                     asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
            do {
-            try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
+                try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
            }
             catch{
                  throw DatabaseError.taskCanNotBeScheduledInDue

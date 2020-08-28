@@ -37,6 +37,7 @@ struct DetailedTask: View {
     var taskId:UUID
   
     var color: Color
+    
 
     
     var body: some View {
@@ -44,12 +45,13 @@ struct DetailedTask: View {
         VStack{
                VStack {
                 
-            Image("pink-Circle")
-                 .resizable()
-                 .frame(width: 50, height: 50)
-                 .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
-     
-             
+                VStack{
+                    Image("pink-Circle")
+                         .resizable()
+                         .frame(width: 50, height: 50)
+                         .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
+               
+                }
                 HStack {
                     
                     Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)

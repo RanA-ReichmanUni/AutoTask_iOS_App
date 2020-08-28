@@ -32,19 +32,36 @@ struct DetailedTaskUI: View {
       var year:Int
       
       var taskId:UUID
-    
+
       var color: Color
-    
+ 
+    @Binding var displayItem:Bool
+    @State var isActive=false
     var body: some View {
          
         VStack(){
+       
+       
+            DetailedTask(taskName: taskName, importance: importance, dueDate: dueDate, notes: notes, asstimatedWorkTimeHour: asstimatedWorkTimeHour, asstimatedWorkTimeMinutes: asstimatedWorkTimeMinutes, startTimeHour: startTimeHour, startTimeMinutes: startTimeMinutes, endTimeHour: endTimeHour, endTimeMinutes: endTimeMinutes, day: day, month: month, year: year, taskId: taskId, color: color).onTapGesture {
+                self.displayItem=false
+            }
             
-        DetailedTask(taskName: taskName, importance: importance, dueDate: dueDate, notes: notes, asstimatedWorkTimeHour: asstimatedWorkTimeHour, asstimatedWorkTimeMinutes: asstimatedWorkTimeMinutes, startTimeHour: startTimeHour, startTimeMinutes: startTimeMinutes, endTimeHour: endTimeHour, endTimeMinutes: endTimeMinutes, day: day, month: month, year: year, taskId: taskId, color: color)
-        
          
             
           HStack{
             
+            Spacer()
+            HStack{
+
+                 VStack(spacing:0){
+                         Text("Finished ")
+                         Toggle(isOn: $isActive) {
+                                                                          Text("sdgsddsh")
+                                        
+                             }.labelsHidden()
+                     }
+             }
+   
             Spacer()
               Button(action: {
                                                       
@@ -58,7 +75,7 @@ struct DetailedTaskUI: View {
                                                            
              }
               
-           
+      
               
               Button(action: {
                                
@@ -77,7 +94,25 @@ struct DetailedTaskUI: View {
                                             self.taskViewModel.getFirstTaskColor()
                                           self.mode.wrappedValue.dismiss()
                             }, secondaryButton: .cancel())}
-            Spacer()
+            HStack{
+                    
+                     Button(action: {
+                                                                       
+                         self.displayItem=false
+                                                                                                 
+                                }) {
+                                 
+                                 VStack{
+                                    Image(systemName: "xmark").resizable().frame(width:15,height:15).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                    Text("Close").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                    }.padding()
+                                                                    
+                                                                    
+                      }
+                     
+                 }
+            
+           // Spacer()
           
            
           }.padding().background(self.color.opacity(0))

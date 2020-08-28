@@ -205,7 +205,7 @@ struct CardTaskRow: View {
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
-            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color).onTapGesture {
+            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem)/*.onTapGesture {
                 self.taskViewModel.getFirstTaskColor()
                     self.displayItem=false
                 
@@ -217,18 +217,18 @@ struct CardTaskRow: View {
                             self.padding = 0}
                 }
                  
-            }.onDisappear{
+            }*/.onDisappear{
                 self.taskViewModel.getFirstTaskColor()
                                 self.displayItem=false
                                 //self.padding = 0
                     self.taskViewModel.getFirstTaskColor()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+               
                           
                 withAnimation(.easeInOut(duration:1.2)) {self.height=170
                                 self.paddingBottom=15
                                     self.padding = 0}
-                    }
+                    
             }
                             
                 
