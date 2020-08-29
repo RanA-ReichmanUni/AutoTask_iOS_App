@@ -34,9 +34,11 @@ struct DetailedTaskUI: View {
       var taskId:UUID
 
       var color: Color
- 
+     
+    
     @Binding var displayItem:Bool
     @State var isActive=false
+    @Binding var completed:Bool
     var body: some View {
          
         VStack(){
@@ -58,8 +60,11 @@ struct DetailedTaskUI: View {
                          Toggle(isOn: $isActive) {
                                                                           Text("sdgsddsh")
                                         
-                             }.labelsHidden()
-                     }
+                         }.onTapGesture {
+                            self.taskViewModel.completedToggle(tasdkId: self.taskId)
+                            self.completed.toggle()
+                         }.labelsHidden()
+                 }.onAppear{self.isActive=self.completed}
              }
    
             Spacer()
@@ -126,7 +131,7 @@ struct DetailedTaskUI: View {
                          endPoint:.bottom
                        )) :(
            LinearGradient(
-                gradient: Gradient(colors: [.white,self.color,.white]),
+            gradient: Gradient(colors: [.white,self.completed == true ? Color.gray : self.color,.white]),
               startPoint: UnitPoint(x: 0.2, y: 0.2),
               endPoint:.bottomLeading
             )))

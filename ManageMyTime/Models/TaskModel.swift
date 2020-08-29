@@ -68,6 +68,46 @@ class TaskModel : UIViewController
            
            
        }
+    func completedToggle(taskId:UUID)
+    {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                         
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+             
+             //Prepare the request of type NSFetchRequest  for the entity
+             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+             fetchRequest.predicate = NSPredicate(format: "id = %@", taskId as CVarArg)
+        
+            var retrivedTask=Task()
+        
+             do {
+                 
+                 let result = try managedContext.fetch(fetchRequest)
+                 
+                retrivedTask = result[0] as! Task
+          
+                
+             } catch {
+                 
+                 print("Failed retriving task at setCompleted in Model")
+             }
+        
+            if(retrivedTask.completed)
+            {
+                retrivedTask.completed=false
+            }else{
+                retrivedTask.completed=true
+            }
+        
+            do {
+                      try managedContext.save()
+                          print("Try save OP at model.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                }
+   
+    }
     func getFirstTaskColor() ->Color
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Color.white }
@@ -109,8 +149,8 @@ class TaskModel : UIViewController
 
         var dateComponents = DateComponents()
         dateComponents.year = 2020
-        dateComponents.month = 8
-        dateComponents.day = 29
+        dateComponents.month = 9
+        dateComponents.day = 5
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -483,7 +523,7 @@ class TaskModel : UIViewController
                                       
                                       for task in data{
                                         
-                                        if(task.date < currentDate || task.date == currentDate && nextHour < currentTime)
+                                        if(task.completed || task.date < currentDate || task.date == currentDate && nextHour < currentTime)
                                         {
                                             opacity=lowOpacity
                                         }else
@@ -511,7 +551,7 @@ class TaskModel : UIViewController
                                       */
                                     if(data[0].endTime! < nextHour && data[0].endTime!.minutes > 45)
                                     {
-                                        if(data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
                                            {
                                                opacity=lowOpacity
                                            }else
@@ -528,7 +568,7 @@ class TaskModel : UIViewController
                                     }
                                     else if(data[0].endTime! < nextHour && data[0].endTime!.minutes < 30)
                                     {
-                                        if(data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)//SET LOW OPACITY to past tasks
+                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)//SET LOW OPACITY to past tasks
                                            {
                                                opacity=lowOpacity
                                            }else
@@ -543,7 +583,7 @@ class TaskModel : UIViewController
                                                                                  //Multiple tasks per hour
                                     }
                                     else{
-                                        if(data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)//SET LOW OPACITY to past tasks
+                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)//SET LOW OPACITY to past tasks
                                             {
                                                 opacity=lowOpacity
                                             }else
@@ -647,7 +687,7 @@ class TaskModel : UIViewController
                   currentDate.month=Date().month
                   currentDate.day=Date().day
                     
-               let weekSequence=coreManagment.createCalanderSequence(startDay: 23, startMonth: 8, startYear: 2020, endDay: 29, endMonth: 8, endYear: 2020)
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 30, startMonth: 8, startYear: 2020, endDay: 5, endMonth: 9, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -683,7 +723,7 @@ class TaskModel : UIViewController
                                    
                                    
                                    for task in data{
-                                        if(task.date < currentDate || task.date == currentDate && nextHour < currentTime)
+                                    if(task.completed || task.date < currentDate || task.date == currentDate && nextHour < currentTime)
                                            {
                                                opacity=lowOpacity
                                            }else
@@ -706,7 +746,7 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].startTime! > beginningOfHour)
                                     {
-                                        if(data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
                                           {
                                               opacity=lowOpacity
                                           }else
@@ -716,7 +756,7 @@ class TaskModel : UIViewController
                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
                                     }
                                 
-                                    if(data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                    if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
                                       {
                                           opacity=lowOpacity
                                       }else
@@ -732,7 +772,7 @@ class TaskModel : UIViewController
                                    
                                    if(data[0].endTime! < nextHour)
                                     {
-                                        if(data[0].date < currentDate || data[0].date == currentDate &&  nextHour < currentTime)
+                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate &&  nextHour < currentTime)
                                          {
                                              opacity=lowOpacity
                                          }else

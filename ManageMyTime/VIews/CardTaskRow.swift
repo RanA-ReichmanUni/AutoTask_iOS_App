@@ -27,6 +27,7 @@ struct CardTaskRow: View {
     var notes:String
     var id:UUID
     var dueDate:Date
+    @State var completed:Bool
     @State var padding:CGFloat=0
     @State var displayItem=false
     @State var height:CGFloat=170
@@ -197,7 +198,7 @@ struct CardTaskRow: View {
                                  endPoint:.bottomTrailing
                                )) :(
                    LinearGradient(
-                        gradient: Gradient(colors: [.white,self.color,self.color,self.color,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                    gradient: Gradient(colors: [.white,self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
                       endPoint:.bottomTrailing
@@ -205,7 +206,7 @@ struct CardTaskRow: View {
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
-            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem)/*.onTapGesture {
+            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem, completed: self.$completed)/*.onTapGesture {
                 self.taskViewModel.getFirstTaskColor()
                     self.displayItem=false
                 

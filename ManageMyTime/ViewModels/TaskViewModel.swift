@@ -104,6 +104,10 @@ class TaskViewModel : ObservableObject
     
      }
     
+    func completedToggle(tasdkId:UUID)
+    {
+        self.taskModel.completedToggle(taskId: tasdkId)
+    }
     func getFirstTaskColor()
     {
         
