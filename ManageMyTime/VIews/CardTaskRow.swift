@@ -11,6 +11,7 @@ import SwiftUI
 struct CardTaskRow: View {
     @ObservedObject var taskViewModel:TaskViewModel
      @Environment(\.colorScheme) var colorScheme
+    var taskId:UUID
     var taskName1 : String
     var dueDate1 : String
     var importance1 : String
@@ -30,39 +31,40 @@ struct CardTaskRow: View {
     @State var completed:Bool
     @State var padding:CGFloat=0
     @State var displayItem=false
-    @State var height:CGFloat=170
-    @State var paddingBottom:CGFloat=15
+    @State var height:CGFloat=290
+    @State var paddingBottom:CGFloat=2
+    @State var vStackPadding:CGFloat = 0
+    @State var lowerLinePadding:CGFloat=20
     //@Binding var position:CGFloat
-    
+    @State var isActive=false
+    @State private var showingAlert = false
  
-    
     var body: some View {
            
         ZStack(alignment: .leading) {
    
                 Color.flatDarkCardBackground
-                Spacer()
-                HStack {
-                     Spacer()
+               // Spacer()
+            
+                 
                    
                     
-                    HStack {
-                        VStack{
+                
+            VStack{
                             HStack{
                                // Spacer()
                                 Text(self.taskName1)
                             .font(.system(size: 20))
-                            //.font(.headline)
-                           
-                            .fontWeight(.bold).padding(4)
+    
+                            .fontWeight(.bold)
                                     .lineLimit(2).foregroundColor(.white)
-                            //.background(Capsule().fill(self.color))
-                            //.padding(.bottom, 2)
+         
                                Spacer()
-                            }.padding(.bottom,10)
+                            }.padding(.top,vStackPadding)
                             
                        // Text("Due:"+dueDate1)
                             //.padding(.bottom, 5)
+                
                         HStack{
                             CategoryPill(categoryName: self.scheduledDate,color:            LinearGradient(
                                 gradient: Gradient(colors: [self.color,self.color]),
@@ -81,16 +83,16 @@ struct CardTaskRow: View {
                                               )
                                      ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.1))
                                       
-                                      VStack {
+                            
                                        Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
                                               .font(.system(size: 20, weight: .bold))
                                               .foregroundColor(.white)
                                        
-                                      }
+                                     
                                   }
                                   .frame(width: 60, height: 30, alignment: .center)
                                            
-                                          //
+                                   
                                ZStack() {
                                      RoundedRectangle(cornerRadius: 10)
                                        .fill(
@@ -101,108 +103,132 @@ struct CardTaskRow: View {
                                            )
                                        ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.1))
                                    
-                                   VStack {
+                                 
                                        Text("\(self.endTimeHour)"+":"+"\(self.endTimeMinutes)")
                                            .font(.system(size: 20, weight: .bold))
                                            .foregroundColor(.white)
                                        
   
-                                   }
                                }
                                .frame(width: 60, height: 30, alignment: .center)
                                 
                            }
                                       
-                        }
-                        HStack {
+                        }.padding(.top,lowerLinePadding)
+                            VStack{
+                              
                             HStack{
-                            Image(systemName: "exclamationmark.circle").isHidden(true)
-                                Text(self.importance1).foregroundColor(Color.white).isHidden(true)
-                            }
-                           // Spacer()
+                                
+                                CategoryPill(categoryName: "Due Date: " + dueDate1,color:            LinearGradient(
+                                                               gradient: Gradient(colors: [self.color,self.color]),
+                                                                                                                                        startPoint: .top,
+                                                                                                                                        endPoint: .bottom
+                                                                                                                                    ))
+                                Spacer()
+                                CategoryPill(categoryName: "Work Time: " + String(workTimeHour)+":"+String(workTimeMinutes),color: LinearGradient(
+                                                                    gradient: Gradient(colors: [self.color,self.color]),
+                                                                         startPoint: .top,
+                                                                         endPoint: .bottom
+                                                                     ))
+                                Spacer()
+                                  CategoryPill(categoryName: "Notes: " + notes,color: LinearGradient(
+                                                                              gradient: Gradient(colors: [self.color,self.color]),
+                                                                                   startPoint: .top,
+                                                                                   endPoint: .bottom
+                                                                               ))
+                                
+                            }.padding(.top,lowerLinePadding)
+            
+                        HStack{
+                            
+                     
+                            HStack{
+
+                                 HStack(spacing:0){
+                                         Text("Finished ")
+                                         Toggle(isOn: $isActive) {
+                                                                                          Text("sdgsddsh")
+                                                        
+                                         }.onTapGesture {
+                                            self.taskViewModel.completedToggle(tasdkId: self.taskId)
+                                            self.completed.toggle()
+                                         }.labelsHidden()
+                                 }.onAppear{self.isActive=self.completed}
+                             }
+                   
                             Spacer()
-                        }
-                     
-                        //.padding(.bottom, 5)
-                        }
-                        //Spacer()
-                   
-                        Spacer()
-                              // Rectangle().fill(Color.white).frame(width:10)
-                       /* VStack {
-                            ForEach(scheduledDate, id: \.self) { category in
-                                CategoryPill(categoryName: category,color:LinearGradient(
-                                    gradient: Gradient(colors: [Color(hex:"#3CD3AD"),Color(hex:"#4CB8C4")]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )).padding(EdgeInsets(top: 2, leading: 1, bottom: 2, trailing: 1))
-                            }
-                          
-                        
-                        }*/
-                        
-                    }
-                    .padding(.horizontal, 5)
-                    /* VStack{
-                    //Spacer()
-                       HStack{
-                    ZStack() {
-                                              RoundedRectangle(cornerRadius: 10)
-                                                   .fill(
-                                                       LinearGradient(
-                                                        gradient: Gradient(colors: [self.color, self.color]),
-                                                           startPoint: .topLeading,
-                                                           endPoint: .bottomTrailing
-                                                       )
-                                                   )
-                                               
-                                               VStack {
-                                                Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                                       .font(.system(size: 20, weight: .bold))
-                                                       .foregroundColor(.white)
-                                                
-                                               }
-                                           }
-                                           .frame(width: 60, height: 30, alignment: .center)
-                    
-                   //
-                    ZStack() {
-                                                                      RoundedRectangle(cornerRadius: 10)
-                                                                        .fill(
-                                                                            LinearGradient(
-                                                                                gradient: Gradient(colors: [self.color, self.color]),
-                                                                                startPoint: .topLeading,
-                                                                                endPoint: .bottomTrailing
-                                                                            )
-                                                                        )
-                                                                    
-                                                                    VStack {
-                                                                        Text("\(self.endTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                                                            .font(.system(size: 20, weight: .bold))
-                                                                            .foregroundColor(.white)
-                                                                        
+                              Button(action: {
+                                                                      
                                    
-                                                                    }
-                                                                }
-                                                                .frame(width: 60, height: 30, alignment: .center)
+                                                                                                
+                                           }) {
+                                            
+                                              VStack{  Image(systemName: "pencil").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                                Text("Edit").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                           
+                                                                           
+                             }
+                              
+                      
+                              
+                              Button(action: {
+                                               
+                         
+                                    self.showingAlert = true
+                                                                         
+                                            }) {
+                                              VStack{
+                                                Image(systemName: "trash").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                                Text("Delete").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                            
+                                                                            
+                              } .alert(isPresented:$showingAlert) {
+                                         Alert(title: Text("Are you sure you want to delete this task ?"), message: Text("You can`t undo this action"), primaryButton: .destructive(Text("Delete")) {
+                                                      self.taskViewModel.deleteTask(taskId: self.taskId)
+                                                            self.taskViewModel.getFirstTaskColor()
+                                                       //   self.mode.wrappedValue.dismiss()
+                                            }, secondaryButton: .cancel())}
+                            
+                            Button(action: {
+                                                                                             
+                                                          
+                                                                                                                       
+                                                                  }) {
+                                                                   
+                                                                     VStack{  Image(systemName: "square.and.arrow.up").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                                                       Text("Expand").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                                                  
+                                                                                                  
+                                                    }
+                                                     
+              
+                            
+                            Spacer()
+                          
+                           
+                        }.padding(.top,lowerLinePadding)
+                              
+                            }
+                            
+                        }
+ 
                      
-                }
-                .padding(15)
-             /**/
-                    }.padding()*/
+                 
+                    
                    
-                }.padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(
+                   
+                .padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(
                     self.colorScheme == .dark ? ( LinearGradient(
                         gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
                         startPoint: .topTrailing,
                                  endPoint:.bottomTrailing
                                )) :(
                    LinearGradient(
-                    gradient: Gradient(colors: [.white,self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                    gradient: Gradient(colors: [self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
                       endPoint:.bottomTrailing
-                    ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height)
+                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height).padding(.bottom,paddingBottom)
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
@@ -226,27 +252,72 @@ struct CardTaskRow: View {
                 
                
                           
-                withAnimation(.easeInOut(duration:1.2)) {self.height=170
+                withAnimation(.easeInOut(duration:1.2)) {//self.height=170
                                 self.paddingBottom=15
-                                    self.padding = 0}
+                                    self.padding = 0
+                                self.vStackPadding=5}
                     
             }
                             
                 
             
-        }.padding(EdgeInsets(top: padding, leading: 0, bottom: padding, trailing: 0))
+        }.padding(EdgeInsets(top: padding, leading: 0, bottom: 0 , trailing: 0))
         .simultaneousGesture(TapGesture().onEnded{
                                                      // print("Got Tap")
                                                     
-            withAnimation(.easeInOut) {self.height=400//Higher height settings: 400
-                self.paddingBottom=260//260
-                self.padding = -115//-115
-                                        
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                              self.displayItem=true
+         //self.height=400//Higher height settings: 400
+                if(self.paddingBottom == 100)
+                {
+                    
+                        withAnimation(.easeInOut) {
+                                //self.vStackPadding = 0
+                               //self.lowerLinePadding = 20
+                            
+                    }
+                    
+                      
+                    
+                    //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        withAnimation(.easeInOut) {
+                            self.paddingBottom=2
+                            self.padding = 0
+                            self.vStackPadding = 0
+                           self.lowerLinePadding = 20
+                     //   }
+                    }
                 }
+            
+                    
+                
+    
+                
+                
+                else{
+                    withAnimation(.easeInOut) {
+                         self.paddingBottom=100//260
+                         self.padding = -78//-115
+                         self.vStackPadding = 100
+                         self.lowerLinePadding = 20
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    
+                                    withAnimation(.easeInOut) {
+                                         self.vStackPadding = 30
+                                        self.lowerLinePadding = -1}
+                                }
+                                                     
+                }
+         
+               /* DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                              self.displayItem=true
+                }*/
+                
+            
+            
+                
                                    
-            }
+           
                                 //delay(0.5)
                                 
         })
@@ -314,7 +385,7 @@ struct CategoryPill: View {
         ZStack {
             Text(categoryName)
                 .font(.system(size: fontSize, weight: .regular))
-                .lineLimit(2)
+                .lineLimit(100)
                 .foregroundColor(.white)
                 .padding(5)
                 .background(color)
