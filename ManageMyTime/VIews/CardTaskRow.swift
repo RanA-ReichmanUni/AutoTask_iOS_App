@@ -279,6 +279,7 @@ struct CardTaskRow: View {
                     
                     //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         withAnimation(.easeInOut) {
+                            
                             self.paddingBottom=2
                             self.padding = 0
                             self.vStackPadding = 0
@@ -295,17 +296,19 @@ struct CardTaskRow: View {
                 else{
                     withAnimation(.easeInOut) {
                          self.paddingBottom=100//260
-                         self.padding = -78//-115
-                         self.vStackPadding = 100
-                         self.lowerLinePadding = 20
+                         self.padding = -95//-115
+                         self.vStackPadding = 119
+                         self.lowerLinePadding = 25
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                    
-                                    withAnimation(.easeInOut) {
-                                         self.vStackPadding = 30
-                                        self.lowerLinePadding = -1}
+                            if(self.paddingBottom == 100)
+                            {
+                                withAnimation(.easeInOut) {
+                                     self.vStackPadding = 30
+                                    self.lowerLinePadding = -1}
                                 }
+                            }
                                                      
                 }
          

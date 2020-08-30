@@ -32,22 +32,10 @@ struct TaskList: View {
                     Spacer()
                     
                 }
-                VStack{Spacer()
-                    Spacer()
-                    
-                }
-                VStack{Spacer()
-                                  Spacer()
-                                  
-                              }
-                VStack{Spacer()
-                                  Spacer()
-                                  
-                              }
-                VStack{Spacer()
+          VStack{Spacer()
+                         Spacer()
                          
-                        
-                              }
+                     }
                  
                    
                 ForEach(taskViewModel.allTasks, id: \.self) { task in
