@@ -648,7 +648,7 @@ class TaskModel : UIViewController
     }
     
     
-     func retrieveAllTasksByHour(hour:Int) -> [TasksPerHourPerDay] {
+    func retrieveAllTasksByHour(hour:Int,sequanceNum:Int) -> [TasksPerHourPerDay] {
               
            var allTasks=[TasksPerHourPerDay]()
            var coreManagment=Core()
@@ -704,8 +704,9 @@ class TaskModel : UIViewController
                      //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                    
                    var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                       for dayOfTheWeek in weekSequence
-                       {
+                    
+                        var dayOfTheWeek=weekSequence[sequanceNum]
+                        
                            if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
                            {
                                let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
@@ -797,7 +798,7 @@ class TaskModel : UIViewController
                            allTasks.append(tasksPerHourPerDay)//Tasks per hour
                           
                            tasksPerHourPerDay.tasks=[]
-                       }
+                       
                        
                    
                       
@@ -827,6 +828,377 @@ class TaskModel : UIViewController
            
            return allTasks
            }
+    
+    func retrieveAllTasksByHour(hour:Int) -> [TasksPerHourPerDay] {
+                 
+              var allTasks=[TasksPerHourPerDay]()
+              var coreManagment=Core()
+          
+              var opacity:CGFloat
+           
+              let startOfDay=7
+              let endOfDay=24
+          
+              //As we know that container is set up in the AppDelegates so we need to refer that container.
+              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+              
+              //We need to create a context from this container
+              let managedContext = appDelegate.persistentContainer.viewContext
+              
+              //Prepare the request of type NSFetchRequest  for the entity
+              let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+         
+              fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND  isTaskBreakWindow = %@", argumentArray: [Date().year,false])
+                  
+              let nextHour = Hour(context: managedContext)
+                  nextHour.hour=hour+1
+                  nextHour.minutes=0
+              
+              let beginningOfHour = Hour(context: managedContext)
+              beginningOfHour.hour=hour
+              beginningOfHour.minutes=0
+              
+               let currentTime=Hour(context: managedContext)
+                        currentTime.hour=Date().hour
+                        currentTime.minutes=Date().minutes
+                      
+            
+                let currentDate = CustomDate(context:managedContext)
+                     currentDate.year=Date().year
+                     currentDate.month=Date().month
+                     currentDate.day=Date().day
+                       
+                  let weekSequence=coreManagment.createCalanderSequence(startDay: 30, startMonth: 8, startYear: 2020, endDay: 5, endMonth: 9, endYear: 2020)
+          //        fetchRequest.fetchLimit = 1
+          //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+          //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+          //
+                  do {
+                      
+                      var result = try managedContext.fetch(fetchRequest) as! [Task]
+                      
+                      result.sort {
+                          ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                              ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                      }
+                      
+                        //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                      
+                      var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                          for dayOfTheWeek in weekSequence
+                          {
+                              if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
+                              {
+                                  let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+
+                                 tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                                  
+                                  tasksPerHourPerDay.isEmptySlot=false
+                                  
+                                  
+                                  var heightFactor=CGFloat(1.6)
+                                  
+                                  if(data.count > 1)
+                                  {
+                                      heightFactor=1.9
+                                      
+                                      
+                                      for task in data{
+                                       if(task.completed || task.date < currentDate || task.date == currentDate && nextHour < currentTime)
+                                              {
+                                                  opacity=lowOpacity
+                                              }else
+                                              {
+                                                  opacity=standardOpacity
+                                              }
+                                           var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
+                                                                                                                                                                              
+                                           taskPerHour.id=task.id
+                                       
+                                          tasksPerHourPerDay.tasks.append(taskPerHour)
+                    
+                                      }
+                                                           
+                                  }
+                                  /*else{
+                                      heightFactor=1.6
+                                  }*/
+                                  else{
+                                      
+                                      if(data[0].startTime! > beginningOfHour)
+                                       {
+                                           if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                             {
+                                                 opacity=lowOpacity
+                                             }else
+                                             {
+                                                 opacity=standardOpacity
+                                             }
+                                           tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                       }
+                                   
+                                       if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                         {
+                                             opacity=lowOpacity
+                                         }else
+                                         {
+                                             opacity=standardOpacity
+                                         }
+                                      
+                                       var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                       taskPerHour.id=data[0].id
+                                   
+                                      tasksPerHourPerDay.tasks.append(taskPerHour)
+                                              //Multiple tasks per hour
+                                      
+                                      if(data[0].endTime! < nextHour)
+                                       {
+                                           if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate &&  nextHour < currentTime)
+                                            {
+                                                opacity=lowOpacity
+                                            }else
+                                            {
+                                                opacity=standardOpacity
+                                            }
+                                           
+                                            tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                       }
+                                      
+                                      
+                                  }
+                           
+                
+                                
+                              }
+                              else{//Case it's an empty hour for that day (index)
+                                  tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
+                                  //tasksPerHourPerDay.isEmptySlot=true
+                              }
+                              
+                              allTasks.append(tasksPerHourPerDay)//Tasks per hour
+                             
+                              tasksPerHourPerDay.tasks=[]
+                          }
+                          
+                      
+                         
+                              //allTasks.append(TasksByHour(data)
+                              
+                         // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
+                          
+                       /*   for data in allTasks
+                          {
+                              
+                              print(data.hour)
+                              for oneString in data.tasks
+                              {
+                                  print(oneString)
+                              }
+                              print("-----")
+                          }*/
+                          /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+                     
+                      
+                      print("Retrived all tasks by hour !")
+                      
+                  } catch {
+                      
+                      print("Failed")
+                  }
+              
+              return allTasks
+              }
+    
+    func retrieveAllTasksByHour() -> [TasksPerHourPerDayOfTheWeek] {
+                
+             var allTasksPerDay=[TasksPerHourPerDay]()
+             var allTasksObject=[TasksPerHourPerDayOfTheWeek]()
+             var coreManagment=Core()
+         
+             var opacity:CGFloat
+          
+             let startOfDay=7
+             let endOfDay=24
+         
+             //As we know that container is set up in the AppDelegates so we need to refer that container.
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasksObject }
+             
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+             
+             //Prepare the request of type NSFetchRequest  for the entity
+             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        
+             fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND  isTaskBreakWindow = %@", argumentArray: [Date().year,false])
+                 
+             let nextHour = Hour(context: managedContext)
+              
+             
+             let beginningOfHour = Hour(context: managedContext)
+     
+             
+              let currentTime=Hour(context: managedContext)
+                       currentTime.hour=Date().hour
+                       currentTime.minutes=Date().minutes
+                     
+           
+               let currentDate = CustomDate(context:managedContext)
+                    currentDate.year=Date().year
+                    currentDate.month=Date().month
+                    currentDate.day=Date().day
+                      
+                 let weekSequence=coreManagment.createCalanderSequence(startDay: 30, startMonth: 8, startYear: 2020, endDay: 5, endMonth: 9, endYear: 2020)
+         //        fetchRequest.fetchLimit = 1
+         //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+         //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+         //
+                 do {
+                     
+                     var result = try managedContext.fetch(fetchRequest) as! [Task]
+                     
+                     result.sort {
+                         ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                             ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                     }
+                     
+                       //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                     
+                     var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                    
+                        for hour in startOfDay...endOfDay
+                        {
+                                nextHour.hour=hour+1
+                                nextHour.minutes=0
+                                beginningOfHour.hour=hour
+                                beginningOfHour.minutes=0
+                            
+                             for dayOfTheWeek in weekSequence
+                             {
+                              
+                                 if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
+                                 {
+                                     let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+
+                                    tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                                     
+                                     tasksPerHourPerDay.isEmptySlot=false
+                                     
+                                     
+                                     var heightFactor=CGFloat(1.6)
+                                     
+                                     if(data.count > 1)
+                                     {
+                                         heightFactor=1.9
+                                         
+                                         
+                                         for task in data{
+                                          if(task.completed || task.date < currentDate || task.date == currentDate && nextHour < currentTime)
+                                                 {
+                                                     opacity=lowOpacity
+                                                 }else
+                                                 {
+                                                     opacity=standardOpacity
+                                                 }
+                                              var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
+                                                                                                                                                                                 
+                                              taskPerHour.id=task.id
+                                          
+                                             tasksPerHourPerDay.tasks.append(taskPerHour)
+                       
+                                         }
+                                                              
+                                     }
+                                     /*else{
+                                         heightFactor=1.6
+                                     }*/
+                                     else{
+                                         
+                                         if(data[0].startTime! > beginningOfHour)
+                                          {
+                                              if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                                {
+                                                    opacity=lowOpacity
+                                                }else
+                                                {
+                                                    opacity=standardOpacity
+                                                }
+                                              tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                          }
+                                      
+                                          if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                            {
+                                                opacity=lowOpacity
+                                            }else
+                                            {
+                                                opacity=standardOpacity
+                                            }
+                                         
+                                          var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                          taskPerHour.id=data[0].id
+                                      
+                                         tasksPerHourPerDay.tasks.append(taskPerHour)
+                                                 //Multiple tasks per hour
+                                         
+                                         if(data[0].endTime! < nextHour)
+                                          {
+                                              if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate &&  nextHour < currentTime)
+                                               {
+                                                   opacity=lowOpacity
+                                               }else
+                                               {
+                                                   opacity=standardOpacity
+                                               }
+                                              
+                                               tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                          }
+                                         
+                                         
+                                     }
+                              
+                   
+                                   
+                                 }
+                                 else{//Case it's an empty hour for that day (index)
+                                     tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
+                                     //tasksPerHourPerDay.isEmptySlot=true
+                                 }
+                                 
+                                 allTasksPerDay.append(tasksPerHourPerDay)//Tasks per hour
+                                
+                                 tasksPerHourPerDay.tasks=[]
+                            }
+                            allTasksObject.append(TasksPerHourPerDayOfTheWeek(hour: hour, tasks: allTasksPerDay))
+                         }
+                         
+                     
+                        
+                             //allTasks.append(TasksByHour(data)
+                             
+                        // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
+                         
+                      /*   for data in allTasks
+                         {
+                             
+                             print(data.hour)
+                             for oneString in data.tasks
+                             {
+                                 print(oneString)
+                             }
+                             print("-----")
+                         }*/
+                         /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+                    
+                     
+                     print("Retrived all tasks by hour !")
+                     
+                 } catch {
+                     
+                     print("Failed")
+                 }
+             
+             return allTasksObject
+             }
+      
     
     func getAllDailyLoads() -> [LoadLevel]
     {

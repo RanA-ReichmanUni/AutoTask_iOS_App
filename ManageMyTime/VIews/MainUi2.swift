@@ -52,7 +52,7 @@ struct MainUI2: View {
                      }
                 else if(self.listFlag)
                      {
-                         TaskList(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                        TaskList().transition(.scale)//.padding(.bottom,10)
                      }
                      else{
                            
@@ -76,7 +76,7 @@ struct MainUI2: View {
                 
                
                     Button(action: {
-                        withAnimation(.easeInOut){
+                        withAnimation(.easeInOut(duration: 1)){
                             self.addTaskFlag=true
                             self.settingsFlag=false
                            
@@ -96,7 +96,7 @@ struct MainUI2: View {
 
                  Divider().frame(maxHeight: 75)
                     Button(action: {
-                        withAnimation(.easeInOut){
+                        withAnimation(.ripple2()){
                              self.weeklyScheduleFlag=true
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -114,7 +114,7 @@ struct MainUI2: View {
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                 Divider().frame(maxHeight: 75)
                 Button(action: {
-                        withAnimation(.easeInOut){
+                        withAnimation(.easeInOut(duration: 1)){
                              self.dailyViewFlag=true
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -131,7 +131,7 @@ struct MainUI2: View {
                 }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
              Divider().frame(maxHeight: 75)
                 Button(action: {
-                        withAnimation(.easeInOut){
+                    withAnimation(.easeInOut(duration: 0.01)){
                              self.listFlag=true
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -148,7 +148,7 @@ struct MainUI2: View {
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                 Divider().frame(maxHeight: 75)
                 Button(action: {
-                        withAnimation(.easeInOut){
+                        withAnimation(.easeInOut(duration: 1)){
                              self.settingsFlag=true
                             
          
@@ -172,7 +172,9 @@ struct MainUI2: View {
 
                    Divider()
                 
-                }.onAppear{  self.taskViewModel.retrieveAllTasks()}
+                }.onAppear{  self.taskViewModel.retrieveAllTasks()
+                    self.taskViewModel.retrieveAllTasksByHour()
+            }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     
        

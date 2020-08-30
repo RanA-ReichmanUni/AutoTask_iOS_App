@@ -142,7 +142,7 @@ struct CardTaskRow: View {
                         HStack{
                             
                      
-                            HStack{
+                         /*   HStack{
 
                                  HStack(spacing:0){
                                          Text("Finished ")
@@ -154,7 +154,7 @@ struct CardTaskRow: View {
                                             self.completed.toggle()
                                          }.labelsHidden()
                                  }.onAppear{self.isActive=self.completed}
-                             }
+                             }*/
                    
                             Spacer()
                               Button(action: {

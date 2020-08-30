@@ -59,6 +59,10 @@ class TaskViewModel : ObservableObject
     //@Published var color : Color
     @Published var firstTaskColor:Color
     
+    @Published var allTasksPerHourInWeek = [TasksPerHourPerDayOfTheWeek]()
+    
+    
+    
   
     
     var taskModel = TaskModel()
@@ -225,10 +229,21 @@ class TaskViewModel : ObservableObject
     }
     
     
+    
     func retrieveAllTasksByHour(hour:Int) ->[TasksPerHourPerDay]
     {
         return taskModel.retrieveAllTasksByHour(hour:hour)
     }
+    
+    func retrieveAllTasksByHour(hour:Int,sequanceNum:Int) ->[TasksPerHourPerDay]
+    {
+        return taskModel.retrieveAllTasksByHour(hour:hour,sequanceNum:sequanceNum)
+    }
+    
+    func retrieveAllTasksByHour()
+      {
+            self.allTasksPerHourInWeek=taskModel.retrieveAllTasksByHour()
+      }
     
      func updateData(orginalTaskName : String,newTaskName : String, newImportance : String,newAsstimatedWorkTime :Int32, newDueDate : Date, newNotes : String ){
         
