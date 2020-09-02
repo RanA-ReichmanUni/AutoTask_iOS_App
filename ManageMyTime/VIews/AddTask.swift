@@ -22,7 +22,7 @@ struct AddTask: View {
     */
     
     //var taskViewModel = TaskViewModel()
-    
+  
     @ObservedObject var taskViewModel = TaskViewModel()
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -149,7 +149,7 @@ struct AddTask: View {
                 }.background(Color.white).frame(height:30)
                 
                     
-            }
+        }
             
           
 
@@ -159,8 +159,9 @@ struct AddTask: View {
     
 }
 
-struct AddTask_Previews: PreviewProvider {
+/*struct AddTask_Previews: PreviewProvider {
     static var previews: some View {
         AddTask()
     }
 }
+*/

@@ -33,11 +33,11 @@ struct MainUI: View {
                      
                      else if (addTaskFlag)
                      {
-                         AddTask().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
+                         //AddTask().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
                      }
                      else if(dailyViewFlag)
                      {
-                        DailyView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
+                       // DailyView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
                                            
                         
                      }

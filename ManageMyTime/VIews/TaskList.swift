@@ -15,7 +15,7 @@ struct TaskList: View {
    // var taskViewModel = TaskViewModel()
     
     
-     @ObservedObject var taskViewModel=TaskViewModel()//previously it was @EnvironmentObject
+    @ObservedObject var taskViewModel:TaskViewModel//previously it was @EnvironmentObject
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @Environment(\.colorScheme) var colorScheme
@@ -41,9 +41,11 @@ struct TaskList: View {
                 ForEach(taskViewModel.allTasks, id: \.self) { task in
                     VStack{
                        /* NavigationLink(destination: DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes!, asstimatedWorkTimeHour: task.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes,day:task.date.day,month:task.date.month,year:task.date.year,taskId:task.id,color:self.taskViewModel.getTaskColor(task:task))){*/
+                      
+                        CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}
                        
-                            
-                        CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}/*.onTapGesture {
+                     
+                        /*.onTapGesture {
                                 withAnimation(.easeIn(duration: 5)) { self.offset = 50 }
                             }*/
                             
@@ -72,14 +74,14 @@ struct TaskList: View {
                                             Text("Retrieve")
                                         }*/
                 
-            }.onAppear{self.taskViewModel.retrieveAllTasks()
-                self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.background(    LinearGradient(
+            }/*.onAppear{//self.taskViewModel.retrieveAllTasks()
+               // self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
+            }*//*.background(    LinearGradient(
             gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
                           startPoint: .bottomLeading,
                                    endPoint:.bottomTrailing
-                    ))
+                    ))*/
             
          //.background(Color(hex:"#fcfcfc"))
         

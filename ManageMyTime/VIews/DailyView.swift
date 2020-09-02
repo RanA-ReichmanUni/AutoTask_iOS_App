@@ -20,6 +20,8 @@ struct DailyView: View {
     var dayRange = 7...24
     
     @State var blurEffect:CGFloat = 0
+
+
     
     var body: some View {
         
@@ -30,7 +32,7 @@ struct DailyView: View {
         
                // WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
-        
+ 
        
         
             List(self.dayRange,id:\.self){

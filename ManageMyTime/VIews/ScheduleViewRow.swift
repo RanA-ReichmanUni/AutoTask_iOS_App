@@ -73,6 +73,7 @@ struct ScheduleViewRow: View {
                         
                         
                 }
+                
          
                
                 
@@ -88,7 +89,7 @@ struct ScheduleViewRow: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
               
-                }.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
+                }/*.id(UUID())*/.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
         //  Spacer()
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))

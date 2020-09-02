@@ -17,51 +17,79 @@ struct MainUI2: View {
     @State var dailyViewFlag=false
     @State var weeklyScheduleFlag=false
     @State var listFlag=false
+    @State var active=false
+    @State var toggleActive=false
     
-    let defaultColor=Color(hex:"#f2fcfc")
+    let defaultColor=Color(.blue)
     let choosenColor=Color(hex:"#00FFF5")
   
     @ObservedObject var taskViewModel = TaskViewModel()
     var body: some View {
         GeometryReader{ geometry in
             VStack(spacing:0){
-  
-            
+                /*if(self.toggleActive)
+                {
+                    HStack{
+                         Spacer()
+                          
+                        
+                        ZStack(alignment: .center){
+                        
+                                         
+                                     
+                        RoundedRectangle(cornerRadius: 100).fill(Color.green).frame(width: 50, height: 50)
+                        Image(systemName: self.dailyViewFlag ? "calendar" : String(String(Date().day))+".square").resizable()
+                            .frame(maxWidth: 25,maxHeight: 25).foregroundColor(self.addTaskFlag ?  self.choosenColor : self.defaultColor)
+                        }.onTapGesture {
+                                          withAnimation(.easeInOut(duration: 1)){
+                                                  
+                                                          
+                                                      self.weeklyScheduleFlag.toggle()
+                                                      self.dailyViewFlag.toggle()
+
+                                                          self.settingsFlag=false
+                                                          self.addTaskFlag=false
+                                                
+                                                          self.listFlag=false
+                                               
+                                          }
+                        }
+               
+                         Spacer()
+                     }
+                }*/
             
 
             VStack(spacing:0){
                    
-                if(self.settingsFlag)
+              
+                     if(self.listFlag)
                      {
-                        ButtonTestingView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                        TaskList(taskViewModel:self.taskViewModel)
                      }
-                     
                      else if (self.addTaskFlag)
                      {
                          AddTask().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                      }
                      else if(self.dailyViewFlag)
                      {
-                        DailyView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                        DailyView()
                                            
                         
                      }
                 else if(self.weeklyScheduleFlag)
                      {
-                        ScheduleViewRow().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                        ScheduleViewRow()
                      }
-                else if(self.listFlag)
-                     {
-                        TaskList().transition(.scale)//.padding(.bottom,10)
-                     }
-                     else{
-                           
-                        Spacer()
-                             Spacer()
-                             Spacer()
-                             Spacer()
+                 else if(self.settingsFlag)
+                    {
+                         ButtonTestingView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                     }
-            }.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                     else{
+                          
+                        TaskList(taskViewModel:self.taskViewModel)
+                    }
+            }
                 
             Divider()
             
@@ -83,6 +111,7 @@ struct MainUI2: View {
                             self.dailyViewFlag=false
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
+                            self.toggleActive=false
                         }
                     }) {
                          VStack{
@@ -96,13 +125,14 @@ struct MainUI2: View {
 
                  Divider().frame(maxHeight: 75)
                     Button(action: {
-                        withAnimation(.ripple2()){
+                        withAnimation(.easeInOut(duration: 1.5)){
                              self.weeklyScheduleFlag=true
                              self.settingsFlag=false
                              self.addTaskFlag=false
                              self.dailyViewFlag=false
                            
                              self.listFlag=false
+                             self.toggleActive=true
                         }
                       
                     }) {
@@ -114,13 +144,14 @@ struct MainUI2: View {
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                 Divider().frame(maxHeight: 75)
                 Button(action: {
-                        withAnimation(.easeInOut(duration: 1)){
-                             self.dailyViewFlag=true
-                             self.settingsFlag=false
-                             self.addTaskFlag=false
+                    withAnimation(.easeInOut(duration: 1.5)){
+                            self.dailyViewFlag=true
+                            self.settingsFlag=false
+                            self.addTaskFlag=false
                 
-                             self.weeklyScheduleFlag=false
-                             self.listFlag=false
+                            self.weeklyScheduleFlag=false
+                            self.listFlag=false
+                            self.toggleActive=true
                         }
                     }) {
                          VStack{
@@ -131,13 +162,15 @@ struct MainUI2: View {
                 }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
              Divider().frame(maxHeight: 75)
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.01)){
-                             self.listFlag=true
-                             self.settingsFlag=false
-                             self.addTaskFlag=false
-                             self.dailyViewFlag=false
-                             self.weeklyScheduleFlag=false
+                    withAnimation(.easeInOut(duration: 0.7)){
+                            self.settingsFlag=false
+                            self.addTaskFlag=false
+                            self.dailyViewFlag=false
+                            self.weeklyScheduleFlag=false
+                            self.listFlag=true
+                            self.toggleActive=false
                         }
+           
                         
                     }) {
                          VStack{
@@ -149,13 +182,14 @@ struct MainUI2: View {
                 Divider().frame(maxHeight: 75)
                 Button(action: {
                         withAnimation(.easeInOut(duration: 1)){
-                             self.settingsFlag=true
+                            self.settingsFlag=true
                             
          
-                             self.addTaskFlag=false
-                             self.dailyViewFlag=false
-                             self.weeklyScheduleFlag=false
-                             self.listFlag=false
+                            self.addTaskFlag=false
+                            self.dailyViewFlag=false
+                            self.weeklyScheduleFlag=false
+                            self.listFlag=false
+                            self.toggleActive=false
                         }
                     }) {
                             VStack{
@@ -178,12 +212,12 @@ struct MainUI2: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     
        
-        }.background(    LinearGradient(
+        }.background(Color(hex:"#fcfcfc"))/*.background(    LinearGradient(
         gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                  //self.color,.purple,.purple,.purple
                     startPoint: .bottomLeading,
                   endPoint:.bottomTrailing
-                ))
+                ))*/
         
         
     }

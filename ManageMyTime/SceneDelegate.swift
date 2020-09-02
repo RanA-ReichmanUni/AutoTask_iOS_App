@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let contentView = ContentView().environment(\.managedObjectContext, context)
-        let addTask = AddTask().environment(\.managedObjectContext, context)
+       // let addTask = AddTask().environment(\.managedObjectContext, context)
        // let taskList = TaskList().environment(\.managedObjectContext, context)
          let buttonTestingView = ButtonTestingView().environment(\.managedObjectContext, context)
         // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)

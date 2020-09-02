@@ -31,10 +31,10 @@ struct TempNavigator: View {
                     Text("Weekly Schedule")
                 }
             
-                NavigationLink(destination:DailyView()){
+               /* NavigationLink(destination:DailyView()){
                             
                             Text("Daily Schedule")
-                }
+                }*/
             
                 //previously we didn't pass the taskViewModel
             NavigationLink(destination:TaskList(taskViewModel:taskViewModel)){
@@ -42,10 +42,10 @@ struct TempNavigator: View {
                     Text("All Tasks")
                 }
             
-                NavigationLink(destination:AddTask()){
+                /*NavigationLink(destination:AddTask()){
                                                         
                             Text("Add Task")
-                }
+                }*/
                 NavigationLink(destination:StressDailyView()){
                                                                   
                             Text("Daily Work Load")

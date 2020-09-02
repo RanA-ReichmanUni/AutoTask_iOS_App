@@ -21,7 +21,8 @@ struct PreSelector: View {
             {
                 ForEach(weekByHour.tasks)
                 { weekly in
-                    ScehduleSelector(hour:String(self.hour),weekByHour: weekly,geometry:self.geometry).listRowBackground(Color.green)
+                    Spacer()
+                   // ScehduleSelector(hour:String(self.hour),weekByHour: weekly,geometry:self.geometry).listRowBackground(Color.green)
                 }
             }
         }

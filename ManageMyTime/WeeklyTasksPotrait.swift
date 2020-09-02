@@ -26,7 +26,8 @@ struct WeeklyTasksPotrait: View {
                         {
                         GeometryReader { geometry in
                                 HStack {
-                                    TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white),opacity:1).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
+                                    /*TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: "", heightFactor:CGFloat(1.5),fillColor: Color(.white),opacity:1).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))*/
+                                    Spacer()
                                 
                                 }
                             }
@@ -43,7 +44,8 @@ struct WeeklyTasksPotrait: View {
                                    // DviderTest(offSet:self.offSet)
                             if(task.taskName=="")
                             {
-                                TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: task.taskName, heightFactor:task.heightFactor,fillColor: Color(.white),opacity:task.opacity).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))
+                               /* TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: task.taskName, heightFactor:task.heightFactor,fillColor: Color(.white),opacity:task.opacity).frame(width: geometry.size.width, height:  geometry.size.height/2)//.padding(EdgeInsets(top: 2, leading: 3, bottom: 4, trailing: 2))*/
+                                Spacer()
                             }
                             else{
                                 
