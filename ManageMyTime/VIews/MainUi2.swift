@@ -117,7 +117,7 @@ struct MainUI2: View {
                          VStack{
                             Image(systemName: "wand.and.stars").resizable()
                                 .frame(maxWidth: 25,maxHeight: 25).foregroundColor(self.addTaskFlag ?  self.choosenColor : self.defaultColor)
-                            Text("New").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.addTaskFlag ? self.choosenColor : self.defaultColor)
+                            Text("New Task").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.addTaskFlag ? self.choosenColor : self.defaultColor)
                         }
                     }.background(Rectangle().fill(Color.white.opacity(0))).padding(.leading,5).padding(.top,12)
                    
