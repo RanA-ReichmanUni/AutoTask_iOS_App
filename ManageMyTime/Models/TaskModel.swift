@@ -211,7 +211,7 @@ class TaskModel : UIViewController
                     asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
            do {
-                try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
+                try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)],internalId: UUID())
            }
             catch{
                  throw DatabaseError.taskCanNotBeScheduledInDue
@@ -243,7 +243,7 @@ class TaskModel : UIViewController
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
         do {
-            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,color:"Pink")
+            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,color:"Pink",internalId: UUID())
         }
         catch{
             throw DatabaseError.taskCanNotBeScheduledInDue

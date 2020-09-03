@@ -65,11 +65,12 @@ struct MainUI2: View {
               
                      if(self.listFlag)
                      {
+                        
                         TaskList(taskViewModel:self.taskViewModel)
                      }
                      else if (self.addTaskFlag)
                      {
-                         AddTask().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                         AddTask(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                      }
                      else if(self.dailyViewFlag)
                      {
@@ -163,6 +164,7 @@ struct MainUI2: View {
              Divider().frame(maxHeight: 75)
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.7)){
+                            
                             self.settingsFlag=false
                             self.addTaskFlag=false
                             self.dailyViewFlag=false

@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  ManageMyTime
 //
-//  Created by רן א on 26/08/2020.
+//  Created by רן א on 02/09/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
@@ -17,35 +17,40 @@ extension Task {
         return NSFetchRequest<Task>(entityName: "Task")
     }
 
-    @NSManaged public var active: Bool
-    @NSManaged public var color: String?
-    @NSManaged public var completed: Bool
-    @NSManaged public var dueDate: Date
-    @NSManaged public var id: UUID
-    @NSManaged public var importance: String?
-    @NSManaged public var notes: String?
-    @NSManaged public var taskName: String
-    @NSManaged public var isTaskBreakWindow:Bool
-    @NSManaged public var asstimatedWorkTime: Hour
-    @NSManaged public var date: CustomDate
-    @NSManaged public var endTime: Hour?
-    @NSManaged public var startTime: Hour?
 
-    var taskImportance: TaskImportance {
-               set {importance = newValue.rawValue}
-               get {TaskImportance(rawValue: importance!) ?? .medium}
-           }
-           
-        
 
-       }
+       @NSManaged public var active: Bool
+       @NSManaged public var color: String?
+       @NSManaged public var completed: Bool
+       @NSManaged public var dueDate: Date
+       @NSManaged public var id: UUID
+       @NSManaged public var importance: String?
+       @NSManaged public var isTaskBreakWindow: Bool
+       @NSManaged public var notes: String?
+       @NSManaged public var taskName: String
+       @NSManaged public var internalId: UUID?
+       @NSManaged public var asstimatedWorkTime: Hour
+       @NSManaged public var date: CustomDate
+       @NSManaged public var endTime: Hour?
+       @NSManaged public var startTime: Hour?
+       @NSManaged public var scheduleSection: String
 
-       enum TaskImportance:String {
+       
+       var taskImportance: TaskImportance {
+                  set {importance = newValue.rawValue}
+                  get {TaskImportance(rawValue: importance!) ?? .medium}
+              }
+              
            
-         case veryHigh
-         case high
-         case medium
-         case low
-         case veryLow
-           
-       }
+
+          }
+
+          enum TaskImportance:String {
+              
+            case veryHigh
+            case high
+            case medium
+            case low
+            case veryLow
+              
+          }

@@ -23,7 +23,7 @@ struct AddTask: View {
     
     //var taskViewModel = TaskViewModel()
   
-    @ObservedObject var taskViewModel = TaskViewModel()
+    @ObservedObject var taskViewModel:TaskViewModel
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
@@ -130,7 +130,7 @@ struct AddTask: View {
                                        self.isError = true
                                    }
                             
-                        
+                          self.taskViewModel.retrieveAllTasks()
                           self.mode.wrappedValue.dismiss()
                
 

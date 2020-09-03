@@ -52,8 +52,6 @@
 		25680721249FF1FF0096AB89 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25680720249FF1FF0096AB89 /* Preview Assets.xcassets */; };
 		25680724249FF1FF0096AB89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25680722249FF1FF0096AB89 /* LaunchScreen.storyboard */; };
 		2568072F249FF1FF0096AB89 /* ManageMyTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568072E249FF1FF0096AB89 /* ManageMyTimeTests.swift */; };
-		256CD0EA24F6DAF6002CCCE3 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CD0E824F6DAF6002CCCE3 /* Task+CoreDataClass.swift */; };
-		256CD0EB24F6DAF6002CCCE3 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CD0E924F6DAF6002CCCE3 /* Task+CoreDataProperties.swift */; };
 		256DA01F24F94DED003A408E /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256DA01E24F94DED003A408E /* SummaryView.swift */; };
 		256E883A24ED73E400293706 /* RestrictedSpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E883924ED73E400293706 /* RestrictedSpaceModel.swift */; };
 		256E883C24ED74AF00293706 /* RestrictedSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E883B24ED74AF00293706 /* RestrictedSpaceViewModel.swift */; };
@@ -65,6 +63,8 @@
 		257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */; };
 		2583029D24D34701003935B7 /* TableTestD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583029C24D34701003935B7 /* TableTestD.swift */; };
 		2585BAF624FF5C2300BDCB7B /* BackgroundToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */; };
+		2585BAFD24FFAE1400BDCB7B /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585BAFB24FFAE1400BDCB7B /* Task+CoreDataClass.swift */; };
+		2585BAFE24FFAE1400BDCB7B /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585BAFC24FFAE1400BDCB7B /* Task+CoreDataProperties.swift */; };
 		2585C76724F1EE9A00539FDD /* BottomMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */; };
 		2587D96024B7A89E00A3AFF9 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */; };
 		258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */; };
@@ -174,8 +174,6 @@
 		2568072A249FF1FF0096AB89 /* ManageMyTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManageMyTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2568072E249FF1FF0096AB89 /* ManageMyTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyTimeTests.swift; sourceTree = "<group>"; };
 		25680730249FF1FF0096AB89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		256CD0E824F6DAF6002CCCE3 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		256CD0E924F6DAF6002CCCE3 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		256DA01E24F94DED003A408E /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		256E883924ED73E400293706 /* RestrictedSpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceModel.swift; sourceTree = "<group>"; };
 		256E883B24ED74AF00293706 /* RestrictedSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceViewModel.swift; sourceTree = "<group>"; };
@@ -187,6 +185,8 @@
 		257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RestrictedSpace.swift; path = ManageMyTime/RestrictedSpace.swift; sourceTree = SOURCE_ROOT; };
 		2583029C24D34701003935B7 /* TableTestD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestD.swift; sourceTree = "<group>"; };
 		2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundToggleStyle.swift; sourceTree = "<group>"; };
+		2585BAFB24FFAE1400BDCB7B /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2585BAFC24FFAE1400BDCB7B /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMainMenu.swift; sourceTree = "<group>"; };
 		2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksRow.swift; sourceTree = "<group>"; };
@@ -442,8 +442,8 @@
 				259AAD4324C797A100A085E9 /* RestrictedSpace+CoreDataProperties.swift */,
 				252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */,
 				252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */,
-				256CD0E824F6DAF6002CCCE3 /* Task+CoreDataClass.swift */,
-				256CD0E924F6DAF6002CCCE3 /* Task+CoreDataProperties.swift */,
+				2585BAFB24FFAE1400BDCB7B /* Task+CoreDataClass.swift */,
+				2585BAFC24FFAE1400BDCB7B /* Task+CoreDataProperties.swift */,
 			);
 			path = NSManagedObjects;
 			sourceTree = "<group>";
@@ -633,6 +633,7 @@
 				25118A0F24DB52870062D518 /* BigChar.swift in Sources */,
 				259AAD4424C797A100A085E9 /* RestrictedSpace+CoreDataClass.swift in Sources */,
 				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
+				2585BAFD24FFAE1400BDCB7B /* Task+CoreDataClass.swift in Sources */,
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
@@ -654,13 +655,11 @@
 				25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */,
 				25F3918024BD61C4004AB978 /* DviderTest.swift in Sources */,
 				25DB2DAC24B6633F00E86600 /* AvailableDay.swift in Sources */,
-				256CD0EA24F6DAF6002CCCE3 /* Task+CoreDataClass.swift in Sources */,
 				252FCC8E24B518060026EB03 /* Hour+CoreDataClass.swift in Sources */,
 				25407EE724D71F3E003110E9 /* CircularBar.swift in Sources */,
 				253C5CE824B1193800C95A06 /* DayObject.swift in Sources */,
 				253C7E0124DB4A2C0063952B /* SmallChar.swift in Sources */,
 				258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */,
-				256CD0EB24F6DAF6002CCCE3 /* Task+CoreDataProperties.swift in Sources */,
 				25407EEB24D72290003110E9 /* LoadLevel+CoreDataProperties.swift in Sources */,
 				25419FC324C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift in Sources */,
 				259AAD3C24C7658600A085E9 /* FreeTaskSpace+CoreDataClass.swift in Sources */,
@@ -676,6 +675,7 @@
 				25E75A7324F2BD0500C772B5 /* MenuView.swift in Sources */,
 				25407EEA24D72290003110E9 /* LoadLevel+CoreDataClass.swift in Sources */,
 				25D920B424CFA36A00A852BF /* WeeklyCompact.swift in Sources */,
+				2585BAFE24FFAE1400BDCB7B /* Task+CoreDataProperties.swift in Sources */,
 				25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */,
 				25E5847724ABD49F00F251D5 /* ScheduleView2.swift in Sources */,
 			);

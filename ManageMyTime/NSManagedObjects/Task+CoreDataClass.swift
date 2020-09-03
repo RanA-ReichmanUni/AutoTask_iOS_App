@@ -2,7 +2,7 @@
 //  Task+CoreDataClass.swift
 //  ManageMyTime
 //
-//  Created by רן א on 26/08/2020.
+//  Created by רן א on 02/09/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
