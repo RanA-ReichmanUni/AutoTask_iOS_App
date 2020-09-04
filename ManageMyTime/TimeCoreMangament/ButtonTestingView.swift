@@ -14,7 +14,7 @@ struct ButtonTestingView: View {
     
     var tm=Core()
     
-    var viewModel=TaskViewModel()
+    var taskViewModel:TaskViewModel
       @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var body: some View {
         
@@ -37,7 +37,9 @@ struct ButtonTestingView: View {
                  Button(action: {try? self.tm.deleteSpace(assignedTaskName: "littleTestingTask")}) {
                                     Text("Click to delete space")
                                 }
-            Button(action: { try? self.viewModel.autoFillTesting()}) {
+            Button(action: { try? self.taskViewModel.autoFillTesting()
+                self.taskViewModel.retrieveAllTasks()
+            }) {
                     Text("Click to Auto Fill")
                     }
             
@@ -47,8 +49,8 @@ struct ButtonTestingView: View {
     }
 }
 
-struct ButtonTestingView_Previews: PreviewProvider {
+/*struct ButtonTestingView_Previews: PreviewProvider {
     static var previews: some View {
         ButtonTestingView()
     }
-}
+}*/

@@ -379,7 +379,7 @@ class Core{
         var calanderSequence:[CustomDate]
         var isContinuesScheduling=false
         var remainingWorkTime = Hour()
-        var taskInternalId:UUID
+        var taskInternalId=UUID()
         var isBreakSet=false
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -576,7 +576,17 @@ class Core{
                                                             newTask.endTime=newTask.startTime!.add(newHour: remainingWorkSpace)
                                                              newTask.asstimatedWorkTime=remainingWorkSpace
                                                             isContinuesScheduling=true
-                                                            
+                                                            print(internalId?.description)
+                                                            if(internalId == nil)
+                                                              {
+                                                                
+                                                                taskInternalId=UUID()
+                                                                newTask.internalId=taskInternalId
+                                                              }
+                                                              else{
+                                                                  taskInternalId=internalId!
+                                                                  newTask.internalId=internalId
+                                                              }
                                                             //set a break
                                                             if(newTask.endTime!.add(newHour:breakPeriod) < freeSpace.ending)
                                                             {
@@ -587,24 +597,36 @@ class Core{
                                                                 breakWindowEndTime=breakWindow.endTime!
                                                                     breakWindow.asstimatedWorkTime=breakPeriod
                                                                     
-                                                                    breakWindow.taskName=""
+                                                                    breakWindow.taskName="Break"
                                                                     breakWindow.dueDate=dueDate
                                                                     breakWindow.date=freeSpace.date
                                                                     breakWindow.completed=false
-                                                                    breakWindow.color=color
+                                                                    breakWindow.color="green"
                                                                     breakWindow.active=true
                                                                     breakWindow.importance=importance
                                                                     breakWindow.notes=notes
                                                                     breakWindow.id=UUID()
                                                                     breakWindow.isTaskBreakWindow=true
                                                                    breakWindow.scheduleSection="hourAndAHalf"
+
+                                                                      breakWindow.internalId=taskInternalId
+                                                                 
                                                             }
                                                             
                                                         }
                                                         else{//Case we can schedule the whole task in the section window
                                                             newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
+                                                            
                                                             newTask.asstimatedWorkTime=asstimatedWorkTime
                                                             isContinuesScheduling=false
+                                                            if(internalId==nil)
+                                                            {
+                                                                taskInternalId=UUID()
+                                                            }
+                                                            else{
+                                                                taskInternalId=internalId!
+                                                            }
+                                                            newTask.internalId=taskInternalId
                                                             
                                                             //Case the whole space is taken,set a break
                                                               if(asstimatedWorkTime==hourLimit)
@@ -617,17 +639,18 @@ class Core{
                                                                               breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
                                                                               breakWindow.asstimatedWorkTime=breakPeriod
                                                                             breakWindowEndTime=breakWindow.endTime!
-                                                                              breakWindow.taskName=""
+                                                                              breakWindow.taskName="Break"
                                                                               breakWindow.dueDate=dueDate
                                                                               breakWindow.date=freeSpace.date
                                                                               breakWindow.completed=false
-                                                                              breakWindow.color=color
+                                                                              breakWindow.color="green"
                                                                               breakWindow.active=true
                                                                               breakWindow.importance=importance
                                                                               breakWindow.notes=notes
                                                                               breakWindow.id=UUID()
                                                                               breakWindow.isTaskBreakWindow=true
                                                                            breakWindow.scheduleSection="hourAndAHalf"
+                                                                            breakWindow.internalId=taskInternalId
                                                                       }
                                                               }
                                                         }
@@ -644,6 +667,16 @@ class Core{
                                                                newTask.endTime=newTask.startTime!.add(newHour: remainingWorkSpace)
                                                                 newTask.asstimatedWorkTime=remainingWorkSpace
                                                                isContinuesScheduling=true
+                                                            //print("internalId:"+internalId!.description)
+                                                              if(internalId == nil)
+                                                              {
+                                                                taskInternalId=UUID()
+                                                                newTask.internalId=taskInternalId
+                                                              }
+                                                              else{
+                                                                  taskInternalId=internalId!
+                                                                  newTask.internalId=internalId
+                                                              }
                                                                 //Set a break
                                                                 if(newTask.endTime!.add(newHour:breakPeriod) < freeSpace.ending)
                                                                 {
@@ -653,17 +686,18 @@ class Core{
                                                                         breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
                                                                         breakWindow.asstimatedWorkTime=breakPeriod
                                                                         breakWindowEndTime=breakWindow.endTime!
-                                                                        breakWindow.taskName=""
+                                                                        breakWindow.taskName="Break"
                                                                         breakWindow.dueDate=dueDate
                                                                         breakWindow.date=freeSpace.date
                                                                         breakWindow.completed=false
-                                                                        breakWindow.color=color
+                                                                        breakWindow.color="green"
                                                                         breakWindow.active=true
                                                                         breakWindow.importance=importance
                                                                         breakWindow.notes=notes
                                                                         breakWindow.id=UUID()
                                                                         breakWindow.isTaskBreakWindow=true
-                                                                       breakWindow.scheduleSection="hourAndAHalf"
+                                                                        breakWindow.scheduleSection="hourAndAHalf"
+                                                                        breakWindow.internalId=taskInternalId
                                                                 }
                                                                                                                    
                                                            }
@@ -671,6 +705,14 @@ class Core{
                                                                newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                                                newTask.asstimatedWorkTime=asstimatedWorkTime
                                                                isContinuesScheduling=false
+                                                               if(internalId==nil)
+                                                               {
+                                                                   taskInternalId=UUID()
+                                                               }
+                                                               else{
+                                                                   taskInternalId=internalId!
+                                                               }
+                                                                newTask.internalId=taskInternalId
                                                                 //Case the whole space is taken,set a break
                                                                 if(asstimatedWorkTime==hourLimit)
                                                                 {
@@ -682,17 +724,18 @@ class Core{
                                                                                 breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
                                                                                 breakWindow.asstimatedWorkTime=breakPeriod
                                                                                  breakWindowEndTime=breakWindow.endTime!
-                                                                                breakWindow.taskName=""
+                                                                                breakWindow.taskName="Break"
                                                                                 breakWindow.dueDate=dueDate
                                                                                 breakWindow.date=freeSpace.date
                                                                                 breakWindow.completed=false
-                                                                                breakWindow.color=color
+                                                                                breakWindow.color="green"
                                                                                 breakWindow.active=true
                                                                                 breakWindow.importance=importance
                                                                                 breakWindow.notes=notes
                                                                                 breakWindow.id=UUID()
                                                                                 breakWindow.isTaskBreakWindow=true
                                                                                 breakWindow.scheduleSection="hourAndAHalf"
+                                                                                breakWindow.internalId=taskInternalId
                                                                         }
                                                                 }
                                                             
@@ -709,11 +752,7 @@ class Core{
                                                     newTask.id=UUID()
                                                     newTask.isTaskBreakWindow=false
                                                     newTask.scheduleSection="hourAndAHalf"
-                                                  
-                                                    if(internalId != nil)
-                                                    {
-                                                      newTask.internalId=internalId
-                                                    }
+                                                
                                                     
                                                     handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                     
@@ -773,13 +812,7 @@ class Core{
                                                     if(isContinuesScheduling)
                                                     {
                                                         do{
-                                                            if(isContinuesScheduling && safetyCount<30)
-                                                              {
-                                                                  taskInternalId=UUID()
-                                                              }
-                                                            else{
-                                                                taskInternalId=internalId!
-                                                            }
+                                                       
                                                             if(safetyCount==0)
                                                             {
                                                                 throw DatabaseError.taskCanNotBeScheduledInDue

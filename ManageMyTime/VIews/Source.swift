@@ -80,7 +80,7 @@ struct MainView: View {
             }
             if(showTesting)
              {
-                ButtonTestingView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
+               /* ButtonTestingView().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)*/
              }
             if(showTasks)
             {

@@ -39,6 +39,8 @@ struct CardTaskRow: View {
     @State var isActive=false
     @State private var showingAlert = false
  
+    var internalId:UUID
+    
     var body: some View {
            
         ZStack(alignment: .leading) {
@@ -66,7 +68,7 @@ struct CardTaskRow: View {
                             //.padding(.bottom, 5)
                 
                         HStack{
-                            CategoryPill(categoryName: "Scheduled to: "+self.scheduledDate,color:            LinearGradient(
+                            CategoryPill(categoryName: /*"Scheduled to: "+self.scheduledDate*/self.internalId.description,color:            LinearGradient(
                                 gradient: Gradient(colors: [self.color,self.color]),
                                                                                                          startPoint: .top,
                                                                                                          endPoint: .bottom

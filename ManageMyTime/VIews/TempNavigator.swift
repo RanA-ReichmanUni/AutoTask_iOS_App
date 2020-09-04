@@ -52,10 +52,10 @@ struct TempNavigator: View {
                 }
                  
                 
-                NavigationLink(destination:ButtonTestingView()){
+               /* NavigationLink(destination:ButtonTestingView()){
                                                 
                     Text("Button Testing")
-                }
+                }*/
           
             
             NavigationLink(destination:RestrictedSpaceUI(restrictedSpaceViewModel:restrictedSpaceViewModel)){
