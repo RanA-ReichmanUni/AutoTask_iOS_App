@@ -150,7 +150,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 9
-        dateComponents.day = 4
+        dateComponents.day = 12
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -687,7 +687,7 @@ class TaskModel : UIViewController
                   currentDate.month=Date().month
                   currentDate.day=Date().day
                     
-               let weekSequence=coreManagment.createCalanderSequence(startDay: 30, startMonth: 8, startYear: 2020, endDay: 5, endMonth: 9, endYear: 2020)
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 6, startMonth: 9, startYear: 2020, endDay: 12, endMonth: 9, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -868,7 +868,7 @@ class TaskModel : UIViewController
                      currentDate.month=Date().month
                      currentDate.day=Date().day
                        
-                  let weekSequence=coreManagment.createCalanderSequence(startDay: 30, startMonth: 8, startYear: 2020, endDay: 5, endMonth: 9, endYear: 2020)
+                  let weekSequence=coreManagment.createCalanderSequence(startDay: 6, startMonth: 9, startYear: 2020, endDay: 12, endMonth: 9, endYear: 2020)
           //        fetchRequest.fetchLimit = 1
           //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
           //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -1330,7 +1330,7 @@ class TaskModel : UIViewController
               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
               fetchRequest.predicate = NSPredicate(format: "internalId = %@", internalId as CVarArg)
              
-              var freeSpaceId=UUID()
+            var freeSpaceId:UUID
         
               var tasks=[Task]()
         
@@ -1351,10 +1351,12 @@ class TaskModel : UIViewController
 
                     freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false)
                     
+                    print("FreeSpace is from"+String(task.startTime!.hour)+":"+String(task.startTime!.minutes)+" To "+String(task.endTime!.hour)+":"+String(task.endTime!.minutes))
+                    
                     let objectToDelete = task as! NSManagedObject
                     managedContext.delete(objectToDelete)
                     coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
-                    
+                    print("after merge freeSpaces")
                 }
                 
                 

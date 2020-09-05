@@ -1224,6 +1224,7 @@ class Core{
                    
                     
                    createdFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                 print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
                     freeSpacesToDelete.append(createdFreeSpace)
                     freeSpacesToDelete.append(sortedFreeSpaces[index-1].id)
                   
@@ -1235,10 +1236,20 @@ class Core{
                    if(didCreateFreeSpace)
                    {
                         createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                       print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
+                    
                         freeSpacesToDelete.append(createdFreeSpaceId)
+                    
+                        print("Will delete old free space from: "+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+                    
+                        
+                    
+                        
                     }
                    else{
                       createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
+                    
+                              print("Created merged free space from"+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                     }
                 
                         if(!freeSpacesToDelete.contains(createdFreeSpace))
