@@ -150,7 +150,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 9
-        dateComponents.day = 12
+        dateComponents.day = 7
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -208,7 +208,7 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=Int.random(in: 1 ... 5)
+                    asstimatedWorkTime.hour=Int.random(in: 1 ... 3)
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
            do {
                 try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
@@ -370,6 +370,41 @@ class TaskModel : UIViewController
             //Shouldn't get here theoretically
             return emptyTask
         }
+    
+    func retrieveFreeSpace(freeSpaceID : UUID) -> FreeTaskSpace {
+           
+        
+             let emptyFreeSpace = FreeTaskSpace()
+   
+             //As we know that container is set up in the AppDelegates so we need to refer that container.
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return emptyFreeSpace }
+             
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+             
+             let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+            fetchRequest.predicate = NSPredicate(format: "id = %@", freeSpaceID as CVarArg)
+             do
+             {
+                 let requiredFreeSpace = try managedContext.fetch(fetchRequest)
+                   
+                     let retrievedObject = requiredFreeSpace[0] as! FreeTaskSpace
+                  
+             //  print("Name:",retrievedObject.taskName as! String)
+               
+
+               
+                 return retrievedObject
+             }
+               
+             catch
+             {
+                 print(error)
+             }
+   
+       //Shouldn't get here theoretically
+       return emptyFreeSpace
+   }
     
     func retrieveTask(taskName : String) -> Task {
                                  
@@ -1355,6 +1390,22 @@ class TaskModel : UIViewController
                     
                     let objectToDelete = task as! NSManagedObject
                     managedContext.delete(objectToDelete)
+                    do{
+                        try managedContext.save()
+         
+                        print("Deleted !.")
+                       
+                    }
+                    catch
+                    {
+                        print(error)
+                    }
+                    print("Going to merge "+freeSpaceId.description)
+                   
+                    print("FreeSpace from ")
+                    let freeSpaceObj=retrieveFreeSpace(freeSpaceID: freeSpaceId)
+                     print("Free space from "+String(freeSpaceObj.starting.hour)+":"+String(freeSpaceObj.starting.minutes)+" To "+String(freeSpaceObj.ending.hour)+":"+String(freeSpaceObj.ending.minutes))
+                    
                     coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
                     print("after merge freeSpaces")
                 }
@@ -1362,16 +1413,7 @@ class TaskModel : UIViewController
                 
             
        
-                  do{
-                      try managedContext.save()
-       
-                      print("Deleted !.")
-                     
-                  }
-                  catch
-                  {
-                      print(error)
-                  }
+            
                   
               }
               catch

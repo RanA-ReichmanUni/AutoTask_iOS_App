@@ -509,8 +509,10 @@ class Core{
                                         print("asstimated",asstimatedWorkTime)
                                         print("flag"+String(exsitingFreeDay.fullyOccupiedDay))*/
                                         
-                                    
-                    
+                                               
+                                        print("duration of free space: "+String(freeSpace.duration.hour)+":"+String(freeSpace.duration.minutes))
+                                        print("Free space from"+String(freeSpace.starting.hour)+":"+String(freeSpace.starting.minutes)+" To "+String(freeSpace.ending.hour)+":"+String(freeSpace.ending.minutes))
+                                        print("date of freeSpace: "+String(freeSpace.date.day)+"/"+String(freeSpace.date.month))
                                         if(freeSpace.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)/* && exsitingFreeDay.fullyOccupiedDay==false*/)
                                         {
                                             
@@ -1211,6 +1213,9 @@ class Core{
         
        for index in 0...sortedFreeSpaces.count-1
        {
+       
+             print("General free space in the loop from "+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+        
             if(sortedFreeSpaces[index].id==createdFreeSpace)
            {
             
@@ -1221,10 +1226,13 @@ class Core{
                 
                    print(sortedFreeSpaces[index].ending)
                    print(sortedFreeSpaces[index-1].starting)
-                   
+                    print("Found mergeble free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index-1].ending.hour)+":"+String(sortedFreeSpaces[index-1].ending.minutes))
                     
                    createdFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
                  print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+                    
+                print("freeSpace to delete is: " + createdFreeSpace.description )
+                print("freeSpace to delete is: " + sortedFreeSpaces[index-1].id.description )
                     freeSpacesToDelete.append(createdFreeSpace)
                     freeSpacesToDelete.append(sortedFreeSpaces[index-1].id)
                   
@@ -1235,12 +1243,16 @@ class Core{
                {
                    if(didCreateFreeSpace)
                    {
+                    
+                       print("Found mergeble free space from"+String(sortedFreeSpaces[index+1].starting.hour)+":"+String(sortedFreeSpaces[index+1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
+                        print("Free space will be merged with the latest freeSpace creted a second ago")
                         createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
                        print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                     
                         freeSpacesToDelete.append(createdFreeSpaceId)
                     
                         print("Will delete old free space from: "+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+                    print("freeSpace to delete is: " + sortedFreeSpaces[index].id.description )
                     
                         
                     
@@ -1255,9 +1267,11 @@ class Core{
                         if(!freeSpacesToDelete.contains(createdFreeSpace))
                         {
                                 freeSpacesToDelete.append(createdFreeSpace)
+                              print("freeSpace to delete is: " + createdFreeSpace.description )
                         }
                 
                         freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
+                print("freeSpace to delete is: " + sortedFreeSpaces[index+1].id.description )
                     
                 
                 }
@@ -1398,11 +1412,12 @@ class Core{
                 //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
                  
                  
-                 //Sort by this order preference: year, month, day
-                  retrivedFreeDays.sort {
+                
+        
+                 /* retrivedFreeDays.sort {
                                ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
                                    ($1.date.year,$1.date.month,$1.date.day,$1.starting.hour)
-                           }
+                           }*/
               
                  for freeDay in retrivedFreeDays
                  
@@ -1420,6 +1435,12 @@ class Core{
                  
                  
              }
+        
+         //Sort by this order preference: year, month, day
+            suitableFreeDays.sort {
+                ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour,$0.starting.minutes) <
+                    ($1.date.year,$1.date.month,$1.date.day,$1.starting.hour,$1.starting.minutes)
+            }
 
            return suitableFreeDays
        }
@@ -1547,7 +1568,7 @@ class Core{
                          secondaryFreeSpace.ending=freeSpaceInstance.ending
                  
                          secondaryFreeSpace.duration=freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting)
-                         print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
+                        // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
                          secondaryFreeSpace.date=date
                          secondaryFreeSpace.fullyOccupiedDay=false
                          secondaryFreeSpace.id=UUID()
@@ -1611,8 +1632,8 @@ class Core{
                            freeSpace.starting=restrictedSlot.endTime
                            freeSpace.ending=freeSpaceInstance.ending
                            freeSpace.duration=freeSpaceInstance.ending.subtract(newHour: freeSpace.starting)
-                           print(endDayHour.subtract(newHour: freeSpace.starting))
-                           print(freeSpace.duration)
+                           //print(endDayHour.subtract(newHour: freeSpace.starting))
+                           //print(freeSpace.duration)
                            freeSpace.fullyOccupiedDay=false
                             
                             deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
@@ -1654,7 +1675,7 @@ class Core{
             else{//If there isn't any exsiting free spaces yet
                 if(date.day==24)
                 {
-                    print("here")
+                    //print("here")
                 }
                 if(restrictedSlot.startTime > startDayHour && restrictedSlot.endTime < endDayHour)
                   {
@@ -1674,7 +1695,7 @@ class Core{
                       secondaryFreeSpace.starting=restrictedSlot.endTime
                       secondaryFreeSpace.ending=endDayHour
                       secondaryFreeSpace.duration=endDayHour.subtract(newHour: secondaryFreeSpace.starting)
-                      print(endDayHour.subtract(newHour: secondaryFreeSpace.starting))
+                      //print(endDayHour.subtract(newHour: secondaryFreeSpace.starting))
                       secondaryFreeSpace.date=date
                       secondaryFreeSpace.fullyOccupiedDay=false
                       secondaryFreeSpace.id=UUID()
@@ -1698,8 +1719,8 @@ class Core{
                         freeSpace.starting=restrictedSlot.endTime
                         freeSpace.ending=endDayHour
                         freeSpace.duration=endDayHour.subtract(newHour: freeSpace.starting)
-                        print(endDayHour.subtract(newHour: freeSpace.starting))
-                        print(freeSpace.duration)
+                        //print(endDayHour.subtract(newHour: freeSpace.starting))
+                        //print(freeSpace.duration)
                         freeSpace.fullyOccupiedDay=false
                       
                   }
@@ -1767,7 +1788,7 @@ class Core{
                       {
                           let results = try managedContext.fetch(fetchRequest)
                       
-                        if (results.count == 0)
+                    /*    if (results.count == 0)
                         {
                             print("It's 0 ")
                         }
@@ -1777,7 +1798,7 @@ class Core{
                                 print(result.value(forKey: "assignedTaskName") as! String)
                                 print("startTime: ")
                             print(result.value(forKey: "startTime")!)
-                        }
+                        }*/
                         
                       
                             // let retrievedObject = requiredTask[0] as! Task
@@ -1836,18 +1857,18 @@ class Core{
                          {
                              let results = try managedContext.fetch(fetchRequest)
                          
-                           if (results.count == 0)
+                         /*  if (results.count == 0)
                            {
                                print("It's 0 ")
-                           }
+                           }*/
                            
                            for result in results as! [NSManagedObject] {
-                                print("Id: ")
+                              //  print("Id: ")
                                 var id = result.value(forKey: "id") as! UUID
-                                print(id.uuidString)
+                               // print(id.uuidString)
                                 var startingTime = result.value(forKey: "starting") as! Hour
-                                print("startTime.hour: ")
-                                print(startingTime.minutes)
+                                //print("startTime.hour: ")
+                               // print(startingTime.minutes)
                            }
                            
                          
@@ -2064,6 +2085,7 @@ class Core{
                catch
                {
                    print(error)
+                print("didn't delete old free space no"+freeSpaceId.description)
                }
                
            }

@@ -68,7 +68,7 @@ struct CardTaskRow: View {
                             //.padding(.bottom, 5)
                 
                         HStack{
-                            CategoryPill(categoryName: /*"Scheduled to: "+self.scheduledDate*/self.internalId.description,color:            LinearGradient(
+                            CategoryPill(categoryName: "Scheduled to: "+self.scheduledDate,color:            LinearGradient(
                                 gradient: Gradient(colors: [self.color,self.color]),
                                                                                                          startPoint: .top,
                                                                                                          endPoint: .bottom
