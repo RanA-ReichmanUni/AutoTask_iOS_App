@@ -23,6 +23,7 @@ class Core{
     
     enum coreError: Error {
            case dayOfCurrentDayIsZero
+           case multipleFreeSpacesPerDate
 
        }
     
@@ -253,46 +254,73 @@ class Core{
         
     }
     
-    func GetHourSection(scheduleSection:String) -> Hour
+    func GetHourSection() -> SpaceSection
        {
-           
-           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
-                  
+        
+          
 
+        
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return SpaceSection() }
+                  
+           let scheduleSection="hourAndAHalf"
            let managedContext = appDelegate.persistentContainer.viewContext
                   
            var hourSection = Hour(context: managedContext)
            var isContinues=false
            var taskSection:Double = 0
-           
+        
+           var spaceSection=SpaceSection()
+        
            switch scheduleSection {
                  case "fortyFiveMinutes":
                      taskSection=45
                      hourSection.hour=0
                      hourSection.minutes=45
                      
+                     spaceSection.breakTime=5
+                     spaceSection.sectionWindow=hourSection
+            
                  case "hourAndAHalf":
                      taskSection=105
                      hourSection.hour=1
                      hourSection.minutes=30
+                    
+                    spaceSection.breakTime=20
+                    spaceSection.sectionWindow=hourSection
                           
                  case "twoHours":
                      taskSection=120
                      hourSection.hour=2
                      hourSection.minutes=0
+            
+                    spaceSection.breakTime=30
+                    spaceSection.sectionWindow=hourSection
+            
                  case "threeHours":
                      taskSection=180
                      hourSection.hour=3
                      hourSection.minutes=0
+            
+                    spaceSection.breakTime=45
+                    spaceSection.sectionWindow=hourSection
+            
                  case "Continues":
-                     isContinues=true
-                     
+                    isContinues=true
+            
+                    spaceSection.breakTime=nil
+                    spaceSection.sectionWindow=nil
+                    spaceSection.isContinues=true
                        
                  default:
                      taskSection=105
+                     hourSection.hour=1
+                     hourSection.minutes=30
+            
+                    spaceSection.breakTime=20
+                    spaceSection.sectionWindow=hourSection
                  }
         
-            return hourSection
+            return spaceSection
         
        }
     
@@ -416,6 +444,10 @@ class Core{
             let dueHour = Hour(context: managedContext)
                 dueHour.hour=dueHours
                 dueHour.minutes=dueMinutes
+        
+            let zeroHour = Hour(context: managedContext)
+                     dueHour.hour=0
+                     dueHour.minutes=0
                         
                 let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
         
@@ -513,7 +545,8 @@ class Core{
                                         print("duration of free space: "+String(freeSpace.duration.hour)+":"+String(freeSpace.duration.minutes))
                                         print("Free space from"+String(freeSpace.starting.hour)+":"+String(freeSpace.starting.minutes)+" To "+String(freeSpace.ending.hour)+":"+String(freeSpace.ending.minutes))
                                         print("date of freeSpace: "+String(freeSpace.date.day)+"/"+String(freeSpace.date.month))
-                                        if(freeSpace.duration.isBiggerOrEqual(newHour: asstimatedWorkTime)/* && exsitingFreeDay.fullyOccupiedDay==false*/)
+                                        if(/*freeSpace.duration.isBiggerOrEqual(newHour: asstimatedWorkTime*/
+                                            !freeSpace.fullyOccupiedDay && freeSpace.duration > zeroHour)/* && exsitingFreeDay.fullyOccupiedDay==false)*/
                                         {
                                             
                                             if(freeSpace.ending > currentHour && freeSpace.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeSpace.starting < currentHour || freeSpace.starting > currentHour && freeSpace.duration >= asstimatedWorkTime ||/*added this after bug no 6D ,needs checking*/ freeSpace.starting == currentHour && freeSpace.duration >= asstimatedWorkTime /*until here*/|| singleDate > currentDate)
@@ -565,18 +598,21 @@ class Core{
                                                       
                                                     }
                                                     //Section window handling
-                                                    var hourLimit=GetHourSection(scheduleSection: "hourAndAHalf")
+                                                    var hourLimit=GetHourSection().sectionWindow!
                                                     do{
-                                                        var latestTask = try GetTaskEndsWith(date: singleDate, endsIn: newTask.startTime!)
+                                                      
                                                         if(asstimatedWorkTime > hourLimit)
                                                         {//Case we can't fit the whole task in the section window
                                                             
-                                                            let remainingWorkSpace = hourLimit.subtract(newHour: latestTask.asstimatedWorkTime)
+                                                            let remainingWorkSpace = freeSpace.duration
                                                             
                                                              remainingWorkTime = asstimatedWorkTime.subtract(newHour: remainingWorkSpace)//The remaining work time to reSchedule
                                                             
                                                             newTask.endTime=newTask.startTime!.add(newHour: remainingWorkSpace)
                                                              newTask.asstimatedWorkTime=remainingWorkSpace
+                                                            
+                                                                print("asstimatedWorkTime")
+                                                              print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
                                                             isContinuesScheduling=true
                                                             print(internalId?.description)
                                                             if(internalId == nil)
@@ -589,37 +625,16 @@ class Core{
                                                                   taskInternalId=internalId!
                                                                   newTask.internalId=internalId
                                                               }
-                                                            //set a break
-                                                            if(newTask.endTime!.add(newHour:breakPeriod) < freeSpace.ending)
-                                                            {
-                                                                isBreakSet=true
-                                                                    let breakWindow = Task(context: managedContext)
-                                                                    breakWindow.startTime=newTask.endTime
-                                                                    breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
-                                                                breakWindowEndTime=breakWindow.endTime!
-                                                                    breakWindow.asstimatedWorkTime=breakPeriod
-                                                                    
-                                                                    breakWindow.taskName="Break"
-                                                                    breakWindow.dueDate=dueDate
-                                                                    breakWindow.date=freeSpace.date
-                                                                    breakWindow.completed=false
-                                                                    breakWindow.color="green"
-                                                                    breakWindow.active=true
-                                                                    breakWindow.importance=importance
-                                                                    breakWindow.notes=notes
-                                                                    breakWindow.id=UUID()
-                                                                    breakWindow.isTaskBreakWindow=true
-                                                                   breakWindow.scheduleSection="hourAndAHalf"
-
-                                                                      breakWindow.internalId=taskInternalId
-                                                                 
-                                                            }
+                                                            
                                                             
                                                         }
                                                         else{//Case we can schedule the whole task in the section window
                                                             newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                                             
                                                             newTask.asstimatedWorkTime=asstimatedWorkTime
+                                                            
+                                                              print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
+                                                            
                                                             isContinuesScheduling=false
                                                             if(internalId==nil)
                                                             {
@@ -630,31 +645,7 @@ class Core{
                                                             }
                                                             newTask.internalId=taskInternalId
                                                             
-                                                            //Case the whole space is taken,set a break
-                                                              if(asstimatedWorkTime==hourLimit)
-                                                              {
-                                                                  if(newTask.endTime!.add(newHour:breakPeriod) < freeSpace.ending)
-                                                                      {
-                                                                        isBreakSet=true
-                                                                          let breakWindow = Task(context: managedContext)
-                                                                              breakWindow.startTime=newTask.endTime
-                                                                              breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
-                                                                              breakWindow.asstimatedWorkTime=breakPeriod
-                                                                            breakWindowEndTime=breakWindow.endTime!
-                                                                              breakWindow.taskName="Break"
-                                                                              breakWindow.dueDate=dueDate
-                                                                              breakWindow.date=freeSpace.date
-                                                                              breakWindow.completed=false
-                                                                              breakWindow.color="green"
-                                                                              breakWindow.active=true
-                                                                              breakWindow.importance=importance
-                                                                              breakWindow.notes=notes
-                                                                              breakWindow.id=UUID()
-                                                                              breakWindow.isTaskBreakWindow=true
-                                                                           breakWindow.scheduleSection="hourAndAHalf"
-                                                                            breakWindow.internalId=taskInternalId
-                                                                      }
-                                                              }
+                                                        
                                                         }
                                                         
                                                     }
@@ -662,12 +653,15 @@ class Core{
                                                         
                                                         if(asstimatedWorkTime > hourLimit)
                                                            {
-                                                               var remainingWorkSpace = hourLimit
+                                                                    let remainingWorkSpace = freeSpace.duration
                                                                
                                                                 remainingWorkTime = asstimatedWorkTime.subtract(newHour: remainingWorkSpace)//The remaining work time to reSchedule
                                                                
                                                                newTask.endTime=newTask.startTime!.add(newHour: remainingWorkSpace)
                                                                 newTask.asstimatedWorkTime=remainingWorkSpace
+                                                            
+                                                            print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
+                                                            
                                                                isContinuesScheduling=true
                                                             //print("internalId:"+internalId!.description)
                                                               if(internalId == nil)
@@ -679,33 +673,13 @@ class Core{
                                                                   taskInternalId=internalId!
                                                                   newTask.internalId=internalId
                                                               }
-                                                                //Set a break
-                                                                if(newTask.endTime!.add(newHour:breakPeriod) < freeSpace.ending)
-                                                                {
-                                                                    isBreakSet=true
-                                                                     let breakWindow = Task(context: managedContext)
-                                                                        breakWindow.startTime=newTask.endTime
-                                                                        breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
-                                                                        breakWindow.asstimatedWorkTime=breakPeriod
-                                                                        breakWindowEndTime=breakWindow.endTime!
-                                                                        breakWindow.taskName="Break"
-                                                                        breakWindow.dueDate=dueDate
-                                                                        breakWindow.date=freeSpace.date
-                                                                        breakWindow.completed=false
-                                                                        breakWindow.color="green"
-                                                                        breakWindow.active=true
-                                                                        breakWindow.importance=importance
-                                                                        breakWindow.notes=notes
-                                                                        breakWindow.id=UUID()
-                                                                        breakWindow.isTaskBreakWindow=true
-                                                                        breakWindow.scheduleSection="hourAndAHalf"
-                                                                        breakWindow.internalId=taskInternalId
-                                                                }
+                                                               
                                                                                                                    
                                                            }
                                                            else{//Case we can schedule the whole task in the section window
                                                                newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
                                                                newTask.asstimatedWorkTime=asstimatedWorkTime
+                                                            print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
                                                                isContinuesScheduling=false
                                                                if(internalId==nil)
                                                                {
@@ -715,31 +689,8 @@ class Core{
                                                                    taskInternalId=internalId!
                                                                }
                                                                 newTask.internalId=taskInternalId
-                                                                //Case the whole space is taken,set a break
-                                                                if(asstimatedWorkTime==hourLimit)
-                                                                {
-                                                                    isBreakSet=true
-                                                                    if(newTask.endTime!.add(newHour:breakPeriod) < freeSpace.ending)
-                                                                        {
-                                                                             let breakWindow = Task(context: managedContext)
-                                                                                breakWindow.startTime=newTask.endTime
-                                                                                breakWindow.endTime=newTask.endTime!.add(newHour: breakPeriod)
-                                                                                breakWindow.asstimatedWorkTime=breakPeriod
-                                                                                 breakWindowEndTime=breakWindow.endTime!
-                                                                                breakWindow.taskName="Break"
-                                                                                breakWindow.dueDate=dueDate
-                                                                                breakWindow.date=freeSpace.date
-                                                                                breakWindow.completed=false
-                                                                                breakWindow.color="green"
-                                                                                breakWindow.active=true
-                                                                                breakWindow.importance=importance
-                                                                                breakWindow.notes=notes
-                                                                                breakWindow.id=UUID()
-                                                                                breakWindow.isTaskBreakWindow=true
-                                                                                breakWindow.scheduleSection="hourAndAHalf"
-                                                                                breakWindow.internalId=taskInternalId
-                                                                        }
-                                                                }
+                                                              
+                                                                
                                                             
                                                            }
                                                         
@@ -805,8 +756,8 @@ class Core{
                                                          endOfDayHour.minutes=0
                                                         
                                                         let newDuration = Hour(context: managedContext)
-                                                           endOfDayHour.hour=0
-                                                           endOfDayHour.minutes=0
+                                                           newDuration.hour=0
+                                                           newDuration.minutes=0
                                                         //Create new FS with fullyOccupied flag
                                                         createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
                                                     }
@@ -834,7 +785,7 @@ class Core{
                                 }
                                 
                             }
-                           /* else{//If there is no FreeSpace object for that day, create one
+                           /* else{//If the  re is no FreeSpace object for that day, create one
                                 
                               
                                   
@@ -1455,6 +1406,8 @@ class Core{
          //We need to create a context from this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
+  
+        
         let startDayHour = Hour(context: managedContext)
            startDayHour.hour=startOfTheDay
            startDayHour.minutes=0
@@ -1495,20 +1448,23 @@ class Core{
        }
         if(retrivedRestrictedSlots.isEmpty)
         {
-              let freeSpace = FreeTaskSpace(context: managedContext)
-             freeSpace.date=date
-             freeSpace.id=UUID()
-             freeSpace.starting=startDayHour
-             freeSpace.ending=endDayHour
-             freeSpace.duration=endDayHour.subtract(newHour: startDayHour)
-             freeSpace.fullyOccupiedDay=false
+      
+                let freeSpace = FreeTaskSpace(context: managedContext)
+                 freeSpace.date=date
+                 freeSpace.id=UUID()
+                 freeSpace.starting=startDayHour
+                 freeSpace.ending=endDayHour
+                 freeSpace.duration=endDayHour.subtract(newHour: startDayHour)
+                 freeSpace.fullyOccupiedDay=false
+                
+                do {
+                         try managedContext.save()
+                             print("Saved Task !.")
+                     } catch let error as NSError {
+                         print("Could not save. \(error), \(error.userInfo)")
+                     }
             
-            do {
-                     try managedContext.save()
-                         print("Saved Task !.")
-                 } catch let error as NSError {
-                     print("Could not save. \(error), \(error.userInfo)")
-                 }
+            
         }
         
         for restrictedSlot in retrivedRestrictedSlots
@@ -1748,12 +1704,87 @@ class Core{
             
         }
 
-        
+        SectionFreeSpace(date:date)
         
     }
     
         
+    func SectionFreeSpace(date:CustomDate)
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                       
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+          
+        var zeroHour=Hour(context: managedContext)
+            zeroHour.hour=0
+            zeroHour.minutes=0
+        
+        var freeSpace=FreeTaskSpace()
+        
+        do{
+            freeSpace=try retrieveFreeSpace(date: date)
+        }
+        catch{
+            print(error)
+        }
+        
+        let orginalFreeSpaceId=freeSpace.id
+        
+        let spaceSection=GetHourSection()
+        let totalSectionTime=spaceSection.sectionWindow!.add(minutesValue: spaceSection.breakTime!)
+        var remainingSpace=freeSpace.duration
+        var currentStartingTime=freeSpace.starting
+        let absoluteFreeSpaceEnding=freeSpace.ending
+        
+        while(remainingSpace.hour > 0 || remainingSpace.minutes > 0)
+        {
+            
+             let freeSpace = FreeTaskSpace(context: managedContext)
+              freeSpace.date=date
+              freeSpace.id=UUID()
+              freeSpace.starting=currentStartingTime
+              if(currentStartingTime.add(newHour: totalSectionTime) < absoluteFreeSpaceEnding)
+              {
+                freeSpace.ending=currentStartingTime.add(newHour: totalSectionTime)
+              }
+              else if(currentStartingTime.add(newHour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
+                
+                freeSpace.ending=currentStartingTime.add(newHour: spaceSection.sectionWindow!)
+              }
+              else{
+                freeSpace.ending=absoluteFreeSpaceEnding
+              }
+            
+           
+            if(freeSpace.ending > freeSpace.starting)
+            {
+              freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+            }
+            else{
+                freeSpace.duration=zeroHour
+            }
+            
+              freeSpace.fullyOccupiedDay=false
+            
+            
+              remainingSpace=freeSpace.duration
+              currentStartingTime=freeSpace.ending
     
+        }
+        
+        do {
+               try managedContext.save()
+                   print("Saved Task !.")
+           } catch let error as NSError {
+               print("Could not save. \(error), \(error.userInfo)")
+           }
+        
+        deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
+        
+        
+    }
+ 
     
     
   func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
@@ -1893,6 +1924,55 @@ class Core{
            
                
        }
+    
+    func retrieveFreeSpace(date:CustomDate) throws -> FreeTaskSpace
+    {
+
+
+         //As we know that container is set up in the AppDelegates so we need to refer that container.
+         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return FreeTaskSpace()}
+           
+           //We need to create a context from this container
+         let managedContext = appDelegate.persistentContainer.viewContext
+           
+  
+ 
+         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+        /* let predicate1 = NSPredicate(format: "month = %@",8)
+         let predicate2 = NSPredicate(format: "month <%@",15)
+         let predicate3 = NSPredicate(format: "year = %@",2020)
+         let predicateCompound = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1,predicate2,predicate3])*/
+
+        fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@", argumentArray: [date.year, date.month,date.day])
+ 
+        var result=[Any]()
+           do
+           {
+               result = try managedContext.fetch(fetchRequest)
+            
+            if (result.count > 1)
+            {
+                throw coreError.multipleFreeSpacesPerDate
+            }
+            
+                return result[0] as! FreeTaskSpace
+              
+           }
+             
+           catch
+           {
+               print(error)
+           }
+     
+     
+               //Theroticlly it's impossible to get here, compilation syntax use only.
+                return result[0] as! FreeTaskSpace
+                 
+             
+             
+             
+                 
+    }
     
    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
