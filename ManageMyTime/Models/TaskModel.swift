@@ -449,7 +449,7 @@ class TaskModel : UIViewController
             
             //Prepare the request of type NSFetchRequest  for the entity
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-             //fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [false])
+             fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [false])
     //        fetchRequest.fetchLimit = 1
     //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]

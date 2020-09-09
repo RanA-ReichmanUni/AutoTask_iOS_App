@@ -266,6 +266,8 @@ class Core{
            let managedContext = appDelegate.persistentContainer.viewContext
                   
            var hourSection = Hour(context: managedContext)
+           var breakSection = Hour(context: managedContext)
+        
            var isContinues=false
            var taskSection:Double = 0
         
@@ -277,31 +279,46 @@ class Core{
                      hourSection.hour=0
                      hourSection.minutes=45
                      
-                     spaceSection.breakTime=5
+                     breakSection.hour=0
+                     breakSection.minutes=5
+                     
+                     spaceSection.breakTime=breakSection
                      spaceSection.sectionWindow=hourSection
             
                  case "hourAndAHalf":
                      taskSection=105
                      hourSection.hour=1
                      hourSection.minutes=30
-                    
-                    spaceSection.breakTime=20
+                       
+                     breakSection.hour=0
+                     breakSection.minutes=20
+                  
+                    spaceSection.breakTime=breakSection
+                     
                     spaceSection.sectionWindow=hourSection
                           
                  case "twoHours":
                      taskSection=120
                      hourSection.hour=2
                      hourSection.minutes=0
-            
-                    spaceSection.breakTime=30
+               
+                     breakSection.hour=0
+                     breakSection.minutes=30
+                  
+                     spaceSection.breakTime=breakSection
+                     
                     spaceSection.sectionWindow=hourSection
             
                  case "threeHours":
                      taskSection=180
                      hourSection.hour=3
                      hourSection.minutes=0
-            
-                    spaceSection.breakTime=45
+               
+                     breakSection.hour=1
+                     breakSection.minutes=0
+                  
+                     spaceSection.breakTime=breakSection
+                     
                     spaceSection.sectionWindow=hourSection
             
                  case "Continues":
@@ -315,8 +332,12 @@ class Core{
                      taskSection=105
                      hourSection.hour=1
                      hourSection.minutes=30
-            
-                    spaceSection.breakTime=20
+                       
+                     breakSection.hour=0
+                     breakSection.minutes=20
+                  
+                    spaceSection.breakTime=breakSection
+                     
                     spaceSection.sectionWindow=hourSection
                  }
         
@@ -552,7 +573,7 @@ class Core{
                                             if(freeSpace.ending > currentHour && freeSpace.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeSpace.starting < currentHour || freeSpace.starting > currentHour && freeSpace.duration >= asstimatedWorkTime ||/*added this after bug no 6D ,needs checking*/ freeSpace.starting == currentHour && freeSpace.duration >= asstimatedWorkTime /*until here*/|| singleDate > currentDate)
                                             {//The if checks and handles dueDate (day,month,year) calculation
                                                 print(dueHour)
-                                                if(endDueDate > singleDate || singleDate > currentDate && endDueDate == singleDate && freeSpace.starting.add(newHour: asstimatedWorkTime) <= dueHour || singleDate == currentDate && endDueDate == singleDate && currentHour.add(newHour: asstimatedWorkTime) <= dueHour)
+                                                if(endDueDate > singleDate || singleDate > currentDate && endDueDate == singleDate && freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour || singleDate == currentDate && endDueDate == singleDate && currentHour.add(hour: asstimatedWorkTime) <= dueHour)
                                                 {//The if checks and handle dueHour (hour and minutes) calculation
                                           
                                                         print("Here")
@@ -601,15 +622,15 @@ class Core{
                                                     var hourLimit=GetHourSection().sectionWindow!
                                                     do{
                                                       
-                                                        if(asstimatedWorkTime > hourLimit)
+                                                        if(asstimatedWorkTime > freeSpace.duration)
                                                         {//Case we can't fit the whole task in the section window
                                                             
-                                                            let remainingWorkSpace = freeSpace.duration
+                                                           // let remainingWorkSpace = freeSpace.duration
                                                             
-                                                             remainingWorkTime = asstimatedWorkTime.subtract(newHour: remainingWorkSpace)//The remaining work time to reSchedule
+                                                             remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
                                                             
-                                                            newTask.endTime=newTask.startTime!.add(newHour: remainingWorkSpace)
-                                                             newTask.asstimatedWorkTime=remainingWorkSpace
+                                                            newTask.endTime=newTask.startTime!.add(hour: freeSpace.duration)
+                                                             newTask.asstimatedWorkTime=freeSpace.duration
                                                             
                                                                 print("asstimatedWorkTime")
                                                               print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
@@ -629,7 +650,7 @@ class Core{
                                                             
                                                         }
                                                         else{//Case we can schedule the whole task in the section window
-                                                            newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
+                                                            newTask.endTime=newTask.startTime!.add(hour: asstimatedWorkTime)
                                                             
                                                             newTask.asstimatedWorkTime=asstimatedWorkTime
                                                             
@@ -651,14 +672,14 @@ class Core{
                                                     }
                                                     catch{//Case there are no tasks in that day, that's the only throw option
                                                         
-                                                        if(asstimatedWorkTime > hourLimit)
+                                                        if(asstimatedWorkTime > freeSpace.duration)
                                                            {
-                                                                    let remainingWorkSpace = freeSpace.duration
+                                                                   // let remainingWorkSpace = freeSpace.duration
                                                                
-                                                                remainingWorkTime = asstimatedWorkTime.subtract(newHour: remainingWorkSpace)//The remaining work time to reSchedule
+                                                                remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
                                                                
-                                                               newTask.endTime=newTask.startTime!.add(newHour: remainingWorkSpace)
-                                                                newTask.asstimatedWorkTime=remainingWorkSpace
+                                                               newTask.endTime=newTask.startTime!.add(hour: freeSpace.duration)
+                                                                newTask.asstimatedWorkTime=freeSpace.duration
                                                             
                                                             print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
                                                             
@@ -677,7 +698,7 @@ class Core{
                                                                                                                    
                                                            }
                                                            else{//Case we can schedule the whole task in the section window
-                                                               newTask.endTime=newTask.startTime!.add(newHour: asstimatedWorkTime)
+                                                               newTask.endTime=newTask.startTime!.add(hour: asstimatedWorkTime)
                                                                newTask.asstimatedWorkTime=asstimatedWorkTime
                                                             print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
                                                                isContinuesScheduling=false
@@ -712,7 +733,7 @@ class Core{
                                                     //Needs to send back this task at the end of execution
                                                     
                                             
-                                                    var newFreeSpaceStartTime = newTask.endTime!
+                                                  /*  var newFreeSpaceStartTime = newTask.endTime!
                                                     let freeSpaceEndTime = freeSpace.ending
                                                     
                                                     var freeSpaceStarting:Hour
@@ -721,22 +742,22 @@ class Core{
                                                        {
                                                            newFreeSpaceStartTime=breakWindowEndTime
                                                            
-                                                       }
+                                                       }*/
                                                    
                                                     
                                                     
                                                     let freeSpaceDate = freeSpace.date
                                           
                                                     
-                                                    if(!newFreeSpaceStartTime.isEqual(newHour: freeSpace.ending))
+                                                    if(!newTask.endTime!.isEqual(newHour: freeSpace.ending))
                                                     {//Handle deletion of old freeSpace and handling the new window of freeSpace
-                                                        var durationCalc=freeSpaceEndTime.subtract(newHour: newFreeSpaceStartTime)
+                                                        let durationCalc=freeSpace.ending.subtract(newHour: newTask.endTime!)
                                                        
                                                         print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
                                                         //Create new FreeSpace excluding new task window
                                                         
                                                        
-                                                        createFreeSpace(task:newTask,startTime:newFreeSpaceStartTime , endTime: freeSpaceEndTime, date: freeSpaceDate, duration: freeSpaceEndTime.subtract(newHour: newFreeSpaceStartTime),fullyOccupiedDay: false)
+                                                        createFreeSpace(task:newTask,startTime:newTask.endTime! , endTime: freeSpace.ending, date: freeSpaceDate, duration: freeSpace.ending.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
                                                         
                                                         
                                                           deleteFreeSpace(freeSpaceId: freeSpace.id)
@@ -1720,40 +1741,70 @@ class Core{
             zeroHour.hour=0
             zeroHour.minutes=0
         
-        var freeSpace=FreeTaskSpace()
+        var retrivedSpace=FreeTaskSpace()
         
         do{
-            freeSpace=try retrieveFreeSpace(date: date)
+            retrivedSpace=try retrieveFreeSpace(date: date)
         }
         catch{
             print(error)
         }
         
-        let orginalFreeSpaceId=freeSpace.id
+        let orginalFreeSpaceId=retrivedSpace.id
         
         let spaceSection=GetHourSection()
-        let totalSectionTime=spaceSection.sectionWindow!.add(minutesValue: spaceSection.breakTime!)
-        var remainingSpace=freeSpace.duration
-        var currentStartingTime=freeSpace.starting
-        let absoluteFreeSpaceEnding=freeSpace.ending
+        var breakTime:Hour=spaceSection.breakTime!
+        var totalSectionTime=spaceSection.sectionWindow!.add(hour: breakTime)
+        var remainingSpace=retrivedSpace.duration
+        var currentStartingTime=retrivedSpace.starting
+        let absoluteFreeSpaceEnding=retrivedSpace.ending
+        var usedTimeEndBound=Hour(context: managedContext)
+ 
         
         while(remainingSpace.hour > 0 || remainingSpace.minutes > 0)
         {
+     
             
              let freeSpace = FreeTaskSpace(context: managedContext)
+             
               freeSpace.date=date
               freeSpace.id=UUID()
               freeSpace.starting=currentStartingTime
-              if(currentStartingTime.add(newHour: totalSectionTime) < absoluteFreeSpaceEnding)
+              
+              if(currentStartingTime.add(hour: totalSectionTime) < absoluteFreeSpaceEnding)
               {
-                freeSpace.ending=currentStartingTime.add(newHour: totalSectionTime)
-              }
-              else if(currentStartingTime.add(newHour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
                 
-                freeSpace.ending=currentStartingTime.add(newHour: spaceSection.sectionWindow!)
+                freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                
+                let breakWindow=Task(context: managedContext)
+                    breakWindow.startTime=freeSpace.ending
+                    breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
+                    breakWindow.taskName=""
+                    breakWindow.asstimatedWorkTime=spaceSection.breakTime!
+                    breakWindow.completed=false
+                    breakWindow.color="Green"
+                    breakWindow.active=true
+                    breakWindow.importance=""
+                    breakWindow.notes=""
+                    breakWindow.id=UUID()
+                    breakWindow.isTaskBreakWindow=true
+                    breakWindow.scheduleSection="hourAndAHalf"
+                    breakWindow.date=date
+                    breakWindow.dueDate=Date()
+                    breakWindow.internalId=UUID()
+                    
+                    usedTimeEndBound=freeSpace.ending.add(hour: breakWindow.asstimatedWorkTime)
+            
+                
+              }
+              else if(currentStartingTime.add(hour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
+                
+                freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                 usedTimeEndBound=freeSpace.ending
               }
               else{
                 freeSpace.ending=absoluteFreeSpaceEnding
+                usedTimeEndBound=freeSpace.ending
               }
             
            
@@ -1767,9 +1818,10 @@ class Core{
             
               freeSpace.fullyOccupiedDay=false
             
+            print("absoluteFreeSpaceEnding"+String(absoluteFreeSpaceEnding.hour)+":"+String(absoluteFreeSpaceEnding.minutes)+" usedTimeEndBound"+String(usedTimeEndBound.hour)+":"+String(usedTimeEndBound.minutes))
             
-              remainingSpace=freeSpace.duration
-              currentStartingTime=freeSpace.ending
+              remainingSpace=absoluteFreeSpaceEnding.subtract(newHour: usedTimeEndBound)
+              currentStartingTime=usedTimeEndBound
     
         }
         

@@ -23,9 +23,9 @@ extension Hour {
     
     func add(newHour:Hour)
     {
-        guard newHour.hour>=0 && newHour.minutes>=0 else {
+        /*guard newHour.hour>=0 && newHour.minutes>=0 else {
             return
-        }
+        }*/
         
         if(self.minutes+newHour.minutes>60)
         {
@@ -44,28 +44,31 @@ extension Hour {
         
     }
     
-    func add(newHour:Hour) -> Hour
+    func add(hour:Hour) -> Hour
     {
-        guard newHour.hour>=0 && newHour.minutes>=0 else {
+        
+        
+        /*guard hour.hour>=0 && hour.minutes>=0 else {
             return Hour()
-        }
+        }*/
+        
         var returnedMinutes = self.minutes
         var returnedHour = self.hour
         
-        if(returnedMinutes+newHour.minutes>=60)
+        if(returnedMinutes+hour.minutes>=60)
         {
-            returnedMinutes=returnedMinutes+newHour.minutes-60
+            returnedMinutes=returnedMinutes+hour.minutes-60
             returnedHour+=1
             
         }
     
         else{
             
-            returnedMinutes=returnedMinutes+newHour.minutes
+            returnedMinutes=returnedMinutes+hour.minutes
         
         }
         
-        returnedHour=returnedHour+newHour.hour
+        returnedHour=returnedHour+hour.hour
    
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
@@ -116,11 +119,13 @@ extension Hour {
     
     func subtract(newHour:Hour) -> Hour
     {
+      
+        
         guard newHour.hour>=0 && newHour.minutes>=0 else {
             return Hour()
         }
         
-        guard self.hour > newHour.hour || (newHour.hour==self.hour && self.minutes>newHour.minutes) else {
+        guard self.hour > newHour.hour || (newHour.hour==self.hour && self.minutes>=newHour.minutes) else {
                   return Hour()
               }
               

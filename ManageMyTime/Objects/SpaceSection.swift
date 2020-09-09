@@ -11,11 +11,11 @@ import Foundation
 struct SpaceSection:Identifiable{
     
     var id:UUID
-    var breakTime : Int?
+    var breakTime : Hour?
     var sectionWindow:Hour?
     var isContinues:Bool
     
-    init(breakTime:Int=15,sectionWindow:Hour?=nil,isContinues:Bool=false)
+    init(breakTime:Hour?=nil,sectionWindow:Hour?=nil,isContinues:Bool=false)
     {
         id=UUID()
         self.breakTime=breakTime
