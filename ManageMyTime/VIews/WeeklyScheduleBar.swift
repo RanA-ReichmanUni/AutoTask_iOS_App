@@ -21,7 +21,7 @@ struct WeeklyScheduleBar: View {
                                       Text("Fri").foregroundColor(Color.red).frame(width: geometry.size.width/0.61, height:  geometry.size.height)
                                       Text("Sat").foregroundColor(Color.blue).frame(width: geometry.size.width/0.52, height:  geometry.size.height)
                                   }
-            }.frame(height: 30).padding().background(    Color(hex:"#00d2ff"))//was 30 in height
+            }.frame(height: 30).padding().background(Color(hex:"#e6f2ff"))//was 30 in height
     }
 }
 

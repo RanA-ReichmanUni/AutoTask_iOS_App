@@ -72,7 +72,9 @@ struct AddRestrictedSpace: View {
                                }
                             
                                 Section(header: HStack {
-                                    Image(systemName:"clock").foregroundColor(.blue).padding(.leading,5)
+                                    Spacer()
+                                    
+                               
                                                         Text("From")
                                     Spacer()
                                                     }) {
@@ -82,7 +84,8 @@ struct AddRestrictedSpace: View {
                             
                           
                             Section(header: HStack {
-                                                                          Image(systemName:"clock").foregroundColor(.blue).padding(.leading,5)
+                                 Spacer()
+                             
                                                                           Text("To")
                                             Spacer()                           }) {
                                                 MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width-3,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color.white))
@@ -120,7 +123,7 @@ struct AddRestrictedSpace: View {
             }
         }
         }.background(    LinearGradient(
-            gradient: Gradient(colors: [.white,Color(hex:"#fff3d4")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+            gradient: Gradient(colors: [Color(hex:"#f0f1f2"),Color(hex:"#f0f1f2")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                          //self.color,.purple,.purple,.purple
                             startPoint: .topLeading,
                           endPoint:.bottomTrailing

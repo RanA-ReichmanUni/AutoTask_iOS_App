@@ -123,8 +123,8 @@ struct MainUI2: View {
                     }.background(Rectangle().fill(Color.white.opacity(0))).padding(.leading,5).padding(.top,12)
                    
                     //Circle().fill(Color.blue).frame(width:45)
-
-                 Divider().frame(maxHeight: 75)
+                
+                 //Divider().frame(maxHeight: 75)
                     Button(action: {
                         withAnimation(.easeInOut(duration: 1.5)){
                              self.weeklyScheduleFlag=true
@@ -143,7 +143,7 @@ struct MainUI2: View {
                              Text("Weekly").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.weeklyScheduleFlag ?  self.choosenColor : self.defaultColor)
                             }
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
-                Divider().frame(maxHeight: 75)
+               // Divider().frame(maxHeight: 75)
                 Button(action: {
                     withAnimation(.easeInOut(duration: 1.5)){
                             self.dailyViewFlag=true
@@ -161,7 +161,7 @@ struct MainUI2: View {
                             Text("Daily").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.dailyViewFlag ?  self.choosenColor : self.defaultColor)
                         }
                 }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
-             Divider().frame(maxHeight: 75)
+           //  Divider().frame(maxHeight: 75)
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.7)){
                             
@@ -181,7 +181,7 @@ struct MainUI2: View {
                             Text("Tasks").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.listFlag ?  self.choosenColor : self.defaultColor)
                         }
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
-                Divider().frame(maxHeight: 75)
+              //  Divider().frame(maxHeight: 75)
                 Button(action: {
                         withAnimation(.easeInOut(duration: 1)){
                             self.settingsFlag=true
@@ -206,7 +206,7 @@ struct MainUI2: View {
                 }
                 
 
-                   Divider()
+              //Divider()
                 
                 }.onAppear{  self.taskViewModel.retrieveAllTasks()
                     self.taskViewModel.retrieveAllTasksByHour()
@@ -214,7 +214,7 @@ struct MainUI2: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     
        
-        }.background(Color(hex:"#fcfcfc"))/*.background(    LinearGradient(
+        }.background(Color(hex:"#fcfcfc").opacity(0.1))/*.background(    LinearGradient(
         gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                  //self.color,.purple,.purple,.purple
                     startPoint: .bottomLeading,
