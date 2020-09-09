@@ -467,8 +467,8 @@ class Core{
                 dueHour.minutes=dueMinutes
         
             let zeroHour = Hour(context: managedContext)
-                     dueHour.hour=0
-                     dueHour.minutes=0
+                     zeroHour.hour=0
+                     zeroHour.minutes=0
                         
                 let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
         
