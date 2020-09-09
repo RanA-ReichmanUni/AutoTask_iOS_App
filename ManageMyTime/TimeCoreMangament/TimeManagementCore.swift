@@ -726,7 +726,7 @@ class Core{
                                                     newTask.id=UUID()
                                                     newTask.isTaskBreakWindow=false
                                                     newTask.scheduleSection="hourAndAHalf"
-                                                
+                                                    newTask.associatedFreeSpaceId=freeSpace.associatedId
                                                     
                                                     handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                     
@@ -757,7 +757,7 @@ class Core{
                                                         //Create new FreeSpace excluding new task window
                                                         
                                                        
-                                                        createFreeSpace(task:newTask,startTime:newTask.endTime! , endTime: freeSpace.ending, date: freeSpaceDate, duration: freeSpace.ending.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false)
+                                                        createFreeSpace(task:newTask,startTime:newTask.endTime! , endTime: freeSpace.ending, date: freeSpaceDate, duration: freeSpace.ending.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false,orginalFreeSpaceId:freeSpace.associatedId!)
                                                         
                                                         
                                                           deleteFreeSpace(freeSpaceId: freeSpace.id)
@@ -1192,7 +1192,7 @@ class Core{
            {
             
             
-               if(index > 0 && sortedFreeSpaces[index].date==sortedFreeSpaces[index-1].date && sortedFreeSpaces[index].starting == sortedFreeSpaces[index-1].ending)//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
+            if(index > 0 && sortedFreeSpaces[index].date==sortedFreeSpaces[index-1].date && sortedFreeSpaces[index].starting == sortedFreeSpaces[index-1].ending && sortedFreeSpaces[index].associatedId!==sortedFreeSpaces[index-1].associatedId!)//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
                {
                    didCreateFreeSpace=true
                 
@@ -1211,7 +1211,7 @@ class Core{
                 
                }
                 
-               if(index+1 <= sortedFreeSpaces.count-1 && sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting)
+            if(index+1 <= sortedFreeSpaces.count-1 && sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting && sortedFreeSpaces[index].associatedId!==sortedFreeSpaces[index+1].associatedId!)
                {
                    if(didCreateFreeSpace)
                    {
@@ -1231,7 +1231,7 @@ class Core{
                         
                     }
                    else{
-                      createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false)
+                    createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:sortedFreeSpaces[index].associatedId!)
                     
                               print("Created merged free space from"+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                     }
@@ -1261,6 +1261,8 @@ class Core{
        
         
     }
+    
+    
  
     func retriveAndSortFreeSpaces(currentDate:CustomDate,dueDate:Date) -> [FreeTaskSpace]
     {
@@ -1473,6 +1475,7 @@ class Core{
                 let freeSpace = FreeTaskSpace(context: managedContext)
                  freeSpace.date=date
                  freeSpace.id=UUID()
+                 freeSpace.associatedId=UUID()
                  freeSpace.starting=startDayHour
                  freeSpace.ending=endDayHour
                  freeSpace.duration=endDayHour.subtract(newHour: startDayHour)
@@ -1532,7 +1535,7 @@ class Core{
                        let freeSpace = FreeTaskSpace(context: managedContext)
                                freeSpace.date=date
                                freeSpace.id=UUID()
-                       
+                               freeSpace.associatedId=UUID()
               
                         freeSpace.starting=freeSpaceInstance.starting
                          freeSpace.ending=restrictedSlot.startTime
@@ -1592,6 +1595,7 @@ class Core{
                            let freeSpace = FreeTaskSpace(context: managedContext)
                            freeSpace.date=date
                            freeSpace.id=UUID()
+                           freeSpace.associatedId=UUID()
                            freeSpace.starting=startDayHour
                            freeSpace.ending=endDayHour
                            freeSpace.duration=theZeroHour
@@ -1624,6 +1628,7 @@ class Core{
                            let freeSpace = FreeTaskSpace(context: managedContext)
                              freeSpace.date=date
                              freeSpace.id=UUID()
+                             freeSpace.associatedId=UUID()
                              freeSpace.starting=freeSpaceInstance.starting
                              freeSpace.ending=restrictedSlot.startTime
                              freeSpace.duration=restrictedSlot.startTime.subtract(newHour: freeSpaceInstance.starting)
@@ -1660,7 +1665,7 @@ class Core{
                     let freeSpace = FreeTaskSpace(context: managedContext)
                             freeSpace.date=date
                             freeSpace.id=UUID()
-                    
+                            freeSpace.associatedId=UUID()
            
                       freeSpace.starting=startDayHour
                       freeSpace.ending=restrictedSlot.startTime
@@ -1668,7 +1673,7 @@ class Core{
                       freeSpace.fullyOccupiedDay=false
                       
                       let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
-                      
+                      secondaryFreeSpace.associatedId=UUID()
                       secondaryFreeSpace.starting=restrictedSlot.endTime
                       secondaryFreeSpace.ending=endDayHour
                       secondaryFreeSpace.duration=endDayHour.subtract(newHour: secondaryFreeSpace.starting)
@@ -1682,6 +1687,7 @@ class Core{
                         let freeSpace = FreeTaskSpace(context: managedContext)
                         freeSpace.date=date
                         freeSpace.id=UUID()
+                        freeSpace.associatedId=UUID()
                         freeSpace.starting=startDayHour
                         freeSpace.ending=endDayHour
                         freeSpace.duration=theZeroHour
@@ -1691,6 +1697,7 @@ class Core{
                   else if(restrictedSlot.startTime == startDayHour)
                   {
                         let freeSpace = FreeTaskSpace(context: managedContext)
+                        freeSpace.associatedId=UUID()
                         freeSpace.date=date
                         freeSpace.id=UUID()
                         freeSpace.starting=restrictedSlot.endTime
@@ -1706,6 +1713,7 @@ class Core{
                         let freeSpace = FreeTaskSpace(context: managedContext)
                           freeSpace.date=date
                           freeSpace.id=UUID()
+                          freeSpace.associatedId=UUID()
                           freeSpace.starting=startDayHour
                           freeSpace.ending=restrictedSlot.startTime
                           freeSpace.duration=restrictedSlot.startTime.subtract(newHour: startDayHour)
@@ -1769,6 +1777,7 @@ class Core{
              
               freeSpace.date=date
               freeSpace.id=UUID()
+              freeSpace.associatedId=UUID()
               freeSpace.starting=currentStartingTime
               
               if(currentStartingTime.add(hour: totalSectionTime) < absoluteFreeSpaceEnding)
@@ -2227,7 +2236,7 @@ class Core{
            }
        }
     
-    func createFreeSpace(task:Task,startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool){
+    func createFreeSpace(task:Task,startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool,orginalFreeSpaceId:UUID){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
               guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -2245,7 +2254,8 @@ class Core{
                 freeSpace.duration=duration
                 freeSpace.id=UUID()
                 freeSpace.fullyOccupiedDay=fullyOccupiedDay
-        
+                freeSpace.associatedId=orginalFreeSpaceId
+                
                /*
                 print("Task Status: ")
                 print(task.taskName)
@@ -2293,6 +2303,7 @@ class Core{
                 freeSpace.duration=duration
                 freeSpace.id=UUID()
                 freeSpace.fullyOccupiedDay=fullyOccupiedDay
+                freeSpace.associatedId=UUID()
         
             
         
@@ -2307,6 +2318,41 @@ class Core{
         
         return freeSpace.id
     }
+    
+    
+    func createFreeSpace(startTime:Hour, endTime:Hour,date:CustomDate,duration:Hour,fullyOccupiedDay:Bool,orginalFreeSpaceAssociatedId:UUID) -> UUID{
+           
+           //As we know that container is set up in the AppDelegates so we need to refer that container.
+                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return UUID() }
+                 
+                 //We need to create a context from this container
+                 let managedContext = appDelegate.persistentContainer.viewContext
+                 
+
+                                 
+           
+                   let freeSpace = FreeTaskSpace(context: managedContext)
+                   freeSpace.date=date
+                   freeSpace.starting=startTime
+                   freeSpace.ending=endTime
+                   freeSpace.duration=duration
+                   freeSpace.id=UUID()
+                   freeSpace.fullyOccupiedDay=fullyOccupiedDay
+                   freeSpace.associatedId=orginalFreeSpaceAssociatedId
+           
+               
+           
+                 //Now we have set all the values. The next step is to save them inside the Core Data
+                 
+                 do {
+                     try managedContext.save()
+                         print("Saved Free Space !.")
+                 } catch let error as NSError {
+                     print("Could not save. \(error), \(error.userInfo)")
+                 }
+           
+           return freeSpace.id
+       }
     
     
    
