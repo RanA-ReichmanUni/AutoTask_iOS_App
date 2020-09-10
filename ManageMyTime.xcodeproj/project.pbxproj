@@ -294,6 +294,7 @@
 		253C7DFD24DAEA370063952B /* VIews */ = {
 			isa = PBXGroup;
 			children = (
+				25F347FD24A22FB400671D09 /* MultiPicker.swift */,
 				2519384A24C686290010E72D /* TempNavigator.swift */,
 				25E75A7624F2E4D400C772B5 /* MainUi2.swift */,
 				2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */,
@@ -354,7 +355,6 @@
 				250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */,
 				25B7603024A288D100C37C69 /* NewTaskText.swift */,
 				253455D524A149F7007CB6BF /* TestView.swift */,
-				25F347FD24A22FB400671D09 /* MultiPicker.swift */,
 				25B6D52624C3B97E007A700A /* TwoRowsPicker.swift */,
 				25F347FF24A2304D00671D09 /* DurationSelector.swift */,
 				253455D724A14B7B007CB6BF /* TestView3.swift */,
