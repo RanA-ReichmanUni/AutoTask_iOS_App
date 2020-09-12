@@ -86,7 +86,9 @@ struct MainUI2: View {
                     {
                         //ButtonTestingView(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                         
-                        AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                       // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                        
+                        SettingsUI().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
                           
@@ -202,7 +204,6 @@ struct MainUI2: View {
                                 Text("Settings").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.settingsFlag ?  self.choosenColor : self.defaultColor)
                             }
                 }.background(Rectangle().fill((Color.white.opacity(0)))).padding(.top,12)
-             
                                
                     
                 }
@@ -215,8 +216,9 @@ struct MainUI2: View {
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     
-       
-        }.background(Color(hex:"#fcfcfc").opacity(0.1))/*.background(    LinearGradient(
+      // Spacer()
+        }.padding(.bottom,-25)
+        .background(Color(hex:"#fcfcfc").opacity(0.1))/*.background(    LinearGradient(
         gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                  //self.color,.purple,.purple,.purple
                     startPoint: .bottomLeading,

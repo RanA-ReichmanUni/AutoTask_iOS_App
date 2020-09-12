@@ -44,9 +44,9 @@ struct AddRestrictedSpace: View {
           
             VStack {
                // Form {
+                 /* Spacer()
                   Spacer()
-                  Spacer()
-                  Spacer()
+                  Spacer()*/
                     Section(header:   HStack {
                         
                                         Image(systemName: "rays").foregroundColor(.green)
@@ -58,7 +58,7 @@ struct AddRestrictedSpace: View {
                                 Spacer()
                                 TextField("Activity Name (Optional)", text: self.$taskName).frame(width:200).background(Color.white)
                             Spacer()
-                            }
+                            }.padding(10)
                             Section(header: HStack {
                                 Image(systemName:"calendar").foregroundColor(.blue).padding(.leading,5)
                                  Text("Day")
@@ -72,8 +72,8 @@ struct AddRestrictedSpace: View {
                                     ForEach(0 ..< self.dayNameValues.count) {
                                          Text(self.dayNameValues[$0])
                                        }
-                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 2.5,height:190).pickerStyle(WheelPickerStyle()).clipped()
-                            }.background(RoundedRectangle(cornerRadius: 40).fill(Color.white))
+                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 3,height:190).pickerStyle(WheelPickerStyle()).clipped()
+                            }.background(RoundedRectangle(cornerRadius: 40).fill(Color(hex:"#fcfcfc")))
                 }
                             Spacer()
                             
@@ -87,7 +87,7 @@ struct AddRestrictedSpace: View {
                                     Text("Starts From")
                                     Spacer()
                                                     }) {
-                                                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color.white))
+                                                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color(hex:"#fcfcfc")))
                                 }
                           
                             
@@ -100,7 +100,7 @@ struct AddRestrictedSpace: View {
                                             Text("Ends In")
                                 
                                             Spacer()                           }) {
-                                                MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color.white))
+                                                MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color(hex:"#fcfcfc")))
                             }
                          
    
@@ -135,7 +135,7 @@ struct AddRestrictedSpace: View {
                                 self.isError=true
                              }
                             
-                          //self.mode.wrappedValue.dismiss()
+                          self.mode.wrappedValue.dismiss()
                
 
                             }) {
@@ -146,16 +146,16 @@ struct AddRestrictedSpace: View {
                               message: Text("\n You already added an activity for that day and time slot"),
                               dismissButton: .default(Text("OK")))}
                             .padding()
-                      
+            
                     
             }
         }
-        }.background(    LinearGradient(
+        }/*.background(    LinearGradient(
             gradient: Gradient(colors: [Color(hex:"#fcfcfc"),Color(hex:"#fcfcfc")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                          //self.color,.purple,.purple,.purple
                             startPoint: .topLeading,
                           endPoint:.bottomTrailing
-                        ))
+                        ))*/
                     
           //  }
             

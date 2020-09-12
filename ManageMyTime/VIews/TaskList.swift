@@ -15,7 +15,7 @@ struct TaskList: View {
    // var taskViewModel = TaskViewModel()
     
     
-    @ObservedObject var taskViewModel:TaskViewModel//previously it was @EnvironmentObject
+    @ObservedObject var taskViewModel=TaskViewModel()//previously it was @EnvironmentObject
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @Environment(\.colorScheme) var colorScheme
