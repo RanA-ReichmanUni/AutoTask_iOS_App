@@ -83,6 +83,7 @@
 		25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218524BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift */; };
 		25D067CD24EAA06C000E31A5 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D067CC24EAA06C000E31A5 /* PickerView.swift */; };
 		25D067CF24EAA73D000E31A5 /* RestrictedDayUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D067CE24EAA73D000E31A5 /* RestrictedDayUI.swift */; };
+		25D3255E250EA5B4007D74E8 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3255D250EA5B4007D74E8 /* ColorPicker.swift */; };
 		25D920AC24CF97D700A852BF /* ScheduleViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920AB24CF97D700A852BF /* ScheduleViewPortrait.swift */; };
 		25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920AD24CF981D00A852BF /* WeeklyTasksPotrait.swift */; };
 		25D920B024CF985900A852BF /* TaskUnitPotrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */; };
@@ -207,6 +208,7 @@
 		25CD218524BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25D067CC24EAA06C000E31A5 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		25D067CE24EAA73D000E31A5 /* RestrictedDayUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedDayUI.swift; sourceTree = "<group>"; };
+		25D3255D250EA5B4007D74E8 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		25D920AB24CF97D700A852BF /* ScheduleViewPortrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewPortrait.swift; sourceTree = "<group>"; };
 		25D920AD24CF981D00A852BF /* WeeklyTasksPotrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksPotrait.swift; sourceTree = "<group>"; };
 		25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUnitPotrait.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				2519384A24C686290010E72D /* TempNavigator.swift */,
 				25E75A7624F2E4D400C772B5 /* MainUi2.swift */,
 				25B6B917250B17D400CB57FB /* SettingsUI.swift */,
+				25D3255D250EA5B4007D74E8 /* ColorPicker.swift */,
 				2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */,
 				25E75A7224F2BD0500C772B5 /* MenuView.swift */,
 				25E75A7424F2BD4800C772B5 /* Source.swift */,
@@ -670,6 +673,7 @@
 				258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */,
 				25407EEB24D72290003110E9 /* LoadLevel+CoreDataProperties.swift in Sources */,
 				25419FC324C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift in Sources */,
+				25D3255E250EA5B4007D74E8 /* ColorPicker.swift in Sources */,
 				25E75A7524F2BD4800C772B5 /* Source.swift in Sources */,
 				25105F9624E1AB540066758B /* DetailedTaskUI.swift in Sources */,
 				253C5CEA24B11A0400C95A06 /* HourlyTask.swift in Sources */,

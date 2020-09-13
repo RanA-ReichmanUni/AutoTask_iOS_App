@@ -13,6 +13,7 @@ struct SettingsUI: View {
     var importanceValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Maximum Capacity"]
     @State private var selectedImportanceIndex = 2
        @Environment(\.colorScheme) var colorScheme
+       var taskViewModel:TaskViewModel
     
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
@@ -64,7 +65,25 @@ struct SettingsUI: View {
                                        Text("Scheduling Method")
                                        Spacer()
                                    }
+                                
                          }
+                            
+                  
+    
+    
+    
+    
+                                        
+                        HStack{
+                            
+                            Button(action: { try? self.taskViewModel.autoFillTesting()
+                                       self.taskViewModel.retrieveAllTasks()
+                                   }) {
+                                           Text("Click to Auto Fill")
+                                           }
+                        }
+    
+    
                         
                         
                         
@@ -90,11 +109,11 @@ struct SettingsUI: View {
     }
 }
 
-struct SettingsUI_Previews: PreviewProvider {
+/*struct SettingsUI_Previews: PreviewProvider {
     static var previews: some View {
         SettingsUI()
     }
-}
+}*/
 
 extension Color {
 

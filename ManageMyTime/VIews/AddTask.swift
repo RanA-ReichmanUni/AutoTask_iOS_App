@@ -30,7 +30,8 @@ struct AddTask: View {
     @State var activeTask : Bool = true
     @State var taskName : String = ""
     @State var notes : String = ""
-  
+    @State var colorChoise=Color.blue
+    
     var importanceValues = ["Very High", "High", "Medium", "Low","Very Low"]
     
     @State private var selectedImportanceIndex = 2
@@ -51,7 +52,7 @@ struct AddTask: View {
     
     var body: some View {
         
-        //NavigationView {
+        NavigationView {
         VStack(spacing:0) {
                 Form {
                     Section(header:   HStack {
@@ -104,6 +105,19 @@ struct AddTask: View {
                     }) {
                         TextField("Notes", text: $notes)
                     }
+                    
+                    NavigationLink(destination:ColorPicker(colorChoise:self.$colorChoise)){
+                                              HStack{
+                                                  Text("Color Picker")
+                                                  
+                                                  Spacer()
+                                               // RoundedRectangle(cornerRadius: 20).isHidden(true)
+                                               
+                                                RoundedRectangle(cornerRadius: 20).fill(self.colorChoise)
+                                                 Spacer()
+                                              }
+                                           
+                                    }
                        /* Toggle(isOn: $activeTask) {
                             Text("Active")
                         }*/
@@ -121,7 +135,7 @@ struct AddTask: View {
                
                            
                             do{
-                                try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes)
+                                try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.colorChoise)
                             }
                              catch DatabaseError.taskCanNotBeScheduledInDue {
                                 self.isError = true
@@ -153,7 +167,7 @@ struct AddTask: View {
             
           
 
-           // }.navigationBarTitle("Add Task")
+            }//.navigationBarTitle("Add Task")
         }
         
     

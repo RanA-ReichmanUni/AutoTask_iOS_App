@@ -88,7 +88,7 @@ struct MainUI2: View {
                         
                        // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                         
-                        SettingsUI().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                        SettingsUI(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
                           
