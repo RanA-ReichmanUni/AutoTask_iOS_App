@@ -72,7 +72,7 @@ struct AddRestrictedSpace: View {
                                     ForEach(0 ..< self.dayNameValues.count) {
                                          Text(self.dayNameValues[$0])
                                        }
-                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 2.5,height:190).pickerStyle(WheelPickerStyle()).clipped()
+                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 1.5,height:190).pickerStyle(WheelPickerStyle()).clipped()
                             }.background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
                 }
                             Spacer()

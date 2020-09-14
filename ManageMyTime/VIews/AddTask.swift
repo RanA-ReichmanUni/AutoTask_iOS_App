@@ -160,7 +160,7 @@ struct AddTask: View {
 
                             }) {
                                
-                                Text(" Schedule ").frame(width:100,height:100).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(disableSave ? Color.gray : Color.blue).frame(width:100,height:100))
+                                Text(" Schedule ").frame(width:100,height:100).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(disableSave ? Color.gray : Color.blue).frame(width:100,height:60))
                                     
                                 
                                 
@@ -203,7 +203,7 @@ struct AddTask: View {
                        // .disabled(disableSave)
                     
               Spacer()
-                }.background(Color(hex:"#fcfcfc")).frame(height:30)
+                }.background(Color(hex:"#fcfcfc"))//.frame(height:30)
                 
                     
             }.background(Color(hex:"#fcfcfc"))/*.background(
