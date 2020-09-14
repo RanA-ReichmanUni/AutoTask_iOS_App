@@ -32,7 +32,7 @@ struct DetailedTaskWithObj: View {
     var year:Int
    
    var taskId:UUID
-    var color:String
+    var color:Color
     
     var helper = HelperFuncs()
     @Environment(\.colorScheme) var colorScheme
@@ -120,12 +120,12 @@ struct DetailedTaskWithObj: View {
          }//Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518")
             }.background(
                 self.colorScheme == .dark ? ( LinearGradient(
-                    gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.taskViewModel.getTaskColor(color:self.color)]),
+                    gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.color]),
                              startPoint: UnitPoint(x: 0.2, y: 0.4),
                              endPoint:.bottom
                            )) :(
                 LinearGradient(
-                gradient: Gradient(colors: [Color.white,self.taskViewModel.getTaskColor(color:self.color)]),
+                gradient: Gradient(colors: [Color.white,self.color]),
               startPoint: UnitPoint(x: 0.2, y: 0.4),
               endPoint:.bottom
             ))).onTapGesture {

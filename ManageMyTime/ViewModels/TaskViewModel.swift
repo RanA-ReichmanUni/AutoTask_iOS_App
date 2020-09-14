@@ -55,7 +55,7 @@ class TaskViewModel : ObservableObject
     
     @Published var id : UUID
     
-    @Published var color : String
+    @Published var color : Color
     //@Published var color : Color
     @Published var firstTaskColor:Color
     
@@ -87,7 +87,7 @@ class TaskViewModel : ObservableObject
         viewModelTask=Task()
         //color=Color(.systemTeal)
         id=UUID()
-        color=""
+        color=Color.blue
         startTime=Hour(context: managedContext)
         endTime=Hour(context: managedContext)
         date=CustomDate(context: managedContext)
@@ -182,7 +182,7 @@ class TaskViewModel : ObservableObject
         self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes!
-        self.color=viewModelTask.color!
+        self.color=taskModel.getTaskColor(color:viewModelTask.color!)
         //taskModel.retrieveAllTasks()
           
       }
@@ -199,7 +199,7 @@ class TaskViewModel : ObservableObject
         self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes!
-        self.color=viewModelTask.color!
+        self.color=taskModel.getTaskColor(color: viewModelTask.color!)
        
           
         //taskModel.retrieveAllTasks()
@@ -273,7 +273,7 @@ class TaskViewModel : ObservableObject
         self.startTime=viewModelTask.startTime!
         self.endTime=viewModelTask.endTime!
         self.id=viewModelTask.id
-        self.color=viewModelTask.color!
+        self.color=taskModel.getTaskColor(color: viewModelTask.color!) 
     }
     
     

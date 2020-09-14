@@ -51,6 +51,12 @@ class TaskModel : UIViewController
     func getTaskColor (color:String) -> Color
        {
            
+        if(color.hasPrefix("#"))
+         {
+             return Color(hex:color)
+         }
+             
+        
            switch color {
            case "Red":
                return Color(.systemRed)
