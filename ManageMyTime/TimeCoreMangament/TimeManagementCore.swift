@@ -443,7 +443,15 @@ class Core{
             
             currentHour.add(minutesValue: 15)
             
+            var minimalSpaceDuration=Hour(context: managedContext)
+                minimalSpaceDuration.hour=0
+                minimalSpaceDuration.minutes=30
       
+            let minimalPartitionSize=Hour(context: managedContext)
+                minimalPartitionSize.hour=0
+                minimalPartitionSize.minutes=20
+        
+        
             var breakWindowEndTime = Hour(context: managedContext)
                 breakWindowEndTime.hour=0
                 breakWindowEndTime.minutes=0
@@ -567,8 +575,10 @@ class Core{
                                         print("Free space from"+String(freeSpace.starting.hour)+":"+String(freeSpace.starting.minutes)+" To "+String(freeSpace.ending.hour)+":"+String(freeSpace.ending.minutes))
                                         print("date of freeSpace: "+String(freeSpace.date.day)+"/"+String(freeSpace.date.month))
                                         if(/*freeSpace.duration.isBiggerOrEqual(newHour: asstimatedWorkTime*/
-                                            !freeSpace.fullyOccupiedDay && freeSpace.duration > zeroHour)/* && exsitingFreeDay.fullyOccupiedDay==false)*/
-                                        {
+                                            !freeSpace.fullyOccupiedDay && (freeSpace.duration > minimalSpaceDuration || freeSpace.duration >= asstimatedWorkTime))
+                                            
+                                            /* && exsitingFreeDay.fullyOccupiedDay==false)*/
+                                        {//Check for freeSpace with at least a minimalTaskDuration standert (so it won't schedule partial task in mininal duration like 4 minutes and so. Or if the reminaing work is fitting the freeSpace anyway except the free space.
                                             
                                             if(freeSpace.ending > currentHour && freeSpace.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeSpace.starting < currentHour || freeSpace.starting > currentHour && freeSpace.duration >= asstimatedWorkTime ||/*added this after bug no 6D ,needs checking*/ freeSpace.starting == currentHour && freeSpace.duration >= asstimatedWorkTime /*until here*/|| singleDate > currentDate)
                                             {//The if checks and handles dueDate (day,month,year) calculation
@@ -621,16 +631,47 @@ class Core{
                                                     //Section window handling
                                                     var hourLimit=GetHourSection().sectionWindow!
                                                     do{
-                                                      
+                                                      //Check if the task WorkTime is bigger then the available space
                                                         if(asstimatedWorkTime > freeSpace.duration)
                                                         {//Case we can't fit the whole task in the section window
                                                             
+                                                          
+                                                            
+                                                            
                                                            // let remainingWorkSpace = freeSpace.duration
                                                             
+                                                            
+                                                            //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
+                                                            if(asstimatedWorkTime.subtract(newHour: freeSpace.duration) >= minimalPartitionSize)
+                                                            {
                                                              remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
+                                                                
+                                                            newTask.asstimatedWorkTime=freeSpace.duration
+                                                            }
+                                                            else{
+                                                                
+                                                                var workTimeToSchedule=asstimatedWorkTime
+                                                                var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: freeSpace.duration)
+                                                                let oneMinute=Hour(context: managedContext)
+                                                                    oneMinute.hour=0
+                                                                    oneMinute.minutes=1
+                                                                
+                                                               while(tempRemainingWorkTime < minimalPartitionSize)
+                                                               {
+                                                                    workTimeToSchedule=workTimeToSchedule.subtract(newHour: oneMinute)
+                                                                tempRemainingWorkTime=tempRemainingWorkTime.add(hour: oneMinute)
+                                                                
+                                                                
+                                                               }
+                                                            
+                                                                remainingWorkTime=tempRemainingWorkTime
+                                                                newTask.asstimatedWorkTime=workTimeToSchedule
+                                                                
+                                                            }
+                                                            
                                                             
                                                             newTask.endTime=newTask.startTime!.add(hour: freeSpace.duration)
-                                                             newTask.asstimatedWorkTime=freeSpace.duration
+                                                            
                                                             
                                                                 print("asstimatedWorkTime")
                                                               print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
@@ -676,10 +717,36 @@ class Core{
                                                            {
                                                                    // let remainingWorkSpace = freeSpace.duration
                                                                
-                                                                remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
+                                                     //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
+                                                              if(asstimatedWorkTime.subtract(newHour: freeSpace.duration) >= minimalPartitionSize)
+                                                              {
+                                                               remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
+                                                                  
+                                                              newTask.asstimatedWorkTime=freeSpace.duration
+                                                              }
+                                                              else{
+                                                                  
+                                                                  var workTimeToSchedule=asstimatedWorkTime
+                                                                  var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: freeSpace.duration)
+                                                                  let oneMinute=Hour(context: managedContext)
+                                                                      oneMinute.hour=0
+                                                                      oneMinute.minutes=1
+                                                                  
+                                                                 while(tempRemainingWorkTime < minimalPartitionSize)
+                                                                 {
+                                                                      workTimeToSchedule=workTimeToSchedule.subtract(newHour: oneMinute)
+                                                                  tempRemainingWorkTime=tempRemainingWorkTime.add(hour: oneMinute)
+                                                                  
+                                                                  
+                                                                 }
+                                                              
+                                                                  remainingWorkTime=tempRemainingWorkTime
+                                                                  newTask.asstimatedWorkTime=workTimeToSchedule
+                                                                  
+                                                              }
                                                                
                                                                newTask.endTime=newTask.startTime!.add(hour: freeSpace.duration)
-                                                                newTask.asstimatedWorkTime=freeSpace.duration
+                                                              
                                                             
                                                             print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
                                                             
