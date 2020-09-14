@@ -33,7 +33,7 @@ struct AddRestrictedSpace: View {
     @State var selectedDate = Date()
   
    var disableSave: Bool {
-         (fromSelection[0]=="0" && fromSelection[1]=="0") || (toSelection[0]=="0" && toSelection[1]=="0")
+         (Int(fromSelection[0]) ?? 0 > Int(toSelection[0]) ?? 0 || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0 && Int(fromSelection[1]) ?? 0 > Int(toSelection[1]) ?? 0) || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0  && Int(fromSelection[1]) ?? 0 == Int(toSelection[1]) ?? 0))
     }
     
     var body: some View {
@@ -47,13 +47,13 @@ struct AddRestrictedSpace: View {
                  /* Spacer()
                   Spacer()
                   Spacer()*/
-                    Section(header:   HStack {
+                   /* Section(header:   HStack {
                         
                                         Image(systemName: "rays").foregroundColor(.green)
                         
                         Text("New Occupied Space").font(.system(size: 18)).foregroundColor(.blue)
                         
-                          }) {
+                          }) {*/
                             HStack{
                                 Spacer()
                                 TextField("Activity Name (Optional)", text: self.$taskName).frame(width:200).background(Color.white)
@@ -72,8 +72,8 @@ struct AddRestrictedSpace: View {
                                     ForEach(0 ..< self.dayNameValues.count) {
                                          Text(self.dayNameValues[$0])
                                        }
-                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 3,height:190).pickerStyle(WheelPickerStyle()).clipped()
-                            }.background(RoundedRectangle(cornerRadius: 40).fill(Color(hex:"#fcfcfc")))
+                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 2.5,height:190).pickerStyle(WheelPickerStyle()).clipped()
+                            }.background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
                 }
                             Spacer()
                             
@@ -87,7 +87,7 @@ struct AddRestrictedSpace: View {
                                     Text("Starts From")
                                     Spacer()
                                                     }) {
-                                                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color(hex:"#fcfcfc")))
+                                                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
                                 }
                           
                             
@@ -100,7 +100,7 @@ struct AddRestrictedSpace: View {
                                             Text("Ends In")
                                 
                                             Spacer()                           }) {
-                                                MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color(hex:"#fcfcfc")))
+                                                MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hour",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding() .frame(width:geometry.size.width/1.5,height:190).background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
                             }
                          
    
@@ -148,9 +148,12 @@ struct AddRestrictedSpace: View {
                             .padding()
             
                     
-            }
+            //}
         }
-        }/*.background(    LinearGradient(
+        }.navigationBarTitle("New Persosnal Activity",displayMode: .inline)
+        .background(Color(hex:"#fcfcfc"))
+        
+        /*.background(    LinearGradient(
             gradient: Gradient(colors: [Color(hex:"#fcfcfc"),Color(hex:"#fcfcfc")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                          //self.color,.purple,.purple,.purple
                             startPoint: .topLeading,

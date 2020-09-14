@@ -298,7 +298,7 @@ struct CardTaskRow: View {
                 else{
                     withAnimation(.easeInOut) {
                          self.paddingBottom=100//260
-                         self.padding = -95//-115
+                         self.padding = -98//-115
                          self.vStackPadding = 119
                          self.lowerLinePadding = 25
                     }

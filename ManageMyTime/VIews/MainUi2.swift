@@ -75,7 +75,6 @@ struct MainUI2: View {
                      else if(self.dailyViewFlag)
                      {
                         DailyView()
-                                           
                         
                      }
                 else if(self.weeklyScheduleFlag)

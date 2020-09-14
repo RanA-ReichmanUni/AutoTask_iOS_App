@@ -111,12 +111,13 @@ struct AddTask: View {
                     
                     NavigationLink(destination:ColorPicker(colorChoise:self.$colorChoise)){
                                               HStack{
-                                                  Text("Color")
+                                                  Text("Task Color")
                                                   
                                                   Spacer()
-                                               // RoundedRectangle(cornerRadius: 20).isHidden(true)
-                                               
+                                               RoundedRectangle(cornerRadius: 20).isHidden(true)
+                                               RoundedRectangle(cornerRadius: 20).isHidden(true)
                                                 RoundedRectangle(cornerRadius: 20).fill(self.colorChoise)
+                                                
                                                  Spacer()
                                               }
                                            
@@ -167,8 +168,8 @@ struct AddTask: View {
                             
                             switch alertType{
                             case 1:
-                              return Alert(title: Text("Task can not be scheduled"),
-                                     message: Text("\nThere is not enough room in your schedule for the new task.\n\nTry making some room or change the due date."),
+                              return Alert(title: Text("Task Can Not Be Scheduled"),
+                                     message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),
                                      dismissButton: .default(Text("OK")))
                             case 2:
                                 return    Alert(title: Text("Missing Required Fields"),
@@ -176,7 +177,7 @@ struct AddTask: View {
                                           dismissButton: .default(Text("OK")))
                             default:
                               return Alert(title: Text("Task can not be scheduled"),
-                                                               message: Text("\nThere is not enough room in your schedule for the new task.\n\nTry making some room or change the due date."),
+                                                               message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),
                                                                dismissButton: .default(Text("OK")))
                             }
                                         
