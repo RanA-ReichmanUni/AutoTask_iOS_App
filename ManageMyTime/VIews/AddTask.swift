@@ -66,12 +66,7 @@ struct AddTask: View {
                         
                             TextField("Task Name", text: $taskName)
                             
-                        Section(header: HStack {
-                                                Image(systemName:"clock").foregroundColor(.blue)
-                                                Text("Work Time")
-                                            }) {
-                                         MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
-                                         }
+                     
                             
                           Section {  HStack {        Image(systemName:"exclamationmark.circle").foregroundColor(.blue)
                                       Picker(selection: $selectedImportanceIndex, label: Text("Importance")) {
@@ -98,6 +93,12 @@ struct AddTask: View {
                             //Handles IOS 13 date picker animation bug, shame it exsists.
                             
                             
+                            Section(header: HStack {
+                                     Image(systemName:"clock").foregroundColor(.blue)
+                                     Text("Work Time")
+                                 }) {
+                              MultiPicker(data: data, selection: $selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
+                              }
                        //TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                             
                     }

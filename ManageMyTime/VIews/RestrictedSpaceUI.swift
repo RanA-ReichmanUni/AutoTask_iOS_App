@@ -74,12 +74,7 @@ struct RestrictedSpaceUI: View {
                 
             }.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
                 //self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.navigationBarTitle("Personal Activity", displayMode: .inline) .background(    LinearGradient(
-            gradient: Gradient(colors: [.white,Color(hex:"#fff3d4")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                         //self.color,.purple,.purple,.purple
-                            startPoint: .topLeading,
-                          endPoint:.bottomTrailing
-                        )) //.padding(.top,5)
+            }.navigationBarTitle("Personal Activity", displayMode: .inline) .background(    Color(hex:"#fcfcfc")) //.padding(.top,5)
              
             
          
