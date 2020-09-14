@@ -218,8 +218,8 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=Int.random(in: 1 ... 3)
-                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
+                    asstimatedWorkTime.hour=0
+                    asstimatedWorkTime.minutes=30
            do {
                 try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
            }

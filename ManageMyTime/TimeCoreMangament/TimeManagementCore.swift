@@ -41,13 +41,14 @@ class Core{
     
     
     
-    enum scheduleAlgorithm:String {
+    enum scheduleDensity:String {
               
             case verySpacious
             case spacious
             case mediumDensity
             case dense
             case veryDense
+            case extremelyDense
             case maximumCapacity
      
     }
@@ -534,7 +535,7 @@ class Core{
         
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
-                            var determination=densityHandler(date: singleDate, algorithm: scheduleAlgorithm.maximumCapacity, includePersonalTime: false)
+                            var determination=densityHandler(date: singleDate, algorithm: scheduleDensity.spacious,workTime:asstimatedWorkTime ,includePersonalTime: false)
                             
                             if(singleDate.day==30)
                             {
@@ -994,8 +995,8 @@ class Core{
         
     }
     
-    func densityHandler(date:CustomDate,algorithm:scheduleAlgorithm,includePersonalTime:Bool) -> Bool
-     {//Checks if a day is avilable in terms of ideal space regarding the scheduleAlgorithm choise
+    func densityHandler(date:CustomDate,algorithm:scheduleDensity,workTime:Hour,includePersonalTime:Bool) -> Bool
+     {//Checks if a day is avilable in terms of ideal space regarding the scheduleDensity choise
         
          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return true }
          
@@ -1005,10 +1006,10 @@ class Core{
          let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
                                                      
                                  
-        fetchRequest.predicate = NSPredicate(format: "date.day = %@ AND date.month = %@ AND date.year = %@", argumentArray: [date.day,date.month,date.year])
+        fetchRequest.predicate = NSPredicate(format: "date.day = %@ AND date.month = %@ AND date.year = %@ AND isTaskBreakWindow = %@", argumentArray: [date.day,date.month,date.year,false])
          
          var isDayAvailable = true
-         var scheduledDuration = 0
+         var scheduledDuration = workTime.hourInMinutes()
          var duration:Hour
          var aviliableDayHours = endOfTheDay-startOfTheDay
         
@@ -1084,37 +1085,43 @@ class Core{
          }
         
             switch algorithm {
-            case .verySpacious:
-                if(scheduledDuration*100/(aviliableDayHours*60) <= 15)
+            case .verySpacious:// Up to 1.5 hours of work per day
+                if(scheduledDuration <= 90)
                 {
                     return true
                 }
                 return false
-            case .spacious:
-                if(scheduledDuration*100/(aviliableDayHours*60) <= 20)
+            case .spacious:// Up to 2.5 hours of work per day
+                if(scheduledDuration <= 150)
                  {
                      return true
                  }
                  return false
-            case .mediumDensity:
-                if(scheduledDuration*100/(aviliableDayHours*60) <= 25)
+            case .mediumDensity:// Up to 3 hours of work per day
+                if(scheduledDuration <= 180)
                  {
                      return true
                  }
                  return false
-            case .dense:
-                   if(scheduledDuration*100/(aviliableDayHours*60) <= 33)
+            case .dense:// Up to 4 hours of work per day
+                   if(scheduledDuration <= 240)
                     {
                         return true
                     }
                     return false
-            case .veryDense:
-                    if(scheduledDuration*100/(aviliableDayHours*60) <= 54)
+            case .veryDense:// Up to 5 hours of work per day
+                    if(scheduledDuration <= 300)
                      {
                          return true
                      }
                      return false
-            case .maximumCapacity:
+            case .extremelyDense:// Up to 7 hours of work per day
+                if(scheduledDuration <= 420)
+                  {
+                      return true
+                  }
+                  return false
+            case .maximumCapacity:// Unlimited hours of work per day
                      return true
             default:
                 return true
@@ -1125,7 +1132,7 @@ class Core{
          
      }
     
-   /* func breakConfirmation(suggestedStartHour:Hour,date:CustomDate,algorithm:scheduleAlgorithm) -> Hour
+   /* func breakConfirmation(suggestedStartHour:Hour,date:CustomDate,algorithm:scheduleDensity) -> Hour
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
         

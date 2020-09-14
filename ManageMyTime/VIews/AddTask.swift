@@ -89,7 +89,7 @@ struct AddTask: View {
                                     HStack{ Image(systemName:"calendar").foregroundColor(.blue)
                                         Text("Due Date")} })
                                 
-                            }.animation(nil)
+                            }.animation(.ripple())
                             //Handles IOS 13 date picker animation bug, shame it exsists.
                             
                             
@@ -161,7 +161,7 @@ struct AddTask: View {
 
                             }) {
                                
-                                Text(" Schedule ").frame(width:100,height:100).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(disableSave ? Color.gray : Color.blue).frame(width:100,height:60))
+                                Text(" Schedule ").frame(width:100,height:100).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(disableSave ? Color.gray : Color.blue).frame(width:90,height:50))
                                     
                                 
                                 
@@ -169,8 +169,8 @@ struct AddTask: View {
                             
                             switch alertType{
                             case 1:
-                              return Alert(title: Text("Task Can Not Be Scheduled"),
-                                     message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),
+                              return Alert(title: Text("Task Can't Be Scheduled"),
+                                     message: Text("\nThere is not enough room in your schedule for the new task with this chosen Due Date.\n\nTry making some room or change the Due Date."),
                                      dismissButton: .default(Text("OK")))
                             case 2:
                                 return    Alert(title: Text("Missing Required Fields"),
