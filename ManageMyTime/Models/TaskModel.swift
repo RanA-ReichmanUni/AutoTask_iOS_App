@@ -381,6 +381,80 @@ class TaskModel : UIViewController
             return emptyTask
         }
     
+    func retrieveTasksByDate(date:CustomDate) -> [Task] {
+          var allTasks=[Task]()
+          //As we know that container is set up in the AppDelegates so we need to refer that container.
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+          
+          //We need to create a context from this container
+          let managedContext = appDelegate.persistentContainer.viewContext
+          
+          //Prepare the request of type NSFetchRequest  for the entity
+          let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@ AND isTaskBreakWindow = %@",argumentArray: [date.year,date.month,date.day,false])
+  //        fetchRequest.fetchLimit = 1
+  //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+  //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+  //
+          do {
+              
+              let result = try managedContext.fetch(fetchRequest)
+              for data in result as! [Task] {
+
+                      allTasks.append(data)
+ 
+              }
+              print("Retrived all tasks !")
+              
+          } catch {
+              
+              print("Failed")
+          }
+      
+      return allTasks
+    }
+    
+    func checkEmptyFreeSpaceByDate(date:CustomDate) -> Bool
+    {
+
+            
+           //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return false }
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+           //Prepare the request of type NSFetchRequest  for the entity
+           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FreeTaskSpace")
+        fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@",argumentArray: [date.year,date.month,date.day])
+    //        fetchRequest.fetchLimit = 1
+    //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+    //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+    //
+           do {
+               
+               let result = try managedContext.fetch(fetchRequest)
+                
+                
+                if(result.isEmpty)
+                {
+                    return true
+                }
+                else{
+                    return false
+                }
+            
+           } catch {
+               
+               print("Failed")
+           }
+       
+     
+         return false
+        
+        
+    }
+    
     func retrieveFreeSpace(freeSpaceID : UUID) -> FreeTaskSpace {
            
         

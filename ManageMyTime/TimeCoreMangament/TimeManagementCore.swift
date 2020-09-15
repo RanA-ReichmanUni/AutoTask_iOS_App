@@ -64,6 +64,18 @@ class Core{
        
       }
     
+    enum scheduleAlgorithm:String{
+        
+        case smart
+        case optimal
+        case earliest
+        case latest
+        
+        
+        
+        
+    }
+    
    
     
     func scheduleHandler(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String,scheduleSection:String) throws
@@ -419,6 +431,94 @@ class Core{
         
     }
     
+    
+    func SchedulingPriorityAlgrorithmDates(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    {
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate]()}
+          
+          //We need to create a context from this container
+          let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let taskModel=TaskModel()
+        var schedulingAlgorithm = scheduleAlgorithm.optimal
+        var priorityDates=[CustomDate]()
+        var calendarSequence=[CustomDate]()
+        
+        
+        if(schedulingAlgorithm==scheduleAlgorithm.optimal)
+        {
+
+            
+            
+        
+                
+                do{
+                      try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+                  }
+                  catch{
+                    throw DateBoundsError.dueDateIsInPastTime
+                  }
+                
+                
+                for singleDate in calendarSequence//Other date FreeSpace Checker
+                {
+                     
+                    if(taskModel.checkEmptyFreeSpaceByDate(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
+                      {
+                        priorityDates.append(singleDate)
+                      }
+      
+                }
+            
+                
+               
+                var datesAndTime = [WorkPerDate]()
+            
+                for singleDate in calendarSequence//Other date FreeSpace Checker
+                {
+                    var allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+                    if(!allTasks.isEmpty)
+                    {
+                        var workTimeSummary=0
+                            for task in allTasks//Check for summary of minutes of the current date
+                            {
+                                
+                                workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                                
+                            }
+                            
+                        datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                    }
+                }
+            
+            datesAndTime.sort {
+                          ($0.timeInMinutes!) <
+                              ($1.timeInMinutes!)
+                      }//Sort dates by the acttual work time
+            
+            for singleDate in datesAndTime//Append dates by work load priority
+            {
+                
+                priorityDates.append(singleDate.date!)
+                
+            
+            }
+                
+                
+         
+                
+            }
+        
+        return priorityDates
+    
+
+        
+        
+    }
+    
+    
+    
     func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
     {
       
@@ -525,7 +625,7 @@ class Core{
                         endDueDate.day=dueDate.day
         
                         do{
-                            try calanderSequence = createCalanderSequence(startDate:currentDate, endDate: endDueDate)
+                            try calanderSequence = SchedulingPriorityAlgrorithmDates(startDate:currentDate, endDate: endDueDate)
                         }
                         catch{
                            throw    DateBoundsError.dueDateIsInPastTime
@@ -536,11 +636,8 @@ class Core{
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
                             var determination=densityHandler(date: singleDate, algorithm: scheduleDensity.maximumCapacity,workTime:asstimatedWorkTime ,includePersonalTime: false)
-                            
-                            if(singleDate.day==30)
-                            {
-                                print("here")
-                            }
+
+                          
                             if(determination)
                             {
                                 

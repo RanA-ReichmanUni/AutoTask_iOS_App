@@ -11,11 +11,11 @@ import SwiftUI
 struct SettingsUI: View {
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Maximum Capacity"]
-    var schedulingAlgorithm = ["Optimal (least load per day)","Earliest","Latest (near due)"]
+    var schedulingAlgorithm = ["Smart (least load per day including personal activities)","Optimal (least load per day)","Earliest","Latest (near due)"]
     @State private var selectedDensityIndex = 2
-     @State private var selectedSchedulingAlgorithmIndex = 0
-       @Environment(\.colorScheme) var colorScheme
-       var taskViewModel:TaskViewModel
+    @State private var selectedSchedulingAlgorithmIndex = 0
+    @Environment(\.colorScheme) var colorScheme
+    var taskViewModel:TaskViewModel
     
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
