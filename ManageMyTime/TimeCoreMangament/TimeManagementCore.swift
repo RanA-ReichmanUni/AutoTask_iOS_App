@@ -535,7 +535,7 @@ class Core{
         
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
-                            var determination=densityHandler(date: singleDate, algorithm: scheduleDensity.spacious,workTime:asstimatedWorkTime ,includePersonalTime: false)
+                            var determination=densityHandler(date: singleDate, algorithm: scheduleDensity.maximumCapacity,workTime:asstimatedWorkTime ,includePersonalTime: false)
                             
                             if(singleDate.day==30)
                             {

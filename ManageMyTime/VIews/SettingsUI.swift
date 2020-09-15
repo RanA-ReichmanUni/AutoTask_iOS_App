@@ -10,8 +10,10 @@ import SwiftUI
 
 struct SettingsUI: View {
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
-    var importanceValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Maximum Capacity"]
-    @State private var selectedImportanceIndex = 2
+    var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Maximum Capacity"]
+    var schedulingAlgorithm = ["Optimal (least load per day)","Earliest","Latest (near due)"]
+    @State private var selectedDensityIndex = 2
+     @State private var selectedSchedulingAlgorithmIndex = 0
        @Environment(\.colorScheme) var colorScheme
        var taskViewModel:TaskViewModel
     
@@ -45,9 +47,9 @@ struct SettingsUI: View {
                                   
                                 HStack{
                                   
-                                    Picker(selection: self.$selectedImportanceIndex, label: Text("Daily Schedule Density")) {
-                                        ForEach(0 ..< self.importanceValues.count) {
-                                                                          Text(self.importanceValues[$0])
+                                    Picker(selection: self.$selectedDensityIndex, label: Text("Daily Schedule Density")) {
+                                        ForEach(0 ..< self.densityValues.count) {
+                                                                          Text(self.densityValues[$0])
                                                                         }
                                     }
                                  
@@ -62,13 +64,21 @@ struct SettingsUI: View {
                             
                             NavigationLink(destination:AddRestrictedSpace()){
                                    HStack{
-                                       Text("Scheduling Method")
+                                       Text("Scheduling Break Periods")
                                        Spacer()
                                    }
                                 
                          }
                             
-                  
+
+                            HStack{
+                                 Picker(selection: self.$selectedSchedulingAlgorithmIndex, label: Text("Schedule Algorithm")) {
+                                            ForEach(0 ..< self.schedulingAlgorithm.count) {
+                                                     Text(self.schedulingAlgorithm[$0])
+                                           }
+                                   }
+                            }
+                                                 
     
     
     

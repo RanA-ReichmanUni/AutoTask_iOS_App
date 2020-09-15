@@ -45,12 +45,20 @@ struct DetailedTask: View {
         VStack{
                VStack {
                 
-                VStack{
+               /* VStack{
                     Image("pink-Circle")
                          .resizable()
                          .frame(width: 50, height: 50)
                          .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
                
+                }*/
+                
+                VStack{
+                    
+                    Image(systemName: "doc.text")
+                                           .resizable()
+                                           .frame(width: 50, height: 50)
+                                           .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
                 }
                 HStack {
                     

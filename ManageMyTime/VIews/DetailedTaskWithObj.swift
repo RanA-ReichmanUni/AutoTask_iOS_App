@@ -46,11 +46,19 @@ struct DetailedTaskWithObj: View {
         ScrollView{
         VStack{
              
-             Image("pink-Circle")
+            /* Image("pink-Circle")
                  .resizable()
                  .frame(width: 50, height: 50)
-                 .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
-             
+                 .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))*/
+      
+                              
+            Image(systemName: "text.alignleft")
+                                                     .resizable()
+                                                     .frame(width: 50, height: 50)
+                                                     .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
+                    .foregroundColor(self.color)
+            
+            
                 HStack {
                     
                     Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
