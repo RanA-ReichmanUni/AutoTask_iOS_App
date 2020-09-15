@@ -40,6 +40,7 @@ struct CardTaskRow: View {
     @State private var showingAlert = false
  
     var internalId:UUID
+    var isClickable:Bool
     
     var body: some View {
            
@@ -208,7 +209,7 @@ struct CardTaskRow: View {
                             Spacer()
                           
                            
-                        }.padding(.top,lowerLinePadding)
+                        }.padding(.top, self.isClickable ? lowerLinePadding : -5)
                               
                             }
                             
@@ -268,6 +269,8 @@ struct CardTaskRow: View {
                                                      // print("Got Tap")
                                                     
          //self.height=400//Higher height settings: 400
+            if(self.isClickable)
+            {
                 if(self.paddingBottom == 100)
                 {
                     
@@ -313,7 +316,7 @@ struct CardTaskRow: View {
                             }
                                                      
                 }
-         
+        }
                /* DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                               self.displayItem=true
                 }*/

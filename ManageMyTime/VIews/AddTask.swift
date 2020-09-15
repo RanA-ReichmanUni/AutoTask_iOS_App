@@ -110,19 +110,23 @@ struct AddTask: View {
                         TextField("Notes", text: $notes)
                     }
                     
-                    NavigationLink(destination:ColorPicker(colorChoise:self.$colorChoise)){
-                                              HStack{
-                                                  Text("Task Color")
-                                                  
-                                                  Spacer()
-                                               RoundedRectangle(cornerRadius: 20).isHidden(true)
-                                               RoundedRectangle(cornerRadius: 20).isHidden(true)
-                                                RoundedRectangle(cornerRadius: 20).fill(self.colorChoise)
-                                                
-                                                 Spacer()
-                                              }
-                                           
+                    Section(header: HStack {
+                            Image(systemName:"eyedropper.halffull")
+                            Text("Task Color")
+                      }) {
+                         NavigationLink(destination:ColorPicker(colorChoise:self.$colorChoise)){
+                                    HStack{
+                                      
+                                        Spacer()
+                                        RoundedRectangle(cornerRadius: 60).fill(self.colorChoise)
+                                        Spacer()
+                                      
+                            
                                     }
+                                 
+                          }
+                      }
+            
                        /* Toggle(isOn: $activeTask) {
                             Text("Active")
                         }*/

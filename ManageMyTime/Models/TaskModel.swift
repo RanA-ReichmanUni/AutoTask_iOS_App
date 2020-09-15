@@ -26,20 +26,20 @@ class TaskModel : UIViewController
             return Color(hex:task.color!)
         }
         
-        switch task.color {
-        case "Red":
+        switch task.color!.lowercased() {
+        case "red":
             return Color(.systemRed)
-        case "Teal":
+        case "teal":
             return Color(.systemTeal)
-        case "Green":
+        case "green":
             return Color(.systemGreen)
-        case "Orange":
+        case "orange":
             return Color(.systemOrange)
-        case "Pink":
+        case "pink":
             return Color(.systemPink)
-        case "Blue":
-            return Color(.systemBlue)
-        case "Indigo":
+        case "blue":
+            return Color.blue
+        case "indigo":
             return Color(.systemIndigo)
         default:
             return Color(.systemTeal)
@@ -57,20 +57,20 @@ class TaskModel : UIViewController
          }
              
         
-           switch color {
-           case "Red":
+        switch color.lowercased() {
+           case "red":
                return Color(.systemRed)
-           case "Teal":
+           case "teal":
                return Color(.systemTeal)
-           case "Green":
+           case "green":
                return Color(.systemGreen)
-           case "Orange":
+           case "orange":
                return Color(.systemOrange)
-           case "Pink":
+           case "pink":
                return Color(.systemPink)
-           case "Blue":
-               return Color(.systemBlue)
-           case "Indigo":
+           case "blue":
+            return Color.blue
+           case "indigo":
                return Color(.systemIndigo)
            default:
                return Color(.systemTeal)
