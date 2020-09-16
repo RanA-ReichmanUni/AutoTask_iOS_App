@@ -431,86 +431,249 @@ class Core{
         
     }
     
-    
-    func SchedulingPriorityAlgrorithmDates(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    func SmartAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
-        //As we know that container is set up in the AppDelegates so we need to refer that container.
-          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate]()}
+          let taskModel=TaskModel()
+          let restrictedSpaceModel=RestrictedSpaceModel()
           
-          //We need to create a context from this container
-          let managedContext = appDelegate.persistentContainer.viewContext
+          var priorityDates=[CustomDate]()
+          var calendarSequence=[CustomDate]()
         
-        let taskModel=TaskModel()
-        var schedulingAlgorithm = scheduleAlgorithm.optimal
-        var priorityDates=[CustomDate]()
-        var calendarSequence=[CustomDate]()
-        
-        
-        if(schedulingAlgorithm==scheduleAlgorithm.optimal)
-        {
-
-            
-            
-        
-                
-                do{
-                      try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
-                  }
-                  catch{
-                    throw DateBoundsError.dueDateIsInPastTime
-                  }
-                
-                
-                for singleDate in calendarSequence//Other date FreeSpace Checker
-                {
-                     
-                    if(taskModel.checkEmptyFreeSpaceByDate(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
-                      {
-                        priorityDates.append(singleDate)
-                      }
-      
-                }
-            
-                
+           do{
+                try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+            }
+            catch{
+              throw DateBoundsError.dueDateIsInPastTime
+            }
+          
+          
+          for singleDate in calendarSequence//Other date FreeSpace Checker
+          {
                
-                var datesAndTime = [WorkPerDate]()
-            
-                for singleDate in calendarSequence//Other date FreeSpace Checker
+              if(restrictedSpaceModel.CheckEmptyRestrictedAndFreeSpace(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
                 {
-                    var allTasks=taskModel.retrieveTasksByDate(date:singleDate)
-                    if(!allTasks.isEmpty)
+                  priorityDates.append(singleDate)
+                }
+
+          }
+      
+          
+         
+          var datesAndTime = [WorkPerDate]()
+      
+          for singleDate in calendarSequence//Other date FreeSpace Checker
+          {
+             let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+             let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
+             var workTimeSummary=0
+             
+             if(!allTasks.isEmpty || !allRestrictedSpaces.isEmpty)//In order to not insert a day that is not scheduled for ant restrictesSpace or task. In that case if it wasn't for this if statment the day would be inserted to the "datesAndTime" array and eventually to the "priorityDates" array, but since this is an emptySpace day, we already inserted this day. This would have cause the schedule algorithm to check this day twice !.
+             {
+                  if(!allTasks.isEmpty)
+                  {
+                      
+                          for task in allTasks//Check for summary of minutes of the current date
+                          {
+                              
+                              workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                              
+                          }
+                          
+                     // datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                  }
+                 
+                
+                 
+                 if(!allRestrictedSpaces.isEmpty)
                     {
-                        var workTimeSummary=0
-                            for task in allTasks//Check for summary of minutes of the current date
+                       
+                            for restrictedSpace in allRestrictedSpaces//Check for summary of minutes of the current date
                             {
+                                let duration=restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime).hourInMinutes()
                                 
-                                workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                                workTimeSummary=workTimeSummary+duration
                                 
                             }
                             
-                        datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                        
                     }
-                }
-            
-            datesAndTime.sort {
-                          ($0.timeInMinutes!) <
-                              ($1.timeInMinutes!)
-                      }//Sort dates by the acttual work time
-            
-            for singleDate in datesAndTime//Append dates by work load priority
-            {
-                
-                priorityDates.append(singleDate.date!)
-                
-            
-            }
-                
-                
-         
-                
-            }
+                 
+                 datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+             }
+          }
+      
+          datesAndTime.sort {
+                        ($0.timeInMinutes!) <
+                            ($1.timeInMinutes!)
+                    }//Sort dates by the acttual work time
+          
+          for singleDate in datesAndTime//Append dates by work load priority
+          {
+              
+              priorityDates.append(singleDate.date!)
+              
+          
+          }
+              
+              
+         return priorityDates
         
-        return priorityDates
+    }
+    
+    func OptimalAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    {
+          let taskModel=TaskModel()
+            
+            var priorityDates=[CustomDate]()
+            var calendarSequence=[CustomDate]()
+        
+             do{
+                    try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+                }
+                catch{
+                  throw DateBoundsError.dueDateIsInPastTime
+                }
+              
+              
+              for singleDate in calendarSequence//Other date FreeSpace Checker
+              {
+                   
+                  if(taskModel.checkEmptyFreeSpaceByDate(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
+                    {
+                      priorityDates.append(singleDate)
+                    }
+    
+              }
+          
+              
+             
+              var datesAndTime = [WorkPerDate]()
+          
+              for singleDate in calendarSequence//Other date FreeSpace Checker
+              {
+                let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+                  if(!allTasks.isEmpty)
+                  {
+                      var workTimeSummary=0
+                          for task in allTasks//Check for summary of minutes of the current date
+                          {
+                              
+                              workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                              
+                          }
+                          
+                      datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                  }
+              }
+          
+          datesAndTime.sort {
+                        ($0.timeInMinutes!) <
+                            ($1.timeInMinutes!)
+                    }//Sort dates by the acttual work time
+          
+          for singleDate in datesAndTime//Append dates by work load priority
+          {
+              
+              priorityDates.append(singleDate.date!)
+              
+          
+          }
+              
+              
+         return priorityDates
+        
+        
+        
+    }
+    func EarliestAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    {
+    
+          var calendarSequence=[CustomDate]()
+        
+            do{
+                 try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+             }
+             catch{
+               throw DateBoundsError.dueDateIsInPastTime
+             }
+               
+            return calendarSequence
+        
+        
+    }
+    func LatestAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    {
+       
+          var calendarSequence=[CustomDate]()
+        
+            do{
+                 try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+             }
+             catch{
+               throw DateBoundsError.dueDateIsInPastTime
+             }
+             
+             
+             
+             calendarSequence.sort {
+                             ($0.year, $0.month, $0.day) >
+                                 ($1.year,$1.month,$1.day)
+                         }//Sort dates by reverse order,latest date first earliest last
+             
+             
+            return calendarSequence
+        
+    }
+    
+    
+    func SchedulingPriorityAlgrorithmDates(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    {
+      
+      
+        let schedulingAlgorithm = scheduleAlgorithm.smart
+      
+        
+        
+        switch schedulingAlgorithm {
+        case .smart:
+          do{
+               return try SmartAlgorithm(startDate: startDate, endDate: endDate)
+            }
+            catch{
+                throw DateBoundsError.dueDateIsInPastTime
+            }
+        case .optimal:
+          do{
+               return try OptimalAlgorithm(startDate: startDate, endDate: endDate)
+            }
+            catch{
+                throw DateBoundsError.dueDateIsInPastTime
+            }
+        case .earliest:
+          do{
+               return try EarliestAlgorithm(startDate: startDate, endDate: endDate)
+            }
+            catch{
+                throw DateBoundsError.dueDateIsInPastTime
+            }
+        case .latest:
+          do{
+               return try LatestAlgorithm(startDate: startDate, endDate: endDate)
+            }
+            catch{
+                throw DateBoundsError.dueDateIsInPastTime
+            }
+
+        default:
+           do{
+                return try SmartAlgorithm(startDate: startDate, endDate: endDate)
+             }
+             catch{
+                 throw DateBoundsError.dueDateIsInPastTime
+             }
+        }
+        
+      
     
 
         
@@ -1920,101 +2083,104 @@ class Core{
             zeroHour.hour=0
             zeroHour.minutes=0
         
-        var retrivedSpace=FreeTaskSpace()
+        var retrivedSpaces=[FreeTaskSpace]()
         
         do{
-            retrivedSpace=try retrieveFreeSpace(date: date)
+            retrivedSpaces=try retrieveAllFreeSpaces(date: date)
         }
         catch{
             print(error)
         }
         
-        let orginalFreeSpaceId=retrivedSpace.id
+     
         
         let spaceSection=GetHourSection()
         var breakTime:Hour=spaceSection.breakTime!
         var totalSectionTime=spaceSection.sectionWindow!.add(hour: breakTime)
-        var remainingSpace=retrivedSpace.duration
-        var currentStartingTime=retrivedSpace.starting
-        let absoluteFreeSpaceEnding=retrivedSpace.ending
-        var usedTimeEndBound=Hour(context: managedContext)
- 
         
-        while(remainingSpace.hour > 0 || remainingSpace.minutes > 0)
+        for retrivedSpace in retrivedSpaces
         {
-     
-            
-             let freeSpace = FreeTaskSpace(context: managedContext)
-             
-              freeSpace.date=date
-              freeSpace.id=UUID()
-              freeSpace.associatedId=UUID()
-              freeSpace.starting=currentStartingTime
-              
-              if(currentStartingTime.add(hour: totalSectionTime) < absoluteFreeSpaceEnding)
-              {
-                
-                freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
-                
-                let breakWindow=Task(context: managedContext)
-                    breakWindow.startTime=freeSpace.ending
-                    breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
-                    breakWindow.taskName=""
-                    breakWindow.asstimatedWorkTime=spaceSection.breakTime!
-                    breakWindow.completed=false
-                    breakWindow.color="Green"
-                    breakWindow.active=true
-                    breakWindow.importance=""
-                    breakWindow.notes=""
-                    breakWindow.id=UUID()
-                    breakWindow.isTaskBreakWindow=true
-                    breakWindow.scheduleSection="hourAndAHalf"
-                    breakWindow.date=date
-                    breakWindow.dueDate=Date()
-                    breakWindow.internalId=UUID()
-                    
-                    usedTimeEndBound=freeSpace.ending.add(hour: breakWindow.asstimatedWorkTime)
-            
-                
-              }
-              else if(currentStartingTime.add(hour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
-                
-                freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
-                 usedTimeEndBound=freeSpace.ending
-              }
-              else{
-                freeSpace.ending=absoluteFreeSpaceEnding
-                usedTimeEndBound=freeSpace.ending
-              }
-            
+            var remainingSpace=retrivedSpace.duration
+            var currentStartingTime=retrivedSpace.starting
+            let absoluteFreeSpaceEnding=retrivedSpace.ending
+            var usedTimeEndBound=Hour(context: managedContext)
+            let orginalFreeSpaceId=retrivedSpace.id
            
-            if(freeSpace.ending > freeSpace.starting)
+            while(remainingSpace.hour > 0 || remainingSpace.minutes > 0)
             {
-              freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+         
+                
+                 let freeSpace = FreeTaskSpace(context: managedContext)
+                 
+                  freeSpace.date=date
+                  freeSpace.id=UUID()
+                  freeSpace.associatedId=UUID()
+                  freeSpace.starting=currentStartingTime
+                  
+                  if(currentStartingTime.add(hour: totalSectionTime) < absoluteFreeSpaceEnding)
+                  {
+                    
+                    freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                    
+                    let breakWindow=Task(context: managedContext)
+                        breakWindow.startTime=freeSpace.ending
+                        breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
+                        breakWindow.taskName=""
+                        breakWindow.asstimatedWorkTime=spaceSection.breakTime!
+                        breakWindow.completed=false
+                        breakWindow.color="Green"
+                        breakWindow.active=true
+                        breakWindow.importance=""
+                        breakWindow.notes=""
+                        breakWindow.id=UUID()
+                        breakWindow.isTaskBreakWindow=true
+                        breakWindow.scheduleSection="hourAndAHalf"
+                        breakWindow.date=date
+                        breakWindow.dueDate=Date()
+                        breakWindow.internalId=UUID()
+                        
+                        usedTimeEndBound=freeSpace.ending.add(hour: breakWindow.asstimatedWorkTime)
+                
+                    
+                  }
+                  else if(currentStartingTime.add(hour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
+                    
+                    freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                     usedTimeEndBound=freeSpace.ending
+                  }
+                  else{
+                    freeSpace.ending=absoluteFreeSpaceEnding
+                    usedTimeEndBound=freeSpace.ending
+                  }
+                
+               
+                if(freeSpace.ending > freeSpace.starting)
+                {
+                  freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                }
+                else{
+                    freeSpace.duration=zeroHour
+                }
+                
+                  freeSpace.fullyOccupiedDay=false
+                
+                print("absoluteFreeSpaceEnding"+String(absoluteFreeSpaceEnding.hour)+":"+String(absoluteFreeSpaceEnding.minutes)+" usedTimeEndBound"+String(usedTimeEndBound.hour)+":"+String(usedTimeEndBound.minutes))
+                
+                  remainingSpace=absoluteFreeSpaceEnding.subtract(newHour: usedTimeEndBound)
+                  currentStartingTime=usedTimeEndBound
+        
             }
-            else{
-                freeSpace.duration=zeroHour
-            }
             
-              freeSpace.fullyOccupiedDay=false
+            do {
+                   try managedContext.save()
+                       print("Saved Task !.")
+               } catch let error as NSError {
+                   print("Could not save. \(error), \(error.userInfo)")
+               }
             
-            print("absoluteFreeSpaceEnding"+String(absoluteFreeSpaceEnding.hour)+":"+String(absoluteFreeSpaceEnding.minutes)+" usedTimeEndBound"+String(usedTimeEndBound.hour)+":"+String(usedTimeEndBound.minutes))
-            
-              remainingSpace=absoluteFreeSpaceEnding.subtract(newHour: usedTimeEndBound)
-              currentStartingTime=usedTimeEndBound
-    
+            deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
+        
         }
-        
-        do {
-               try managedContext.save()
-                   print("Saved Task !.")
-           } catch let error as NSError {
-               print("Could not save. \(error), \(error.userInfo)")
-           }
-        
-        deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
-        
-        
     }
  
     
@@ -2205,6 +2371,57 @@ class Core{
              
                  
     }
+    
+    
+    func retrieveAllFreeSpaces(date:CustomDate)  -> [FreeTaskSpace]
+   {
+        var allFreeSpaces=[FreeTaskSpace]()
+
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [FreeTaskSpace]()}
+          
+          //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+          
+ 
+
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+       /* let predicate1 = NSPredicate(format: "month = %@",8)
+        let predicate2 = NSPredicate(format: "month <%@",15)
+        let predicate3 = NSPredicate(format: "year = %@",2020)
+        let predicateCompound = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1,predicate2,predicate3])*/
+
+       fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@", argumentArray: [date.year, date.month,date.day])
+
+       var result=[Any]()
+          do
+          {
+              result = try managedContext.fetch(fetchRequest)
+           
+                for data in result as! [FreeTaskSpace] {
+
+                         allFreeSpaces.append(data)
+    
+                 }
+           
+           
+             
+          }
+            
+          catch
+          {
+              print(error)
+          }
+    
+    
+              //Theroticlly it's impossible to get here, compilation syntax use only.
+               return allFreeSpaces
+                
+            
+            
+            
+                
+   }
     
    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {

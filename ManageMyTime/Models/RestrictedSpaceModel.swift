@@ -67,6 +67,129 @@ class RestrictedSpaceModel : UIViewController
         
     }
     
+    func CheckEmptyRestrictedAndFreeSpace(date:CustomDate) -> Bool
+      {
+
+              
+             //As we know that container is set up in the AppDelegates so we need to refer that container.
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return false }
+             
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+             
+             //Prepare the request of type NSFetchRequest  for the entity
+             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FreeTaskSpace")
+          fetchRequest.predicate = NSPredicate(format: "date.year = %@ AND date.month = %@ AND date.day = %@",argumentArray: [date.year,date.month,date.day])
+      //        fetchRequest.fetchLimit = 1
+      //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+      //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+            
+                var isEmptyFreeSpace=false
+                var isEmptyRestrictedSpace=false
+        
+      //
+             do {
+                 
+                 let results = try managedContext.fetch(fetchRequest)
+                  
+                  
+                  if(results.isEmpty)
+                  {
+                      isEmptyFreeSpace=true
+                  }
+                  else{
+                      isEmptyFreeSpace=false
+                  }
+              
+             } catch {
+                 
+                 print("Failed")
+             }
+         
+        
+        let fetch:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
+                        fetch.predicate = NSPredicate(format: "dayOfTheWeek = %@",argumentArray: [date.dayOfWeek()])
+                                     
+                  
+                   var restrictedSpace = [RestrictedSpace]()
+                       
+                     do
+                     {
+                         let results = try managedContext.fetch(fetch)
+                         
+                   
+                         
+                          if(results.isEmpty)
+                          {
+                              isEmptyRestrictedSpace=true
+                          }
+                          else{
+                              isEmptyRestrictedSpace=false
+                          }
+                        
+                        
+                     }
+                     catch
+                     {
+                         print(error)
+                     }
+        
+            if(isEmptyFreeSpace && isEmptyRestrictedSpace)
+            {
+                return true
+            }
+       
+           return false
+          
+          
+      }
+    
+    func getAllRestrictedSpacesByDate(date:CustomDate) -> [RestrictedSpace]
+      {
+          
+              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [RestrictedSpace]()}
+             
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+          
+                
+          
+             let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
+                  fetchRequest.predicate = NSPredicate(format: "dayOfTheWeek = %@",argumentArray: [date.dayOfWeek()])
+                               
+            
+             var restrictedSpace = [RestrictedSpace]()
+                 
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest)
+                   
+             
+                       
+                       
+                     for result in results as! [NSManagedObject] {
+
+                           let spaceObj = result as! RestrictedSpace
+                       
+                           restrictedSpace.append(spaceObj)
+                  }
+                  
+               }
+               catch
+               {
+                   print(error)
+               }
+                 
+              restrictedSpace.sort {
+                               ($0.startTime) <
+                                   ($1.endTime)
+              }
+      
+              return restrictedSpace
+          
+          
+          
+      }
     
     func CreateRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String) throws
        {
