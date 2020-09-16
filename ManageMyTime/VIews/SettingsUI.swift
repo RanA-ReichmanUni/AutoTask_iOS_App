@@ -11,7 +11,7 @@ import SwiftUI
 struct SettingsUI: View {
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Maximum Capacity"]
-    var schedulingAlgorithm = ["Smart (least load per day including personal activities)","Optimal (least load per day)","Earliest","Latest (near due)"]
+    var schedulingAlgorithm = ["Smart \n(Least load per day)","Optimal \n(Least load per day, exclude personal activities)","Earliest","Latest (near due)"]
     @State private var selectedDensityIndex = 2
     @State private var selectedSchedulingAlgorithmIndex = 0
     @Environment(\.colorScheme) var colorScheme
