@@ -44,7 +44,7 @@ struct RegularViewSelector: View {
                 else if(geometry.size.width <= 768 && geometry.size.width > 736)//IPad 6th
                 {
                      
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9,heightFactor:10)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.71,heightFactor:10)
                                                    
                 }
                 else if(geometry.size.width <= 736 && geometry.size.width > 703.5)//IPhone 8 Plus expanded

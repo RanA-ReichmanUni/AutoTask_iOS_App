@@ -103,7 +103,10 @@ struct SettingsUI: View {
                     
   }
         
-        }/*.background(
+        }.navigationViewStyle(StackNavigationViewStyle())//Forces all devices (intended for iPads which have a diffrent navigationView style) navigationView to act like on an iPhone.
+                
+                
+                /*.background(
             self.colorScheme == .dark ? ( LinearGradient(
                 gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),Color.blue]),
                          startPoint: UnitPoint(x: 0.2, y: 0.4),
@@ -149,3 +152,5 @@ extension Color {
         return (r, g, b, a)
     }
 }
+
+
