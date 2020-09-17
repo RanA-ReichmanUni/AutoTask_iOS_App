@@ -49,7 +49,7 @@ struct AddTask: View {
     @State private var isError = false
     @State var notFilledError=false
     
-   var disableSave: Bool {
+    var disableSave: Bool {
         taskName == "" || (selection[0]=="0" && selection[1]=="0")
     }
     @State private var selectedColorIndex = Color(hex:"#3E59C2")
@@ -132,7 +132,7 @@ struct AddTask: View {
                                         Image(systemName:"pencil.and.ellipsis.rectangle")
                                         Text("Additional Info")
                                     }) {
-                                        TextField("Notes", text: self.$notes)
+                                        TextField("Personal Notes", text: self.$notes)
                                     }
                                     
                        }
