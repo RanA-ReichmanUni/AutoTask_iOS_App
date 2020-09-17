@@ -68,6 +68,7 @@ class Core{
         
         case smart
         case optimal
+        case advanced
         case earliest
         case latest
         
@@ -431,7 +432,118 @@ class Core{
         
     }
     
+    
+    func getDifficultyFactor(difficultyPhrase:String) -> Double
+    {
+        var factorValue=1.5
+        
+        switch difficultyPhrase.lowercased() {
+        case "difficult":
+          factorValue=3
+        case "average":
+          factorValue=1.5
+        case "easy":
+          factorValue=1
+        default:
+          factorValue=1.5
+        }
+        
+        
+        return factorValue
+        
+    }
+    
+    
     func SmartAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    {
+         let taskModel=TaskModel()
+         let restrictedSpaceModel=RestrictedSpaceModel()
+         
+         var priorityDates=[CustomDate]()
+         var calendarSequence=[CustomDate]()
+       
+          do{
+               try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+           }
+           catch{
+             throw DateBoundsError.dueDateIsInPastTime
+           }
+         
+         
+         for singleDate in calendarSequence//Other date FreeSpace Checker
+         {
+              
+             if(restrictedSpaceModel.CheckEmptyRestrictedAndFreeSpace(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
+               {
+                 priorityDates.append(singleDate)
+               }
+
+         }
+     
+         
+        
+         var datesAndTime = [PriorityPerDate]()
+     
+         for singleDate in calendarSequence//Other date FreeSpace Checker
+         {
+            let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+            let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
+            var workTimeRank:Double=0
+            
+            if(!allTasks.isEmpty || !allRestrictedSpaces.isEmpty)//In order to not insert a day that is not scheduled for ant restrictesSpace or task. In that case if it wasn't for this if statment the day would be inserted to the "datesAndTime" array and eventually to the "priorityDates" array, but since this is an emptySpace day, we already inserted this day. This would have cause the schedule algorithm to check this day twice !.
+            {
+                 if(!allTasks.isEmpty)
+                 {
+                     
+                         for task in allTasks//Check for summary of minutes of the current date
+                         {
+                             
+                            workTimeRank=workTimeRank+Double(task.asstimatedWorkTime.hourInMinutes())*getDifficultyFactor(difficultyPhrase: task.difficulty)
+                             
+                         }
+                         
+                    // datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                 }
+                
+               
+                
+                if(!allRestrictedSpaces.isEmpty)
+                   {
+                      
+                           for restrictedSpace in allRestrictedSpaces//Check for summary of minutes of the current date
+                           {
+                               let duration=restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime).hourInMinutes()
+                               
+                            workTimeRank=workTimeRank+Double(duration)*getDifficultyFactor(difficultyPhrase: restrictedSpace.difficulty)
+                               
+                           }
+                           
+                       
+                   }
+                
+                datesAndTime.append(PriorityPerDate(date: singleDate, rank: workTimeRank))
+            }
+         }
+     
+         datesAndTime.sort {
+                       ($0.rank!) <
+                           ($1.rank!)
+                   }//Sort dates by the acttual work time
+         
+         for singleDate in datesAndTime//Append dates by work load priority
+         {
+             
+             priorityDates.append(singleDate.date!)
+             
+         
+         }
+             
+             
+        return priorityDates
+       
+   }
+    
+    func OptimalAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
           let taskModel=TaskModel()
           let restrictedSpaceModel=RestrictedSpaceModel()
@@ -520,7 +632,7 @@ class Core{
         
     }
     
-    func OptimalAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+    func AdvancedAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
           let taskModel=TaskModel()
             
@@ -649,6 +761,13 @@ class Core{
             catch{
                 throw DateBoundsError.dueDateIsInPastTime
             }
+        case .advanced:
+         do{
+              return try AdvancedAlgorithm(startDate: startDate, endDate: endDate)
+           }
+           catch{
+               throw DateBoundsError.dueDateIsInPastTime
+           }
         case .earliest:
           do{
                return try EarliestAlgorithm(startDate: startDate, endDate: endDate)
@@ -666,7 +785,7 @@ class Core{
 
         default:
            do{
-                return try SmartAlgorithm(startDate: startDate, endDate: endDate)
+                return try OptimalAlgorithm(startDate: startDate, endDate: endDate)
              }
              catch{
                  throw DateBoundsError.dueDateIsInPastTime
@@ -682,7 +801,7 @@ class Core{
     
     
     
-    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
+    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,difficulty:String="average",color:String,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
     {
       
         
@@ -1055,6 +1174,7 @@ class Core{
                                                     newTask.isTaskBreakWindow=false
                                                     newTask.scheduleSection="hourAndAHalf"
                                                     newTask.associatedFreeSpaceId=freeSpace.associatedId
+                                                    newTask.difficulty=difficulty
                                                     
                                                     handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                     
@@ -2138,6 +2258,7 @@ class Core{
                         breakWindow.date=date
                         breakWindow.dueDate=Date()
                         breakWindow.internalId=UUID()
+                        breakWindow.difficulty="average"//formality for coredata, non relvent feed
                         
                         usedTimeEndBound=freeSpace.ending.add(hour: breakWindow.asstimatedWorkTime)
                 

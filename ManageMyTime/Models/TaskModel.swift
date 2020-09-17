@@ -170,6 +170,8 @@ class TaskModel : UIViewController
         
         let colorArray = ["Green","Teal","Pink","Red","Orange","Blue","Indigo"].shuffled()
        
+        let difficultyValues = ["diffcult","average","easy"].shuffled()
+        
         let startTime=Hour(context: managedContext)
             startTime.hour=7
             startTime.minutes=0
@@ -177,7 +179,7 @@ class TaskModel : UIViewController
             endTime.hour=15
             endTime.minutes=0
         
-        createRestrictedSpace(startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday")
+        createRestrictedSpace(startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday",difficulty:"average")
         
         
         let startTime2=Hour(context: managedContext)
@@ -207,7 +209,7 @@ class TaskModel : UIViewController
                    endTime4.hour=13
                    endTime4.minutes=0
                
-              createRestrictedSpace(startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday")
+              createRestrictedSpace(startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -221,7 +223,7 @@ class TaskModel : UIViewController
                     asstimatedWorkTime.hour=0
                     asstimatedWorkTime.minutes=30
            do {
-                try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",color:colorArray[Int.random(in: 0 ... 6)])
+            try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",difficulty:"average",color:colorArray[Int.random(in: 0 ... 6)])
            }
             catch{
                  throw DatabaseError.taskCanNotBeScheduledInDue
@@ -239,7 +241,7 @@ class TaskModel : UIViewController
 
         
     }
-    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:Color=Color.green) throws {
+    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:Color=Color.green,difficulty:String="difficult") throws {
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -253,7 +255,7 @@ class TaskModel : UIViewController
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
         do {
-            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,color:color.description)
+            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description)
         }
         catch{
             throw DatabaseError.taskCanNotBeScheduledInDue
@@ -284,7 +286,7 @@ class TaskModel : UIViewController
         }
     }
     
-    func createRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String)
+    func createRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String)
     {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -332,6 +334,7 @@ class TaskModel : UIViewController
             restrictedSpace.endTime=endTime
             restrictedSpace.dayOfTheWeek=dayOfTheWeek
             restrictedSpace.id=UUID()
+            restrictedSpace.difficulty=difficulty
             
           //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
 

@@ -191,7 +191,7 @@ class RestrictedSpaceModel : UIViewController
           
       }
     
-    func CreateRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String) throws
+    func CreateRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String) throws
        {
            
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -239,7 +239,8 @@ class RestrictedSpaceModel : UIViewController
                restrictedSpace.endTime=endTime
                restrictedSpace.dayOfTheWeek=dayOfTheWeek
                restrictedSpace.id=UUID()
-               
+               restrictedSpace.difficulty=difficulty
+            
              //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
 
                do {

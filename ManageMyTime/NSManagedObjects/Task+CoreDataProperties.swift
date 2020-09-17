@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  ManageMyTime
 //
-//  Created by רן א on 10/09/2020.
+//  Created by רן א on 17/09/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
@@ -16,7 +16,7 @@ extension Task {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
         return NSFetchRequest<Task>(entityName: "Task")
     }
-
+  
      @NSManaged public var active: Bool
      @NSManaged public var color: String?
      @NSManaged public var completed: Bool
@@ -33,6 +33,7 @@ extension Task {
      @NSManaged public var startTime: Hour?
      @NSManaged public var scheduleSection: String
      @NSManaged public var associatedFreeSpaceId: UUID?
+     @NSManaged public var difficulty: String
 
 
     
