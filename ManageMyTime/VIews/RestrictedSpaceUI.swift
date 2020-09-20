@@ -61,6 +61,12 @@ struct RestrictedSpaceUI: View {
                              
                 }
                 
+                if(restrictedSpaceViewModel.allRestrictedSpaces.isEmpty)
+                 {
+                      RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:230)//Keeps safe space from the edge of screen 
+                     Text("No Personal Activities Have Been Set :)...").fontWeight(.bold).font(.title)
+                 }
+                
                         
                         
                         /*Button(action: {

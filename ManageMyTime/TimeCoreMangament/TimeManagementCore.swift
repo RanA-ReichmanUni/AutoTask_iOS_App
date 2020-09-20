@@ -10,6 +10,44 @@ import Foundation
 import CoreData
 import UIKit
 
+
+
+enum scheduleDensity:String {
+          
+        case verySpacious
+        case spacious
+        case mediumDensity
+        case dense
+        case veryDense
+        case extremelyDense
+        case maximumCapacity
+ 
+}
+
+
+enum taskIntervals:String {
+            
+          case fortyFiveMinutes
+          case hourAndAHalf
+          case twoHours
+          case threeHours
+          case Continues
+   
+  }
+
+enum scheduleAlgorithm:String{
+    
+    case smart
+    case optimal
+    case advanced
+    case earliest
+    case latest
+    
+    
+    
+    
+}
+
 class Core{
     
     let startOfTheDay = 7
@@ -41,41 +79,7 @@ class Core{
     
     
     
-    enum scheduleDensity:String {
-              
-            case verySpacious
-            case spacious
-            case mediumDensity
-            case dense
-            case veryDense
-            case extremelyDense
-            case maximumCapacity
-     
-    }
-    
-    
-    enum taskIntervals:String {
-                
-              case fortyFiveMinutes
-              case hourAndAHalf
-              case twoHours
-              case threeHours
-              case Continues
-       
-      }
-    
-    enum scheduleAlgorithm:String{
-        
-        case smart
-        case optimal
-        case advanced
-        case earliest
-        case latest
-        
-        
-        
-        
-    }
+
     
    
     
@@ -737,12 +741,33 @@ class Core{
         
     }
     
-    
+    func scheduleEnumConverter(phrase:String) -> scheduleAlgorithm
+    {
+        
+            switch phrase {
+              case scheduleAlgorithm.smart.rawValue:
+                 return scheduleAlgorithm.smart
+              case scheduleAlgorithm.optimal.rawValue:
+                  return scheduleAlgorithm.optimal
+              case scheduleAlgorithm.advanced.rawValue:
+                  return scheduleAlgorithm.advanced
+              case scheduleAlgorithm.earliest.rawValue:
+                  return scheduleAlgorithm.earliest
+              case scheduleAlgorithm.latest.rawValue:
+                  return scheduleAlgorithm.latest
+              default:
+                  return scheduleAlgorithm.smart
+            }
+        
+        return scheduleAlgorithm.smart
+    }
+        
     func SchedulingPriorityAlgrorithmDates(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
       
-      
-        let schedulingAlgorithm = scheduleAlgorithm.smart
+        var taskModel=TaskModel()
+        
+        let schedulingAlgorithm = scheduleEnumConverter(phrase:taskModel.getSettingsValues().scheduleAlgorithim)
       
         
         

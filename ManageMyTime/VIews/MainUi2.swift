@@ -23,6 +23,7 @@ struct MainUI2: View {
     let defaultColor=Color(.blue)
     let choosenColor=Color(hex:"#00FFF5")
   
+    
     @ObservedObject var taskViewModel = TaskViewModel()
     var body: some View {
         GeometryReader{ geometry in
@@ -87,7 +88,7 @@ struct MainUI2: View {
                         
                        // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                         
-                        SettingsUI(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                        SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
                           
@@ -212,6 +213,7 @@ struct MainUI2: View {
                 
                 }.onAppear{  self.taskViewModel.retrieveAllTasks()
                     self.taskViewModel.retrieveAllTasksByHour()
+                    self.taskViewModel.intialValuesSetup()
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     

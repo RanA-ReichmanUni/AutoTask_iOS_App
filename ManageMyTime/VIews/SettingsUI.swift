@@ -10,12 +10,18 @@ import SwiftUI
 
 struct SettingsUI: View {
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
-    var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Maximum Capacity"]
+    var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Extremly Dense","Maximum Capacity"]
     var schedulingAlgorithm = ["Smart - Least work stress, based on task difficulty and work time in combine.","Optimal - Least work time per day.","Advanced - Least work time per day, exclude personal activities.","Earliest","Latest - Near due"]
-    @State private var selectedDensityIndex = 2
-    @State private var selectedSchedulingAlgorithmIndex = 0
+    @State var selectedDensityIndex = 2
+    @State var selectedSchedulingAlgorithmIndex = 0
     @Environment(\.colorScheme) var colorScheme
     var taskViewModel:TaskViewModel
+    
+    private func SetSettings() {
+           
+        taskViewModel.setSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex)
+          
+         }
     
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
@@ -47,10 +53,10 @@ struct SettingsUI: View {
                                   
                                 HStack{
                                   
-                                    Picker(selection: self.$selectedDensityIndex, label: Text("Daily Schedule Density")) {
+                                    Picker(selection: self.$selectedDensityIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
                                         ForEach(0 ..< self.densityValues.count) {
-                                                                          Text(self.densityValues[$0])
-                                                                        }
+                                              Text(self.densityValues[$0])
+                                            }
                                     }
                                  
                                 }
@@ -69,19 +75,24 @@ struct SettingsUI: View {
                                    }
                                 
                          }
-                            
-
-                            HStack{
-                                 Picker(selection: self.$selectedSchedulingAlgorithmIndex, label: Text("Schedule Algorithm")) {
-                                            ForEach(0 ..< self.schedulingAlgorithm.count) {
-                                                     Text(self.schedulingAlgorithm[$0])
-                                           }
-                                   }
+    
+    
+    
+                        VStack{
+                                  
+                                HStack{
+                                  
+                                    Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
+                                        ForEach(0 ..< self.schedulingAlgorithm.count) {
+                                              Text(self.schedulingAlgorithm[$0])
+                                            }
+                                    }
+                                 
+                                }
+                                    
                             }
-                                                 
-    
-    
-    
+                                
+
     
                                         
                         HStack{
@@ -116,10 +127,16 @@ struct SettingsUI: View {
             gradient: Gradient(colors: [Color.white,Color.blue]),
           startPoint: UnitPoint(x: 0.2, y: 0.4),
           endPoint:.bottom
-        )))*/.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()}
+        )))*/.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
+            
+            self.selectedDensityIndex=self.taskViewModel.getSettingsValues()[0]
+            self.selectedSchedulingAlgorithmIndex=self.taskViewModel.getSettingsValues()[1]
+        }
         
         
     }
+    
+  
 }
 
 /*struct SettingsUI_Previews: PreviewProvider {
@@ -154,3 +171,15 @@ extension Color {
 }
 
 
+extension Binding {
+    
+
+    func onUpdate(_ closure: @escaping () -> Void) -> Binding<Value> {
+        Binding(get: {
+            self.wrappedValue
+        }, set: { newValue in
+            self.wrappedValue = newValue
+            closure()
+        })
+    }
+}

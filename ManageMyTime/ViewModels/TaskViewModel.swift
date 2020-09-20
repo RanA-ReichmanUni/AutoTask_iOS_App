@@ -187,6 +187,110 @@ class TaskViewModel : ObservableObject
           
       }
     
+    func intialValuesSetup()
+    {
+        
+        taskModel.intialValuesSetup()
+        
+    }
+    func setSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int)
+    {
+        
+        var scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
+        var scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
+        
+        switch scheduleAlgorithimIndex {
+        case 0:
+            scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
+        case 1:
+            scheduleAlgorithimPick=scheduleAlgorithm.optimal.rawValue
+        case 2:
+            scheduleAlgorithimPick=scheduleAlgorithm.advanced.rawValue
+        case 3:
+            scheduleAlgorithimPick=scheduleAlgorithm.earliest.rawValue
+        case 4:
+            scheduleAlgorithimPick=scheduleAlgorithm.latest.rawValue
+        default:
+            scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
+        }
+        
+        
+        switch scheduleDensityIndex {
+         case 0:
+            scheduleDensityPick=scheduleDensity.verySpacious.rawValue
+         case 1:
+            scheduleDensityPick=scheduleDensity.spacious.rawValue
+         case 2:
+            scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
+         case 3:
+            scheduleDensityPick=scheduleDensity.dense.rawValue
+         case 4:
+            scheduleDensityPick=scheduleDensity.veryDense.rawValue
+         case 5:
+            scheduleDensityPick=scheduleDensity.extremelyDense.rawValue
+         case 6:
+            scheduleDensityPick=scheduleDensity.maximumCapacity.rawValue
+         default:
+             scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
+         }
+        
+        
+        self.taskModel.setSettingsValues(scheduleAlgorithim: scheduleAlgorithimPick, scheduleDensity: scheduleDensityPick)
+        
+        
+    }
+    
+    
+    func getSettingsValues () -> [Int]
+    {
+        var settingsObject=taskModel.getSettingsValues()
+        
+        var scheduleAlgorithmPick=0
+        var scheduleDensityPick=2
+        
+        
+        
+        switch settingsObject.scheduleAlgorithim {
+        case scheduleAlgorithm.smart.rawValue:
+            scheduleAlgorithmPick=0
+        case scheduleAlgorithm.optimal.rawValue:
+            scheduleAlgorithmPick=1
+        case scheduleAlgorithm.advanced.rawValue:
+            scheduleAlgorithmPick=2
+        case scheduleAlgorithm.earliest.rawValue:
+            scheduleAlgorithmPick=3
+        case scheduleAlgorithm.latest.rawValue:
+            scheduleAlgorithmPick=4
+        default:
+            scheduleAlgorithmPick=0
+        }
+        
+        
+        switch settingsObject.scheduleDensity {
+            case scheduleDensity.verySpacious.rawValue:
+                scheduleDensityPick=0
+            case scheduleDensity.spacious.rawValue:
+                scheduleDensityPick=1
+            case scheduleDensity.mediumDensity.rawValue:
+                scheduleDensityPick=2
+            case scheduleDensity.dense.rawValue:
+                scheduleDensityPick=3
+            case scheduleDensity.veryDense.rawValue:
+                scheduleDensityPick=4
+            case scheduleDensity.extremelyDense.rawValue:
+                scheduleDensityPick=5
+            case scheduleDensity.maximumCapacity.rawValue:
+                scheduleDensityPick=6
+            default:
+                scheduleDensityPick=2
+            }
+        
+        
+        let settingsArray=[scheduleDensityPick,scheduleAlgorithmPick]
+        
+        return settingsArray
+        
+    }
     
     func retrieveTask(taskName : String)
       {

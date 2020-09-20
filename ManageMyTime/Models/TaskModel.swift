@@ -146,6 +146,172 @@ class TaskModel : UIViewController
         return Color.white
     }
     
+    func getSettingsValues () -> SettingsEntity
+    {
+        
+    
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return SettingsEntity() }
+        
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
+ //
+         
+     
+        do {
+            
+             let result = try managedContext.fetch(fetchRequest)
+         
+            
+            
+             if(!result.isEmpty)
+             {
+                 return result[0] as! SettingsEntity
+
+             }
+             else{
+                 var settingsObject=SettingsEntity(context: managedContext)
+                
+                    settingsObject = SettingsEntity(context: managedContext)
+                                
+                    settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
+                    settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
+                
+                
+                    do{
+                          try managedContext.save()
+                         print("Updated !.")
+                      }
+                      catch
+                      {
+                          print(error)
+                      }
+                   
+                   return settingsObject
+            }
+            
+        } catch {
+            
+            print("Failed")
+        }
+
+        return SettingsEntity()
+     
+        
+    }
+    
+    func intialValuesSetup()
+    {
+            
+           //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+           //Prepare the request of type NSFetchRequest  for the entity
+           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
+            //fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [false])
+    //        fetchRequest.fetchLimit = 1
+    //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+    //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+    //
+             
+        
+           do {
+               
+                let result = try managedContext.fetch(fetchRequest)
+            
+                if(result.isEmpty)
+                {
+                    
+                        var settingsObject=SettingsEntity(context: managedContext)
+                           settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
+                           settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
+                                   
+                        do{
+                               try managedContext.save()
+                              print("Updated !.")
+                           }
+                           catch
+                           {
+                               print(error)
+                           }
+                    
+      
+            }
+               
+           } catch {
+               
+               print("Failed")
+           }
+   
+         
+        
+    }
+    
+    
+    
+    func setSettingsValues(scheduleAlgorithim:String,scheduleDensity:String)
+       {
+           
+            //As we know that container is set up in the AppDelegates so we need to refer that container.
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
+            
+            //We need to create a context from this container
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            //Prepare the request of type NSFetchRequest  for the entity
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
+
+              
+         
+            do {
+                
+                 let result = try managedContext.fetch(fetchRequest)
+             
+                 if(!result.isEmpty)
+                 {
+                  
+                    
+                     var retrivedObject = result[0] as! NSManagedObject
+                     
+                        retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
+                        retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
+          
+                 }
+                 else{
+                    
+                    var settingsObject=SettingsEntity(context: managedContext)
+                    
+                        settingsObject.scheduleAlgorithim=scheduleAlgorithim
+                        settingsObject.scheduleDensity=scheduleDensity
+                }
+                
+            } catch {
+                
+                print("Failed")
+            }
+    
+             do{
+                  try managedContext.save()
+                 print("Updated !.")
+              }
+              catch
+              {
+                  print(error)
+              }
+
+        
+        
+        
+        
+           
+       }
+    
+    
     func autoFillTesting() throws
     {
 
@@ -160,7 +326,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 9
-        dateComponents.day = 19
+        dateComponents.day = 26
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -809,7 +975,7 @@ class TaskModel : UIViewController
                   currentDate.month=Date().month
                   currentDate.day=Date().day
                     
-               let weekSequence=coreManagment.createCalanderSequence(startDay: 13, startMonth: 9, startYear: 2020, endDay: 19, endMonth: 9, endYear: 2020)
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 20, startMonth: 9, startYear: 2020, endDay: 26, endMonth: 9, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -990,7 +1156,7 @@ class TaskModel : UIViewController
                      currentDate.month=Date().month
                      currentDate.day=Date().day
                        
-                  let weekSequence=coreManagment.createCalanderSequence(startDay: 13, startMonth: 9, startYear: 2020, endDay: 19, endMonth: 9, endYear: 2020)
+                  let weekSequence=coreManagment.createCalanderSequence(startDay: 20, startMonth: 9, startYear: 2020, endDay: 26, endMonth: 9, endYear: 2020)
           //        fetchRequest.fetchLimit = 1
           //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
           //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]

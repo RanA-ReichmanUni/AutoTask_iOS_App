@@ -65,6 +65,12 @@ struct TaskList: View {
                         }
                              
                 }
+                
+                if(taskViewModel.allTasks.isEmpty)
+                {
+                    
+                    Text("No Tasks Have Been Scheduled :)...").fontWeight(.bold).font(.title)
+                }
                 //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
                         
                         
