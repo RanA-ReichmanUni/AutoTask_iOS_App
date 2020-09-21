@@ -741,7 +741,7 @@ class Core{
         
     }
     
-    func scheduleEnumConverter(phrase:String) -> scheduleAlgorithm
+    func ScheduleAlgorithmEnumConverter(phrase:String) -> scheduleAlgorithm
     {
         
             switch phrase {
@@ -767,7 +767,7 @@ class Core{
       
         var taskModel=TaskModel()
         
-        let schedulingAlgorithm = scheduleEnumConverter(phrase:taskModel.getSettingsValues().scheduleAlgorithim)
+        let schedulingAlgorithm = ScheduleAlgorithmEnumConverter(phrase:taskModel.getSettingsValues().scheduleAlgorithim)
       
         
         
@@ -942,7 +942,7 @@ class Core{
         
                         for singleDate in calanderSequence//Iterate on the sequance of available day
                         {
-                            var determination=densityHandler(date: singleDate, algorithm: scheduleDensity.maximumCapacity,workTime:asstimatedWorkTime ,includePersonalTime: false)
+                            let determination=densityHandler(date: singleDate,workTime:asstimatedWorkTime ,includePersonalTime: false)
 
                           
                             if(determination)
@@ -1399,8 +1399,32 @@ class Core{
                 }
         
     }
+    func DensityEnumConverter(phrase:String) -> scheduleDensity
+      {
+          
+              switch phrase {
+              case scheduleDensity.verySpacious.rawValue:
+                   return scheduleDensity.verySpacious
+                case scheduleDensity.spacious.rawValue:
+                    return scheduleDensity.spacious
+                case scheduleDensity.mediumDensity.rawValue:
+                    return scheduleDensity.mediumDensity
+                case scheduleDensity.dense.rawValue:
+                    return scheduleDensity.dense
+                case scheduleDensity.veryDense.rawValue:
+                    return scheduleDensity.veryDense
+                case scheduleDensity.extremelyDense.rawValue:
+                    return scheduleDensity.extremelyDense
+                case scheduleDensity.maximumCapacity.rawValue:
+                    return scheduleDensity.maximumCapacity
+                default:
+                    return scheduleDensity.mediumDensity
+              }
+          
+            return scheduleDensity.mediumDensity
+      }
     
-    func densityHandler(date:CustomDate,algorithm:scheduleDensity,workTime:Hour,includePersonalTime:Bool) -> Bool
+    func densityHandler(date:CustomDate,workTime:Hour,includePersonalTime:Bool) -> Bool
      {//Checks if a day is avilable in terms of ideal space regarding the scheduleDensity choise
         
          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return true }
@@ -1412,7 +1436,8 @@ class Core{
                                                      
                                  
         fetchRequest.predicate = NSPredicate(format: "date.day = %@ AND date.month = %@ AND date.year = %@ AND isTaskBreakWindow = %@", argumentArray: [date.day,date.month,date.year,false])
-         
+         var taskModel=TaskModel()
+         var algorithm=DensityEnumConverter(phrase: taskModel.getSettingsValues().scheduleDensity)
          var isDayAvailable = true
          var scheduledDuration = workTime.hourInMinutes()
          var duration:Hour
