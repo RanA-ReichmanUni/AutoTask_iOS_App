@@ -56,7 +56,7 @@ struct CardTaskRow: View {
             VStack{
                             HStack{
                                // Spacer()
-                                Text(self.taskName1)
+                                Text(self.taskName1).font(Font.custom("Chalkduster", size: 20))
                             .font(.system(size: 20))
     
                             .fontWeight(.bold)
@@ -122,13 +122,13 @@ struct CardTaskRow: View {
                               
                             HStack{
                                 
-                                CategoryPill(categoryName: "Due Date: " + dueDate1,color:            LinearGradient(
+                                CategoryPill(categoryName: "Due: " + dueDate1,color:            LinearGradient(
                                                                gradient: Gradient(colors: [self.color,self.color]),
                                                                                                                                         startPoint: .top,
                                                                                                                                         endPoint: .bottom
                                                                                                                                     ))
                                 Spacer()
-                                CategoryPill(categoryName: "Work Time: " + String(workTimeHour)+":"+String(workTimeMinutes),color: LinearGradient(
+                                CategoryPill(categoryName: "Duration: " + String(workTimeHour)+":"+String(workTimeMinutes),color: LinearGradient(
                                                                     gradient: Gradient(colors: [self.color,self.color]),
                                                                          startPoint: .top,
                                                                          endPoint: .bottom
@@ -167,7 +167,7 @@ struct CardTaskRow: View {
                                            }) {
                                             
                                               VStack{  Image(systemName: "pencil").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
-                                                Text("Edit").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                Text("Edit").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                            
                                                                            
                              }
@@ -182,7 +182,7 @@ struct CardTaskRow: View {
                                             }) {
                                               VStack{
                                                 Image(systemName: "trash").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
-                                                Text("Delete").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                Text("Delete").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                             
                                                                             
                               } .alert(isPresented:$showingAlert) {
@@ -199,7 +199,7 @@ struct CardTaskRow: View {
                                                                   }) {
                                                                    
                                                                      VStack{  Image(systemName: "square.and.arrow.up").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
-                                                                       Text("Expand").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                       Text("Expand").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                                                   
                                                                                                   
                                                     }
@@ -391,7 +391,7 @@ struct CategoryPill: View {
     var color:LinearGradient
     var body: some View {
         ZStack {
-            Text(categoryName)
+            Text(categoryName).font(Font.custom("Chalkduster", size: 16))
                 .font(.system(size: fontSize, weight: .regular))
                 .lineLimit(100)
                 .foregroundColor(.white)

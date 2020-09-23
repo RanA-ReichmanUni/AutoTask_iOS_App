@@ -3147,7 +3147,17 @@ extension Date {
           
        }//Get value by : "Date().dayOfWeek()!"
     
-    
+    var startOfWeek: Date {
+        let gregorian = Calendar(identifier: .gregorian)
+        let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+        return gregorian.date(byAdding: .day, value: 0, to: sunday)!
+    }
+
+    var endOfWeek: Date {
+        let gregorian = Calendar(identifier: .gregorian)
+        let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+        return gregorian.date(byAdding: .day, value: 6, to: sunday)!
+    }
     
 }
 

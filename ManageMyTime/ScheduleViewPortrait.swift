@@ -25,7 +25,7 @@ struct ScheduleViewPortrait: View {
         
        VStack{
         
-                WeeklyScheduleBar()
+        WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
         
        

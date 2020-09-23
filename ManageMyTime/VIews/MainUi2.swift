@@ -67,7 +67,7 @@ struct MainUI2: View {
                      if(self.listFlag)
                      {
                         
-                        TaskList(taskViewModel:self.taskViewModel)
+                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex)
                      }
                      else if (self.addTaskFlag)
                      {
@@ -92,7 +92,7 @@ struct MainUI2: View {
                     }
                      else{
                           
-                        TaskList(taskViewModel:self.taskViewModel)
+                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex)
                     }
             }
                 

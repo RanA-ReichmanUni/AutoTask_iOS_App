@@ -84,7 +84,7 @@ struct MainView: View {
              }
             if(showTasks)
             {
-                TaskList(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
+                TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: taskViewModel.latestDayChoiseIndex).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
             }
             
         }.onTapGesture {

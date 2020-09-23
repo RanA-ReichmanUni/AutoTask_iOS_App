@@ -17,7 +17,7 @@ struct ScheduleViewRow: View {
     //var columns : [String]
     
     @ObservedObject var taskViewModel=TaskViewModel()
-    var dayRange = 7...24
+    var hoursRange = 7...24
 
     var body: some View {
         
@@ -31,10 +31,10 @@ struct ScheduleViewRow: View {
         
     
      
-            List(self.dayRange,id:\.self){
+            List(self.hoursRange,id:\.self){
                     hour in
-                
-                if(hour > 9)
+            
+               if(hour > 9)
                 {
                 
                  ListTextHourSelector(hour: String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
@@ -54,7 +54,7 @@ struct ScheduleViewRow: View {
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
                     {
                         weekByHour in
-                    
+       
                         VStack{
                            /* if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).count > 4)
                             {
@@ -107,7 +107,7 @@ struct ScheduleViewRow: View {
 
 
             }
-        }.onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue))
+        }.onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.default)
     }
 }
 

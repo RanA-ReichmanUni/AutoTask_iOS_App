@@ -29,6 +29,18 @@ enum DateBoundsError: Error {
       
   }
 
+enum DaysOfTheWeek:String {
+          
+        case Sunday
+        case Monday
+        case Tuesday
+        case Wednesday
+        case Thursday
+        case Friday
+        case Saturday
+ 
+}
+
 class TaskViewModel : ObservableObject
 {
     
@@ -61,6 +73,7 @@ class TaskViewModel : ObservableObject
     
     @Published var allTasksPerHourInWeek = [TasksPerHourPerDayOfTheWeek]()
     
+    @Published var latestDayChoiseIndex:Int
     
     
   
@@ -92,7 +105,7 @@ class TaskViewModel : ObservableObject
         endTime=Hour(context: managedContext)
         date=CustomDate(context: managedContext)
         firstTaskColor=Color.white
-        
+        latestDayChoiseIndex=0
         asstimatedWorkTime.hour=0
         asstimatedWorkTime.minutes=0
         startTime.hour=0
@@ -317,6 +330,257 @@ class TaskViewModel : ObservableObject
         allTasks=taskModel.retrieveAllTasks()
         
             
+        
+        
+    }
+    
+    func RetrieveAllTasks() -> [Task]
+      {
+        
+        var tasks=taskModel.retrieveAllTasks()
+        
+        tasks.sort {
+                           ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                               ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                       }
+        
+          
+          return tasks
+          
+              
+          
+          
+      }
+    
+    func GetDayTasksByIndex(index:Int)
+    {
+        
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        switch index {
+        case 0:
+            retrieveAllTasks()
+            self.latestDayChoiseIndex=0
+        case 1:
+            self.latestDayChoiseIndex=1
+            var dayName=DaysOfTheWeek.Sunday.rawValue.lowercased()
+             var tasks=taskModel.retrieveAllTasks()
+                 
+                 tasks.sort {
+                                ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                            }
+            let endOfWeek = CustomDate(context: managedContext)
+                endOfWeek.year=Date().endOfWeek.year
+                endOfWeek.month=Date().endOfWeek.month
+                endOfWeek.day=Date().endOfWeek.day
+            var matchingTasks = [Task]()
+            for task in tasks{
+                if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                {
+                    matchingTasks.append(task)
+                }
+            }
+            
+            allTasks=matchingTasks
+            
+            
+        case 2:
+            self.latestDayChoiseIndex=2
+             var dayName=DaysOfTheWeek.Monday.rawValue.lowercased()
+             var tasks=taskModel.retrieveAllTasks()
+                 
+                 tasks.sort {
+                                ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                            }
+            let endOfWeek = CustomDate(context: managedContext)
+                endOfWeek.year=Date().endOfWeek.year
+                endOfWeek.month=Date().endOfWeek.month
+                endOfWeek.day=Date().endOfWeek.day
+            var matchingTasks = [Task]()
+            for task in tasks{
+                if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                {
+                    matchingTasks.append(task)
+                }
+            }
+            
+            allTasks=matchingTasks
+        case 3:
+            self.latestDayChoiseIndex=3
+            var dayName=DaysOfTheWeek.Tuesday.rawValue.lowercased()
+             var tasks=taskModel.retrieveAllTasks()
+                 
+                 tasks.sort {
+                                ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                            }
+            let endOfWeek = CustomDate(context: managedContext)
+                endOfWeek.year=Date().endOfWeek.year
+                endOfWeek.month=Date().endOfWeek.month
+                endOfWeek.day=Date().endOfWeek.day
+            var matchingTasks = [Task]()
+            for task in tasks{
+                if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                {
+                    matchingTasks.append(task)
+                }
+            }
+            
+            allTasks=matchingTasks
+        case 4:
+            self.latestDayChoiseIndex=4
+              var dayName=DaysOfTheWeek.Wednesday.rawValue.lowercased()
+             var tasks=taskModel.retrieveAllTasks()
+                 
+                 tasks.sort {
+                                ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                            }
+            let endOfWeek = CustomDate(context: managedContext)
+                endOfWeek.year=Date().endOfWeek.year
+                endOfWeek.month=Date().endOfWeek.month
+                endOfWeek.day=Date().endOfWeek.day
+            var matchingTasks = [Task]()
+            for task in tasks{
+                if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                {
+                    matchingTasks.append(task)
+                }
+            }
+            
+            allTasks=matchingTasks
+        case 5:
+            self.latestDayChoiseIndex=5
+             var dayName=DaysOfTheWeek.Thursday.rawValue.lowercased()
+             var tasks=taskModel.retrieveAllTasks()
+                 
+                 tasks.sort {
+                                ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                            }
+            let endOfWeek = CustomDate(context: managedContext)
+                endOfWeek.year=Date().endOfWeek.year
+                endOfWeek.month=Date().endOfWeek.month
+                endOfWeek.day=Date().endOfWeek.day
+            var matchingTasks = [Task]()
+            for task in tasks{
+                if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                {
+                    matchingTasks.append(task)
+                }
+            }
+            
+            allTasks=matchingTasks
+        case 6:
+            self.latestDayChoiseIndex=6
+             var dayName=DaysOfTheWeek.Friday.rawValue.lowercased()
+             var tasks=taskModel.retrieveAllTasks()
+                 
+                 tasks.sort {
+                                ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                    ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                            }
+            let endOfWeek = CustomDate(context: managedContext)
+                endOfWeek.year=Date().endOfWeek.year
+                endOfWeek.month=Date().endOfWeek.month
+                endOfWeek.day=Date().endOfWeek.day
+            var matchingTasks = [Task]()
+            for task in tasks{
+                if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                {
+                    matchingTasks.append(task)
+                }
+            }
+            
+            allTasks=matchingTasks
+        case 7:
+            self.latestDayChoiseIndex=7
+               var dayName=DaysOfTheWeek.Saturday.rawValue.lowercased()
+               var tasks=taskModel.retrieveAllTasks()
+                   
+                   tasks.sort {
+                                  ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                      ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                              }
+              let endOfWeek = CustomDate(context: managedContext)
+                  endOfWeek.year=Date().endOfWeek.year
+                  endOfWeek.month=Date().endOfWeek.month
+                  endOfWeek.day=Date().endOfWeek.day
+               
+              var matchingTasks = [Task]()
+              for task in tasks{
+                  if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
+                  {
+                      matchingTasks.append(task)
+                  }
+              }
+              
+              allTasks=matchingTasks
+        default:
+             retrieveAllTasks()
+        }
+        
+        
+        
+        
+    }
+    
+    func GetTasksByDatesSeparation() -> [TasksAndDates]
+    {
+        var tasks=taskModel.retrieveAllTasks()
+             
+             tasks.sort {
+                        ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                            ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                    }
+        var separatedTasks=[TasksAndDates]()
+       
+        var tempTaskArray=[Task]()
+        
+        var latestIndexCatalyst=0
+        if(!tasks.isEmpty)
+        {
+            for index in 0...tasks.count-1{
+                
+              
+                
+                if(index != 0 && tasks[index-1].date != tasks[index].date )
+                {
+                    if(tasks[index].date.day==25)
+                    {
+                        
+                        print("ok separated")
+                    }
+                    for secIndex in latestIndexCatalyst...index-1
+                    {
+                        tempTaskArray.append(tasks[secIndex])
+                        
+                    }
+                    latestIndexCatalyst=index
+                    separatedTasks.append(TasksAndDates(date:tasks[index-1].date,tasks:tempTaskArray))
+                    tempTaskArray=[]
+                }
+                
+                if(index == tasks.count-1)
+                {
+                    for secIndex in latestIndexCatalyst...index
+                    {
+                           tempTaskArray.append(tasks[secIndex])
+                           
+                    }
+                   latestIndexCatalyst=index
+                   separatedTasks.append(TasksAndDates(date:tasks[index].date,tasks:tempTaskArray))
+                   tempTaskArray=[]
+                      
+                }
+                
+            }
+        }
+        return separatedTasks
         
         
     }

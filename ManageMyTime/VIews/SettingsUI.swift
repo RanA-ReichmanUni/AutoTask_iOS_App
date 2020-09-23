@@ -52,7 +52,7 @@ struct SettingsUI: View {
                             VStack{
                                   
                                 HStack{
-                                  
+                                  //Using Binding extention
                                     Picker(selection: self.$selectedDensityIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
                                         ForEach(0 ..< self.densityValues.count) {
                                               Text(self.densityValues[$0])
@@ -81,8 +81,8 @@ struct SettingsUI: View {
                         VStack{
                                   
                                 HStack{
-                                  
-                                    Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
+                                  //Using Binding extention
+                                    Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
                                         ForEach(0 ..< self.schedulingAlgorithm.count) {
                                               Text(self.schedulingAlgorithm[$0])
                                             }
