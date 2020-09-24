@@ -1055,7 +1055,7 @@ class Core{
                                                             }
                                                             else{
                                                                 
-                                                                var workTimeToSchedule=asstimatedWorkTime
+                                                                var workTimeToSchedule=freeSpace.duration
                                                                 var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: freeSpace.duration)
                                                                 let oneMinute=Hour(context: managedContext)
                                                                     oneMinute.hour=0
@@ -1075,7 +1075,7 @@ class Core{
                                                             }
                                                             
                                                             
-                                                            newTask.endTime=newTask.startTime!.add(hour: freeSpace.duration)
+                                                            newTask.endTime=newTask.startTime!.add(hour: newTask.asstimatedWorkTime)
                                                             
                                                             
                                                                 print("asstimatedWorkTime")
@@ -1131,7 +1131,7 @@ class Core{
                                                               }
                                                               else{
                                                                   
-                                                                  var workTimeToSchedule=asstimatedWorkTime
+                                                                  var workTimeToSchedule=freeSpace.duration
                                                                   var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: freeSpace.duration)
                                                                   let oneMinute=Hour(context: managedContext)
                                                                       oneMinute.hour=0
@@ -1150,7 +1150,7 @@ class Core{
                                                                   
                                                               }
                                                                
-                                                               newTask.endTime=newTask.startTime!.add(hour: freeSpace.duration)
+                                                               newTask.endTime=newTask.startTime!.add(hour: newTask.asstimatedWorkTime)
                                                               
                                                             
                                                             print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
@@ -1224,6 +1224,9 @@ class Core{
                                                     
                                                     if(!newTask.endTime!.isEqual(newHour: freeSpace.ending))
                                                     {//Handle deletion of old freeSpace and handling the new window of freeSpace
+                                                        print("Reached!!")
+                                                        print(String(newTask.endTime!.hour)+":"+String(newTask.endTime!.minutes))
+                                                        print(String(freeSpace.ending.hour )+":"+String(freeSpace.ending.minutes))
                                                         let durationCalc=freeSpace.ending.subtract(newHour: newTask.endTime!)
                                                        
                                                         print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
