@@ -35,31 +35,32 @@ struct TaskList: View {
     
     var body: some View {
 
+       GeometryReader{geometry in
   
             ScrollView{
                 
-                
+               
               
                      ZStack{
                               
                               HStack{
                                
-
+                                    Spacer()
                                         
-                                Picker(selection: self.$dayIndexSelector.onUpdate(GetTasksByChoise), label:Text("")) {
+                                Picker(selection: self.$dayIndexSelector.onUpdate(self.GetTasksByChoise), label:Text("")) {
                                                   ForEach(self.dayNames ,id:\.self) { day in
                                                     
-                                                    Text(day).font(Font.custom("Chalkduster", size: 30)).tag(Int(self.dayNames.firstIndex(of: day)!))
+                                                    Text(day).font(Font.custom("Baskerville-SemiBoldItalic", size: 30)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0).frame(width:200)).foregroundColor(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.black)
                                                   }
                                                                                .labelsHidden()
                                                                      
-                                            }.pickerStyle(WheelPickerStyle()).padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 50))
+                                    }.pickerStyle(WheelPickerStyle()).padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 0)).frame(width:geometry.size.width/5)
 
                                         
                                 //  Text("All Tasks").font(Font.custom("Chalkduster", size: 30)).fontWeight(.bold).font(.title).padding(EdgeInsets(top: -100, leading: 5, bottom: 0, trailing: 0))
                                 
                                 //  Divider().foregroundColor(taskViewModel.getTaskColor(task: allTasks[0])).frame(height:10).background(taskViewModel.getTaskColor(task: allTasks[0]))
-                                
+                                Spacer()
                                                               }
                               
                               RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350)
@@ -67,8 +68,8 @@ struct TaskList: View {
                           }
                 
                  
-                   
-                ForEach(taskViewModel.allTasks, id: \.self) { task in
+                    
+                    ForEach(self.taskViewModel.allTasks, id: \.self) { task in
                     VStack{
                        /* NavigationLink(destination: DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes!, asstimatedWorkTimeHour: task.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes,day:task.date.day,month:task.date.month,year:task.date.year,taskId:task.id,color:self.taskViewModel.getTaskColor(task:task))){*/
                         if(self.taskViewModel.allTasks.firstIndex(of: task) != self.taskViewModel.allTasks.count-1)
@@ -105,15 +106,19 @@ struct TaskList: View {
                              
                 }
                 
-                if(taskViewModel.allTasks.isEmpty && dayIndexSelector == 0)
+               
+                      
+                     
+                    if(self.taskViewModel.allTasks.isEmpty && self.dayIndexSelector == 0)
                 {
                     
-                    Text("No Tasks Have Been Scheduled...").fontWeight(.bold).font(.title).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:400)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:400)).padding().animation(.default)
+                    Text("No Tasks Have Been Scheduled...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).padding().animation(.default)
                 }
-                else if(taskViewModel.allTasks.isEmpty){
+                else if(self.taskViewModel.allTasks.isEmpty){
                     
-                    Text("No Tasks Have Been Scheduled for this day ...").fontWeight(.bold).font(.title).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:400)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:400)).padding().animation(.default)
+                    Text("No Tasks Have Been Scheduled for this day ...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).padding().animation(.default)
                 }
+                      
                 //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
                         
                         
@@ -125,9 +130,10 @@ struct TaskList: View {
                                     }) {
                                             Text("Retrieve")
                                         }*/
+               
                 
-            }.background(Color(hex:"#fcfcfc")).animation(.easeInOut(duration: 0.5))
-        
+            }.background(Color(hex:"#fcfcfc")).animation(.easeInOut(duration: 0.5)).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
+        }
         /*.onAppear{//self.taskViewModel.retrieveAllTasks()
                // self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
             }*//*.background(    LinearGradient(

@@ -121,7 +121,7 @@ struct AddTask: View {
                                                }
                                                                              //.labelsHidden()
                                                                   
-                                     }.frame(width: geometry.size.width / 1.4,height:190).pickerStyle(WheelPickerStyle()).animation(.default)
+                                     }.frame(width: geometry.size.width / 5,height:190).pickerStyle(WheelPickerStyle()).animation(.default)
                                      Spacer()
                                  }
                                  //.frame(width:800).padding(EdgeInsets(top: 0, leading: -50, bottom: 0, trailing: 0))

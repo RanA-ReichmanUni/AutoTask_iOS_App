@@ -107,7 +107,7 @@ struct ScheduleViewRow: View {
 
 
             }
-        }.onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.default)
+        }.onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.easeInOut(duration: 0.5))
     }
 }
 

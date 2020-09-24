@@ -79,7 +79,7 @@ struct TestTaskRow: View {
           
             
                 
-        }
+    }.animation(.easeInOut(duration: 0.5))
         
     }
 }
