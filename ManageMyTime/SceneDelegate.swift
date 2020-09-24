@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tempNavigator = TempNavigator().environment(\.managedObjectContext, context).environmentObject(taskViewModel)
         let tableTestD = TableTestD().environment(\.managedObjectContext, context)
          let mainUI = MainUI().environment(\.managedObjectContext, context)
-        let source = Source().environment(\.managedObjectContext, context)
+        
        let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
       
         // Use a UIHostingController as window root view controller.

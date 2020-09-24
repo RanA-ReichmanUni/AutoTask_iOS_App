@@ -32,8 +32,11 @@ class RestrictedSpaceViewModel : ObservableObject
         return colorArray[0]
         
     }
-    
-    func CreateRestrictedSpace(startTimeHour:String,startTimeMinutes:String,endTimeHour:String,endTimeMinutes:String,dayOfTheWeek:String,difficulty:String) throws
+    func getRestrictedSpaceColor (restrictedSpace:RestrictedSpace) -> Color
+    {
+       return restrictedSpaceModel.getRestrictedSpaceColor(restrictedSpace:restrictedSpace)
+    }
+    func CreateRestrictedSpace(name:String,color:Color,startTimeHour:String,startTimeMinutes:String,endTimeHour:String,endTimeMinutes:String,dayOfTheWeek:String,difficulty:String) throws
     {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -50,7 +53,7 @@ class RestrictedSpaceViewModel : ObservableObject
         endTime.minutes=Int(endTimeMinutes) ?? 0
         
         do{
-            try restrictedSpaceModel.CreateRestrictedSpace(startTime: startTime, endTime: endTime, dayOfTheWeek: dayOfTheWeek,difficulty:difficulty)
+            try restrictedSpaceModel.CreateRestrictedSpace(name:name,color:color.description,startTime: startTime, endTime: endTime, dayOfTheWeek: dayOfTheWeek,difficulty:difficulty)
         }
         catch RestrictedSpaceError.alreadyScheduled {
             throw RestrictedSpaceError.alreadyScheduled

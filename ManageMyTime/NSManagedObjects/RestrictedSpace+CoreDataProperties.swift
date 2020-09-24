@@ -2,7 +2,7 @@
 //  RestrictedSpace+CoreDataProperties.swift
 //  ManageMyTime
 //
-//  Created by רן א on 17/09/2020.
+//  Created by רן א on 24/09/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
@@ -18,8 +18,10 @@ extension RestrictedSpace {
     }
 
     @NSManaged public var dayOfTheWeek: String
-    @NSManaged public var id: UUID
     @NSManaged public var difficulty: String
+    @NSManaged public var id: UUID
+    @NSManaged public var name: String
+    @NSManaged public var color: String
     @NSManaged public var endTime: Hour
     @NSManaged public var startTime: Hour
 

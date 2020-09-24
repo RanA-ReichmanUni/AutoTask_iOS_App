@@ -41,7 +41,7 @@ struct CardTaskRow: View {
  
     var internalId:UUID
     var isClickable:Bool
-    
+     var geometry:GeometryProxy
     var body: some View {
            
         ZStack(alignment: .leading) {

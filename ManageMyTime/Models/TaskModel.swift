@@ -345,7 +345,7 @@ class TaskModel : UIViewController
             endTime.hour=15
             endTime.minutes=0
         
-        createRestrictedSpace(startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday",difficulty:"average")
+        createRestrictedSpace(name:"TextFill",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday",difficulty:"average")
         
         
         let startTime2=Hour(context: managedContext)
@@ -375,7 +375,7 @@ class TaskModel : UIViewController
                    endTime4.hour=13
                    endTime4.minutes=0
                
-              createRestrictedSpace(startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
+              createRestrictedSpace(name:"TextFill2",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -452,7 +452,7 @@ class TaskModel : UIViewController
         }
     }
     
-    func createRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String)
+    func createRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String)
     {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -501,7 +501,8 @@ class TaskModel : UIViewController
             restrictedSpace.dayOfTheWeek=dayOfTheWeek
             restrictedSpace.id=UUID()
             restrictedSpace.difficulty=difficulty
-            
+            restrictedSpace.name=name
+            restrictedSpace.color=color
           //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
 
             do {

@@ -33,7 +33,7 @@ struct AddRestrictedSpace: View {
     @State var selectedDate = Date()
   
    var disableSave: Bool {
-         (Int(fromSelection[0]) ?? 0 > Int(toSelection[0]) ?? 0 || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0 && Int(fromSelection[1]) ?? 0 > Int(toSelection[1]) ?? 0) || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0  && Int(fromSelection[1]) ?? 0 == Int(toSelection[1]) ?? 0))
+         (taskName == "" || (Int(fromSelection[0]) ?? 0 > Int(toSelection[0]) ?? 0 || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0 && Int(fromSelection[1]) ?? 0 > Int(toSelection[1]) ?? 0) || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0  && Int(fromSelection[1]) ?? 0 == Int(toSelection[1]) ?? 0)))
     }
     
     var body: some View {
@@ -55,8 +55,11 @@ struct AddRestrictedSpace: View {
                         
                           }) {*/
                             HStack{
+                                
+                                 Image(systemName:"textbox").foregroundColor(.blue).padding(.leading,5)
+                                Text("Activity Name")
                                 Spacer()
-                                TextField("Activity Name (Optional)", text: self.$taskName).frame(width:200).background(Color.white)
+                                TextField("Type Here", text: self.$taskName).frame(minWidth: 1, idealWidth: 300, maxWidth: 400, minHeight: 1, idealHeight: 40, maxHeight: 50, alignment: .center).foregroundColor(Color.red).background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
                             Spacer()
                             }.padding(10)
                             Section(header: HStack {
@@ -65,15 +68,16 @@ struct AddRestrictedSpace: View {
                                 
                             })
                             {
-                            VStack {
+                            HStack {
                                
                                
                                 Picker(selection: self.$selectedDayValuesIndex, label: Text("")) {
                                     ForEach(0 ..< self.dayNameValues.count) {
-                                         Text(self.dayNameValues[$0])
+                                        Text(" "+self.dayNameValues[$0]+" ").background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.selectedDayValuesIndex==self.dayNameValues.firstIndex(of: self.dayNameValues[$0])  ? 1 : 0)).foregroundColor(self.selectedDayValuesIndex==self.dayNameValues.firstIndex(of: self.dayNameValues[$0]) ? Color.white : Color.blue)
                                        }
-                                }.frame(height: 110).padding() .frame(width: geometry.size.width / 1.5,height:190).pickerStyle(WheelPickerStyle()).clipped()
-                            }.background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
+                                }.padding() .frame(minWidth: 1, idealWidth: 100, maxWidth: 150, minHeight: 50, idealHeight: 200, maxHeight: 300, alignment: .center).pickerStyle(WheelPickerStyle()).clipped().background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
+                            }
+                                
                 }
                             Spacer()
                             
@@ -124,7 +128,7 @@ struct AddRestrictedSpace: View {
          
                         
                             do{
-                                try self.restrictedSpaceViewModel.CreateRestrictedSpace(startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , dayOfTheWeek: self.dayNameValues[self.selectedDayValuesIndex],difficulty:"average")
+                                try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:Color.green,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , dayOfTheWeek: self.dayNameValues[self.selectedDayValuesIndex],difficulty:"average")
                             }
                             catch RestrictedSpaceError.alreadyScheduled{
                                 
@@ -151,7 +155,7 @@ struct AddRestrictedSpace: View {
             //}
         }
         }.navigationBarTitle("New Persosnal Activity",displayMode: .inline)
-        .background(Color(hex:"#fcfcfc"))
+        .background(Color(hex:"#f9f9f9"))
         
         /*.background(    LinearGradient(
             gradient: Gradient(colors: [Color(hex:"#fcfcfc"),Color(hex:"#fcfcfc")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/

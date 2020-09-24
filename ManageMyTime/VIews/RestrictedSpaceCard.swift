@@ -22,10 +22,12 @@ struct RestrictedSpaceCard: View {
 
     var id:UUID
     var color:Color
+    var name:String
     @State var padding:CGFloat=0
     @State var displayItem=false
     @State var height:CGFloat=370
     @State var paddingBottom:CGFloat=15
+    
     //@Binding var position:CGFloat
     
  
@@ -69,6 +71,18 @@ struct RestrictedSpaceCard: View {
                            }
                         Spacer()
                         VStack{
+                            HStack{
+                                 // Spacer()
+                                  Text(self.name)
+                              .font(.system(size: 20))
+                              //.font(.headline)
+                             
+                              .fontWeight(.bold).padding(1)
+                                      .lineLimit(2).foregroundColor(.white)
+                              //.background(Capsule().fill(self.color))
+                              //.padding(.bottom, 2)
+                                 Spacer()
+                              }.padding(.bottom,7)
                            HStack{
                                // Spacer()
                                 Text(self.dayOfTheWeek)

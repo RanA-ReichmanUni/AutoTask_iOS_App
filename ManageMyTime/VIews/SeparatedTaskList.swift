@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-
+/*
 struct SeparatedTaskList: View {
     
     //var taskData : Task
@@ -70,4 +70,5 @@ struct SeparatedTaskList: View {
         TaskList(taskViewModel:taskViewModel)
     }
 }
+*/
 */

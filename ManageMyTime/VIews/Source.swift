@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Source: View {
+/*struct Source: View {
     
     @State var showMenu = false
     @State var showWeeklySchedule=false
@@ -31,8 +31,8 @@ struct Source: View {
             
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-                    MainView(showMenu: self.$showMenu,showWeeklySchedule:self.$showWeeklySchedule,showTesting:self.$showTesting, showTasks: self.$showTasks, taskViewModel: self.taskViewModel).onAppear{self.taskViewModel.retrieveAllTasks()}
-                        .frame(width: geometry.size.width, height: geometry.size.height).overlay(
+                   // MainView(showMenu: self.$showMenu,showWeeklySchedule:self.$showWeeklySchedule,showTesting:self.$showTesting, showTasks: self.$showTasks, taskViewModel: self.taskViewModel).onAppear{self.taskViewModel.retrieveAllTasks()}
+                      //  .frame(width: geometry.size.width, height: geometry.size.height).overlay(
                             HStack{
                                 MenuView(showWeeklySchedule:self.$showWeeklySchedule,showTesting:self.$showTesting, showMenu: self.$showMenu, showTasks: self.$showTasks)
                                 .frame(width: geometry.size.width/2,alignment: .leading)
@@ -63,7 +63,7 @@ struct Source: View {
     }
 }
 
-struct MainView: View {
+/*struct MainView: View {
     
     @Binding var showMenu: Bool
     @Binding var showWeeklySchedule:Bool
@@ -100,3 +100,5 @@ struct Source_Previews: PreviewProvider {
         ContentView()
     }
 }
+*/
+*/

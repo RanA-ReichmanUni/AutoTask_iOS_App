@@ -67,7 +67,7 @@ struct MainUI2: View {
                      if(self.listFlag)
                      {
                         
-                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex)
+                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
                      }
                      else if (self.addTaskFlag)
                      {
@@ -93,7 +93,7 @@ struct MainUI2: View {
                     }
                      else{
                           
-                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex)
+                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
                     }
             }
                 
@@ -220,7 +220,7 @@ struct MainUI2: View {
     
       // Spacer()
         }.padding(.bottom,-25)
-        .background(Color(hex:"#fcfcfc").opacity(0.1))/*.background(    LinearGradient(
+        .background(Color(hex:"#f9f9f9").opacity(0.1))/*.background(    LinearGradient(
         gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                  //self.color,.purple,.purple,.purple
                     startPoint: .bottomLeading,

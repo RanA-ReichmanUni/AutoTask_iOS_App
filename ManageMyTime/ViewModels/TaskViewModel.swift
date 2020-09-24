@@ -648,7 +648,7 @@ class TaskViewModel : ObservableObject
         self.UpdateAllTasks()
          self.GetDayTasksByIndex(index: latestDayChoiseIndex)//In order to update the published task array after deletion
     }
-    
+
     func getTask(taskId:UUID)
     {
         

@@ -26,7 +26,7 @@ struct TaskList: View {
     var dayNames = [" All Tasks "," Sunday "," Monday "," Tuesday "," Wednesday "," Thursday "," Friday "," Saturday "]
     @State var show:Bool=false
     @State var dayIndexSelector:Int=0
-    
+    var geometry:GeometryProxy
     private func GetTasksByChoise() {
             
         taskViewModel.GetDayTasksByIndex(index: dayIndexSelector)
@@ -76,7 +76,7 @@ struct TaskList: View {
                         {
                             if(self.show)//Implemented lazyLoading of list cards,tremendous performance upgrade
                               {
-                                CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:true).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onDisappear{self.show=false}
+                                CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:true,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onDisappear{self.show=false}
                             }
                               else{
                                  RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.show=true}//When reaching exchange the placeholder with real card
@@ -87,7 +87,7 @@ struct TaskList: View {
                         }
                         else{
                                
-                                 CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:false).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onAppear{
+                                 CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:false,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onAppear{
                                          self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex
                                  }
                             
@@ -118,11 +118,11 @@ struct TaskList: View {
                     if(self.taskViewModel.allTasks.isEmpty && self.dayIndexSelector == 0)
                 {
                     
-                    Text("No Tasks Have Been Scheduled...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).padding().animation(.default)
+                    Text("No Tasks Have Been Scheduled...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding().animation(.default)
                 }
                 else if(self.taskViewModel.allTasks.isEmpty){
                     
-                    Text("No Tasks Have Been Scheduled for this day ...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/6)).padding().animation(.default)
+                        Text("No Tasks Have Been Scheduled for this day ...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding().animation(.default)
                 }
                       
                 //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))

@@ -37,10 +37,10 @@ struct TempNavigator: View {
                 }*/
             
                 //previously we didn't pass the taskViewModel
-            NavigationLink(destination:TaskList(taskViewModel:taskViewModel,dayIndexSelector: taskViewModel.latestDayChoiseIndex)){
+          /*  NavigationLink(destination:TaskList(taskViewModel:taskViewModel,dayIndexSelector: taskViewModel.latestDayChoiseIndex)){
                                  
                     Text("All Tasks")
-                }
+                }*/
             
                 /*NavigationLink(destination:AddTask()){
                                                         

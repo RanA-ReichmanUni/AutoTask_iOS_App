@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
+import SwiftUI
 
 enum RestrictedSpaceError: Error {
         case alreadyScheduled
@@ -66,7 +67,34 @@ class RestrictedSpaceModel : UIViewController
         
         
     }
-    
+    func getRestrictedSpaceColor (restrictedSpace:RestrictedSpace) -> Color
+       {
+           if(restrictedSpace.color.hasPrefix("#"))
+           {
+               return Color(hex:restrictedSpace.color)
+           }
+           
+           switch restrictedSpace.color.lowercased() {
+           case "red":
+               return Color(.systemRed)
+           case "teal":
+               return Color(.systemTeal)
+           case "green":
+               return Color(.systemGreen)
+           case "orange":
+               return Color(.systemOrange)
+           case "pink":
+               return Color(.systemPink)
+           case "blue":
+               return Color.blue
+           case "indigo":
+               return Color(.systemIndigo)
+           default:
+               return Color(.systemTeal)
+           }
+           
+           
+       }
     func CheckEmptyRestrictedAndFreeSpace(date:CustomDate) -> Bool
       {
 
@@ -191,7 +219,7 @@ class RestrictedSpaceModel : UIViewController
           
       }
     
-    func CreateRestrictedSpace(startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String) throws
+    func CreateRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String) throws
        {
            
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -240,7 +268,8 @@ class RestrictedSpaceModel : UIViewController
                restrictedSpace.dayOfTheWeek=dayOfTheWeek
                restrictedSpace.id=UUID()
                restrictedSpace.difficulty=difficulty
-            
+               restrictedSpace.name=name
+               restrictedSpace.color=color
              //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
 
                do {

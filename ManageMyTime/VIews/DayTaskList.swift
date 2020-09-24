@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct DayTaskList: View {
+/*struct DayTaskList: View {
     
     //var taskData : Task
    // var taskViewModel = TaskViewModel()
@@ -145,3 +145,4 @@ extension Double {
         return Double(arc4random()) / Double(UInt32.max)
     }
 }
+*/
