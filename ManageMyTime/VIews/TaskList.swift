@@ -15,7 +15,7 @@ struct TaskList: View {
    // var taskViewModel = TaskViewModel()
     
     
-    @ObservedObject var taskViewModel:TaskViewModel//previously it was @EnvironmentObject
+    @ObservedObject var taskViewModel=TaskViewModel()//previously it was @EnvironmentObject
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @Environment(\.colorScheme) var colorScheme
@@ -23,7 +23,7 @@ struct TaskList: View {
     @State private var offset: CGFloat = 0
      @State private var padding: CGFloat = 0
     var helper = HelperFuncs()
-    var dayNames = ["All Tasks","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    var dayNames = [" All Tasks "," Sunday "," Monday "," Tuesday "," Wednesday "," Thursday "," Friday "," Saturday "]
     
     @State var dayIndexSelector:Int=0
     
@@ -50,7 +50,7 @@ struct TaskList: View {
                                 Picker(selection: self.$dayIndexSelector.onUpdate(self.GetTasksByChoise), label:Text("")) {
                                                   ForEach(self.dayNames ,id:\.self) { day in
                                                     
-                                                    Text(day).font(Font.custom("Baskerville-SemiBoldItalic", size: 30)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0).frame(width:200)).foregroundColor(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.black)
+                                                    Text(day).font(Font.custom("Baskerville-SemiBoldItalic", size: 30)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0)).foregroundColor(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.black)
                                                   }
                                                                                .labelsHidden()
                                                                      
@@ -102,7 +102,7 @@ struct TaskList: View {
                        // }
                         
                      
-                        }
+                        }.animation(.easeInOut(duration: 0.5))
                              
                 }
                 
@@ -132,7 +132,7 @@ struct TaskList: View {
                                         }*/
                
                 
-            }.background(Color(hex:"#fcfcfc")).animation(.easeInOut(duration: 0.5)).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
+            }.background(Color(hex:"#fcfcfc")).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
         }
         /*.onAppear{//self.taskViewModel.retrieveAllTasks()
                // self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button

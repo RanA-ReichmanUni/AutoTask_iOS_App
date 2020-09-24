@@ -75,8 +75,9 @@ class TaskViewModel : ObservableObject
     
     @Published var latestDayChoiseIndex:Int
     
-    
+    private var didInit:Bool
   
+    private var absoluteAllTasks:[Task]
     
     var taskModel = TaskModel()
     
@@ -106,6 +107,8 @@ class TaskViewModel : ObservableObject
         date=CustomDate(context: managedContext)
         firstTaskColor=Color.white
         latestDayChoiseIndex=0
+        didInit=false
+        absoluteAllTasks=[Task]()
         asstimatedWorkTime.hour=0
         asstimatedWorkTime.minutes=0
         startTime.hour=0
@@ -326,11 +329,29 @@ class TaskViewModel : ObservableObject
     
     func retrieveAllTasks()
     {
-        
-        allTasks=taskModel.retrieveAllTasks()
-        
+        if(latestDayChoiseIndex != 0)//Case there is an update from the view, we should load the previous choise (if exsits) and the default all tasks scenerio
+        {
+            GetDayTasksByIndex(index:latestDayChoiseIndex)
+        }
+        else{
+            if(absoluteAllTasks.isEmpty)
+            {
+                absoluteAllTasks=taskModel.retrieveAllTasks()
+                allTasks=absoluteAllTasks
+            }
+            else{
+                allTasks=absoluteAllTasks
+            }
+        }
             
         
+        
+    }
+    
+    func UpdateAllTasks()
+    {
+        
+        absoluteAllTasks=taskModel.retrieveAllTasks()
         
     }
     
@@ -361,8 +382,9 @@ class TaskViewModel : ObservableObject
         
         switch index {
         case 0:
-            retrieveAllTasks()
             self.latestDayChoiseIndex=0
+            retrieveAllTasks()
+            
         case 1:
             self.latestDayChoiseIndex=1
             var dayName=DaysOfTheWeek.Sunday.rawValue.lowercased()
@@ -623,7 +645,8 @@ class TaskViewModel : ObservableObject
     func deleteTask(taskId : UUID){
     
         taskModel.deleteTask(taskId : taskId)
-         self.retrieveAllTasks()//In order to update the published task array after deletion
+        self.UpdateAllTasks()
+         self.GetDayTasksByIndex(index: latestDayChoiseIndex)//In order to update the published task array after deletion
     }
     
     func getTask(taskId:UUID)
