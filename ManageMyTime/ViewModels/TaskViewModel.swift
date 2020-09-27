@@ -209,11 +209,12 @@ class TaskViewModel : ObservableObject
         taskModel.intialValuesSetup()
         
     }
-    func setSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int)
+    func SetSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int,breakPeriodsIndex:Int)
     {
         
         var scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
         var scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
+        var breakPeriodsPick=breakPeriods.hourAndAHalf.rawValue
         
         switch scheduleAlgorithimIndex {
         case 0:
@@ -251,7 +252,25 @@ class TaskViewModel : ObservableObject
          }
         
         
-        self.taskModel.setSettingsValues(scheduleAlgorithim: scheduleAlgorithimPick, scheduleDensity: scheduleDensityPick)
+        switch breakPeriodsIndex {
+           case 0:
+              breakPeriodsPick=breakPeriods.fortyFiveMinutes.rawValue
+           case 1:
+              breakPeriodsPick=breakPeriods.hourAndAHalf.rawValue
+           case 2:
+              breakPeriodsPick=breakPeriods.twoHours.rawValue
+           case 3:
+              breakPeriodsPick=breakPeriods.threeHours.rawValue
+           case 4:
+              breakPeriodsPick=breakPeriods.fiveHours.rawValue
+           case 5:
+              breakPeriodsPick=breakPeriods.Continues.rawValue
+           default:
+               breakPeriodsPick=breakPeriods.hourAndAHalf.rawValue
+           }
+        
+        
+        self.taskModel.SetSettingsValues(scheduleAlgorithim: scheduleAlgorithimPick, scheduleDensity: scheduleDensityPick,breakPeriodsValue:breakPeriodsPick)
         
         
     }
@@ -263,7 +282,7 @@ class TaskViewModel : ObservableObject
         
         var scheduleAlgorithmPick=0
         var scheduleDensityPick=2
-        
+        var breakPeriodsPick=1
         
         
         switch settingsObject.scheduleAlgorithim {
@@ -301,8 +320,25 @@ class TaskViewModel : ObservableObject
                 scheduleDensityPick=2
             }
         
+        switch settingsObject.breakPeriods {
+                case breakPeriods.fortyFiveMinutes.rawValue:
+                   breakPeriodsPick=0
+                case breakPeriods.hourAndAHalf.rawValue:
+                   breakPeriodsPick=1
+                case breakPeriods.twoHours.rawValue:
+                   breakPeriodsPick=2
+                case breakPeriods.threeHours.rawValue:
+                   breakPeriodsPick=3
+                case breakPeriods.fiveHours.rawValue:
+                   breakPeriodsPick=4
+                case breakPeriods.Continues.rawValue:
+                   breakPeriodsPick=5
+                default:
+                    breakPeriodsPick=1
+                }
         
-        let settingsArray=[scheduleDensityPick,scheduleAlgorithmPick]
+        
+        let settingsArray=[scheduleDensityPick,scheduleAlgorithmPick,breakPeriodsPick]
         
         return settingsArray
         

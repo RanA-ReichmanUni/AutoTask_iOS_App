@@ -178,7 +178,7 @@ class TaskModel : UIViewController
                                 
                     settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                     settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
-                
+                    settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                 
                     do{
                           try managedContext.save()
@@ -230,7 +230,7 @@ class TaskModel : UIViewController
                         var settingsObject=SettingsEntity(context: managedContext)
                            settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                            settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
-                                   
+                           settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                         do{
                                try managedContext.save()
                               print("Updated !.")
@@ -252,7 +252,65 @@ class TaskModel : UIViewController
         
     }
     
-    
+    func SetSettingsValues(scheduleAlgorithim:String,scheduleDensity:String,breakPeriodsValue:String)
+     {
+         
+          //As we know that container is set up in the AppDelegates so we need to refer that container.
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
+          
+          //We need to create a context from this container
+          let managedContext = appDelegate.persistentContainer.viewContext
+          
+          //Prepare the request of type NSFetchRequest  for the entity
+          let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
+
+            
+       
+          do {
+              
+               let result = try managedContext.fetch(fetchRequest)
+           
+               if(!result.isEmpty)
+               {
+                
+                  
+                   var retrivedObject = result[0] as! NSManagedObject
+                   
+                      retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
+                      retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
+                        retrivedObject.setValue(breakPeriodsValue, forKey: "breakPeriods")
+                
+        
+               }
+               else{
+                  
+                  var settingsObject=SettingsEntity(context: managedContext)
+                  
+                      settingsObject.scheduleAlgorithim=scheduleAlgorithim
+                      settingsObject.scheduleDensity=scheduleDensity
+                      settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+              }
+              
+          } catch {
+              
+              print("Failed")
+          }
+  
+           do{
+                try managedContext.save()
+               print("Updated !.")
+            }
+            catch
+            {
+                print(error)
+            }
+
+      
+      
+      
+      
+         
+     }
     
     func setSettingsValues(scheduleAlgorithim:String,scheduleDensity:String)
        {
@@ -288,6 +346,7 @@ class TaskModel : UIViewController
                     
                         settingsObject.scheduleAlgorithim=scheduleAlgorithim
                         settingsObject.scheduleDensity=scheduleDensity
+                        settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                 }
                 
             } catch {

@@ -25,13 +25,13 @@ enum scheduleDensity:String {
 }
 
 
-enum taskIntervals:String {
+enum breakPeriods:String {
             
           case fortyFiveMinutes
           case hourAndAHalf
           case twoHours
           case threeHours
-        
+          case fiveHours
           case Continues
    
   }
@@ -280,8 +280,9 @@ class Core{
 
         
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return SpaceSection() }
-                  
-           let scheduleSection="hourAndAHalf"
+            let taskModel=TaskModel()
+            let scheduleSection=taskModel.getSettingsValues().breakPeriods
+        
            let managedContext = appDelegate.persistentContainer.viewContext
                   
            var hourSection = Hour(context: managedContext)
@@ -338,6 +339,18 @@ class Core{
                   
                      spaceSection.breakTime=breakSection
                      
+                    spaceSection.sectionWindow=hourSection
+            
+                case "fiveHours":
+                    taskSection=300
+                    hourSection.hour=5
+                    hourSection.minutes=0
+                          
+                    breakSection.hour=1
+                    breakSection.minutes=30
+                             
+                    spaceSection.breakTime=breakSection
+                                
                     spaceSection.sectionWindow=hourSection
             
                  case "Continues":

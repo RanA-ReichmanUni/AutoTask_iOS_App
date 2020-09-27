@@ -15,14 +15,18 @@ struct SettingsUI: View {
     var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Break","Classic 1:30 Hour Work Sections, 20 Minutes Break","2 Hours Work Sections, 30 Minutes Break","3 Hours Work Sections, 1 Hour Break","5 Hours Sections, 1:30 Hour Break","Continues With No Breaks"]
     @State var selectedDensityIndex = 2
     @State var selectedSchedulingAlgorithmIndex = 0
+    @State var selectedBreakPeriodsIndex = 1
+
     @Environment(\.colorScheme) var colorScheme
     var taskViewModel:TaskViewModel
-    
+    @State var showAlert=false
     private func SetSettings() {
            
-        taskViewModel.setSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex)
+        self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex)
+        self.showAlert=true
           
          }
+
     
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
@@ -48,34 +52,27 @@ struct SettingsUI: View {
                                 }
                             }
                            
-                                 
-                            
-                            VStack{
-                                  
-                                HStack{
-                                  //Using Binding extention
-                                    Picker(selection: self.$selectedDensityIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
-                                        ForEach(0 ..< self.densityValues.count) {
-                                              Text(self.densityValues[$0])
-                                            }
-                                    }
-                                 
-                                }
-                                    
-                            }
+          
+                         //Using Binding extention
+                           Picker(selection: self.$selectedDensityIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
+                               ForEach(0 ..< self.densityValues.count) {
+                                     Text(self.densityValues[$0])
+                                   }
+                           }
+                        
                                     
                                  
                             
                                  
                                 
                             
-                          VStack{
+                         VStack{
                                                  
                                    HStack{
                                      //Using Binding extention
-                                       Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
-                                           ForEach(0 ..< self.schedulingAlgorithm.count) {
-                                                 Text(self.schedulingAlgorithm[$0])
+                                    Picker(selection: self.$selectedBreakPeriodsIndex.onUpdate(SetSettings), label: Text("Break Periods")) {
+                                           ForEach(0 ..< self.breakPeriods.count) {
+                                                 Text(self.breakPeriods[$0])
                                                }
                                        }
                                     
@@ -122,7 +119,17 @@ struct SettingsUI: View {
                     
   }
         
-        }.navigationViewStyle(StackNavigationViewStyle())//Forces all devices (intended for iPads which have a diffrent navigationView style) navigationView to act like on an iPhone.
+        }.alert(isPresented: self.$showAlert) {
+         
+     
+           return Alert(title: Text("Updated Successfully !"),
+                  message: Text("\nThe Changes Will Take Effect In Future Assignments."),
+                  dismissButton: .default(Text("OK")))
+     
+                     
+
+        }
+                .navigationViewStyle(StackNavigationViewStyle())//Forces all devices (intended for iPads which have a diffrent navigationView style) navigationView to act like on an iPhone.
                 
                 
                 /*.background(
@@ -139,6 +146,7 @@ struct SettingsUI: View {
             
             self.selectedDensityIndex=self.taskViewModel.getSettingsValues()[0]
             self.selectedSchedulingAlgorithmIndex=self.taskViewModel.getSettingsValues()[1]
+            self.selectedBreakPeriodsIndex=self.taskViewModel.getSettingsValues()[2]
         }
         
         

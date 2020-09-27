@@ -2,7 +2,7 @@
 //  SettingsEntity+CoreDataClass.swift
 //  ManageMyTime
 //
-//  Created by רן א on 18/09/2020.
+//  Created by רן א on 27/09/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
