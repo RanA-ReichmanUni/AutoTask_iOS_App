@@ -346,6 +346,8 @@ class TaskModel : UIViewController
             endTime.minutes=0
         
         createRestrictedSpace(name:"TextFill",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday",difficulty:"average")
+         createRestrictedSpace(name:"Basketball",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Thursday",difficulty:"average")
+        createRestrictedSpace(name:"Studies At Unvirsity",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Friday",difficulty:"average")
         
         
         let startTime2=Hour(context: managedContext)
@@ -372,10 +374,12 @@ class TaskModel : UIViewController
                    startTime4.hour=11
                    startTime4.minutes=0
                let endTime4=Hour(context: managedContext)
-                   endTime4.hour=13
+                   endTime4.hour=17
                    endTime4.minutes=0
                
               createRestrictedSpace(name:"TextFill2",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
+          createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Wednesday",difficulty:"average")
+          createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Sunday",difficulty:"average")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -1129,7 +1133,7 @@ class TaskModel : UIViewController
               let endOfDay=24
           
               //As we know that container is set up in the AppDelegates so we need to refer that container.
-              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+              let appDelegate = UIApplication.shared.delegate as! AppDelegate
               
               //We need to create a context from this container
               let managedContext = appDelegate.persistentContainer.viewContext
@@ -1137,7 +1141,7 @@ class TaskModel : UIViewController
               //Prepare the request of type NSFetchRequest  for the entity
               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
          
-              fetchRequest.predicate = NSPredicate(format: "date.year >= %@ ", argumentArray: [Date().year])
+              fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND isTaskBreakWindow = %@", argumentArray: [Date().year,false])
                   
               let nextHour = Hour(context: managedContext)
                   nextHour.hour=hour+1
@@ -1572,6 +1576,48 @@ class TaskModel : UIViewController
          }
     
      }
+    
+    
+    func UpdateData(id : UUID,newTaskName : String, newNotes : String,color:String ){
+      
+          //As we know that container is set up in the AppDelegates so we need to refer that container.
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+          
+          //We need to create a context from this container
+          let managedContext = appDelegate.persistentContainer.viewContext
+          
+          let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
+          fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+          do
+          {
+              let requiredTask = try managedContext.fetch(fetchRequest)
+     
+                  let objectUpdate = requiredTask[0] as! NSManagedObject
+                  objectUpdate.setValue(newTaskName, forKey: "taskName")
+                 // objectUpdate.setValue("newImportance", forKey: "importance")
+                  //objectUpdate.setValue(newAsstimatedWorkTime, forKey: "asstimatedWorkTime")
+                  //objectUpdate.setValue(newDueDate, forKey: "dueDate")
+                  objectUpdate.setValue(newNotes, forKey: "notes")
+                  objectUpdate.setValue(color, forKey: "color")
+
+                
+    
+                  do{
+                      try managedContext.save()
+                     print("Updated !.")
+                  }
+                  catch
+                  {
+                      print(error)
+                  }
+              }
+          catch
+          {
+              print(error)
+          }
+     
+      }
+     
     
     func deleteTask(taskId : UUID){
         

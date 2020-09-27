@@ -17,13 +17,15 @@ struct WeeklyRegular: View {
     var geometry:GeometryProxy
     var widthFactor:CGFloat
     var heightFactor:CGFloat
+    @State var show=false
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack(spacing:4){
-            WeeklyTasksPotrait(timeChar:String(timeChar),hourTasks: hourTasks).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor).padding(EdgeInsets(top: 2, leading: 1, bottom: 1, trailing: 1))
- 
-                    Divider().background(self.colorScheme == .dark ? Color.orange : Color.gray)//.padding(EdgeInsets(top: 2, leading: 20, bottom: 1, trailing: 1))
+        
+                WeeklyTasksPotrait(timeChar:String(timeChar),hourTasks: hourTasks).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor).padding(EdgeInsets(top: 2, leading: 1, bottom: 1, trailing: 1))
+         
+                Divider().background(self.colorScheme == .dark ? Color.orange : Color.gray)//.onAppear{self.show=true}//.padding(EdgeInsets(top: 2, leading: 20, bottom: 1, trailing: 1))
         }
     }
 }

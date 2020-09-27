@@ -51,6 +51,8 @@ struct ScheduleViewRow: View {
                     }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)*/
                 }
                 HStack(spacing:4){
+                if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).contains(where: {!$0.isEmptySlot}))
+                 {
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
                     {
                         weekByHour in
@@ -61,8 +63,9 @@ struct ScheduleViewRow: View {
                             Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
                             }*/
                            // Text(geometry.size.width.description)
-                         
-                            ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry).listRowBackground(Color.green)
+                          
+                                ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry).listRowBackground(Color.green)
+                            
                         }
                           //  WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame(height:  geometry.size.height*0.098)
                             
@@ -70,6 +73,7 @@ struct ScheduleViewRow: View {
                             
                           
                         }
+                }
                         
                         
                 }

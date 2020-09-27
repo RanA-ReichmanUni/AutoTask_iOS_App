@@ -31,6 +31,7 @@ enum taskIntervals:String {
           case hourAndAHalf
           case twoHours
           case threeHours
+        
           case Continues
    
   }

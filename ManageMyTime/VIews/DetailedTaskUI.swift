@@ -57,17 +57,18 @@ struct DetailedTaskUI: View {
 
                  VStack(spacing:0){
                          Text("Finished ")
-                         Toggle(isOn: $isActive) {
+                    Toggle(isOn: $isActive.onUpdate {
+                         self.taskViewModel.completedToggle(tasdkId: self.taskId)
+                                                   self.completed.toggle()
+                    }) {
                                                                           Text("sdgsddsh")
                                         
-                         }.onTapGesture {
-                            self.taskViewModel.completedToggle(tasdkId: self.taskId)
-                            self.completed.toggle()
-                         }.labelsHidden()
+                         }
+                         .labelsHidden()
                  }.onAppear{self.isActive=self.completed}
              }
    
-            Spacer()
+           // Spacer()
               Button(action: {
                                                       
                    
@@ -117,7 +118,7 @@ struct DetailedTaskUI: View {
                      
                  }
             
-           // Spacer()
+            Spacer()
           
            
           }.padding().background(self.color.opacity(0))

@@ -53,13 +53,7 @@ struct DetailedTask: View {
                
                 }*/
                 
-                VStack{
-                    
-                    Image(systemName: "doc.text")
-                                           .resizable()
-                                           .frame(width: 50, height: 50)
-                                           .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
-                }
+     
                 HStack {
                     
                     Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
@@ -67,13 +61,7 @@ struct DetailedTask: View {
                     
                 }
                 
-                HStack {
-                                 
-                    Text("Id: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    Text(taskId.uuidString).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                                 
-                }
-            
+    
             
               
                 HStack {
@@ -98,7 +86,7 @@ struct DetailedTask: View {
                 
                 HStack {
                     Text("Note: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width:180,height:200)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
                 
                 HStack {

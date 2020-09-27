@@ -33,8 +33,7 @@ struct TaskUnitPotrait: View {
                              //geometry.size.width seems to be relative to what ever exsits on the eidth axis, if it's empty, then it's all the screen width, if there something, then it's becomes relative
                              //rowHeight is as calculated above
         
-                if(self.show)
-                {
+             
                      Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor.opacity(Double(self.opacity))).overlay(
                          RoundedRectangle(cornerRadius: 5)
                              .stroke(self.borderColor,style: StrokeStyle(lineWidth: 1, dash: [self.dashCount]))
@@ -52,10 +51,7 @@ struct TaskUnitPotrait: View {
                                     }
                  
                          }
-                }
-              else{//DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                Spacer().onAppear{ self.show=true}
-            }
+          
                 
                  }
                          .sheet(isPresented: self.$displayItem) {

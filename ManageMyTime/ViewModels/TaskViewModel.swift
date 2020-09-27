@@ -353,6 +353,11 @@ class TaskViewModel : ObservableObject
         
         absoluteAllTasks=taskModel.retrieveAllTasks()
         
+        if(latestDayChoiseIndex==0)
+        {
+            allTasks=absoluteAllTasks
+        }
+        
     }
     
     func RetrieveAllTasks() -> [Task]
@@ -640,6 +645,21 @@ class TaskViewModel : ObservableObject
         taskModel.updateData(orginalTaskName: orginalTaskName, newTaskName: newTaskName, newImportance: newImportance, newAsstimatedWorkTime: newAsstimatedWorkTime, newDueDate: newDueDate, newNotes: newNotes)
         
     }
+    
+    func UpdateData(id:UUID,newTaskName : String, newNotes : String,color:Color ){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+        
+
+        
+        taskModel.UpdateData(id: id, newTaskName: newTaskName, newNotes: newNotes, color: color.description)
+          
+      }
+    
+
     
     
     func deleteTask(taskId : UUID){

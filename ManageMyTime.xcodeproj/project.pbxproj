@@ -45,6 +45,7 @@
 		25419FC324C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25419FC124C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift */; };
 		2548847024FC0BEE005AF006 /* PreSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548846F24FC0BEE005AF006 /* PreSelector.swift */; };
 		2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558924B24D084F600346AC6 /* ListTextHourSelector.swift */; };
+		255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255BA0BF251FCA2F00207331 /* UpdateTask.swift */; };
 		255E5F12251A4B9A00AF3806 /* FirstRowGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E5F11251A4B9A00AF3806 /* FirstRowGen.swift */; };
 		2564A73524D728EE00B3C2BA /* StressDailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2564A73424D728EE00B3C2BA /* StressDailyView.swift */; };
 		2565CC6524AF7A070006BF97 /* TaskSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2565CC6424AF7A070006BF97 /* TaskSchedule.swift */; };
@@ -174,6 +175,7 @@
 		25419FC124C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayFreeSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2548846F24FC0BEE005AF006 /* PreSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSelector.swift; sourceTree = "<group>"; };
 		2558924B24D084F600346AC6 /* ListTextHourSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextHourSelector.swift; sourceTree = "<group>"; };
+		255BA0BF251FCA2F00207331 /* UpdateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTask.swift; sourceTree = "<group>"; };
 		255E5F11251A4B9A00AF3806 /* FirstRowGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRowGen.swift; sourceTree = "<group>"; };
 		2564A73424D728EE00B3C2BA /* StressDailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressDailyView.swift; sourceTree = "<group>"; };
 		2565CC6424AF7A070006BF97 /* TaskSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSchedule.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
 				25407EE624D71F3E003110E9 /* CircularBar.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
+				255BA0BF251FCA2F00207331 /* UpdateTask.swift */,
 				251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */,
 				251CDB2324EF0B3000026911 /* MainUI.swift */,
 				2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */,
@@ -675,6 +678,7 @@
 				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
+				255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */,
 				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
 				2591C8CD2518615900C39269 /* DayTaskList.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,

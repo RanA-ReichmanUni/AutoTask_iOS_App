@@ -18,13 +18,17 @@ struct WeeklyCompact: View {
     @State var blurEffect:CGFloat = 0
      @ObservedObject var taskViewModel = TaskViewModel()
     @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         
         HStack(spacing:4){
  
+       
             WeeklyTasksRow(timeChar:String(self.timeChar),hourTasks: self.hourTasks, taskViewModel: taskViewModel).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor)
-                                    
-            Divider().background(self.colorScheme == .dark ? Color.orange : Color.gray.opacity(0.1))//.padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
+            
+            
+            Divider().background(self.colorScheme == .dark ? Color.orange : Color.gray.opacity(0.1))
+            //.padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
             
         }
     }

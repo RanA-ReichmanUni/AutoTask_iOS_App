@@ -38,10 +38,11 @@ struct CardTaskRow: View {
     //@Binding var position:CGFloat
     @State var isActive=false
     @State private var showingAlert = false
- 
+    @State var showEditUI=false
     var internalId:UUID
     var isClickable:Bool
      var geometry:GeometryProxy
+    @State var windowType:Int=1
     var body: some View {
            
         ZStack(alignment: .leading) {
@@ -162,7 +163,8 @@ struct CardTaskRow: View {
                             Spacer()
                               Button(action: {
                                                                       
-                                   
+                                        self.displayItem=true
+                                        self.windowType=2
                                                                                                 
                                            }) {
                                             
@@ -235,34 +237,45 @@ struct CardTaskRow: View {
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
-            DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem, completed: self.$completed)/*.onTapGesture {
-                self.taskViewModel.getFirstTaskColor()
-                    self.displayItem=false
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                                   
-                                  
-                    withAnimation(.easeInOut(duration:1.2)) {  self.height=170
-                         self.paddingBottom=15
-                            self.padding = 0}
-                }
-                 
-            }*/.onDisappear{
-                self.taskViewModel.getFirstTaskColor()
-                                self.displayItem=false
-                                //self.padding = 0
+            if(self.windowType==1)
+            {
+                DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem, completed: self.$completed)/*.onTapGesture {
                     self.taskViewModel.getFirstTaskColor()
-                
-               
-                          
-                withAnimation(.easeInOut(duration:1.2)) {//self.height=170
-                                self.paddingBottom=15
-                                    self.padding = 0
-                                self.vStackPadding=5}
+                        self.displayItem=false
                     
-            }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                                       
+                                      
+                        withAnimation(.easeInOut(duration:1.2)) {  self.height=170
+                             self.paddingBottom=15
+                                self.padding = 0}
+                    }
+                     
+                }*/.onDisappear{
+                    self.taskViewModel.getFirstTaskColor()
+                                    self.displayItem=false
+                                    //self.padding = 0
+                        self.taskViewModel.getFirstTaskColor()
+                    
+                   
+                              
+                    withAnimation(.easeInOut(duration:1.2)) {//self.height=170
+                                    self.paddingBottom=15
+                                        self.padding = 0
+                                    self.vStackPadding=5}
+                        
+                }
                             
+            }
+            if(self.windowType==2)
+            {
                 
+                        
+                UpdateTask(taskViewModel: self.taskViewModel, taskName: self.taskName1, notes: self.notes, id: self.id,selectedColorIndex: self.color)
+                        
+                        
+                
+            }
             
         }.padding(EdgeInsets(top: padding, leading: 0, bottom: 0 , trailing: 0))
         .simultaneousGesture(TapGesture().onEnded{

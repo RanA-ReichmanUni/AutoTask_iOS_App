@@ -54,13 +54,18 @@ struct AddRestrictedSpace: View {
                         Text("New Occupied Space").font(.system(size: 18)).foregroundColor(.blue)
                         
                           }) {*/
-                            HStack{
+                            VStack{
                                 
+                                HStack{
                                  Image(systemName:"textbox").foregroundColor(.blue).padding(.leading,5)
                                 Text("Activity Name")
-                                Spacer()
-                                TextField("Type Here", text: self.$taskName).frame(minWidth: 1, idealWidth: 300, maxWidth: 400, minHeight: 1, idealHeight: 40, maxHeight: 50, alignment: .center).foregroundColor(Color.red).background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
-                            Spacer()
+                                }
+                                //Spacer()
+                                HStack{
+                                    Spacer()
+                                    TextField("Type Here", text: self.$taskName).frame(minWidth: 1, idealWidth: 300, maxWidth: 400, minHeight: 1, idealHeight: 40, maxHeight: 50, alignment: .center).foregroundColor(Color.red).background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
+                                        Spacer()
+                                }
                             }.padding(10)
                             Section(header: HStack {
                                 Image(systemName:"calendar").foregroundColor(.blue).padding(.leading,5)
