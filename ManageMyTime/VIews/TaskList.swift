@@ -108,7 +108,7 @@ struct TaskList: View {
                        // }
                         
                      
-                    }.animation(.ripple())
+                    }.animation(.easeInOut(duration:0.6))
                              
                 }
                 
