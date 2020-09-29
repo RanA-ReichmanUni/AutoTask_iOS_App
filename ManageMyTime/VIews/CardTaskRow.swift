@@ -32,7 +32,7 @@ struct CardTaskRow: View {
     @State var padding:CGFloat=0
     @State var displayItem=false
     @State var height:CGFloat=290
-    @State var paddingBottom:CGFloat=2
+    @State var paddingBottom:CGFloat = -60
     @State var vStackPadding:CGFloat = 0
     @State var lowerLinePadding:CGFloat=20
     //@Binding var position:CGFloat
@@ -43,6 +43,9 @@ struct CardTaskRow: View {
     var isClickable:Bool
      var geometry:GeometryProxy
     @State var windowType:Int=1
+    @State var overlayPadding:CGFloat = 2
+    @State var secondRowPadding:CGFloat = 20
+    
     var body: some View {
            
         ZStack(alignment: .leading) {
@@ -64,13 +67,13 @@ struct CardTaskRow: View {
                                     .lineLimit(2).foregroundColor(.white)
          
                                Spacer()
-                            }.padding(.top,vStackPadding)
+                            }.padding(.top,self.isClickable ? vStackPadding : 10)
                             
                        // Text("Due:"+dueDate1)
                             //.padding(.bottom, 5)
                 
                         HStack{
-                            CategoryPill(categoryName: "Scheduled to: "+self.scheduledDate,color:            LinearGradient(
+                            CategoryPill(categoryName: "Scheduled: "+self.scheduledDate,color:            LinearGradient(
                                 gradient: Gradient(colors: [self.color,self.color]),
                                                                                                          startPoint: .top,
                                                                                                          endPoint: .bottom
@@ -85,7 +88,7 @@ struct CardTaskRow: View {
                                                   startPoint: .topLeading,
                                                   endPoint: .bottomTrailing
                                               )
-                                     ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.1))
+                                     ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.5))
                                       
                             
                                        Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
@@ -105,7 +108,7 @@ struct CardTaskRow: View {
                                                startPoint: .topLeading,
                                                endPoint: .bottomTrailing
                                            )
-                                       ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.1))
+                                       ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.5))
                                    
                                  
                                        Text("\(self.endTimeHour)"+":"+"\(self.endTimeMinutes)")
@@ -118,12 +121,12 @@ struct CardTaskRow: View {
                                 
                            }
                                       
-                        }.padding(.top,lowerLinePadding)
+                        }.padding(.top,self.isClickable ? secondRowPadding : 2)
                             VStack{
                               
                             HStack{
                                 
-                                CategoryPill(categoryName: "Due: " + dueDate1,color:            LinearGradient(
+                                CategoryPill(categoryName: "Due Date: " + dueDate1,color:            LinearGradient(
                                                                gradient: Gradient(colors: [self.color,self.color]),
                                                                                                                                         startPoint: .top,
                                                                                                                                         endPoint: .bottom
@@ -134,15 +137,18 @@ struct CardTaskRow: View {
                                                                          startPoint: .top,
                                                                          endPoint: .bottom
                                                                      ))
-                                Spacer()
-                                  CategoryPill(categoryName: "Notes: " + notes,color: LinearGradient(
-                                                                              gradient: Gradient(colors: [self.color,self.color]),
-                                                                                   startPoint: .top,
-                                                                                   endPoint: .bottom
-                                                                               ))
+                          
                                 
-                            }.padding(.top,lowerLinePadding)
-            
+                            }.padding(.top,self.isClickable ? secondRowPadding : 2)
+                                HStack{
+                                   
+                                                                CategoryPill(categoryName: "Notes: " + notes,color: LinearGradient(
+                                                                                                            gradient: Gradient(colors: [self.color,self.color]),
+                                                                                                                 startPoint: .top,
+                                                                                                                 endPoint: .bottom
+                                                                                                             ))
+                                    Spacer()
+                                }.padding(.top,self.isClickable ? secondRowPadding : 2)
                         HStack{
                             
                      
@@ -222,7 +228,7 @@ struct CardTaskRow: View {
                     
                    
                    
-                .padding(EdgeInsets(top: 15, leading: 15, bottom: paddingBottom, trailing: 15)).frame(height:self.height) .background(
+                .padding(EdgeInsets(top: 15, leading: 15, bottom: self.isClickable ? paddingBottom : 2, trailing: 15)).frame(height:self.height) .background(
                     self.colorScheme == .dark ? ( LinearGradient(
                         gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
                         startPoint: .topTrailing,
@@ -233,7 +239,7 @@ struct CardTaskRow: View {
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
                       endPoint:.bottomTrailing
-                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height).padding(.bottom,paddingBottom)
+                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height).padding(.bottom,overlayPadding)
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
@@ -284,7 +290,7 @@ struct CardTaskRow: View {
          //self.height=400//Higher height settings: 400
             if(self.isClickable)
             {
-                if(self.paddingBottom == 100)
+                if(self.paddingBottom == 70)
                 {
                     
                         withAnimation(.easeInOut) {
@@ -298,10 +304,12 @@ struct CardTaskRow: View {
                     //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         withAnimation(.easeInOut) {
                             
-                            self.paddingBottom=2
+                            self.paddingBottom = -60
                             self.padding = 0
                             self.vStackPadding = 0
                            self.lowerLinePadding = 20
+                            self.overlayPadding=2
+                            self.secondRowPadding = 20
                      //   }
                     }
                 }
@@ -313,18 +321,22 @@ struct CardTaskRow: View {
                 
                 else{
                     withAnimation(.easeInOut) {
-                         self.paddingBottom=100//260
-                         self.padding = -98//-115
-                         self.vStackPadding = 119
-                         self.lowerLinePadding = 25
+                         self.paddingBottom=70//260
+                         self.padding = -96//-115
+                         self.vStackPadding = 120
+                         self.lowerLinePadding = 5
+                        //self.secondRowPadding = 25
+                        self.overlayPadding=98
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                            if(self.paddingBottom == 100)
+                            if(self.paddingBottom == 70)
                             {
                                 withAnimation(.easeInOut) {
-                                     self.vStackPadding = 30
-                                    self.lowerLinePadding = -1}
+                                     self.vStackPadding = 20
+                                    self.lowerLinePadding = -20
+                                    self.secondRowPadding = 2
+                                    }
                                 }
                             }
                                                      

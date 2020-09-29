@@ -12,7 +12,7 @@ struct SettingsUI: View {
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Extremly Dense","Maximum Capacity"]
     var schedulingAlgorithm = ["Smart - Least work stress, based on task difficulty and work time in combine.","Optimal - Least work time per day.","Advanced - Least work time per day, exclude personal activities.","Earliest","Latest - Near due"]
-    var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Break","Classic 1:30 Hour Work Sections, 20 Minutes Break","2 Hours Work Sections, 30 Minutes Break","3 Hours Work Sections, 1 Hour Break","5 Hours Sections, 1:30 Hour Break","Continues With No Breaks"]
+    var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Break","Classic 1:30 Hour Work Sections, 20 Minutes Break","2 Hours Work Sections, 30 Minutes Break","3 Hours Work Sections, 1 Hour Break","5 Hours Sections, 1:30 Hour Break","Continues - No Breaks"]
     @State var selectedDensityIndex = 2
     @State var selectedSchedulingAlgorithmIndex = 0
     @State var selectedBreakPeriodsIndex = 1

@@ -54,7 +54,7 @@ struct TaskList: View {
                                                   }
                                                                                .labelsHidden()
                                                                      
-                                    }.pickerStyle(WheelPickerStyle()).padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 0)).frame(width:geometry.size.width/5)
+                                    }.pickerStyle(WheelPickerStyle()).clipped().padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 0)).frame(width:geometry.size.width/5)
 
                                         
                                 //  Text("All Tasks").font(Font.custom("Chalkduster", size: 30)).fontWeight(.bold).font(.title).padding(EdgeInsets(top: -100, leading: 5, bottom: 0, trailing: 0))
@@ -108,7 +108,7 @@ struct TaskList: View {
                        // }
                         
                      
-                    }.animation(.easeInOut(duration:0.6))
+                    }.animation(.ripple())
                              
                 }
                 

@@ -155,6 +155,12 @@ struct UpdateTask: View {
            
                 HStack{
                        Spacer()
+                        Button(action:{ self.mode.wrappedValue.dismiss()})
+                        {
+
+                            Text("Close ").frame(width:100,height:55).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(self.disableSave ? Color.gray : Color.blue).frame(width:100,height:55)).padding(.bottom,20)
+                            
+                        }
                         Button(action: {
                             
                             if(self.disableSave)

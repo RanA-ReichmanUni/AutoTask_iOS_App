@@ -101,15 +101,6 @@ struct AddTask: View {
                                 
                             }.animation(.ripple())
                             //Handles IOS 13 date picker animation bug, shame it exsists.
-                            
-                            
-                            Section(header: HStack {
-                                     Image(systemName:"clock").foregroundColor(.blue)
-                                     Text("Work Time")
-                                 }) {
-                                    MultiPicker(data: self.data, selection: self.$selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
-                              }
-                    
                             Section(header: HStack {
                                    Image(systemName:"eyedropper.halffull")
                                    Text("Task Color")
@@ -127,6 +118,15 @@ struct AddTask: View {
                                  }
                                  //.frame(width:800).padding(EdgeInsets(top: 0, leading: -50, bottom: 0, trailing: 0))
                              }
+                            
+                            Section(header: HStack {
+                                     Image(systemName:"clock").foregroundColor(.blue)
+                                     Text("Work Time")
+                                 }) {
+                                    MultiPicker(data: self.data, selection: self.$selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
+                              }
+                    
+                    
                        //TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                     
                     Section(header: HStack {
