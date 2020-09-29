@@ -49,6 +49,15 @@ enum scheduleAlgorithm:String{
     
 }
 
+enum animationStyle:String{
+    
+    case smooth
+    case fast
+    case spring
+  
+    
+}
+
 class Core{
     
     let startOfTheDay = 7

@@ -67,7 +67,7 @@ struct MainUI2: View {
                      if(self.listFlag)
                      {
                         
-                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
+                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
                      }
                      else if (self.addTaskFlag)
                      {
@@ -89,11 +89,11 @@ struct MainUI2: View {
                         
                        // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                         
-                        SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                        SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel)//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
                           
-                        TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
+                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
                     }
             }
                 

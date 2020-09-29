@@ -179,6 +179,7 @@ class TaskModel : UIViewController
                     settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                     settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                     settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+                    settingsObject.animationStyle=animationStyle.smooth.rawValue
                 
                     do{
                           try managedContext.save()
@@ -201,6 +202,64 @@ class TaskModel : UIViewController
      
         
     }
+    
+    
+    func GetAnimationStyleSettings () -> String
+       {
+           
+       
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return animationStyle.smooth.rawValue }
+           
+
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+
+           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
+    //
+            
+        
+           do {
+               
+                let result = try managedContext.fetch(fetchRequest)
+            
+               
+               
+                if(!result.isEmpty)
+                {
+                    return (result[0] as! SettingsEntity).animationStyle
+
+                }
+                else{
+                    var settingsObject=SettingsEntity(context: managedContext)
+                   
+                       settingsObject = SettingsEntity(context: managedContext)
+                                   
+                       settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
+                       settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
+                       settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+                       settingsObject.animationStyle=animationStyle.smooth.rawValue
+                   
+                       do{
+                             try managedContext.save()
+                            print("Updated !.")
+                         }
+                         catch
+                         {
+                             print(error)
+                         }
+                      
+                    return settingsObject.animationStyle
+               }
+               
+           } catch {
+               
+               print("Failed")
+           }
+
+            return animationStyle.smooth.rawValue
+        
+           
+       }
     
     func intialValuesSetup()
     {
@@ -231,6 +290,7 @@ class TaskModel : UIViewController
                            settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                            settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                            settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+                           settingsObject.animationStyle=animationStyle.smooth.rawValue
                         do{
                                try managedContext.save()
                               print("Updated !.")
@@ -252,7 +312,7 @@ class TaskModel : UIViewController
         
     }
     
-    func SetSettingsValues(scheduleAlgorithim:String,scheduleDensity:String,breakPeriodsValue:String)
+    func SetSettingsValues(scheduleAlgorithim:String,scheduleDensity:String,breakPeriodsValue:String,animationStyleValue:String)
      {
          
           //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -279,6 +339,7 @@ class TaskModel : UIViewController
                       retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
                       retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
                         retrivedObject.setValue(breakPeriodsValue, forKey: "breakPeriods")
+                        retrivedObject.setValue(animationStyleValue, forKey: "animationStyle")
                 
         
                }
@@ -289,6 +350,7 @@ class TaskModel : UIViewController
                       settingsObject.scheduleAlgorithim=scheduleAlgorithim
                       settingsObject.scheduleDensity=scheduleDensity
                       settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+                      settingsObject.animationStyle=animationStyle.smooth.rawValue
               }
               
           } catch {
@@ -312,7 +374,7 @@ class TaskModel : UIViewController
          
      }
     
-    func setSettingsValues(scheduleAlgorithim:String,scheduleDensity:String)
+  /*  func setSettingsValues(scheduleAlgorithim:String,scheduleDensity:String,animationStyle:String)
        {
            
             //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -338,6 +400,8 @@ class TaskModel : UIViewController
                      
                         retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
                         retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
+                        retrivedObject.setValue(animationStyle, forKey: "animationStyle")
+                    
           
                  }
                  else{
@@ -347,6 +411,7 @@ class TaskModel : UIViewController
                         settingsObject.scheduleAlgorithim=scheduleAlgorithim
                         settingsObject.scheduleDensity=scheduleDensity
                         settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+                        settingsObject.animationStyle=animationStyle.smooth.rawValue
                 }
                 
             } catch {
@@ -368,7 +433,7 @@ class TaskModel : UIViewController
         
         
            
-       }
+       }*/
     
     
     func autoFillTesting() throws

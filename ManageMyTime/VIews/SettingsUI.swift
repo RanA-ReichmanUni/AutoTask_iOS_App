@@ -24,11 +24,16 @@ struct SettingsUI: View {
     @State var showAlert=false
     private func SetSettings() {
            
-        self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex)
+        self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex,animationStyleIndex: selectedAnimationIndex)
         self.showAlert=true
           
          }
-
+    
+     private func SetSettingsAnimation() {
+        
+            self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex,animationStyleIndex: selectedAnimationIndex)
+        
+    }
     
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
@@ -100,7 +105,7 @@ struct SettingsUI: View {
                             }
                                 
 
-                            Picker(selection: self.$selectedAnimationIndex, label: Text("Main View Animation")) {
+                            Picker(selection: self.$selectedAnimationIndex.onUpdate(SetSettingsAnimation), label: Text("Main View Animation")) {
                                 ForEach(0 ..< self.animationsValues.count) {
                                       Text(self.animationsValues[$0])
                                     }
@@ -153,6 +158,7 @@ struct SettingsUI: View {
             self.selectedDensityIndex=self.taskViewModel.getSettingsValues()[0]
             self.selectedSchedulingAlgorithmIndex=self.taskViewModel.getSettingsValues()[1]
             self.selectedBreakPeriodsIndex=self.taskViewModel.getSettingsValues()[2]
+            self.selectedAnimationIndex=self.taskViewModel.getSettingsValues()[3]
         }
         
         

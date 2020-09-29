@@ -2,7 +2,7 @@
 //  SettingsEntity+CoreDataProperties.swift
 //  ManageMyTime
 //
-//  Created by רן א on 27/09/2020.
+//  Created by רן א on 29/09/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 //
@@ -17,8 +17,9 @@ extension SettingsEntity {
         return NSFetchRequest<SettingsEntity>(entityName: "SettingsEntity")
     }
 
+    @NSManaged public var breakPeriods: String
     @NSManaged public var scheduleAlgorithim: String
     @NSManaged public var scheduleDensity: String
-    @NSManaged public var breakPeriods: String
+    @NSManaged public var animationStyle: String
 
 }

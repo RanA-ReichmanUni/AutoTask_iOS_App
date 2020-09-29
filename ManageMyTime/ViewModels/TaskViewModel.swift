@@ -209,12 +209,13 @@ class TaskViewModel : ObservableObject
         taskModel.intialValuesSetup()
         
     }
-    func SetSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int,breakPeriodsIndex:Int)
+    func SetSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int,breakPeriodsIndex:Int,animationStyleIndex:Int)
     {
         
         var scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
         var scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
         var breakPeriodsPick=breakPeriods.hourAndAHalf.rawValue
+        var animationStylePick=animationStyle.smooth.rawValue
         
         switch scheduleAlgorithimIndex {
         case 0:
@@ -269,13 +270,28 @@ class TaskViewModel : ObservableObject
                breakPeriodsPick=breakPeriods.hourAndAHalf.rawValue
            }
         
+        switch animationStyleIndex {
+             case 0:
+                animationStylePick=animationStyle.smooth.rawValue
+             case 1:
+                animationStylePick=animationStyle.fast.rawValue
+             case 2:
+                animationStylePick=animationStyle.spring.rawValue
+             default:
+                animationStylePick=animationStyle.smooth.rawValue
+             }
         
-        self.taskModel.SetSettingsValues(scheduleAlgorithim: scheduleAlgorithimPick, scheduleDensity: scheduleDensityPick,breakPeriodsValue:breakPeriodsPick)
+        
+        self.taskModel.SetSettingsValues(scheduleAlgorithim: scheduleAlgorithimPick, scheduleDensity: scheduleDensityPick,breakPeriodsValue:breakPeriodsPick,animationStyleValue: animationStylePick)
         
         
     }
     
-    
+    func GetAnimationStyleSettings () -> String
+    {
+        return taskModel.GetAnimationStyleSettings()
+        
+    }
     func getSettingsValues () -> [Int]
     {
         var settingsObject=taskModel.getSettingsValues()
@@ -283,7 +299,7 @@ class TaskViewModel : ObservableObject
         var scheduleAlgorithmPick=0
         var scheduleDensityPick=2
         var breakPeriodsPick=1
-        
+        var animationStylePick=0
         
         switch settingsObject.scheduleAlgorithim {
         case scheduleAlgorithm.smart.rawValue:
@@ -336,9 +352,18 @@ class TaskViewModel : ObservableObject
                 default:
                     breakPeriodsPick=1
                 }
+        switch settingsObject.animationStyle {
+          case animationStyle.smooth.rawValue:
+             animationStylePick=0
+          case animationStyle.fast.rawValue:
+             animationStylePick=1
+          case animationStyle.spring.rawValue:
+             animationStylePick=2
+          default:
+             animationStylePick=0
+          }
         
-        
-        let settingsArray=[scheduleDensityPick,scheduleAlgorithmPick,breakPeriodsPick]
+        let settingsArray=[scheduleDensityPick,scheduleAlgorithmPick,breakPeriodsPick,animationStylePick]
         
         return settingsArray
         
