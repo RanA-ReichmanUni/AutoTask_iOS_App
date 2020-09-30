@@ -2376,6 +2376,7 @@ class Core{
             }
             
             do {
+                
                    try managedContext.save()
                        print("Saved Task !.")
                } catch let error as NSError {

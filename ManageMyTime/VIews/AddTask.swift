@@ -9,6 +9,7 @@
 import SwiftUI
 import Foundation
 
+
 struct AddTask: View {
     /*
    @Environment(\.managedObjectContext) var managedObjectContext
@@ -182,24 +183,32 @@ struct AddTask: View {
                                  self.alertType=2
                             }
                             else{
-                                do{
-                                    try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
-                       
-                                }
-                                 catch DatabaseError.taskCanNotBeScheduledInDue {
-                                    self.isError = true
-                                    self.alertType=1
-                                }
-                                catch {
+                                
+                               
+                              
+                                        do{
+                                            try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
+                                            
+                                                self.taskViewModel.UpdateAllTasks()
+                                                self.addTaskFlag=false
+                                                self.listFlag=true
+                                        
+                                                self.mode.wrappedValue.dismiss()
+                               
+                                        }
+                                         catch DatabaseError.taskCanNotBeScheduledInDue {
+                                            self.isError = true
+                                            self.alertType=1
+                                            
+                                        }
+                                        catch {
                                            self.isError = true
                                            self.alertType=1
                                        }
-                                
-                              self.taskViewModel.UpdateAllTasks()
-                                self.addTaskFlag=false
-                                self.listFlag=true
-                             
-                              self.mode.wrappedValue.dismiss()
+                                                                
+                                  
+                        
+                         
                             }
 
                             }) {
@@ -219,6 +228,13 @@ struct AddTask: View {
                                 return    Alert(title: Text("Missing Required Fields"),
                                           message: Text("\n Task Name, Due Date and Work Time are required fields"),
                                           dismissButton: .default(Text("OK")))
+                            case 3:
+                                
+                                return Alert(title: Text("Missing Required Premissions"), message: Text("Manage My Time Needs A premission To Present Notifications In Order For It to Update You on Upcoming Assigments"), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
+                                             
+                                              //  UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                                    
+                                   }, secondaryButton: .cancel())
                             default:
                               return Alert(title: Text("Task can not be scheduled"),
                                                                message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),

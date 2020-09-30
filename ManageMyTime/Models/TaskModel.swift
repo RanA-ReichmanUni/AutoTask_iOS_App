@@ -232,7 +232,6 @@ class TaskModel : UIViewController
                 else{
                     var settingsObject=SettingsEntity(context: managedContext)
                    
-                       settingsObject = SettingsEntity(context: managedContext)
                                    
                        settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                        settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
