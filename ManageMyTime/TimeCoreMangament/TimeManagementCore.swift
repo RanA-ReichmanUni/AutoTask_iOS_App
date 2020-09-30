@@ -49,6 +49,13 @@ enum scheduleAlgorithm:String{
     
 }
 
+enum difficultyLevel:String{
+    
+    case difficult
+    case average
+    case easy
+}
+
 enum animationStyle:String{
     
     case smooth
@@ -465,11 +472,11 @@ class Core{
         var factorValue=1.5
         
         switch difficultyPhrase.lowercased() {
-        case "difficult":
+        case difficultyLevel.difficult.rawValue:
           factorValue=3
-        case "average":
+        case difficultyLevel.average.rawValue:
           factorValue=1.5
-        case "easy":
+        case difficultyLevel.easy.rawValue:
           factorValue=1
         default:
           factorValue=1.5
@@ -849,7 +856,7 @@ class Core{
     
     
     
-    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,difficulty:String="average",color:String,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
+    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,difficulty:String=difficultyLevel.average.rawValue,color:String,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
     {
       
         

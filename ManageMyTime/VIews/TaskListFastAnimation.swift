@@ -50,11 +50,11 @@ struct TaskListFastAnimation: View {
                                 Picker(selection: self.$dayIndexSelector.onUpdate(self.GetTasksByChoise), label:Text("")) {
                                                   ForEach(self.dayNames ,id:\.self) { day in
                                                     
-                                                    Text(day).font(Font.custom("Baskerville-SemiBoldItalic", size: 30)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0)).foregroundColor(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.black)
+                                                    Text(day).font(Font.custom("MarkerFelt-Wide", size: 24)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0)).foregroundColor(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.black)
                                                   }
                                                                                .labelsHidden()
                                                                      
-                                    }.pickerStyle(WheelPickerStyle()).clipped().padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 0)).frame(width:geometry.size.width/5)
+                                }.frame(width:geometry.size.width/2.3).pickerStyle(WheelPickerStyle()).clipped().padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 0))
 
                                         
                                 //  Text("All Tasks").font(Font.custom("Chalkduster", size: 30)).fontWeight(.bold).font(.title).padding(EdgeInsets(top: -100, leading: 5, bottom: 0, trailing: 0))
@@ -118,11 +118,11 @@ struct TaskListFastAnimation: View {
                     if(self.taskViewModel.allTasks.isEmpty && self.dayIndexSelector == 0)
                 {
                     
-                    Text("No Tasks Have Been Scheduled...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
+                    Text("There Are No Scheduled Tasks...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
                 }
                 else if(self.taskViewModel.allTasks.isEmpty){
                     
-                        Text("No Tasks Have Been Scheduled for this day ...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
+                        Text("There Are No Tasks Scheduled For This Day...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
                 }
                       
                 //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))

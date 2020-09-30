@@ -144,7 +144,7 @@ class TaskViewModel : ObservableObject
     
   
     
-    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String,color:Color=Color.green) throws
+    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String,color:Color=Color.green,difficultyIndex:Int) throws
     {
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -158,8 +158,21 @@ class TaskViewModel : ObservableObject
         self.asstimatedWorkTime.hour=Int(workTimeHours) ?? 0
         self.asstimatedWorkTime.minutes=Int(workTimeMinutes) ?? 30
         
+        var difficultyPick="average"
+        
+        switch difficultyIndex {
+        case 0:
+            difficultyPick=difficultyLevel.difficult.rawValue
+        case 1:
+            difficultyPick=difficultyLevel.average.rawValue
+        case 2:
+            difficultyPick=difficultyLevel.easy.rawValue
+        default:
+            difficultyPick=difficultyLevel.average.rawValue
+        }
+        
         do{
-            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes,color:color)
+            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick)
         }
         
         catch{

@@ -118,11 +118,11 @@ struct TaskListSpringAnimation: View {
                     if(self.taskViewModel.allTasks.isEmpty && self.dayIndexSelector == 0)
                 {
                     
-                    Text("No Tasks Have Been Scheduled...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
+                    Text("There Are No Scheduled Tasks...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
                 }
                 else if(self.taskViewModel.allTasks.isEmpty){
                     
-                        Text("No Tasks Have Been Scheduled for this day ...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
+                        Text("There Are No Tasks Scheduled For This Day...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
                 }
                       
                 //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))

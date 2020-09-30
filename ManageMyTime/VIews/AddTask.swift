@@ -55,7 +55,9 @@ struct AddTask: View {
     @State private var selectedColorIndex = Color(hex:"#3E59C2")
     //,Color(hex:"#2f8fb5")
     var colorArray = [Color(.systemTeal),Color(hex:"#73C2FB"),Color(hex:"#007FFF"),Color(hex:"#3E59C2"),Color(hex:"#0018F9"),Color(hex:"#AAAAFF"),Color(hex:"#6F6FFF"),Color(hex:"#5B59BA"),Color(hex:"#CC99FF"),Color(hex:"#A54DFF"),Color(hex:"#7F00FF"),Color(hex:"#FFAADF"),Color(hex:"#FF6FC9"),Color(hex:"#FF34B3"),Color(hex:"#EEA7D3"),Color(hex:"#E065B2"),Color(hex:"#CD2990"),Color(hex:"#F19499"),Color.red,Color(hex:"#E64049"),Color(hex:"#B0171F"),Color(hex:"#FBB782"),Color(hex:"#FA9A50"),Color(hex:"#D8570B"),Color(hex:"#80D97E"),Color(hex:"#82B482"),Color(hex:"#3D8B37"),Color(hex:"#8B8989")]
+    var difficultyValues=[" Difficult "," Average "," Easy "]
     
+    @State private var selectedDifficultyIndex:Int = 1
     @Binding var listFlag:Bool
     @Binding var addTaskFlag:Bool
     
@@ -68,11 +70,11 @@ struct AddTask: View {
                 Form {
                     Section(header:   HStack {
                                         Image(systemName: "rays").foregroundColor(.green)
-                        Text("New Task").font(.system(size: 18)).foregroundColor(.blue)
+                        Text("New Task").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(.blue)
                         
                     }) {
                         
-                        TextField("Task Name", text: self.$taskName)
+                        TextField("Task Name", text: self.$taskName).font(Font.custom("MarkerFelt-Wide", size: 18))
                     }
                 
                      
@@ -97,13 +99,13 @@ struct AddTask: View {
               
                                 DatePicker(selection: self.$selectedDate, in: Date()... ,label: {
                                     HStack{ Image(systemName:"calendar").foregroundColor(.blue)
-                                        Text("Due Date")} })
+                                        Text("Due Date").font(Font.custom("MarkerFelt-Wide", size: 17))} })
                                 
                             }.animation(.ripple())
                             //Handles IOS 13 date picker animation bug, shame it exsists.
                             Section(header: HStack {
                                    Image(systemName:"eyedropper.halffull")
-                                   Text("Task Color")
+                                   Text("Task Color").font(Font.custom("MarkerFelt-Wide", size: 16))
                              }) {
                                  HStack{
                                      Spacer()
@@ -121,9 +123,26 @@ struct AddTask: View {
                             
                             Section(header: HStack {
                                      Image(systemName:"clock").foregroundColor(.blue)
-                                     Text("Work Time")
+                                     Text("Work Time").font(Font.custom("MarkerFelt-Wide", size: 16))
                                  }) {
                                     MultiPicker(data: self.data, selection: self.$selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
+                              }
+                            Section(header: HStack {
+                                    Image(systemName:"chart.bar")
+                                Text("Difficulty").font(Font.custom("MarkerFelt-Wide", size: 16))
+                              }) {
+                                  HStack{
+                                      Spacer()
+                                      Picker(selection: self.$selectedDifficultyIndex, label:Text("")) {
+                                                ForEach(self.difficultyValues ,id:\.self) { element in
+                                                    Text(element).font(Font.custom("MarkerFelt-Wide", size: 30)).tag(Int(self.difficultyValues.firstIndex(of: element)!))
+                                                }
+                                                                              //.labelsHidden()
+                                                                   
+                                      }.frame(width: geometry.size.width / 5,height:190).pickerStyle(WheelPickerStyle()).animation(.default)
+                                      Spacer()
+                                  }
+                                  //.frame(width:800).padding(EdgeInsets(top: 0, leading: -50, bottom: 0, trailing: 0))
                               }
                     
                     
@@ -131,9 +150,9 @@ struct AddTask: View {
                     
                     Section(header: HStack {
                                         Image(systemName:"pencil.and.ellipsis.rectangle")
-                                        Text("Additional Info")
+                                        Text("Additional Info").font(Font.custom("MarkerFelt-Wide", size: 16))
                                     }) {
-                                        TextField("Personal Notes", text: self.$notes)
+                                        TextField("Personal Notes", text: self.$notes).font(Font.custom("MarkerFelt-Wide", size: 18))
                                     }
                                     
                        }
@@ -164,7 +183,7 @@ struct AddTask: View {
                             }
                             else{
                                 do{
-                                    try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex)
+                                    try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
                        
                                 }
                                  catch DatabaseError.taskCanNotBeScheduledInDue {

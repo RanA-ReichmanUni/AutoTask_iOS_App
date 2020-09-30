@@ -33,7 +33,7 @@ struct MultiPicker: View  {
                     ForEach(0..<self.data.count) { column in
                         VStack {
                   
-                            Text(self.data[column].0)
+                            Text(self.data[column].0).font(Font.custom("MarkerFelt-Wide", size: 16))
                     
                             
                             Picker("", selection: self.$selection[column]) {

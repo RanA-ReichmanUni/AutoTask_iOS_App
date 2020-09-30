@@ -54,6 +54,23 @@ struct AddRestrictedSpace: View {
                         Text("New Occupied Space").font(.system(size: 18)).foregroundColor(.blue)
                         
                           }) {*/
+                        Section(header: HStack {
+                                  Image(systemName:"calendar").foregroundColor(.blue).padding(.leading,5)
+                                   Text("Day")
+                                  
+                              })
+                              {
+                              HStack {
+                                 
+                                 
+                                  Picker(selection: self.$selectedDayValuesIndex, label: Text("")) {
+                                      ForEach(0 ..< self.dayNameValues.count) {
+                                          Text(" "+self.dayNameValues[$0]+" ").background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.selectedDayValuesIndex==self.dayNameValues.firstIndex(of: self.dayNameValues[$0])  ? 1 : 0)).foregroundColor(self.selectedDayValuesIndex==self.dayNameValues.firstIndex(of: self.dayNameValues[$0]) ? Color.white : Color.blue)
+                                         }
+                                  }.padding() .frame(minWidth: 1, idealWidth: 100, maxWidth: 150, minHeight: 50, idealHeight: 200, maxHeight: 300, alignment: .center).pickerStyle(WheelPickerStyle()).clipped().background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
+                              }
+                                          
+                          }
                             VStack{
                                 
                                 HStack{
@@ -67,23 +84,7 @@ struct AddRestrictedSpace: View {
                                         Spacer()
                                 }
                             }.padding(10)
-                            Section(header: HStack {
-                                Image(systemName:"calendar").foregroundColor(.blue).padding(.leading,5)
-                                 Text("Day")
-                                
-                            })
-                            {
-                            HStack {
-                               
-                               
-                                Picker(selection: self.$selectedDayValuesIndex, label: Text("")) {
-                                    ForEach(0 ..< self.dayNameValues.count) {
-                                        Text(" "+self.dayNameValues[$0]+" ").background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.selectedDayValuesIndex==self.dayNameValues.firstIndex(of: self.dayNameValues[$0])  ? 1 : 0)).foregroundColor(self.selectedDayValuesIndex==self.dayNameValues.firstIndex(of: self.dayNameValues[$0]) ? Color.white : Color.blue)
-                                       }
-                                }.padding() .frame(minWidth: 1, idealWidth: 100, maxWidth: 150, minHeight: 50, idealHeight: 200, maxHeight: 300, alignment: .center).pickerStyle(WheelPickerStyle()).clipped().background(RoundedRectangle(cornerRadius: 40).fill(Color(.white)))
-                            }
-                                
-                }
+                      
                             Spacer()
                             
                                 Section(header: HStack {
@@ -160,7 +161,7 @@ struct AddRestrictedSpace: View {
             //}
         }
         }.navigationBarTitle("New Persosnal Activity",displayMode: .inline)
-        .background(Color(hex:"#f9f9f9"))
+        .background(Color(hex:"#fcfcfc"))
         
         /*.background(    LinearGradient(
             gradient: Gradient(colors: [Color(hex:"#fcfcfc"),Color(hex:"#fcfcfc")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
