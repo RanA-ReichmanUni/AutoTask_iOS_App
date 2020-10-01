@@ -1231,6 +1231,8 @@ class Core{
                                                     newTask.associatedFreeSpaceId=freeSpace.associatedId
                                                     newTask.difficulty=difficulty
                                                     
+                                                    createNotification(taskName: newTask.taskName, notes: newTask.notes! , internalId: newTask.internalId!, date: newTask.date, startTime: newTask.startTime!)
+                                                    
                                                     handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                     
                                                     //Needs to send back this task at the end of execution
@@ -1379,6 +1381,51 @@ class Core{
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
     
+    func createNotification(taskName:String,notes:String,internalId:UUID,date:CustomDate,startTime:Hour)
+    {
+        
+        var additionalChar=""
+        
+        if(startTime.minutes==0)
+        {
+            additionalChar="0"
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Its Almost Time To Start Working On "+taskName+"."
+        content.subtitle = "You Should Start At: "+String(startTime.hour)+":"+String(startTime.minutes)+additionalChar
+        content.sound = UNNotificationSound.default
+
+        let notifciationStartTime=startTime.subtract(minutesValue: 10)
+        
+       /* var dateComponents = DateComponents()
+            dateComponents.year = date.year
+            dateComponents.month = date.month
+            dateComponents.day = date.day
+            dateComponents.hour=notifciationStartTime.hour
+            dateComponents.minute=notifciationStartTime.minutes*/
+        
+        var dateComponents = DateComponents()
+            dateComponents.year = Date().year
+            dateComponents.month = Date().month
+            dateComponents.day = Date().day
+            dateComponents.hour=23
+            dateComponents.minute=45
+
+        /*    // Create date from components
+            let userCalendar = Calendar.current // user calendar
+            let dateTime = userCalendar.date(from: dateComponents)*/
+        // show this notification five seconds from now
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching:dateComponents, repeats: false)
+
+        // choose a random identifier
+        let request = UNNotificationRequest(identifier: internalId.uuidString, content: content, trigger: trigger)
+
+        // add our notification request
+        UNUserNotificationCenter.current().add(request)
+        
+    }
     func handleLoad(date:CustomDate,duration:Hour)
     {
         //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -2374,7 +2421,7 @@ class Core{
                   currentStartingTime=usedTimeEndBound
         
             }
-            DispatchQueue.main.async {
+          
             do {
                 
                    try managedContext.save()
@@ -2382,7 +2429,7 @@ class Core{
                } catch let error as NSError {
                    print("Could not save. \(error), \(error.userInfo)")
                }
-            }
+            
             deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
         
         }

@@ -61,7 +61,8 @@ struct AddTask: View {
     @State private var selectedDifficultyIndex:Int = 1
     @Binding var listFlag:Bool
     @Binding var addTaskFlag:Bool
-    
+    @State var permissionAqcuired:Bool?
+    var loopRang = 0...1
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
                   
@@ -183,35 +184,43 @@ struct AddTask: View {
                                  self.alertType=2
                             }
                             else{
-                                
+                                    
                                         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                                            if success {
-                                                do{
-                                                      try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
-                                                      
-                                                          self.taskViewModel.UpdateAllTasks()
-                                                          self.addTaskFlag=false
-                                                          self.listFlag=true
-                                                  
-                                                          self.mode.wrappedValue.dismiss()
-                                         
-                                                  }
-                                                   catch DatabaseError.taskCanNotBeScheduledInDue {
-                                                      self.isError = true
-                                                      self.alertType=1
-                                                      
-                                                  }
-                                                  catch {
-                                                     self.isError = true
-                                                     self.alertType=1
-                                                 }
+                                                self.permissionAqcuired=success
+                                            DispatchQueue.main.async {
+                                            
+                                            if self.permissionAqcuired ?? false {
+                                                        do{
+                                                              try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
+                                                              
+                                                                  self.taskViewModel.UpdateAllTasks()
+                                                                  self.addTaskFlag=false
+                                                                  self.listFlag=true
+                                                          
+                                                                  self.mode.wrappedValue.dismiss()
+                                                 
+                                                          }
+                                                           catch DatabaseError.taskCanNotBeScheduledInDue {
+                                                              self.isError = true
+                                                              self.alertType=1
+                                                              
+                                                          }
+                                                          catch {
+                                                             self.isError = true
+                                                             self.alertType=1
+                                                         }
+                                                        
+                                            } else if !(self.permissionAqcuired ?? true){
                                                 
-                                            } else {
-                                               
-                                                self.isError = true
-                                                self.alertType=3
-                                            }
+                                                       
+                                                        self.isError = true
+                                                        self.alertType=3
+                                                    }
+                                             
+                                          
                                         }
+                            
+                                }
                               
                                   
                                                                 
@@ -239,11 +248,16 @@ struct AddTask: View {
                                           dismissButton: .default(Text("OK")))
                             case 3:
                                 
-                                return Alert(title: Text("Missing Required Premissions"), message: Text("Manage My Time Needs A premission To Present Notifications In Order For It to Update You on Upcoming Assigments"), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
-                                             
-                                               UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                                    
-                                   }, secondaryButton: .cancel())
+                                 return Alert(title: Text("Missing Required Premissions"), message: Text("Manage My Time Needs A premission To Present Notifications In Order For It to Update You on Upcoming Assigments"), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
+                                                                            
+                                              UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                                            
+                                              //  self.permissionAqcuired=nil
+                                                
+                                        
+                                      
+                                   
+                                  }, secondaryButton: .cancel())
                             default:
                               return Alert(title: Text("Task can not be scheduled"),
                                                                message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),
