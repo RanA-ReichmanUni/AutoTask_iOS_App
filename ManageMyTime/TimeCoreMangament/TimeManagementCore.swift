@@ -2374,7 +2374,7 @@ class Core{
                   currentStartingTime=usedTimeEndBound
         
             }
-            
+            DispatchQueue.main.async {
             do {
                 
                    try managedContext.save()
@@ -2382,7 +2382,7 @@ class Core{
                } catch let error as NSError {
                    print("Could not save. \(error), \(error.userInfo)")
                }
-            
+            }
             deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
         
         }

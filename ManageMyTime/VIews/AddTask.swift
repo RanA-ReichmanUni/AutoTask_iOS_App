@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Foundation
-
+import UserNotifications
 
 struct AddTask: View {
     /*
@@ -184,27 +184,36 @@ struct AddTask: View {
                             }
                             else{
                                 
-                               
+                                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                                            if success {
+                                                do{
+                                                      try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
+                                                      
+                                                          self.taskViewModel.UpdateAllTasks()
+                                                          self.addTaskFlag=false
+                                                          self.listFlag=true
+                                                  
+                                                          self.mode.wrappedValue.dismiss()
+                                         
+                                                  }
+                                                   catch DatabaseError.taskCanNotBeScheduledInDue {
+                                                      self.isError = true
+                                                      self.alertType=1
+                                                      
+                                                  }
+                                                  catch {
+                                                     self.isError = true
+                                                     self.alertType=1
+                                                 }
+                                                
+                                            } else {
+                                               
+                                                self.isError = true
+                                                self.alertType=3
+                                            }
+                                        }
                               
-                                        do{
-                                            try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
-                                            
-                                                self.taskViewModel.UpdateAllTasks()
-                                                self.addTaskFlag=false
-                                                self.listFlag=true
-                                        
-                                                self.mode.wrappedValue.dismiss()
-                               
-                                        }
-                                         catch DatabaseError.taskCanNotBeScheduledInDue {
-                                            self.isError = true
-                                            self.alertType=1
-                                            
-                                        }
-                                        catch {
-                                           self.isError = true
-                                           self.alertType=1
-                                       }
+                                  
                                                                 
                                   
                         
@@ -232,7 +241,7 @@ struct AddTask: View {
                                 
                                 return Alert(title: Text("Missing Required Premissions"), message: Text("Manage My Time Needs A premission To Present Notifications In Order For It to Update You on Upcoming Assigments"), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
                                              
-                                              //  UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                                               UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                                     
                                    }, secondaryButton: .cancel())
                             default:
