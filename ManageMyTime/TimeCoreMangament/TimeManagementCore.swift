@@ -1409,15 +1409,17 @@ class Core{
             dateComponents.year = Date().year
             dateComponents.month = Date().month
             dateComponents.day = Date().day
-            dateComponents.hour=23
-            dateComponents.minute=45
+        dateComponents.hour=Date().hour
+            dateComponents.minute=23
+        
+        //print(String(Date().hour)+"pooopooo")
 
         /*    // Create date from components
             let userCalendar = Calendar.current // user calendar
             let dateTime = userCalendar.date(from: dateComponents)*/
         // show this notification five seconds from now
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching:dateComponents, repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching:dateComponents, repeats: true)
 
         // choose a random identifier
         let request = UNNotificationRequest(identifier: internalId.uuidString, content: content, trigger: trigger)
