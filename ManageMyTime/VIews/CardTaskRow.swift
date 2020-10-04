@@ -88,7 +88,7 @@ struct CardTaskRow: View {
                                                   startPoint: .topLeading,
                                                   endPoint: .bottomTrailing
                                               )
-                                     ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.5))
+                                     ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.2))
                                       
                             
                                        Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")

@@ -66,6 +66,7 @@
 		256E883C24ED74AF00293706 /* RestrictedSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E883B24ED74AF00293706 /* RestrictedSpaceViewModel.swift */; };
 		257392EE251CEF7900C81F05 /* RestrictedSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257392EC251CEF7900C81F05 /* RestrictedSpace+CoreDataClass.swift */; };
 		257392EF251CEF7900C81F05 /* RestrictedSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257392ED251CEF7900C81F05 /* RestrictedSpace+CoreDataProperties.swift */; };
+		25755200252A30B20005B515 /* CollapsableWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257551FF252A30B20005B515 /* CollapsableWheelPicker.swift */; };
 		2577A5E624ACF3040006E1D2 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E524ACF3040006E1D2 /* ScheduleView.swift */; };
 		2577A5E824AD13B80006E1D2 /* ScheduleViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */; };
 		2577A5EA24AD15690006E1D2 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577A5E924AD15690006E1D2 /* Column.swift */; };
@@ -112,6 +113,7 @@
 		25EE9F4D24EC1ACC002A2E5A /* RestrictedSpaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE9F4C24EC1ACC002A2E5A /* RestrictedSpaceCard.swift */; };
 		25EE9F4F24EC1BD4002A2E5A /* RestrictedSpaceUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE9F4E24EC1BD4002A2E5A /* RestrictedSpaceUI.swift */; };
 		25F047FA24CDB995003CC7D6 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F047F924CDB995003CC7D6 /* DailyView.swift */; };
+		25F1DDDC2529534500167015 /* Collapsible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1DDDB2529534500167015 /* Collapsible.swift */; };
 		25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FD24A22FB400671D09 /* MultiPicker.swift */; };
 		25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F347FF24A2304D00671D09 /* DurationSelector.swift */; };
 		25F3918024BD61C4004AB978 /* DviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3917F24BD61C4004AB978 /* DviderTest.swift */; };
@@ -203,6 +205,7 @@
 		256E883B24ED74AF00293706 /* RestrictedSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceViewModel.swift; sourceTree = "<group>"; };
 		257392EC251CEF7900C81F05 /* RestrictedSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestrictedSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
 		257392ED251CEF7900C81F05 /* RestrictedSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestrictedSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		257551FF252A30B20005B515 /* CollapsableWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableWheelPicker.swift; sourceTree = "<group>"; };
 		2577A5E524ACF3040006E1D2 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		2577A5E724AD13B80006E1D2 /* ScheduleViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewRow.swift; sourceTree = "<group>"; };
 		2577A5E924AD15690006E1D2 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
@@ -249,6 +252,7 @@
 		25EE9F4C24EC1ACC002A2E5A /* RestrictedSpaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceCard.swift; sourceTree = "<group>"; };
 		25EE9F4E24EC1BD4002A2E5A /* RestrictedSpaceUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceUI.swift; sourceTree = "<group>"; };
 		25F047F924CDB995003CC7D6 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
+		25F1DDDB2529534500167015 /* Collapsible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collapsible.swift; sourceTree = "<group>"; };
 		25F347FD24A22FB400671D09 /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
 		25F347FF24A2304D00671D09 /* DurationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelector.swift; sourceTree = "<group>"; };
 		25F3917F24BD61C4004AB978 /* DviderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DviderTest.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 		253C7DFD24DAEA370063952B /* VIews */ = {
 			isa = PBXGroup;
 			children = (
+				25F1DDDB2529534500167015 /* Collapsible.swift */,
 				25F347FD24A22FB400671D09 /* MultiPicker.swift */,
 				2519384A24C686290010E72D /* TempNavigator.swift */,
 				25E75A7624F2E4D400C772B5 /* MainUi2.swift */,
@@ -356,6 +361,7 @@
 				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
 				25407EE624D71F3E003110E9 /* CircularBar.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
+				257551FF252A30B20005B515 /* CollapsableWheelPicker.swift */,
 				255BA0BF251FCA2F00207331 /* UpdateTask.swift */,
 				251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */,
 				251CDB2324EF0B3000026911 /* MainUI.swift */,
@@ -708,6 +714,7 @@
 				25D920B624CFA37800A852BF /* WeeklyRegular.swift in Sources */,
 				25A77A6724DAA81300667165 /* DetailedTaskWithObj.swift in Sources */,
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
+				25F1DDDC2529534500167015 /* Collapsible.swift in Sources */,
 				25B6D52724C3B97E007A700A /* TwoRowsPicker.swift in Sources */,
 				253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */,
 				25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */,
@@ -731,6 +738,7 @@
 				250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */,
 				25F4E1B32509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift in Sources */,
 				2583029D24D34701003935B7 /* TableTestD.swift in Sources */,
+				25755200252A30B20005B515 /* CollapsableWheelPicker.swift in Sources */,
 				2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */,
 				2585C76724F1EE9A00539FDD /* BottomMainMenu.swift in Sources */,
 				25E75A7324F2BD0500C772B5 /* MenuView.swift in Sources */,

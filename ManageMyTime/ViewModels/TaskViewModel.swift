@@ -180,6 +180,21 @@ class TaskViewModel : ObservableObject
         }
     }
     
+    func StringRangeCreator(start:Int,end:Int) -> [String]
+    {
+        var stringValues=[String]()
+        stringValues.append("None")
+        for num in start...end
+        {
+            stringValues.append(String(num))
+   
+            
+        }
+        
+        return stringValues
+   
+    }
+    
   func autoFillTesting() throws
   {
         do{

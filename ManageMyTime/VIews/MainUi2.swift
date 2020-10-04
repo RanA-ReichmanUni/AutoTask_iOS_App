@@ -19,7 +19,7 @@ struct MainUI2: View {
     @State var listFlag=false
     @State var active=false
     @State var toggleActive=false
-    
+    var tempNotficationInit=["None"]
     let defaultColor=Color(.blue)
     let choosenColor=Color(hex:"#00FFF5")
   
@@ -71,7 +71,7 @@ struct MainUI2: View {
                      }
                      else if (self.addTaskFlag)
                      {
-                         AddTask(taskViewModel:self.taskViewModel,listFlag:self.$listFlag,addTaskFlag:self.$addTaskFlag)//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                        AddTask(taskViewModel:self.taskViewModel,listFlag:self.$listFlag,addTaskFlag:self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                      }
                      else if(self.dailyViewFlag)
                      {

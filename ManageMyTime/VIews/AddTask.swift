@@ -57,12 +57,31 @@ struct AddTask: View {
     //,Color(hex:"#2f8fb5")
     var colorArray = [Color(.systemTeal),Color(hex:"#73C2FB"),Color(hex:"#007FFF"),Color(hex:"#3E59C2"),Color(hex:"#0018F9"),Color(hex:"#AAAAFF"),Color(hex:"#6F6FFF"),Color(hex:"#5B59BA"),Color(hex:"#CC99FF"),Color(hex:"#A54DFF"),Color(hex:"#7F00FF"),Color(hex:"#FFAADF"),Color(hex:"#FF6FC9"),Color(hex:"#FF34B3"),Color(hex:"#EEA7D3"),Color(hex:"#E065B2"),Color(hex:"#CD2990"),Color(hex:"#F19499"),Color.red,Color(hex:"#E64049"),Color(hex:"#B0171F"),Color(hex:"#FBB782"),Color(hex:"#FA9A50"),Color(hex:"#D8570B"),Color(hex:"#80D97E"),Color(hex:"#82B482"),Color(hex:"#3D8B37"),Color(hex:"#8B8989")]
     var difficultyValues=[" Difficult "," Average "," Easy "]
+   
     
     @State private var selectedDifficultyIndex:Int = 1
+    @State private var selectedNotificationIndex:Int = 6
     @Binding var listFlag:Bool
     @Binding var addTaskFlag:Bool
     @State var permissionAqcuired:Bool?
     var loopRang = 0...1
+     @State var notificationValues=[""]
+    @State var values=0...60
+    @State var showPicker=false
+    @State var hidePicker=true
+    
+    private func AutoCollapseNotifications() {
+              
+                 if(!self.hidePicker)
+                {
+                     self.hidePicker.toggle()
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.showPicker.toggle()}
+                }
+             
+            }
+    
+    
     var body: some View {
         UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
                   
@@ -129,6 +148,50 @@ struct AddTask: View {
                                  }) {
                                     MultiPicker(data: self.data, selection: self.$selection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
                               }
+                            
+                            Section(header: HStack {
+                                  Image(systemName:"bell")
+                                  Text("Notification").font(Font.custom("MarkerFelt-Wide", size: 16))
+                                }) {
+                                       Button(action:{
+                                           if(!self.hidePicker)
+                                           {
+                                                self.hidePicker.toggle()
+                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                   self.showPicker.toggle()}
+                                           }
+                                           else{
+                                                  self.hidePicker.toggle()
+                                                   
+                                                  self.showPicker.toggle()
+                                               
+                                           }
+                                           
+                                           })
+                                              {
+                                               Text((self.notificationValues[self.selectedNotificationIndex]) + (self.selectedNotificationIndex==0 ? "" : " Minutes Before Start ")).foregroundColor(Color.black).font(Font.custom("MarkerFelt-Wide", size: 16))
+                                                                                
+                                              }
+                                       
+                                          CollapsableWheelPicker(
+                                                             "",
+                                                             showsPicker: self.$showPicker,
+                                                             hidePicker: self.$hidePicker,
+                                                             selection: self.$selectedNotificationIndex.onUpdate {
+                                                              self.AutoCollapseNotifications()
+                                              }
+                                                         ) {
+                                                           
+                                          ForEach(self.notificationValues,id:\.self) { value in
+                                           Text(value).font(Font.custom("MarkerFelt-Wide", size: 24)).tag(self.notificationValues.firstIndex(of: value) ?? 6)
+                                             }
+                                         }
+
+                                    //.frame(width:800).padding(EdgeInsets(top: 0, leading: -50, bottom: 0, trailing: 0))
+                             }.animation(.ripple())
+                    
+                 
+                    
                             Section(header: HStack {
                                     Image(systemName:"chart.bar")
                                 Text("Difficulty").font(Font.custom("MarkerFelt-Wide", size: 16))
@@ -148,6 +211,12 @@ struct AddTask: View {
                               }
                     
                     
+                         
+        
+             
+                    
+                    
+                   
                        //TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                     
                     Section(header: HStack {
@@ -291,7 +360,8 @@ struct AddTask: View {
                 }.background(Color(hex:"#fcfcfc"))//.frame(height:30)
            
                     
-        }.background(Color(hex:"#fcfcfc"))/*.background(
+        }.background(Color(hex:"#fcfcfc"))
+        /*.background(
             self.colorScheme == .dark ? ( LinearGradient(
                 gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.colorChoise]),
                          startPoint: UnitPoint(x: 0.2, y: 0.4),
