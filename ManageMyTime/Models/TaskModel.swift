@@ -1103,7 +1103,7 @@ class TaskModel : UIViewController
                   currentDate.month=Date().month
                   currentDate.day=Date().day
                     
-               let weekSequence=coreManagment.createCalanderSequence(startDay: 27, startMonth: 9, startYear: 2020, endDay: 3, endMonth: 10, endYear: 2020)
+               let weekSequence=coreManagment.createCalanderSequence(startDay: 4, startMonth: 10, startYear: 2020, endDay: 10, endMonth: 10, endYear: 2020)
        //        fetchRequest.fetchLimit = 1
        //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -1284,7 +1284,7 @@ class TaskModel : UIViewController
                      currentDate.month=Date().month
                      currentDate.day=Date().day
                        
-                  let weekSequence=coreManagment.createCalanderSequence(startDay: 27, startMonth: 9, startYear: 2020, endDay: 3, endMonth: 10, endYear: 2020)
+                  let weekSequence=coreManagment.createCalanderSequence(startDay: 4, startMonth: 10, startYear: 2020, endDay: 10, endMonth: 10, endYear: 2020)
           //        fetchRequest.fetchLimit = 1
           //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
           //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -1709,20 +1709,31 @@ class TaskModel : UIViewController
           //We need to create a context from this container
           let managedContext = appDelegate.persistentContainer.viewContext
           
+          var sentTask=self.retrieveTask(taskID: id)
+        
           let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
-          fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+            fetchRequest.predicate = NSPredicate(format: "internalId = %@", sentTask.internalId! as CVarArg)
+        
+
           do
           {
-              let requiredTask = try managedContext.fetch(fetchRequest)
-     
-                  let objectUpdate = requiredTask[0] as! NSManagedObject
-                  objectUpdate.setValue(newTaskName, forKey: "taskName")
-                 // objectUpdate.setValue("newImportance", forKey: "importance")
-                  //objectUpdate.setValue(newAsstimatedWorkTime, forKey: "asstimatedWorkTime")
-                  //objectUpdate.setValue(newDueDate, forKey: "dueDate")
-                  objectUpdate.setValue(newNotes, forKey: "notes")
-                  objectUpdate.setValue(color, forKey: "color")
+               let results = try managedContext.fetch(fetchRequest)
+                             
+                for result in results as! [NSManagedObject] {
 
+                    
+                    
+                     result.setValue(newTaskName, forKey: "taskName")
+                    // objectUpdate.setValue("newImportance", forKey: "importance")
+                     //objectUpdate.setValue(newAsstimatedWorkTime, forKey: "asstimatedWorkTime")
+                     //objectUpdate.setValue(newDueDate, forKey: "dueDate")
+                     result.setValue(newNotes, forKey: "notes")
+                     result.setValue(color, forKey: "color")
+        
+                         
+                }
+            
+               
                 
     
                   do{
@@ -1777,6 +1788,44 @@ class TaskModel : UIViewController
         
     }
     
+    func GetAllByInternalId(internalId:UUID) ->[Task]
+    {
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+               guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [Task]() }
+               
+               //We need to create a context from this container
+               let managedContext = appDelegate.persistentContainer.viewContext
+               
+               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+               fetchRequest.predicate = NSPredicate(format: "internalId = %@", internalId as CVarArg)
+              
+             var freeSpaceId:UUID
+         
+               var tasks=[Task]()
+         
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest)
+                 
+                   for result in results as! [NSManagedObject] {
+
+                         let spaceObj = result as! Task
+                     
+                         tasks.append(spaceObj)
+                         
+                }
+
+                   
+               }
+               catch
+               {
+                   print(error)
+               }
+        
+        return tasks
+        
+        
+    }
  func DeleteAllByInternalId(internalId:UUID)
     {
            //As we know that container is set up in the AppDelegates so we need to refer that container.

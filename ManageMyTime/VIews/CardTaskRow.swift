@@ -97,7 +97,7 @@ struct CardTaskRow: View {
                                        
                                      
                                   }
-                                  .frame(width: 60, height: 30, alignment: .center)
+                               .frame(width: 60, height: 30, alignment: .center).padding(.trailing,5)
                                            
                                    
                                ZStack() {

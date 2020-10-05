@@ -43,7 +43,7 @@ struct MultiPicker: View  {
                                 }
                             }
                             .pickerStyle(WheelPickerStyle())
-                            .frame(width: geometry.size.width / CGFloat(self.data.count), height: geometry.size.height)
+                            .frame(width: geometry.size.width / 3, height: geometry.size.height)
                             .clipped()
                         }
                     }
