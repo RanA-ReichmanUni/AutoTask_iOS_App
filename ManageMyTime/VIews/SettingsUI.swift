@@ -36,7 +36,7 @@ struct SettingsUI: View {
     }
     
     var body: some View {
-        UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
+        UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
             return  NavigationView {
            
   Form{

@@ -25,6 +25,19 @@ struct MainUI2: View {
   
     
     @ObservedObject var taskViewModel = TaskViewModel()
+    
+    func setAddTaskFlag()
+    {
+        self.addTaskFlag=true
+        self.settingsFlag=false
+       
+        self.dailyViewFlag=false
+        self.weeklyScheduleFlag=false
+        self.listFlag=false
+        self.toggleActive=false
+    
+    }
+
     var body: some View {
         GeometryReader{ geometry in
             VStack(spacing:0){
@@ -67,11 +80,13 @@ struct MainUI2: View {
                      if(self.listFlag)
                      {
                         
-                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
+                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
                      }
                      else if (self.addTaskFlag)
                      {
-                        AddTask(taskViewModel:self.taskViewModel,listFlag:self.$listFlag,addTaskFlag:self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
+                        AddTask(taskViewModel:self.taskViewModel,listFlag:self.$listFlag,addTaskFlag:self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
+                        
+                        //.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                      }
                      else if(self.dailyViewFlag)
                      {
@@ -93,7 +108,7 @@ struct MainUI2: View {
                     }
                      else{
                           
-                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry)
+                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
                     }
             }
                 
@@ -109,7 +124,26 @@ struct MainUI2: View {
             HStack(spacing:0){
                 
                
-                    Button(action: {
+                Button(action: {
+                     withAnimation(.easeInOut(duration: 0.7)){
+                             
+                             self.settingsFlag=false
+                             self.addTaskFlag=false
+                             self.dailyViewFlag=false
+                             self.weeklyScheduleFlag=false
+                             self.listFlag=true
+                             self.toggleActive=false
+                         }
+            
+                         
+                     }) {
+                          VStack{
+                             Image(systemName: "rectangle.stack").resizable()
+                                 .frame(maxWidth: 25,maxHeight: 25).foregroundColor((self.listFlag ?  self.choosenColor : self.defaultColor))
+                             Text("Main").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.listFlag ?  self.choosenColor : self.defaultColor)
+                         }
+                     }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
+                  /*  Button(action: {
                         withAnimation(.easeInOut(duration: 1)){
                             self.addTaskFlag=true
                             self.settingsFlag=false
@@ -126,7 +160,7 @@ struct MainUI2: View {
                             Text("New Task").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.addTaskFlag ? self.choosenColor : self.defaultColor)
                         }
                     }.background(Rectangle().fill(Color.white.opacity(0))).padding(.leading,5).padding(.top,12)
-                   
+                   */
                     //Circle().fill(Color.blue).frame(width:45)
                 
                  //Divider().frame(maxHeight: 75)
@@ -167,25 +201,7 @@ struct MainUI2: View {
                         }
                 }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
            //  Divider().frame(maxHeight: 75)
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.7)){
-                            
-                            self.settingsFlag=false
-                            self.addTaskFlag=false
-                            self.dailyViewFlag=false
-                            self.weeklyScheduleFlag=false
-                            self.listFlag=true
-                            self.toggleActive=false
-                        }
-           
-                        
-                    }) {
-                         VStack{
-                            Image(systemName: "list.dash").resizable()
-                                .frame(maxWidth: 25,maxHeight: 25).foregroundColor((self.listFlag ?  self.choosenColor : self.defaultColor))
-                            Text("Tasks").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.listFlag ?  self.choosenColor : self.defaultColor)
-                        }
-                        }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
+             
               //  Divider().frame(maxHeight: 75)
                 Button(action: {
                         withAnimation(.easeInOut(duration: 1)){

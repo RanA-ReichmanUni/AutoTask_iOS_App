@@ -31,6 +31,7 @@
 		253455D624A149F7007CB6BF /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D524A149F7007CB6BF /* TestView.swift */; };
 		253455D824A14B7B007CB6BF /* TestView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D724A14B7B007CB6BF /* TestView3.swift */; };
 		2535D71D24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */; };
+		253A476F252BE4C700FD013D /* ExpandingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253A476E252BE4C700FD013D /* ExpandingMenu.swift */; };
 		253C5CE824B1193800C95A06 /* DayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CE724B1193800C95A06 /* DayObject.swift */; };
 		253C5CEA24B11A0400C95A06 /* HourlyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CE924B11A0400C95A06 /* HourlyTask.swift */; };
 		253C5CEC24B11AEA00C95A06 /* TimeManagementCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CEB24B11AEA00C95A06 /* TimeManagementCore.swift */; };
@@ -166,6 +167,7 @@
 		253455D524A149F7007CB6BF /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		253455D724A14B7B007CB6BF /* TestView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView3.swift; sourceTree = "<group>"; };
 		2535D71C24B6AFC400BD7623 /* ManageMyTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ManageMyTime.xcdatamodel; sourceTree = "<group>"; };
+		253A476E252BE4C700FD013D /* ExpandingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingMenu.swift; sourceTree = "<group>"; };
 		253C5CE724B1193800C95A06 /* DayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayObject.swift; sourceTree = "<group>"; };
 		253C5CE924B11A0400C95A06 /* HourlyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTask.swift; sourceTree = "<group>"; };
 		253C5CEB24B11AEA00C95A06 /* TimeManagementCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagementCore.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */,
 				251CDB2324EF0B3000026911 /* MainUI.swift */,
 				2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */,
+				253A476E252BE4C700FD013D /* ExpandingMenu.swift */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */,
+				253A476F252BE4C700FD013D /* ExpandingMenu.swift in Sources */,
 				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
 				2591C8CD2518615900C39269 /* DayTaskList.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,

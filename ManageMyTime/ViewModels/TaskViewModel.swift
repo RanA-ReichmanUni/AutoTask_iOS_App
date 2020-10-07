@@ -53,13 +53,16 @@ class TaskViewModel : ObservableObject
     
     @Published var importance : String
     
-    @Published var startTime : Hour
+    @Published var startTimeHour : String
+    @Published var startTimeMinutes : String
     
-    @Published var endTime : Hour
+    @Published var endTimeMinutes : String
+    @Published var endTimeHour : String
     
     @Published var date : CustomDate
     
-    @Published var asstimatedWorkTime : Hour
+    @Published var asstimatedWorkTimeHour : String
+    @Published var asstimatedWorkTimeMinutes : String
     
     @Published var dueDate : Date
     
@@ -93,7 +96,7 @@ class TaskViewModel : ObservableObject
         
         taskName="Default"
         importance="Medium"
-        asstimatedWorkTime=Hour(context: managedContext)
+       // asstimatedWorkTime=Hour(context: managedContext)
 
         dueDate=Date()
         notes="None"
@@ -102,19 +105,17 @@ class TaskViewModel : ObservableObject
         //color=Color(.systemTeal)
         id=UUID()
         color=Color.blue
-        startTime=Hour(context: managedContext)
-        endTime=Hour(context: managedContext)
         date=CustomDate(context: managedContext)
         firstTaskColor=Color.white
         latestDayChoiseIndex=0
         didInit=false
         absoluteAllTasks=[Task]()
-        asstimatedWorkTime.hour=0
-        asstimatedWorkTime.minutes=0
-        startTime.hour=0
-        startTime.minutes=0
-        endTime.hour=0
-        endTime.minutes=0
+        asstimatedWorkTimeHour="0"
+        asstimatedWorkTimeMinutes="0"
+        startTimeHour="0"
+        startTimeMinutes="0"
+        endTimeHour="0"
+        endTimeMinutes="0"
         
         date.day=0
         date.month=0
@@ -154,9 +155,13 @@ class TaskViewModel : ObservableObject
         self.importance=importance
         self.dueDate=dueDate
         self.notes=notes
-        asstimatedWorkTime=Hour(context: managedContext)
-        self.asstimatedWorkTime.hour=Int(workTimeHours) ?? 0
-        self.asstimatedWorkTime.minutes=Int(workTimeMinutes) ?? 30
+       // asstimatedWorkTime=Hour(context: managedContext)
+        self.asstimatedWorkTimeHour=workTimeHours ?? "0"
+        self.asstimatedWorkTimeMinutes=workTimeMinutes ?? "30"
+        
+        var workTime=Hour(context: managedContext)
+            workTime.hour=Int(workTimeHours) ?? 0
+            workTime.minutes=Int(workTimeMinutes) ?? 30
         
         var difficultyPick="average"
         
@@ -172,7 +177,7 @@ class TaskViewModel : ObservableObject
         }
         
         do{
-            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: asstimatedWorkTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick)
+            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick)
         }
         
         catch{
@@ -223,13 +228,86 @@ class TaskViewModel : ObservableObject
           
         self.taskName=viewModelTask.taskName
         self.importance=viewModelTask.importance!
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        //self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes!
         self.color=taskModel.getTaskColor(color:viewModelTask.color!)
+        
+        SetViewHourStandard(startTime: viewModelTask.startTime!, endTime: viewModelTask.endTime!, asstimatedWorkTime: viewModelTask.asstimatedWorkTime)
         //taskModel.retrieveAllTasks()
           
       }
+    
+    func AdjustViewHourStandard(value:Int) -> String
+    {
+        if(String(value).count==1)
+            {
+               return "0"+String(value)
+            }
+            else{
+                return String(value)
+            }
+    }
+    
+    func SetViewHourStandard(startTime:Hour,endTime:Hour,asstimatedWorkTime:Hour)
+    {
+        
+        if(String(startTime.hour).count==1)
+        {
+            self.startTimeHour="0"+String(startTime.hour)
+        }
+        else{
+            self.startTimeHour=String(startTime.hour)
+        }
+        
+        
+        if(String(startTime.minutes).count==1)
+          {
+              self.startTimeMinutes="0"+String(startTime.minutes)
+          }
+          else{
+              self.startTimeMinutes=String(startTime.minutes)
+          }
+        
+        
+        
+        
+        
+        if(String(endTime.hour).count==1)
+         {
+             self.endTimeHour="0"+String(endTime.hour)
+         }
+         else{
+             self.endTimeHour=String(endTime.hour)
+         }
+        
+        if(String(endTime.minutes).count==1)
+        {
+            self.endTimeMinutes="0"+String(endTime.minutes)
+        }
+        else{
+            self.endTimeMinutes=String(endTime.minutes)
+        }
+        
+        
+        if(String(asstimatedWorkTime.hour).count==1)
+           {
+               self.asstimatedWorkTimeHour="0"+String(asstimatedWorkTime.hour)
+           }
+           else{
+               self.asstimatedWorkTimeHour=String(asstimatedWorkTime.hour)
+           }
+          
+          if(String(asstimatedWorkTime.minutes).count==1)
+          {
+              self.asstimatedWorkTimeMinutes="0"+String(asstimatedWorkTime.minutes)
+          }
+          else{
+              self.asstimatedWorkTimeMinutes=String(asstimatedWorkTime.minutes)
+          }
+        
+        
+    }
     
     func intialValuesSetup()
     {
@@ -405,12 +483,12 @@ class TaskViewModel : ObservableObject
           
         self.taskName=viewModelTask.taskName
         self.importance=viewModelTask.importance!
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        //self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes!
         self.color=taskModel.getTaskColor(color: viewModelTask.color!)
        
-          
+        SetViewHourStandard(startTime: viewModelTask.startTime!, endTime: viewModelTask.endTime!, asstimatedWorkTime: viewModelTask.asstimatedWorkTime)
         //taskModel.retrieveAllTasks()
           
       }
@@ -765,15 +843,17 @@ class TaskViewModel : ObservableObject
         
         self.taskName=viewModelTask.taskName
         self.importance=viewModelTask.importance!
-        self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
+        //self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
         print(viewModelTask.asstimatedWorkTime)
         self.dueDate=viewModelTask.dueDate
         self.notes=viewModelTask.notes!
         self.date=viewModelTask.date
-        self.startTime=viewModelTask.startTime!
-        self.endTime=viewModelTask.endTime!
+        //self.startTime=viewModelTask.startTime!
+        //self.endTime=viewModelTask.endTime!
         self.id=viewModelTask.id
-        self.color=taskModel.getTaskColor(color: viewModelTask.color!) 
+        self.color=taskModel.getTaskColor(color: viewModelTask.color!)
+        
+        SetViewHourStandard(startTime: viewModelTask.startTime!, endTime: viewModelTask.endTime!, asstimatedWorkTime: viewModelTask.asstimatedWorkTime)
     }
     
     

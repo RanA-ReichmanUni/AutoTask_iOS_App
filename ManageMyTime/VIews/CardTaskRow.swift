@@ -60,7 +60,7 @@ struct CardTaskRow: View {
             VStack{
                             HStack{
                                // Spacer()
-                                Text(self.taskName1).font(Font.custom("Chalkduster", size: 20))
+                                Text(self.taskName1).font(Font.custom("Chalkduster", size: 22))
                             .font(.system(size: 20))
     
                             .fontWeight(.bold)
@@ -73,13 +73,12 @@ struct CardTaskRow: View {
                             //.padding(.bottom, 5)
                 
                         HStack{
-                            CategoryPill(categoryName: "Scheduled: "+self.scheduledDate,color:            LinearGradient(
-                                gradient: Gradient(colors: [self.color,self.color]),
-                                                                                                         startPoint: .top,
-                                                                                                         endPoint: .bottom
-                                                                                                     ))
+                           Text("Planned: "+self.scheduledDate).font(Font.custom("Chalkduster", size: 16))
+                           .foregroundColor(.white)
+                            
+                      
                         Spacer()
-                            HStack{
+                            HStack(spacing:0){
                                ZStack() {
                                      RoundedRectangle(cornerRadius: 10)
                                           .fill(
@@ -91,15 +90,15 @@ struct CardTaskRow: View {
                                      ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.2))
                                       
                             
-                                       Text("\(self.startTimeHour)"+":"+"\(self.startTimeMinutes)")
-                                              .font(.system(size: 20, weight: .bold))
+                                       Text("\(self.taskViewModel.AdjustViewHourStandard(value:self.startTimeHour))"+":"+"\(self.taskViewModel.AdjustViewHourStandard(value:self.startTimeMinutes))")
+                                              .font(Font.custom("Noteworthy-Bold", size: 16))
                                               .foregroundColor(.white)
                                        
                                      
                                   }
-                               .frame(width: 60, height: 30, alignment: .center).padding(.trailing,5)
+                               .frame(width: 60, height: 30, alignment: .center)//.padding(.trailing,1)
                                            
-                                   
+                                Text(" - ").foregroundColor(Color.white)
                                ZStack() {
                                      RoundedRectangle(cornerRadius: 10)
                                        .fill(
@@ -110,9 +109,9 @@ struct CardTaskRow: View {
                                            )
                                        ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.2))
                                    
-                                 
-                                       Text("\(self.endTimeHour)"+":"+"\(self.endTimeMinutes)")
-                                           .font(.system(size: 20, weight: .bold))
+                                
+                                       Text("\( self.taskViewModel.AdjustViewHourStandard(value:self.endTimeHour))"+":"+"\( self.taskViewModel.AdjustViewHourStandard(value:self.endTimeMinutes))")
+                                           .font(Font.custom("Noteworthy-Bold", size: 16))
                                            .foregroundColor(.white)
                                        
   
@@ -132,7 +131,7 @@ struct CardTaskRow: View {
                                                                                                                                         endPoint: .bottom
                                                                                                                                     ))
                                 Spacer()
-                                CategoryPill(categoryName: "Duration: " + String(workTimeHour)+":"+String(workTimeMinutes),color: LinearGradient(
+                                CategoryPill(categoryName: "Duration: " + self.taskViewModel.AdjustViewHourStandard(value:workTimeHour)+":"+self.taskViewModel.AdjustViewHourStandard(value:workTimeMinutes),color: LinearGradient(
                                                                     gradient: Gradient(colors: [self.color,self.color]),
                                                                          startPoint: .top,
                                                                          endPoint: .bottom
@@ -232,14 +231,14 @@ struct CardTaskRow: View {
                     self.colorScheme == .dark ? ( LinearGradient(
                         gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
                         startPoint: .topTrailing,
-                                 endPoint:.bottomTrailing
+                        endPoint:.bottomLeading
                                )) :(
                    LinearGradient(
                     gradient: Gradient(colors: [self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
-                      endPoint:.bottomTrailing
-                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth:1.5)).frame(height:self.height).padding(.bottom,overlayPadding)
+                      endPoint:.bottomLeading
+                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth: self.colorScheme == .dark ? 5 : 1.5)).frame(height:self.height).padding(.bottom,overlayPadding)
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {

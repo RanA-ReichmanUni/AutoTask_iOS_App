@@ -27,6 +27,9 @@ struct TaskListFastAnimation: View {
     @State var show:Bool=false
     @State var dayIndexSelector:Int=0
     var geometry:GeometryProxy
+    @Binding var addTaskFlag:Bool
+    @Binding var listFlag:Bool
+    @State var showAddTask=false
     private func GetTasksByChoise() {
             
         taskViewModel.GetDayTasksByIndex(index: dayIndexSelector)
@@ -36,7 +39,7 @@ struct TaskListFastAnimation: View {
     var body: some View {
 
        GeometryReader{geometry in
-  
+        ZStack{
             ScrollView{
                 
                
@@ -118,12 +121,16 @@ struct TaskListFastAnimation: View {
                     if(self.taskViewModel.allTasks.isEmpty && self.dayIndexSelector == 0)
                 {
                     
-                    Text("There Are No Scheduled Tasks...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
+                    Text("There Are No Scheduled Tasks...").font(Font.custom("Chalkduster", size: 30))//.background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
                 }
                 else if(self.taskViewModel.allTasks.isEmpty){
                     
-                        Text("There Are No Tasks Scheduled For This Day...").font(Font.custom("Chalkduster", size: 30)).background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
+                        Text("There Are No Tasks Scheduled For This Day...").font(Font.custom("Chalkduster", size: 30))//.background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f7f5f5")).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black).frame(width:geometry.size.width/1.08,height:geometry.size.height/5.7)).padding()
                 }
+                
+       
+                
+            
                       
                 //.navigationBarTitle(Text("Active Tasks").foregroundColor(.green))
                         
@@ -139,6 +146,17 @@ struct TaskListFastAnimation: View {
                
                 
             }.background(Color(hex:"#fcfcfc")).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
+        ZStack(alignment: .bottomTrailing) {
+                   Rectangle()
+                       .foregroundColor(.clear)
+                       .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ExpandingMenu(addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask:self.$showAddTask)
+                       .padding()
+               }
+        }
+        }.sheet(isPresented: self.$showAddTask) {
+            
+            AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
         }
         /*.onAppear{//self.taskViewModel.retrieveAllTasks()
                // self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button

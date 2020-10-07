@@ -449,7 +449,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 10
-        dateComponents.day = 3
+        dateComponents.day = 10
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -1283,8 +1283,10 @@ class TaskModel : UIViewController
                      currentDate.year=Date().year
                      currentDate.month=Date().month
                      currentDate.day=Date().day
-                       
-                  let weekSequence=coreManagment.createCalanderSequence(startDay: 4, startMonth: 10, startYear: 2020, endDay: 10, endMonth: 10, endYear: 2020)
+        
+                let fullCurrentDate=Date()
+        
+        let weekSequence=coreManagment.createCalanderSequence(startDay: fullCurrentDate.startOfWeek.day, startMonth: fullCurrentDate.startOfWeek.month, startYear: fullCurrentDate.startOfWeek.year, endDay: fullCurrentDate.endOfWeek.day, endMonth: fullCurrentDate.endOfWeek.month, endYear: fullCurrentDate.endOfWeek.year)
           //        fetchRequest.fetchLimit = 1
           //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
           //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -1458,12 +1460,15 @@ class TaskModel : UIViewController
                        currentTime.minutes=Date().minutes
                      
            
-               let currentDate = CustomDate(context:managedContext)
-                    currentDate.year=Date().year
-                    currentDate.month=Date().month
-                    currentDate.day=Date().day
+            let currentDate = CustomDate(context:managedContext)
+                currentDate.year=Date().year
+                currentDate.month=Date().month
+                currentDate.day=Date().day
                       
-                 let weekSequence=coreManagment.createCalanderSequence(startDay: 27, startMonth: 9, startYear: 2020, endDay: 3, endMonth: 10, endYear: 2020)
+            let fullCurrentDate=Date()
+        
+                 let weekSequence=coreManagment.createCalanderSequence(startDay: fullCurrentDate.startOfWeek.day, startMonth: fullCurrentDate.startOfWeek.month, startYear: fullCurrentDate.startOfWeek.year, endDay: fullCurrentDate.endOfWeek.day, endMonth: fullCurrentDate.endOfWeek.month, endYear: fullCurrentDate.endOfWeek.year)
+        
          //        fetchRequest.fetchLimit = 1
          //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
          //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]

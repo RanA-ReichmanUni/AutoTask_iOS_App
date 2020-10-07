@@ -83,7 +83,7 @@ struct AddTask: View {
     
     
     var body: some View {
-        UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
+        UITableView.appearance().backgroundColor = (self.colorScheme == .dark ? Color.black : Color(hex:"#fcfcfc")).uiColor()
                   
         return
         VStack(spacing:0) {
@@ -300,7 +300,7 @@ struct AddTask: View {
 
                             }) {
                                
-                                Text(" Schedule ").frame(width:100,height:55).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(self.disableSave ? Color.gray : Color.blue).frame(width:100,height:55)).padding(.bottom,20)
+                                Text(" Schedule ").frame(width:100,height:55).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(self.disableSave ? Color(hex:"#595858") : Color.blue).frame(width:100,height:55)).padding(.bottom,20)
                                     
                                 
                                 
@@ -357,7 +357,7 @@ struct AddTask: View {
                        // .disabled(disableSave)
                     
              
-                }.background(Color(hex:"#fcfcfc"))//.frame(height:30)
+                }.background( (self.colorScheme == .dark ? Color(hex:"#212121") : Color(hex:"#fcfcfc")))//.frame(height:30)
            
                     
         }.background(Color(hex:"#fcfcfc"))
