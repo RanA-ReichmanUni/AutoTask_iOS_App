@@ -64,7 +64,7 @@ struct ExpandingMenu: View {
 }*/
 
 struct MenuItem: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     var name: String
     var image:String?
     @Binding var addTaskFlag:Bool
@@ -91,7 +91,7 @@ struct MenuItem: View {
         {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)//.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue))
-                    .foregroundColor(Color(hex:"#d6ecff").opacity(0.9))
+                    .foregroundColor(self.colorScheme == .dark ? Color(hex:"#2e2e2e").opacity(0.9) : Color(hex:"#d6ecff").opacity(0.9))
                     .frame(width: 210, height: 50)
                 
                 HStack{

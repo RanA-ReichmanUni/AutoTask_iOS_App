@@ -93,6 +93,7 @@
 		25BB43F82513FAEC00AD2957 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BB43F62513FAEC00AD2957 /* Task+CoreDataClass.swift */; };
 		25BB43F92513FAEC00AD2957 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BB43F72513FAEC00AD2957 /* Task+CoreDataProperties.swift */; };
 		25C0BABE25113A530050EA79 /* WorkPerDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0BABD25113A530050EA79 /* WorkPerDate.swift */; };
+		25CAAE5E252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CAAE5D252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift */; };
 		25CD218A24BB59CF0048DDAC /* CustomDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218424BB59CF0048DDAC /* CustomDate+CoreDataClass.swift */; };
 		25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218524BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift */; };
 		25D067CD24EAA06C000E31A5 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D067CC24EAA06C000E31A5 /* PickerView.swift */; };
@@ -233,6 +234,7 @@
 		25BB43F62513FAEC00AD2957 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25BB43F72513FAEC00AD2957 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25C0BABD25113A530050EA79 /* WorkPerDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkPerDate.swift; sourceTree = "<group>"; };
+		25CAAE5D252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceVerticalCard.swift; sourceTree = "<group>"; };
 		25CD218424BB59CF0048DDAC /* CustomDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25CD218524BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25D067CC24EAA06C000E31A5 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
@@ -355,11 +357,12 @@
 				2591C8CC2518615900C39269 /* DayTaskList.swift */,
 				253FF2F025192C90002B024C /* SeparatedTaskList.swift */,
 				25105F9324E14A940066758B /* CardTaskRow.swift */,
-				25EE9F4C24EC1ACC002A2E5A /* RestrictedSpaceCard.swift */,
+				25CAAE5D252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift */,
 				25A248E324AA861000E74F51 /* DetailedTask.swift */,
 				25105F9524E1AB540066758B /* DetailedTaskUI.swift */,
 				25EE9F4E24EC1BD4002A2E5A /* RestrictedSpaceUI.swift */,
 				25105F9724E2155F0066758B /* Demoui.swift */,
+				25EE9F4C24EC1ACC002A2E5A /* RestrictedSpaceCard.swift */,
 				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
 				25407EE624D71F3E003110E9 /* CircularBar.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
@@ -704,6 +707,7 @@
 				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
 				2591C8CD2518615900C39269 /* DayTaskList.swift in Sources */,
 				253455D424A12539007CB6BF /* AddTask.swift in Sources */,
+				25CAAE5E252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift in Sources */,
 				25F347FE24A22FB400671D09 /* MultiPicker.swift in Sources */,
 				2577A5EA24AD15690006E1D2 /* Column.swift in Sources */,
 				25D067CF24EAA73D000E31A5 /* RestrictedDayUI.swift in Sources */,

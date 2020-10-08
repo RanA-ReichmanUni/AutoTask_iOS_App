@@ -239,6 +239,7 @@ struct MainUI2: View {
                 }.onAppear{  self.taskViewModel.retrieveAllTasks()
                     self.taskViewModel.retrieveAllTasksByHour()
                     self.taskViewModel.intialValuesSetup()
+                    self.listFlag=true
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     

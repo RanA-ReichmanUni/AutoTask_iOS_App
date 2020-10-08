@@ -193,7 +193,7 @@ struct TaskList: View {
                                         }*/
                
                 
-            }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#fcfcfc")).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
+            }.background(self.colorScheme == .dark ? Color.black : Color.white).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
             
             
             ZStack(alignment: .bottomTrailing) {
@@ -204,7 +204,7 @@ struct TaskList: View {
                               .padding()
                       }
         }
-    }.sheet(isPresented: self.$showAddTask) {
+       }.sheet(isPresented: self.$showAddTask) {
         
         if(self.colorScheme == .dark)
         {

@@ -18,10 +18,44 @@ class RestrictedSpaceViewModel : ObservableObject
     
     @Published var allRestrictedSpaces = [RestrictedSpace]()
     
+
     
+    func DayStringToNumConverter(dayOfTheWeek:String) -> Int
+    {
+        switch dayOfTheWeek.lowercased() {
+        case "sunday":
+            return 0
+        case "monday":
+            return 1
+        case "tuesday":
+            return 2
+        case "wednesday":
+            return 3
+        case "thursday":
+            return 4
+        case "friday":
+            return 5
+        case "saturday":
+            return 6
+        default:
+            return 0
+        }
+        
+        return 0
+        
+    }
     func getAllRestrictedSpace ()
     {
-        self.allRestrictedSpaces = restrictedSpaceModel.getAllRestrictedSpace()
+        var allSpaces = restrictedSpaceModel.getAllRestrictedSpace()
+        
+        allSpaces.sort{
+            (DayStringToNumConverter(dayOfTheWeek:$0.dayOfTheWeek),$0.startTime.hour, $0.startTime.minutes) <
+                                   (DayStringToNumConverter(dayOfTheWeek:$1.dayOfTheWeek),$1.startTime.hour, $1.startTime.minutes)
+                            }
+        
+        self.allRestrictedSpaces=allSpaces
+        
+        //DayStringToNumConverter(dayOfTheWeek:$0.dayOfTheWeek),
     }
     
     func getRandomColor() -> Color
