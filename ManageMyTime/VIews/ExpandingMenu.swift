@@ -31,10 +31,10 @@ struct ExpandingMenu: View {
             Button(action: {
                 self.showMenu()
             }) {
-                Image(systemName: "plus.circle.fill")
+                Image(systemName: "pencil.circle.fill")
                     .resizable()
                     .frame(width: 60, height: 60)
-                    .foregroundColor(Color(hex:"#d6ecff").opacity(0.93))
+                    .foregroundColor(Color.blue.opacity(0.85))
                     //.shadow(color: .gray, radius: 0.2, x: 1, y: 1)
             }
         }//.animation(.easeInOut(duration: 0.5))
