@@ -231,13 +231,13 @@ struct CardTaskRow: View {
                     self.colorScheme == .dark ? ( LinearGradient(
                         gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
                         startPoint: .topTrailing,
-                        endPoint:.bottomLeading
+                        endPoint:.bottomTrailing
                                )) :(
                    LinearGradient(
                     gradient: Gradient(colors: [self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
-                      endPoint:.bottomLeading
+                      endPoint:.bottomTrailing
                                ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth: self.colorScheme == .dark ? 5 : 1.5)).frame(height:self.height).padding(.bottom,overlayPadding)
 
             }

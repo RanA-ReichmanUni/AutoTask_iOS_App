@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct WeeklyScheduleBar: View {
+    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
          HStack(alignment: .top){
                                   Image(systemName: "clock").padding(EdgeInsets(top: 9, leading: 5, bottom: 0, trailing: -6)).foregroundColor(Color(.systemTeal))
@@ -21,7 +23,7 @@ struct WeeklyScheduleBar: View {
                                     Text("Fri").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color(.systemTeal)).frame(width: geometry.size.width/0.61, height:  geometry.size.height)
                                       Text("Sat").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color.blue).frame(width: geometry.size.width/0.52, height:  geometry.size.height)
                                   }
-            }.frame(height: 30).padding().background(Color(hex:"#e6f2ff"))//was 30 in height
+         }.frame(height: 30).padding().background(self.colorScheme == .dark ? Color.black : Color(hex:"#e6f2ff"))//was 30 in height
     }
 }
 

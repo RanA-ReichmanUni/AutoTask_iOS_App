@@ -25,7 +25,7 @@ struct MainUI2: View {
   
     
     @ObservedObject var taskViewModel = TaskViewModel()
-    
+    @Environment(\.colorScheme) var colorScheme
     func setAddTaskFlag()
     {
         self.addTaskFlag=true
@@ -139,8 +139,10 @@ struct MainUI2: View {
                      }) {
                           VStack{
                              Image(systemName: "rectangle.stack").resizable()
-                                 .frame(maxWidth: 25,maxHeight: 25).foregroundColor((self.listFlag ?  self.choosenColor : self.defaultColor))
-                             Text("Main").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.listFlag ?  self.choosenColor : self.defaultColor)
+                                 .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
+                                 self.colorScheme == .dark ? self.listFlag ?  self.choosenColor : Color.blue : (self.listFlag ?  self.choosenColor : self.defaultColor))
+                             Text("Main").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                                self.colorScheme == .dark ? self.listFlag ?  self.choosenColor : Color.blue : (self.listFlag ?  self.choosenColor : self.defaultColor))
                          }
                      }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                   /*  Button(action: {
@@ -178,8 +180,10 @@ struct MainUI2: View {
                     }) {
                             VStack{
                               Image(systemName: "calendar").resizable()
-                                .frame(maxWidth: 25,maxHeight: 25).foregroundColor((self.weeklyScheduleFlag ? self.choosenColor : self.defaultColor))
-                             Text("Weekly").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.weeklyScheduleFlag ?  self.choosenColor : self.defaultColor)
+                                .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
+                                self.colorScheme == .dark ? self.weeklyScheduleFlag ?  self.choosenColor : Color.blue : (self.weeklyScheduleFlag ?  self.choosenColor : self.defaultColor))
+                             Text("Weekly").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                             self.colorScheme == .dark ? self.weeklyScheduleFlag ?  self.choosenColor : Color.blue : (self.weeklyScheduleFlag ?  self.choosenColor : self.defaultColor))
                             }
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                // Divider().frame(maxHeight: 75)
@@ -196,8 +200,10 @@ struct MainUI2: View {
                     }) {
                          VStack{
                             Image(systemName: String(String(Date().day)+".square")).resizable()
-                              .frame(maxWidth: 25,maxHeight: 25).foregroundColor((self.dailyViewFlag ?  self.choosenColor : self.defaultColor))
-                            Text("Daily").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.dailyViewFlag ?  self.choosenColor : self.defaultColor)
+                              .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
+                              self.colorScheme == .dark ? self.dailyViewFlag ?  self.choosenColor : Color.blue : (self.dailyViewFlag ?  self.choosenColor : self.defaultColor))
+                            Text("Daily").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                            self.colorScheme == .dark ? self.dailyViewFlag ?  self.choosenColor : Color.blue : (self.dailyViewFlag ?  self.choosenColor : self.defaultColor))
                         }
                 }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
            //  Divider().frame(maxHeight: 75)
@@ -217,8 +223,10 @@ struct MainUI2: View {
                     }) {
                             VStack{
                                   Image(systemName: "gear").resizable()
-                                       .frame(maxWidth: 25,maxHeight: 25).foregroundColor((self.settingsFlag ?  self.choosenColor : self.defaultColor))
-                                Text("Settings").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(self.settingsFlag ?  self.choosenColor : self.defaultColor)
+                                       .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
+                                       self.colorScheme == .dark ? self.settingsFlag ?  self.choosenColor : Color.blue : (self.settingsFlag ?  self.choosenColor : self.defaultColor))
+                                Text("Settings").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                                self.colorScheme == .dark ? self.settingsFlag ?  self.choosenColor : Color.blue : (self.settingsFlag ?  self.choosenColor : self.defaultColor))
                             }
                 }.background(Rectangle().fill((Color.white.opacity(0)))).padding(.top,12)
                                

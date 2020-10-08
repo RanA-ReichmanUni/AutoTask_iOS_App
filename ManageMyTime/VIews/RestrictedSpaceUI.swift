@@ -32,7 +32,7 @@ struct RestrictedSpaceUI: View {
     @State private var offset: CGFloat = 0
      @State private var padding: CGFloat = 0
     var helper = HelperFuncs()
-
+  
     var body: some View {
 
   
@@ -80,7 +80,7 @@ struct RestrictedSpaceUI: View {
                 
             }.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
                 //self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.navigationBarTitle("Personal Activity", displayMode: .inline) .background(    Color(hex:"#fcfcfc")) //.padding(.top,5)
+            }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#fcfcfc")).navigationBarTitle("Personal Activity", displayMode: .inline) //.padding(.top,5)
              
             
          

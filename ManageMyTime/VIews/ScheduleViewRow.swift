@@ -11,7 +11,9 @@ import SwiftUI
 
 
 struct ScheduleViewRow: View {
-          @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.colorScheme) var colorScheme
+    
   //  @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var timeChar = "25"
     //var columns : [String]
@@ -111,7 +113,7 @@ struct ScheduleViewRow: View {
 
 
             }
-        }.onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.easeInOut(duration: 0.5))
+        }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#f9f9f9").opacity(0.1)).onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.easeInOut(duration: 0.5))
     }
 }
 
