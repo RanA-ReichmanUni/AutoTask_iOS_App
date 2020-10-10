@@ -125,6 +125,31 @@ class TaskViewModel : ObservableObject
     
      }
     
+    func DayStringToNumConverter(dayOfTheWeek:String) -> Int
+       {
+           switch dayOfTheWeek.lowercased() {
+           case "sunday":
+               return 0
+           case "monday":
+               return 1
+           case "tuesday":
+               return 2
+           case "wednesday":
+               return 3
+           case "thursday":
+               return 4
+           case "friday":
+               return 5
+           case "saturday":
+               return 6
+           default:
+               return 0
+           }
+           
+           return 0
+           
+       }
+    
     func completedToggle(tasdkId:UUID)
     {
         self.taskModel.completedToggle(taskId: tasdkId)
@@ -145,7 +170,7 @@ class TaskViewModel : ObservableObject
     
   
     
-    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String,color:Color=Color.green,difficultyIndex:Int) throws
+    func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String,color:Color=Color.green,difficultyIndex:Int,notificationIndex:Int) throws
     {
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -165,6 +190,7 @@ class TaskViewModel : ObservableObject
         
         var difficultyPick="average"
         
+        
         switch difficultyIndex {
         case 0:
             difficultyPick=difficultyLevel.difficult.rawValue
@@ -176,8 +202,17 @@ class TaskViewModel : ObservableObject
             difficultyPick=difficultyLevel.average.rawValue
         }
         
+        var notificationPick=0
+        
+        switch notificationIndex {
+        case 0:
+            notificationPick = -1
+        default:
+            notificationPick=notificationIndex-1
+        }
+        
         do{
-            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick)
+            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
         }
         
         catch{

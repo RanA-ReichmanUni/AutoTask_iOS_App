@@ -14,7 +14,7 @@ struct RegularViewSelector: View {
     var weekByHour:TasksPerHourPerDay
     
     var geometry:GeometryProxy
-
+    
     
       @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     

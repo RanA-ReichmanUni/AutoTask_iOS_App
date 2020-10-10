@@ -60,7 +60,7 @@ struct CardTaskRow: View {
             VStack{
                             HStack{
                                // Spacer()
-                                Text(self.taskName1).font(Font.custom("Chalkduster", size: 22))
+                                Text(self.taskName1).strikethrough(date < Date() ? true : false , color: Color.black).font(Font.custom("Chalkduster", size: 22))
                             .font(.system(size: 20))
     
                             .fontWeight(.bold)

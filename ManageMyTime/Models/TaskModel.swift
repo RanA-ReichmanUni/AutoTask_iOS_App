@@ -534,7 +534,7 @@ class TaskModel : UIViewController
 
         
     }
-    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:Color=Color.green,difficulty:String=difficultyLevel.average.rawValue) throws {
+    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:Color=Color.green,difficulty:String=difficultyLevel.average.rawValue,notificationFactor:Int=10) throws {
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -548,7 +548,7 @@ class TaskModel : UIViewController
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
         do {
-            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description)
+            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
         }
         catch{
             throw DatabaseError.taskCanNotBeScheduledInDue

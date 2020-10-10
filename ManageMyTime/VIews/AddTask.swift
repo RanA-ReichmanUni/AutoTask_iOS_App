@@ -260,7 +260,7 @@ struct AddTask: View {
                                             
                                             if self.permissionAqcuired ?? false {
                                                         do{
-                                                              try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex)
+                                                            try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex,notificationIndex:self.selectedNotificationIndex)
                                                               
                                                                   self.taskViewModel.UpdateAllTasks()
                                                                   self.addTaskFlag=false

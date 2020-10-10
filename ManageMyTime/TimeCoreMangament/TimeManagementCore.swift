@@ -856,7 +856,7 @@ class Core{
     
     
     
-    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,difficulty:String=difficultyLevel.average.rawValue,color:String,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
+    func ScheduleTask(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,difficulty:String=difficultyLevel.average.rawValue,color:String,notificationFactor:Int=10,internalId:UUID?=nil,safetyCount:Int=30) throws -> Task
     {
       
         
@@ -1231,7 +1231,7 @@ class Core{
                                                     newTask.associatedFreeSpaceId=freeSpace.associatedId
                                                     newTask.difficulty=difficulty
                                                     
-                                                    createNotification(taskName: newTask.taskName, notes: newTask.notes! , internalId: newTask.internalId!, date: newTask.date, startTime: newTask.startTime!)
+                                                    createNotification(taskName: newTask.taskName, notes: newTask.notes! , internalId: newTask.internalId!, date: newTask.date, startTime: newTask.startTime!,notificationFactor:notificationFactor)
                                                     
                                                     handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                     
@@ -1381,53 +1381,72 @@ class Core{
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
     
-    func createNotification(taskName:String,notes:String,internalId:UUID,date:CustomDate,startTime:Hour)
+    func ViewStandardHourConverter(hourVar:Hour) ->String
+       {
+            var viewStandardisedHour=""
+           
+           if(String(hourVar.hour).count==1)
+           {
+               viewStandardisedHour="0"+String(hourVar.hour)
+           }
+           else{
+               viewStandardisedHour=String(hourVar.hour)
+           }
+           
+           viewStandardisedHour=viewStandardisedHour+":"
+        
+           if(String(hourVar.minutes).count==1)
+           {
+                viewStandardisedHour=viewStandardisedHour+"0"+String(hourVar.minutes)
+           }
+           else{
+                viewStandardisedHour=viewStandardisedHour+String(hourVar.minutes)
+            }
+           
+        return viewStandardisedHour
+           
+   
+       }
+    
+    
+    func createNotification(taskName:String,notes:String,internalId:UUID,date:CustomDate,startTime:Hour,notificationFactor:Int)
     {
         
-        var additionalChar=""
-        
-        if(startTime.minutes==0)
+        if(notificationFactor != -1)//-1 represent no notification option.
         {
-            additionalChar="0"
+            let viewHourString=ViewStandardHourConverter(hourVar:startTime)
+            
+            let content = UNMutableNotificationContent()
+            content.title = "Its Almost Time To Start Working On "+taskName+" !"
+            content.subtitle = "You May Start At: "+viewHourString
+            content.sound = UNNotificationSound.default
+
+        
+            
+         
+            
+            let notificationAlert = startTime.subtract(minutesValue: notificationFactor)
+            
+            var dateComponents = DateComponents()
+                dateComponents.year = date.year
+                dateComponents.month = date.month
+                dateComponents.day = date.day
+                dateComponents.hour=notificationAlert.hour
+                dateComponents.minute=notificationAlert.minutes
+            
+         
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching:dateComponents, repeats: false)
+
+            // choose a random identifier
+            let request = UNNotificationRequest(identifier: internalId.uuidString, content: content, trigger: trigger)
+
+            // add our notification request
+            UNUserNotificationCenter.current().add(request)
         }
         
-        let content = UNMutableNotificationContent()
-        content.title = "Its Almost Time To Start Working On "+taskName+"."
-        content.subtitle = "You Should Start At: "+String(startTime.hour)+":"+String(startTime.minutes)+additionalChar
-        content.sound = UNNotificationSound.default
-
-        let notifciationStartTime=startTime.subtract(minutesValue: 10)
-        
-       /* var dateComponents = DateComponents()
-            dateComponents.year = date.year
-            dateComponents.month = date.month
-            dateComponents.day = date.day
-            dateComponents.hour=notifciationStartTime.hour
-            dateComponents.minute=notifciationStartTime.minutes*/
-        
-        var dateComponents = DateComponents()
-            dateComponents.year = Date().year
-            dateComponents.month = Date().month
-            dateComponents.day = Date().day
-        dateComponents.hour=Date().hour
-            dateComponents.minute=23
-        
-        //print(String(Date().hour)+"pooopooo")
-
-        /*    // Create date from components
-            let userCalendar = Calendar.current // user calendar
-            let dateTime = userCalendar.date(from: dateComponents)*/
-        // show this notification five seconds from now
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching:dateComponents, repeats: true)
-
-        // choose a random identifier
-        let request = UNNotificationRequest(identifier: internalId.uuidString, content: content, trigger: trigger)
-
-        // add our notification request
-        UNUserNotificationCenter.current().add(request)
-        
     }
+    
     func handleLoad(date:CustomDate,duration:Hour)
     {
         //As we know that container is set up in the AppDelegates so we need to refer that container.

@@ -53,7 +53,8 @@ struct TaskList: View {
                                 Picker(selection: self.$dayIndexSelector.onUpdate(self.GetTasksByChoise), label:Text("")) {
                                                   ForEach(self.dayNames ,id:\.self) { day in
                                                     
-                                                    Text(day).font(Font.custom("ChalkboardSE-Regular", size: 26)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0)).foregroundColor(
+                                                    Text(day).strikethrough(self.dayNames.firstIndex(of: day) == 0 ? false : ((self.taskViewModel.DayStringToNumConverter(dayOfTheWeek: Date().dayOfWeek()!) < self.dayNames.firstIndex(of: day) ?? 6) ? false : true), color: Color.black
+                                                    ).font(Font.custom("ChalkboardSE-Regular", size: 25)).tag(Int(self.dayNames.firstIndex(of: day)!)).background(RoundedRectangle(cornerRadius: 20).fill(Color.blue).opacity(self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? 1 : 0)).foregroundColor(
                                                         self.colorScheme == .dark ? self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.orange :
                                                         self.dayIndexSelector==Int(self.dayNames.firstIndex(of: day)!) ? Color.white : Color.black)
                                                   }

@@ -44,6 +44,7 @@ class RestrictedSpaceViewModel : ObservableObject
         return 0
         
     }
+    
     func getAllRestrictedSpace ()
     {
         var allSpaces = restrictedSpaceModel.getAllRestrictedSpace()

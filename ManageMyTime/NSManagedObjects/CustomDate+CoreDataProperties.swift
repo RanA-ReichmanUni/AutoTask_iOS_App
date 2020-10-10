@@ -143,6 +143,15 @@ extension CustomDate {
               }
               return false
           }
+    
+        static func < (left: CustomDate, right: Date) -> Bool { // 1
+           
+          if(left.year < right.year || (left.year == right.year && left.month < right.month) || (left.year == right.year && left.month == right.month && left.day < right.day) )
+            {
+                return true
+            }
+            return false
+        }
      
      
     
