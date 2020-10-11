@@ -80,7 +80,7 @@ class TaskViewModel : ObservableObject
     
     private var didInit:Bool
   
-    private var absoluteAllTasks:[Task]
+    @Published var absoluteAllTasks:[Task]
     
     var taskModel = TaskModel()
     
@@ -548,6 +548,13 @@ class TaskViewModel : ObservableObject
             
         
         
+    }
+    
+    func GetAllTasks()
+    {
+        absoluteAllTasks=taskModel.retrieveAllTasks()
+        print(absoluteAllTasks.count
+        )
     }
     
     func UpdateAllTasks()

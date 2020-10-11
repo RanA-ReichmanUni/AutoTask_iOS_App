@@ -1526,7 +1526,9 @@ class Core{
       }
     
     func densityHandler(date:CustomDate,workTime:Hour,includePersonalTime:Bool) -> Bool
-     {//Checks if a day is avilable in terms of ideal space regarding the scheduleDensity choise
+     {//Deactivated at this point !!!!!, see comment in var algorithm line, to activate cacncel commenting
+        
+        //Checks if a day is avilable in terms of ideal space regarding the scheduleDensity choise
         
          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return true }
          
@@ -1538,7 +1540,7 @@ class Core{
                                  
         fetchRequest.predicate = NSPredicate(format: "date.day = %@ AND date.month = %@ AND date.year = %@ AND isTaskBreakWindow = %@", argumentArray: [date.day,date.month,date.year,false])
          var taskModel=TaskModel()
-         var algorithm=DensityEnumConverter(phrase: taskModel.getSettingsValues().scheduleDensity)
+         var algorithm=scheduleDensity.maximumCapacity//DensityEnumConverter(phrase: taskModel.getSettingsValues().scheduleDensity) // since the algorithms determining best results already, it's meaningless to upperbound a day density capicity, if the user doesn't want any more tasks he won't insert them the spreading of stress is already ideal.
          var isDayAvailable = true
          var scheduledDuration = workTime.hourInMinutes()
          var duration:Hour

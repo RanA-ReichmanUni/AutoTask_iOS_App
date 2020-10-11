@@ -61,21 +61,17 @@ struct SettingsUI: View {
                            
           
                          //Using Binding extention
-                           Picker(selection: self.$selectedDensityIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
+                       /*    Picker(selection: self.$selectedDensityIndex.onUpdate(SetSettings), label: Text("Daily Schedule Density")) {
                                ForEach(0 ..< self.densityValues.count) {
                                      Text(self.densityValues[$0])
                                    }
-                           }
+                           }*/
                         
                                     
                                  
                             
                                  
-                                
-                            
-                         VStack{
-                                                 
-                                   HStack{
+                    
                                      //Using Binding extention
                                     Picker(selection: self.$selectedBreakPeriodsIndex.onUpdate(SetSettings), label: Text("Break Periods")) {
                                            ForEach(0 ..< self.breakPeriods.count) {
@@ -83,16 +79,10 @@ struct SettingsUI: View {
                                                }
                                        }
                                     
-                                   }
-                                       
-                               }
-                                             
+                                    
     
     
     
-                        VStack{
-                                  
-                                HStack{
                                   //Using Binding extention
                                     Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
                                         ForEach(0 ..< self.schedulingAlgorithm.count) {
@@ -100,9 +90,7 @@ struct SettingsUI: View {
                                             }
                                     }
                                  
-                                }
-                                    
-                            }
+                         
                                 
 
                             Picker(selection: self.$selectedAnimationIndex.onUpdate(SetSettingsAnimation), label: Text("Main View Animation")) {

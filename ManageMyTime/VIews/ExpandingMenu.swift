@@ -33,8 +33,9 @@ struct ExpandingMenu: View {
             }) {
                 Image(systemName: "pencil.circle.fill")
                     .resizable()
+                    
                     .frame(width: 60, height: 60)
-                    .foregroundColor(Color.blue.opacity(0.85))
+                    .foregroundColor(Color(hex:"#f9f9f9").opacity(0.8))
                     //.shadow(color: .gray, radius: 0.2, x: 1, y: 1)
             }
         }//.animation(.easeInOut(duration: 0.5))

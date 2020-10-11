@@ -18,7 +18,7 @@ struct ScheduleViewRow: View {
     var timeChar = "25"
     //var columns : [String]
     
-    @ObservedObject var taskViewModel=TaskViewModel()
+    @ObservedObject var taskViewModel:TaskViewModel
     var hoursRange = 7...24
 
     var body: some View {
@@ -53,7 +53,7 @@ struct ScheduleViewRow: View {
                     }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)*/
                 }
                 HStack(spacing:4){
-                if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).contains(where: {!$0.isEmptySlot}))
+                    if(self.taskViewModel.absoluteAllTasks.count <= 10 || self.taskViewModel.retrieveAllTasksByHour(hour:hour).contains(where: {!$0.isEmptySlot}))
                  {
                 ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
                     {

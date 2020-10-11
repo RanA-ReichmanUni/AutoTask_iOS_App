@@ -73,7 +73,13 @@ struct CardTaskRow: View {
                             //.padding(.bottom, 5)
                 
                         HStack{
-                           Text("Planned: "+self.scheduledDate).font(Font.custom("Chalkduster", size: 16))
+                            
+                            CategoryPill(categoryName: "Planned: "+self.scheduledDate,color: LinearGradient(
+                                                    gradient: Gradient(colors: [self.color,self.color]),
+                                                   startPoint: .top,
+                                                   endPoint: .bottom
+                                               ))
+                         //  Text("Planned: "+self.scheduledDate).font(Font.custom("Chalkduster", size: 16))
                            .foregroundColor(.white)
                             
                       
@@ -238,8 +244,9 @@ struct CardTaskRow: View {
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
                       endPoint:.bottomTrailing
-                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth: self.colorScheme == .dark ? 5 : 1.5)).frame(height:self.height).padding(.bottom,overlayPadding)
-
+                               ))).shadow(radius: 20).overlay(RoundedRectangle(cornerRadius: 20).stroke(self.colorScheme == .dark ? Color.black : Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.2).shadow(radius: 5)).frame(height:self.height).padding(.bottom,overlayPadding)
+                //.shadow(color:.black,radius: 5)
+                //.shadow(color:.white,radius: 5)
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
             if(self.windowType==1)
@@ -301,7 +308,7 @@ struct CardTaskRow: View {
                       
                     
                     //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                      //  withAnimation(.easeInOut) {
+                        withAnimation(.easeInOut) {
                             
                             self.paddingBottom = -60
                             self.padding = 0
@@ -309,7 +316,7 @@ struct CardTaskRow: View {
                            self.lowerLinePadding = 20
                             self.overlayPadding=2
                             self.secondRowPadding = 20
-                     //   }
+                        }
                    // }
                 }
             
@@ -319,23 +326,23 @@ struct CardTaskRow: View {
                 
                 
                 else{
-                  //  withAnimation(.easeInOut) {
+                    withAnimation(.easeInOut) {
                          self.paddingBottom=70//260
                          self.padding = -96//-115
                          self.vStackPadding = 120
                          self.lowerLinePadding = 5
                         //self.secondRowPadding = 25
                         self.overlayPadding=98
-                  //  }
+                    }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                             if(self.paddingBottom == 70)
                             {
-                               // withAnimation(.easeInOut) {
+                                withAnimation(.easeInOut) {
                                      self.vStackPadding = 20
                                     self.lowerLinePadding = -20
                                     self.secondRowPadding = 2
-                                  //  }
+                                    }
                                 }
                             }
                                                      

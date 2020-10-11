@@ -95,7 +95,7 @@ struct MainUI2: View {
                      }
                 else if(self.weeklyScheduleFlag)
                      {
-                        ScheduleViewRow()
+                        ScheduleViewRow(taskViewModel:self.taskViewModel)
                         
                      }
                  else if(self.settingsFlag)
@@ -176,6 +176,8 @@ struct MainUI2: View {
                              self.listFlag=false
                              self.toggleActive=true
                         }
+                        
+                        self.taskViewModel.GetAllTasks()
                       
                     }) {
                             VStack{
