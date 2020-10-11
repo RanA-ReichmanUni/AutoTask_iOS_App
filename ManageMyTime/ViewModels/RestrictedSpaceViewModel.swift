@@ -54,6 +54,12 @@ class RestrictedSpaceViewModel : ObservableObject
                                    (DayStringToNumConverter(dayOfTheWeek:$1.dayOfTheWeek),$1.startTime.hour, $1.startTime.minutes)
                             }
         
+        for space in allSpaces{
+            print(space.dayOfTheWeek)
+            print("From: "+String(space.startTime.hour)+":"+String(space.startTime.minutes))
+            print("To: "+String(space.endTime.hour)+":"+String(space.endTime.minutes))
+        }
+        
         self.allRestrictedSpaces=allSpaces
         
         //DayStringToNumConverter(dayOfTheWeek:$0.dayOfTheWeek),

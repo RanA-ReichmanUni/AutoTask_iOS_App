@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct SettingsUI: View {
+    
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Extremly Dense","Maximum Capacity"]
     var schedulingAlgorithm = ["Smart - Least work stress, based on task difficulty and work time in combine.","Optimal - Least work time per day.","Advanced - Least work time per day, exclude personal activities.","Earliest","Latest - Near due"]
@@ -21,7 +22,14 @@ struct SettingsUI: View {
     
     @Environment(\.colorScheme) var colorScheme
     var taskViewModel:TaskViewModel
+  
+   // var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     @State var showAlert=false
+    
+    @Binding var addTaskFlag:Bool
+    @Binding var listFlag:Bool
+    
+    
     private func SetSettings() {
            
         self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex,animationStyleIndex: selectedAnimationIndex)
@@ -35,6 +43,8 @@ struct SettingsUI: View {
         
     }
     
+    
+    
     var body: some View {
         UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
             return  NavigationView {
@@ -47,17 +57,17 @@ struct SettingsUI: View {
                             HStack{
                                 
                                 
-                                           Text("Personal Activity Space")
+                                           Text("View And Manage Your Repeated Activities")
                                             Spacer()
                                           }
                                        }
                             
-                            NavigationLink(destination:AddRestrictedSpace()){
+    /*NavigationLink(destination:AddRestrictedSpaceUI(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag)){
                                 HStack{
                                     Text("Add Personal Occupied Space")
                                     Spacer()
                                 }
-                            }
+                            }*/
                            
           
                          //Using Binding extention
@@ -68,27 +78,27 @@ struct SettingsUI: View {
                            }*/
                         
                                     
-                                 
+                                 //Using Binding extention
+                                   Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
+                                       ForEach(0 ..< self.schedulingAlgorithm.count) {
+                                             Text(self.schedulingAlgorithm[$0])
+                                           }
+                                   }
                             
                                  
                     
-                                     //Using Binding extention
-                                    Picker(selection: self.$selectedBreakPeriodsIndex.onUpdate(SetSettings), label: Text("Break Periods")) {
-                                           ForEach(0 ..< self.breakPeriods.count) {
-                                                 Text(self.breakPeriods[$0])
-                                               }
-                                       }
+                                 //Using Binding extention
+                                Picker(selection: self.$selectedBreakPeriodsIndex.onUpdate(SetSettings), label: Text("Break Periods")) {
+                                       ForEach(0 ..< self.breakPeriods.count) {
+                                             Text(self.breakPeriods[$0])
+                                           }
+                                   }
                                     
                                     
     
     
     
-                                  //Using Binding extention
-                                    Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
-                                        ForEach(0 ..< self.schedulingAlgorithm.count) {
-                                              Text(self.schedulingAlgorithm[$0])
-                                            }
-                                    }
+                                
                                  
                          
                                 
@@ -109,6 +119,14 @@ struct SettingsUI: View {
                         }
     
     
+                        
+                       /* HStack{
+                                          
+                            Button(action: { self.restrictedSpaceViewModel.getAllRestrictedSpace()
+                                     }) {
+                                             Text("Click to Check restricted Spacees")
+                                             }
+                          }*/
                         
                         
                         

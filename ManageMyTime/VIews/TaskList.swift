@@ -29,7 +29,9 @@ struct TaskList: View {
     var geometry:GeometryProxy
     @Binding var addTaskFlag:Bool
     @Binding var listFlag:Bool
-    @State var showAddTask=false
+    @State var showAdd=false
+    @State var type=1
+    
     private func GetTasksByChoise() {
             
         taskViewModel.GetDayTasksByIndex(index: dayIndexSelector)
@@ -86,7 +88,7 @@ struct TaskList: View {
                                     {
                                         if(self.show)//Implemented lazyLoading of list cards,tremendous performance upgrade
                                           {
-                                            CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToString(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:true,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.animation(.easeInOut(duration:0.6))//.onDisappear{self.show=false}
+                                            CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToStringNormalized(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:true,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.animation(.easeInOut(duration:0.6))//.onDisappear{self.show=false}
                                         }
                                           else{
                                             RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.show=true}.animation(.ripple())//When reaching exchange the placeholder with real card
@@ -201,20 +203,34 @@ struct TaskList: View {
                           Rectangle()
                               .foregroundColor(.clear)
                               .frame(maxWidth: .infinity, maxHeight: .infinity)
-                              ExpandingMenu(addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask:self.$showAddTask)
+                ExpandingMenu(addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask:self.$showAdd,type:self.$type)
                               .padding()
                       }
         }
-       }.sheet(isPresented: self.$showAddTask) {
-        
-        if(self.colorScheme == .dark)
+       }.sheet(isPresented: self.$showAdd) {
+        if(self.type==1)
         {
-            AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60)).onAppear {
-               UITableView.appearance().backgroundColor = .black
+            if(self.colorScheme == .dark)
+            {
+                AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60)).onAppear {
+                   UITableView.appearance().backgroundColor = .black
+                }
+            }
+            else{
+              AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
             }
         }
         else{
-          AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
+            if(self.colorScheme == .dark)
+                     {
+                         AddRestrictedSpaceUI(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60)).onAppear {
+                            UITableView.appearance().backgroundColor = .black
+                         }
+                     }
+                     else{
+                       AddRestrictedSpaceUI(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
+                     }
+            
         }
     }
         /*.onAppear{//self.taskViewModel.retrieveAllTasks()

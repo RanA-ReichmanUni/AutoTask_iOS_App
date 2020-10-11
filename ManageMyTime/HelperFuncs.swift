@@ -20,6 +20,11 @@ class HelperFuncs{
         return formatter1.string(from: date)
     }
     
+    func dateToStringNormalized(date : Date) -> String
+   {
+        return String(date.day)+"/"+String(date.month)+"/"+String(date.year)
+   }
+    
    
     func dateToString(date : CustomDate) -> String
        {

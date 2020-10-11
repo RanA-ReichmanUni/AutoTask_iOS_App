@@ -70,8 +70,30 @@ struct RestrictedSpaceVerticalCard: View {
                             //.padding(.bottom, 5)
                 
                         HStack{
-                           Text(self.dayOfTheWeek).font(Font.custom("Chalkduster", size: 18))
-                           .foregroundColor(.white)
+                            
+                            ZStack() {
+                               RoundedRectangle(cornerRadius: 10)
+                                    .fill(
+                                        LinearGradient(
+                                         gradient: Gradient(colors: [self.color, self.color]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                               ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.2))
+                                
+                                
+                      
+                                Text("\(self.dayOfTheWeek)")
+                                        .font(Font.custom("Chalkduster", size: 18))
+                                        .foregroundColor(.white)
+                                 
+                               
+                            }
+                         .frame(width: 150, height: 30, alignment: .center)
+                           
+                            
+                          // Text(self.dayOfTheWeek).font(Font.custom("Chalkduster", size: 18))
+                           //.foregroundColor(.white)
                             
                       
                         Spacer()
@@ -235,7 +257,7 @@ struct RestrictedSpaceVerticalCard: View {
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
                       endPoint:.bottomTrailing
-                               ))).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth: self.colorScheme == .dark ? 5 : 1.5)).frame(height:self.height).padding(.bottom,overlayPadding)
+                               ))).shadow(radius: 15).overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.3)).frame(height:self.height).padding(.bottom,overlayPadding)
 
             }
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {

@@ -104,7 +104,7 @@ struct MainUI2: View {
                         
                        // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                         
-                        SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel)//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
+                        SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
                           

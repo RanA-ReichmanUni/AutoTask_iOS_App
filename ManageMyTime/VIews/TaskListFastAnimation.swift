@@ -29,7 +29,8 @@ struct TaskListFastAnimation: View {
     var geometry:GeometryProxy
     @Binding var addTaskFlag:Bool
     @Binding var listFlag:Bool
-    @State var showAddTask=false
+    @State var showAdd=false
+    @State var type=1
     private func GetTasksByChoise() {
             
         taskViewModel.GetDayTasksByIndex(index: dayIndexSelector)
@@ -197,26 +198,40 @@ struct TaskListFastAnimation: View {
             }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#f9f9f9").opacity(0.1)).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
             
             
-            ZStack(alignment: .bottomTrailing) {
-                          Rectangle()
-                              .foregroundColor(.clear)
-                              .frame(maxWidth: .infinity, maxHeight: .infinity)
-                              ExpandingMenu(addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask:self.$showAddTask)
-                              .padding()
-                      }
-        }
-    }.sheet(isPresented: self.$showAddTask) {
-        
-        if(self.colorScheme == .dark)
-        {
-            AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60)).onAppear {
-               UITableView.appearance().backgroundColor = .black
-            }
-        }
-        else{
-          AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
-        }
-    }
+                ZStack(alignment: .bottomTrailing) {
+                        Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                         ExpandingMenu(addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask:self.$showAdd,type:self.$type)
+                                .padding()
+                        }
+             }
+            }.sheet(isPresented: self.$showAdd) {
+             if(self.type==1)
+             {
+                 if(self.colorScheme == .dark)
+                 {
+                     AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60)).onAppear {
+                        UITableView.appearance().backgroundColor = .black
+                     }
+                 }
+                 else{
+                   AddTask(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
+                 }
+             }
+             else{
+                 if(self.colorScheme == .dark)
+                          {
+                              AddRestrictedSpaceUI(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60)).onAppear {
+                                 UITableView.appearance().backgroundColor = .black
+                              }
+                          }
+                          else{
+                            AddRestrictedSpaceUI(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag,notificationValues:self.taskViewModel.StringRangeCreator(start:0,end:60))
+                          }
+                 
+             }
+         }
         /*.onAppear{//self.taskViewModel.retrieveAllTasks()
                // self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
             }*//*.background(    LinearGradient(

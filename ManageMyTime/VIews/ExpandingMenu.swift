@@ -13,6 +13,7 @@ struct ExpandingMenu: View {
     @Binding var addTaskFlag:Bool
     @Binding var listFlag:Bool
     @Binding var showAddTask:Bool
+    @Binding var type:Int
     @State var showMenuItem1 = false
     @State var showMenuItem2 = false
     @State var showMenuItem3 = false
@@ -21,11 +22,11 @@ struct ExpandingMenu: View {
         VStack {
             Spacer()
             if showMenuItem1 {
-                MenuItem(name: "Repeated Activity",addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask: self.$showAddTask,showMenuItem1:self.$showMenuItem1,showMenuItem2:self.$showMenuItem2)
+                MenuItem(name: "Repeated Activity",addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask: self.$showAddTask,type:self.$type,showMenuItem1:self.$showMenuItem1,showMenuItem2:self.$showMenuItem2)
              
             }
             if showMenuItem2 {
-                MenuItem(name: "Auto Schedule",image:"cpu-icon",addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask: self.$showAddTask,showMenuItem1:self.$showMenuItem1,showMenuItem2:self.$showMenuItem2)
+                MenuItem(name: "Auto Schedule",image:"cpu-icon",addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask: self.$showAddTask,type:self.$type,showMenuItem1:self.$showMenuItem1,showMenuItem2:self.$showMenuItem2)
             }
 
             Button(action: {
@@ -35,7 +36,7 @@ struct ExpandingMenu: View {
                     .resizable()
                     
                     .frame(width: 60, height: 60)
-                    .foregroundColor(Color(hex:"#f9f9f9").opacity(0.8))
+                    .foregroundColor(Color.blue.opacity(0.8)).shadow(radius: 3)
                     //.shadow(color: .gray, radius: 0.2, x: 1, y: 1)
             }
         }//.animation(.easeInOut(duration: 0.5))
@@ -71,6 +72,7 @@ struct MenuItem: View {
     @Binding var addTaskFlag:Bool
     @Binding var listFlag:Bool
     @Binding var showAddTask:Bool
+    @Binding var type:Int
     @Binding var showMenuItem1:Bool
     @Binding var showMenuItem2:Bool
     var body: some View {
@@ -81,11 +83,20 @@ struct MenuItem: View {
                // self.listFlag=false
               //  self.addTaskFlag=true
                 self.showAddTask=true
+                self.type=1
                  withAnimation {
                     self.showMenuItem2.toggle()
                     self.showMenuItem1.toggle()
                 }
                 
+            }
+            else{
+                self.showAddTask=true
+                self.type=2
+                 withAnimation {
+                    self.showMenuItem2.toggle()
+                    self.showMenuItem1.toggle()
+                }
             }
             
         })

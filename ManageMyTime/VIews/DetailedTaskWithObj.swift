@@ -51,17 +51,19 @@ struct DetailedTaskWithObj: View {
                  .frame(width: 50, height: 50)
                  .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))*/
       
-                              
-            Image(systemName: "text.alignleft")
+            HStack{
+                Spacer()
+            Image(systemName: "pencil.and.ellipsis.rectangle")
                                                      .resizable()
-                                                     .frame(width: 50, height: 50)
-                                                     .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
+                .frame(width: 65, height: 50).padding(.top,5)
+                                                    // .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
                     .foregroundColor(self.color)
-            
+                Spacer()
+            }
             
                 HStack {
                     Spacer()
-                    Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                   // Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     Text(self.taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                       Spacer()
                     
@@ -121,9 +123,9 @@ struct DetailedTaskWithObj: View {
                 HStack {
                         Spacer()
                         Text("Date: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    HStack{
-                        Text(String(self.day)+"/").font(.system(size: 20))
-                        Text(String(self.month)+"/").font(.system(size: 20))
+                    HStack(spacing:0){
+                       // Text(String(self.day)+"/").font(.system(size: 20))
+                        Text(String(self.day)+"/"+String(self.month)+"/").font(.system(size: 20))
                         Text(String(self.year)).font(.system(size: 20))
                        
                     }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
