@@ -74,14 +74,28 @@ struct CardTaskRow: View {
                 
                         HStack{
                             
-                            CategoryPill(categoryName: "Planned: "+self.scheduledDate,color: LinearGradient(
-                                                    gradient: Gradient(colors: [self.color,self.color]),
-                                                   startPoint: .top,
-                                                   endPoint: .bottom
-                                               ))
-                         //  Text("Planned: "+self.scheduledDate).font(Font.custom("Chalkduster", size: 16))
-                           .foregroundColor(.white)
+                           
+                          // Text("Planned: ").font(Font.custom("Chalkduster", size: 16))
+                          // .foregroundColor(.white)
                             
+                           ZStack() {
+                                     RoundedRectangle(cornerRadius: 10)
+                                          .fill(
+                                              LinearGradient(
+                                               gradient: Gradient(colors: [self.color, self.color]),
+                                                  startPoint: .topLeading,
+                                                  endPoint: .bottomTrailing
+                                              )
+                                     ).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white,lineWidth: 0.2))
+                                      
+                            
+                                       Text("\("Planned: "+self.scheduledDate)")
+                                              .font(Font.custom("Noteworthy-Bold", size: 16))
+                                              .foregroundColor(.white)
+                                       
+                                     
+                                  }
+                               .frame(width: 200, height: 30, alignment: .center)
                       
                         Spacer()
                             HStack(spacing:0){
@@ -244,7 +258,7 @@ struct CardTaskRow: View {
                      //self.color,.purple,.purple,.purple
                         startPoint: .topLeading,
                       endPoint:.bottomTrailing
-                               ))).shadow(radius: 20).overlay(RoundedRectangle(cornerRadius: 20).stroke(self.colorScheme == .dark ? Color.black : Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.2).shadow(radius: 5)).frame(height:self.height).padding(.bottom,overlayPadding)
+                               ))).shadow(radius: 20).overlay(RoundedRectangle(cornerRadius: 20).stroke(self.colorScheme == .dark ? Color.black : Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.3)).frame(height:self.height).padding(.bottom,overlayPadding)
                 //.shadow(color:.black,radius: 5)
                 //.shadow(color:.white,radius: 5)
             }
