@@ -138,10 +138,10 @@ struct MainUI2: View {
                          
                      }) {
                           VStack{
-                             Image(systemName: "rectangle.stack").resizable()
+                             Image(systemName: "rectangle.stack").resizable().shadow(radius: 1)
                                  .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
                                  self.colorScheme == .dark ? self.listFlag ?  self.choosenColor : Color.blue : (self.listFlag ?  self.choosenColor : self.defaultColor))
-                             Text("Main").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                            Text("Main").shadow(radius: 0.3).frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
                                 self.colorScheme == .dark ? self.listFlag ?  self.choosenColor : Color.blue : (self.listFlag ?  self.choosenColor : self.defaultColor))
                          }
                      }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
@@ -181,10 +181,10 @@ struct MainUI2: View {
                       
                     }) {
                             VStack{
-                              Image(systemName: "calendar").resizable()
+                                Image(systemName: "calendar").resizable().shadow(radius: 1)
                                 .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
                                 self.colorScheme == .dark ? self.weeklyScheduleFlag ?  self.choosenColor : Color.blue : (self.weeklyScheduleFlag ?  self.choosenColor : self.defaultColor))
-                             Text("Weekly").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                             Text("Weekly").shadow(radius: 0.3).frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
                              self.colorScheme == .dark ? self.weeklyScheduleFlag ?  self.choosenColor : Color.blue : (self.weeklyScheduleFlag ?  self.choosenColor : self.defaultColor))
                             }
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
@@ -201,10 +201,10 @@ struct MainUI2: View {
                         }
                     }) {
                          VStack{
-                            Image(systemName: String(String(Date().day)+".square")).resizable()
+                            Image(systemName: String(String(Date().day)+".square")).resizable().shadow(radius: 1)
                               .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
                               self.colorScheme == .dark ? self.dailyViewFlag ?  self.choosenColor : Color.blue : (self.dailyViewFlag ?  self.choosenColor : self.defaultColor))
-                            Text("Daily").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                            Text("Daily").shadow(radius: 0.3).frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
                             self.colorScheme == .dark ? self.dailyViewFlag ?  self.choosenColor : Color.blue : (self.dailyViewFlag ?  self.choosenColor : self.defaultColor))
                         }
                 }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
@@ -224,10 +224,10 @@ struct MainUI2: View {
                         }
                     }) {
                             VStack{
-                                  Image(systemName: "gear").resizable()
+                                  Image(systemName: "gear").resizable().shadow(radius: 1)
                                        .frame(maxWidth: 25,maxHeight: 25).foregroundColor(
                                        self.colorScheme == .dark ? self.settingsFlag ?  self.choosenColor : Color.blue : (self.settingsFlag ?  self.choosenColor : self.defaultColor))
-                                Text("Settings").frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
+                                Text("Settings").shadow(radius: 0.3).frame(maxWidth: .infinity,maxHeight: 40).foregroundColor(
                                 self.colorScheme == .dark ? self.settingsFlag ?  self.choosenColor : Color.blue : (self.settingsFlag ?  self.choosenColor : self.defaultColor))
                             }
                 }.background(Rectangle().fill((Color.white.opacity(0)))).padding(.top,12)

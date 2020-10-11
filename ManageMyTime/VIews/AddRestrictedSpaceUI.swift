@@ -125,7 +125,7 @@ struct AddRestrictedSpaceUI: View {
                             
                    
                         MultiSelector<Text, IdentifiableString>(
-                                                label: Text("Days: "),
+                                                label: Text("In The Following Days: "),
                                                 options: self.dayNameValues.map { IdentifiableString(string: $0) },
                                                 optionToString: { $0.string },
                                                 selected: self.$selected
