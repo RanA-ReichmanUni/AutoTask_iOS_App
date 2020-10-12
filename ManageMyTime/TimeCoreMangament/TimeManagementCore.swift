@@ -1408,6 +1408,22 @@ class Core{
    
        }
     
+    func GetStartOfDay () -> Hour
+     {
+         let taskModel=TaskModel()
+        
+        return taskModel.GetStartOfDay()
+     }
+     
+     func GetEndOfDay () -> Hour
+     {
+         
+        let taskModel=TaskModel()
+               
+        return taskModel.GetEndOfDay()
+        
+     }
+    
     
     func createNotification(taskName:String,notes:String,internalId:UUID,date:CustomDate,startTime:Hour,notificationFactor:Int)
     {

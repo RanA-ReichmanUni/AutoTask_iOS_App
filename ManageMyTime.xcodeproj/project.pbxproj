@@ -53,8 +53,6 @@
 		2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558924B24D084F600346AC6 /* ListTextHourSelector.swift */; };
 		255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255BA0BF251FCA2F00207331 /* UpdateTask.swift */; };
 		255E5F12251A4B9A00AF3806 /* FirstRowGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E5F11251A4B9A00AF3806 /* FirstRowGen.swift */; };
-		255FCDE02523BA8F00973D4B /* SettingsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255FCDDE2523BA8E00973D4B /* SettingsEntity+CoreDataClass.swift */; };
-		255FCDE12523BA8F00973D4B /* SettingsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255FCDDF2523BA8E00973D4B /* SettingsEntity+CoreDataProperties.swift */; };
 		2564A73524D728EE00B3C2BA /* StressDailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2564A73424D728EE00B3C2BA /* StressDailyView.swift */; };
 		2565CC6524AF7A070006BF97 /* TaskSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2565CC6424AF7A070006BF97 /* TaskSchedule.swift */; };
 		25680715249FF1FC0096AB89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25680714249FF1FC0096AB89 /* AppDelegate.swift */; };
@@ -124,7 +122,9 @@
 		25F4E1B32509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4E1B12509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift */; };
 		25F4E1B42509834E00D541F5 /* FreeTaskSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4E1B22509834E00D541F5 /* FreeTaskSpace+CoreDataProperties.swift */; };
 		25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */; };
-		25FFDC652534835A0093A9D1 /* DayEndStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FFDC642534835A0093A9D1 /* DayEndStartView.swift */; };
+		25FFDC652534835A0093A9D1 /* DayBoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FFDC642534835A0093A9D1 /* DayBoundsView.swift */; };
+		25FFDC68253487400093A9D1 /* SettingsEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FFDC66253487400093A9D1 /* SettingsEntity+CoreDataClass.swift */; };
+		25FFDC69253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FFDC67253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,8 +193,6 @@
 		2558924B24D084F600346AC6 /* ListTextHourSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextHourSelector.swift; sourceTree = "<group>"; };
 		255BA0BF251FCA2F00207331 /* UpdateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTask.swift; sourceTree = "<group>"; };
 		255E5F11251A4B9A00AF3806 /* FirstRowGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRowGen.swift; sourceTree = "<group>"; };
-		255FCDDE2523BA8E00973D4B /* SettingsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		255FCDDF2523BA8E00973D4B /* SettingsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2564A73424D728EE00B3C2BA /* StressDailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressDailyView.swift; sourceTree = "<group>"; };
 		2565CC6424AF7A070006BF97 /* TaskSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSchedule.swift; sourceTree = "<group>"; };
 		25680711249FF1FC0096AB89 /* ManageMyTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManageMyTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,7 +266,9 @@
 		25F4E1B12509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeTaskSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25F4E1B22509834E00D541F5 /* FreeTaskSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeTaskSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTaskRow.swift; sourceTree = "<group>"; };
-		25FFDC642534835A0093A9D1 /* DayEndStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEndStartView.swift; sourceTree = "<group>"; };
+		25FFDC642534835A0093A9D1 /* DayBoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayBoundsView.swift; sourceTree = "<group>"; };
+		25FFDC66253487400093A9D1 /* SettingsEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		25FFDC67253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +344,7 @@
 				2519384A24C686290010E72D /* TempNavigator.swift */,
 				25E75A7624F2E4D400C772B5 /* MainUi2.swift */,
 				25B6B917250B17D400CB57FB /* SettingsUI.swift */,
+				25FFDC642534835A0093A9D1 /* DayBoundsView.swift */,
 				250159D7253393DF003F1A28 /* MultiSelectionView.swift */,
 				25407E6E2523BDD000ACE135 /* TaskListSelector.swift */,
 				25D3255D250EA5B4007D74E8 /* ColorPicker.swift */,
@@ -444,7 +445,6 @@
 				253C7E0024DB4A2C0063952B /* SmallChar.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
 				2568071D249FF1FF0096AB89 /* Assets.xcassets */,
-				25FFDC642534835A0093A9D1 /* DayEndStartView.swift */,
 				25680722249FF1FF0096AB89 /* LaunchScreen.storyboard */,
 				2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */,
 				25680725249FF1FF0096AB89 /* Info.plist */,
@@ -492,8 +492,8 @@
 		257ECFEF24B287C5006051C5 /* NSManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
-				255FCDDE2523BA8E00973D4B /* SettingsEntity+CoreDataClass.swift */,
-				255FCDDF2523BA8E00973D4B /* SettingsEntity+CoreDataProperties.swift */,
+				25FFDC66253487400093A9D1 /* SettingsEntity+CoreDataClass.swift */,
+				25FFDC67253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift */,
 				25407EE824D72290003110E9 /* LoadLevel+CoreDataClass.swift */,
 				25407EE924D72290003110E9 /* LoadLevel+CoreDataProperties.swift */,
 				25CD218424BB59CF0048DDAC /* CustomDate+CoreDataClass.swift */,
@@ -676,7 +676,6 @@
 				2585BC562506828C00EED2EB /* SpaceSection.swift in Sources */,
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
 				25105F9424E14A940066758B /* CardTaskRow.swift in Sources */,
-				255FCDE02523BA8F00973D4B /* SettingsEntity+CoreDataClass.swift in Sources */,
 				25D920B024CF985900A852BF /* TaskUnitPotrait.swift in Sources */,
 				2592C8B62513FEBC00E36E3A /* PriorityPerDate.swift in Sources */,
 				2535D71D24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld in Sources */,
@@ -684,7 +683,7 @@
 				25EE9F4F24EC1BD4002A2E5A /* RestrictedSpaceUI.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,
 				25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */,
-				25FFDC652534835A0093A9D1 /* DayEndStartView.swift in Sources */,
+				25FFDC652534835A0093A9D1 /* DayBoundsView.swift in Sources */,
 				25091FD724B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift in Sources */,
 				25091FD824B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift in Sources */,
 				2577A5E624ACF3040006E1D2 /* ScheduleView.swift in Sources */,
@@ -705,7 +704,6 @@
 				250F5B0024AA3C6800ABCDA4 /* TaskList.swift in Sources */,
 				25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */,
 				258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */,
-				255FCDE12523BA8F00973D4B /* SettingsEntity+CoreDataProperties.swift in Sources */,
 				253FF2F3251934E3002B024C /* TasksAndDates.swift in Sources */,
 				251CDB2224EED06F00026911 /* AddRestrictedSpace.swift in Sources */,
 				25118A0F24DB52870062D518 /* BigChar.swift in Sources */,
@@ -713,6 +711,7 @@
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */,
+				25FFDC69253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift in Sources */,
 				253A476F252BE4C700FD013D /* ExpandingMenu.swift in Sources */,
 				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
 				2591C8CD2518615900C39269 /* DayTaskList.swift in Sources */,
@@ -746,6 +745,7 @@
 				253C5CE824B1193800C95A06 /* DayObject.swift in Sources */,
 				253C7E0124DB4A2C0063952B /* SmallChar.swift in Sources */,
 				250159D625338D32003F1A28 /* AddRestrictedSpaceUI.swift in Sources */,
+				25FFDC68253487400093A9D1 /* SettingsEntity+CoreDataClass.swift in Sources */,
 				258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */,
 				25407EEB24D72290003110E9 /* LoadLevel+CoreDataProperties.swift in Sources */,
 				25419FC324C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift in Sources */,

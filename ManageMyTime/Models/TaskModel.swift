@@ -146,6 +146,18 @@ class TaskModel : UIViewController
         return Color.white
     }
     
+    func GetStartOfDay () -> Hour
+    {
+        
+        return getSettingsValues().dayStartTime
+    }
+    
+    func GetEndOfDay () -> Hour
+    {
+        
+        return getSettingsValues().dayEndTime
+    }
+    
     func getSettingsValues () -> SettingsEntity
     {
         
@@ -158,8 +170,13 @@ class TaskModel : UIViewController
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
  //
-         
-     
+         let startOfDayDefault=Hour(context: managedContext)
+            startOfDayDefault.hour=7
+            startOfDayDefault.minutes=0
+         let endOfDayDefault=Hour(context: managedContext)
+             endOfDayDefault.hour=22
+             endOfDayDefault.minutes=0
+        
         do {
             
              let result = try managedContext.fetch(fetchRequest)
@@ -174,12 +191,14 @@ class TaskModel : UIViewController
              else{
                  var settingsObject=SettingsEntity(context: managedContext)
                 
-                    settingsObject = SettingsEntity(context: managedContext)
+                   
                                 
                     settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                     settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                     settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                     settingsObject.animationStyle=animationStyle.smooth.rawValue
+                    settingsObject.dayStartTime=startOfDayDefault
+                    settingsObject.dayEndTime=endOfDayDefault
                 
                     do{
                           try managedContext.save()
@@ -216,7 +235,13 @@ class TaskModel : UIViewController
 
            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
     //
-            
+            let startOfDayDefault=Hour(context: managedContext)
+               startOfDayDefault.hour=7
+               startOfDayDefault.minutes=0
+            let endOfDayDefault=Hour(context: managedContext)
+                endOfDayDefault.hour=22
+                endOfDayDefault.minutes=0
+        
         
            do {
                
@@ -237,7 +262,9 @@ class TaskModel : UIViewController
                        settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                        settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                        settingsObject.animationStyle=animationStyle.smooth.rawValue
-                   
+                       settingsObject.dayStartTime=startOfDayDefault
+                       settingsObject.dayEndTime=endOfDayDefault
+                    
                        do{
                              try managedContext.save()
                             print("Updated !.")
@@ -276,7 +303,13 @@ class TaskModel : UIViewController
     //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
     //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
     //
-             
+             let startOfDayDefault=Hour(context: managedContext)
+                startOfDayDefault.hour=7
+                startOfDayDefault.minutes=0
+        
+            let endOfDayDefault=Hour(context: managedContext)
+                endOfDayDefault.hour=22
+                endOfDayDefault.minutes=0
         
            do {
                
@@ -290,6 +323,9 @@ class TaskModel : UIViewController
                            settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                            settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                            settingsObject.animationStyle=animationStyle.smooth.rawValue
+                           settingsObject.dayStartTime=startOfDayDefault
+                           settingsObject.dayEndTime=endOfDayDefault
+                    
                         do{
                                try managedContext.save()
                               print("Updated !.")
@@ -311,6 +347,70 @@ class TaskModel : UIViewController
         
     }
     
+    func UpdateStartEndDay(dayStartTime:Hour,dayEndTime:Hour)
+    {
+        
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
+                
+                //We need to create a context from this container
+            let managedContext = appDelegate.persistentContainer.viewContext
+                
+                //Prepare the request of type NSFetchRequest  for the entity
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
+        
+            let startOfDayDefault=Hour(context: managedContext)
+                startOfDayDefault.hour=dayStartTime.hour
+                startOfDayDefault.minutes=dayStartTime.minutes
+            let endOfDayDefault=Hour(context: managedContext)
+                endOfDayDefault.hour=dayEndTime.hour
+                endOfDayDefault.minutes=dayEndTime.minutes
+                  
+             
+            do {
+                
+                 let result = try managedContext.fetch(fetchRequest)
+             
+                 if(!result.isEmpty)
+                 {
+                  
+                    
+                     var retrivedObject = result[0] as! NSManagedObject
+                     
+                     
+                      retrivedObject.setValue(dayStartTime, forKey: "dayStartTime")
+                      retrivedObject.setValue(dayEndTime, forKey: "dayEndTime")
+                  
+          
+                 }
+                 else{
+                    
+                    var settingsObject=SettingsEntity(context: managedContext)
+                    
+                        settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
+                        settingsObject.scheduleDensity=scheduleDensity.maximumCapacity.rawValue
+                        settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
+                        settingsObject.animationStyle=animationStyle.smooth.rawValue
+                        settingsObject.dayStartTime=startOfDayDefault
+                        settingsObject.dayEndTime=endOfDayDefault
+                }
+                
+            } catch {
+                
+                print("Failed")
+            }
+    
+             do{
+                  try managedContext.save()
+                 print("Updated !.")
+              }
+              catch
+              {
+                  print(error)
+              }
+
+            
+    }
+    
     func SetSettingsValues(scheduleAlgorithim:String,scheduleDensity:String,breakPeriodsValue:String,animationStyleValue:String)
      {
          
@@ -322,7 +422,13 @@ class TaskModel : UIViewController
           
           //Prepare the request of type NSFetchRequest  for the entity
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "SettingsEntity")
-
+            
+            let startOfDayDefault=Hour(context: managedContext)
+                startOfDayDefault.hour=7
+                startOfDayDefault.minutes=0
+            let endOfDayDefault=Hour(context: managedContext)
+                endOfDayDefault.hour=22
+                endOfDayDefault.minutes=0
             
        
           do {
@@ -335,10 +441,10 @@ class TaskModel : UIViewController
                   
                    var retrivedObject = result[0] as! NSManagedObject
                    
-                      retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
-                      retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
-                        retrivedObject.setValue(breakPeriodsValue, forKey: "breakPeriods")
-                        retrivedObject.setValue(animationStyleValue, forKey: "animationStyle")
+                    retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
+                    retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
+                    retrivedObject.setValue(breakPeriodsValue, forKey: "breakPeriods")
+           
                 
         
                }
@@ -350,6 +456,8 @@ class TaskModel : UIViewController
                       settingsObject.scheduleDensity=scheduleDensity
                       settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
                       settingsObject.animationStyle=animationStyle.smooth.rawValue
+                      settingsObject.dayStartTime=startOfDayDefault
+                      settingsObject.dayEndTime=endOfDayDefault
               }
               
           } catch {

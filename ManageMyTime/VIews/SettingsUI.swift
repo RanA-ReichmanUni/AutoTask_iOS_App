@@ -29,6 +29,8 @@ struct SettingsUI: View {
     @Binding var addTaskFlag:Bool
     @Binding var listFlag:Bool
     
+   @State var fromSelection: [String] = [7, 0, 0].map { "\($0)" }
+   @State var toSelection: [String] = [22, 0, 0].map { "\($0)" }
     
     private func SetSettings() {
            
@@ -95,7 +97,14 @@ struct SettingsUI: View {
                                    }
                                     
                                     
-    
+                                NavigationLink(destination:DayBoundsView(taskViewModel: self.taskViewModel,fromSelection: self.$fromSelection,toSelection:self.$toSelection)){
+                                    HStack{
+                                        
+                                        
+                                           Text("Start And End Of A Day")
+                                            Spacer()
+                                          }
+                                       }
     
     
                                 
@@ -161,10 +170,16 @@ struct SettingsUI: View {
           endPoint:.bottom
         )))*/.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
             
-            self.selectedDensityIndex=self.taskViewModel.getSettingsValues()[0]
-            self.selectedSchedulingAlgorithmIndex=self.taskViewModel.getSettingsValues()[1]
-            self.selectedBreakPeriodsIndex=self.taskViewModel.getSettingsValues()[2]
-            self.selectedAnimationIndex=self.taskViewModel.getSettingsValues()[3]
+            var settingsObject=self.taskViewModel.getSettingsValues()
+            self.selectedDensityIndex=settingsObject[0]
+            self.selectedSchedulingAlgorithmIndex=settingsObject[1]
+            self.selectedBreakPeriodsIndex=settingsObject[2]
+            self.selectedAnimationIndex=settingsObject[3]
+            
+            var dayBoundsSettings = self.taskViewModel.GetDayBoundsSettingsValues()
+            
+            self.fromSelection=[dayBoundsSettings[0],dayBoundsSettings[1]]
+            self.toSelection=[dayBoundsSettings[2],dayBoundsSettings[3]]
         }
         
         

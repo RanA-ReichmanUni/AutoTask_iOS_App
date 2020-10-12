@@ -350,8 +350,35 @@ class TaskViewModel : ObservableObject
         taskModel.intialValuesSetup()
         
     }
+    func UpdateStartEndDay(dayStartTimeHour:String,dayStartTimeMinutes:String,dayEndTimeHour:String,dayEndTimeMinutes:String)
+    {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
+              
+       
+        let managedContext = appDelegate.persistentContainer.viewContext
+              
+        
+        let startOfDay=Hour(context: managedContext)
+            startOfDay.hour=Int(dayStartTimeHour) ?? 7
+            startOfDay.minutes=Int(dayStartTimeMinutes) ?? 0
+        let endOfDay=Hour(context: managedContext)
+            endOfDay.hour=Int(dayEndTimeHour) ?? 22
+            endOfDay.minutes=Int(dayEndTimeMinutes) ?? 0
+        
+        
+        
+        
+        taskModel.UpdateStartEndDay(dayStartTime:startOfDay,dayEndTime:endOfDay)
+    }
     func SetSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int,breakPeriodsIndex:Int,animationStyleIndex:Int)
     {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+     
         
         var scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
         var scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
@@ -433,6 +460,13 @@ class TaskViewModel : ObservableObject
         return taskModel.GetAnimationStyleSettings()
         
     }
+    func GetDayBoundsSettingsValues () -> [String]
+   {
+       var settingsObject=taskModel.getSettingsValues()
+    
+        return [String(settingsObject.dayStartTime.hour),String(settingsObject.dayStartTime.minutes),String(settingsObject.dayEndTime.hour),String(settingsObject.dayEndTime.minutes)]
+    }
+    
     func getSettingsValues () -> [Int]
     {
         var settingsObject=taskModel.getSettingsValues()
