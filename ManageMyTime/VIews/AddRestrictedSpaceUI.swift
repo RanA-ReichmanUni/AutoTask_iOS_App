@@ -338,7 +338,7 @@ struct AddRestrictedSpaceUI: View {
                 }.background( (self.colorScheme == .dark ? Color(hex:"#212121") : Color(hex:"#fcfcfc")))//.frame(height:30)
            
                     
-        }.background(Color(hex:"#fcfcfc"))
+        }.navigationViewStyle(StackNavigationViewStyle()).background(Color(hex:"#fcfcfc"))
         /*.background(
             self.colorScheme == .dark ? ( LinearGradient(
                 gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.colorChoise]),

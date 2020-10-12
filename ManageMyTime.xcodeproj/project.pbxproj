@@ -124,6 +124,7 @@
 		25F4E1B32509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4E1B12509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift */; };
 		25F4E1B42509834E00D541F5 /* FreeTaskSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4E1B22509834E00D541F5 /* FreeTaskSpace+CoreDataProperties.swift */; };
 		25FAFE2824AE2BBB001E4820 /* TestTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */; };
+		25FFDC652534835A0093A9D1 /* DayEndStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FFDC642534835A0093A9D1 /* DayEndStartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +268,7 @@
 		25F4E1B12509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeTaskSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25F4E1B22509834E00D541F5 /* FreeTaskSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreeTaskSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTaskRow.swift; sourceTree = "<group>"; };
+		25FFDC642534835A0093A9D1 /* DayEndStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEndStartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,7 +345,6 @@
 				25E75A7624F2E4D400C772B5 /* MainUi2.swift */,
 				25B6B917250B17D400CB57FB /* SettingsUI.swift */,
 				250159D7253393DF003F1A28 /* MultiSelectionView.swift */,
-				250159D525338D32003F1A28 /* AddRestrictedSpaceUI.swift */,
 				25407E6E2523BDD000ACE135 /* TaskListSelector.swift */,
 				25D3255D250EA5B4007D74E8 /* ColorPicker.swift */,
 				2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */,
@@ -372,6 +373,7 @@
 				2564A73424D728EE00B3C2BA /* StressDailyView.swift */,
 				25407EE624D71F3E003110E9 /* CircularBar.swift */,
 				253455D324A12539007CB6BF /* AddTask.swift */,
+				250159D525338D32003F1A28 /* AddRestrictedSpaceUI.swift */,
 				257551FF252A30B20005B515 /* CollapsableWheelPicker.swift */,
 				255BA0BF251FCA2F00207331 /* UpdateTask.swift */,
 				251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */,
@@ -442,6 +444,7 @@
 				253C7E0024DB4A2C0063952B /* SmallChar.swift */,
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
 				2568071D249FF1FF0096AB89 /* Assets.xcassets */,
+				25FFDC642534835A0093A9D1 /* DayEndStartView.swift */,
 				25680722249FF1FF0096AB89 /* LaunchScreen.storyboard */,
 				2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */,
 				25680725249FF1FF0096AB89 /* Info.plist */,
@@ -681,6 +684,7 @@
 				25EE9F4F24EC1BD4002A2E5A /* RestrictedSpaceUI.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,
 				25F3480024A2304D00671D09 /* DurationSelector.swift in Sources */,
+				25FFDC652534835A0093A9D1 /* DayEndStartView.swift in Sources */,
 				25091FD724B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift in Sources */,
 				25091FD824B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift in Sources */,
 				2577A5E624ACF3040006E1D2 /* ScheduleView.swift in Sources */,

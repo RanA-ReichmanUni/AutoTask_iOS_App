@@ -99,7 +99,7 @@ struct DailyView: View {
         
             
             }
-        }  .navigationBarTitle(Text("Daily Schedule").foregroundColor(.green))
+        }  //.navigationBarTitle(Text("Daily Schedule").foregroundColor(.green))
     }
 }
 

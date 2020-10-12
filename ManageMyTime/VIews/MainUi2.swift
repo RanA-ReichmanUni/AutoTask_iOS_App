@@ -79,7 +79,7 @@ struct MainUI2: View {
               
                      if(self.listFlag)
                      {
-                        
+                        Rectangle().isHidden(true).frame(height:40)
                         TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
                      }
                      else if (self.addTaskFlag)
@@ -90,11 +90,13 @@ struct MainUI2: View {
                      }
                      else if(self.dailyViewFlag)
                      {
+                        Rectangle().isHidden(true).frame(height:40)
                         DailyView()
                         
                      }
                 else if(self.weeklyScheduleFlag)
                      {
+                        Rectangle().isHidden(true).frame(height:36)
                         ScheduleViewRow(taskViewModel:self.taskViewModel)
                         
                      }
@@ -103,7 +105,7 @@ struct MainUI2: View {
                         //ButtonTestingView(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))//.padding(.bottom,10)
                         
                        // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
-                        
+                        Rectangle().isHidden(true).frame(height:44)
                         SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
@@ -112,7 +114,10 @@ struct MainUI2: View {
                     }
             }
                 
-            Divider()
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(height: 0.8).shadow(radius: 5)
+                .edgesIgnoringSafeArea(.horizontal)
             
             
             
@@ -233,7 +238,7 @@ struct MainUI2: View {
                 }.background(Rectangle().fill((Color.white.opacity(0)))).padding(.top,12)
                                
                     
-                }
+            }
                 
 
               //Divider()
@@ -242,12 +247,13 @@ struct MainUI2: View {
                     self.taskViewModel.retrieveAllTasksByHour()
                     self.taskViewModel.intialValuesSetup()
                     self.listFlag=true
-            }
+            }.edgesIgnoringSafeArea(.vertical)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     
       // Spacer()
-        }.padding(.bottom,-25)
-        .background(Color(hex:"#f9f9f9").opacity(0.1))/*.background(    LinearGradient(
+            }
+            //.padding(.bottom,-25)
+            .background(Color(hex:"#f9f9f9").opacity(0.1))/*.background(    LinearGradient(
         gradient: Gradient(colors: [Color(hex:"#00d2ff"),Color(hex:"#3a7bd5")]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                  //self.color,.purple,.purple,.purple
                     startPoint: .bottomLeading,
