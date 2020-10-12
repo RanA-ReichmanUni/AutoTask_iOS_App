@@ -1012,7 +1012,7 @@ class Core{
                                             /* && exsitingFreeDay.fullyOccupiedDay==false)*/
                                         {//Check for freeSpace with at least a minimalTaskDuration standert (so it won't schedule partial task in mininal duration like 4 minutes and so. Or if the reminaing work is fitting the freeSpace anyway except the free space.
                                             
-                                            if(freeSpace.ending > currentHour && freeSpace.ending.subtract(newHour: currentHour) >= asstimatedWorkTime && freeSpace.starting < currentHour || freeSpace.starting > currentHour && freeSpace.duration >= asstimatedWorkTime ||/*added this after bug no 6D ,needs checking*/ freeSpace.starting == currentHour && freeSpace.duration >= asstimatedWorkTime /*until here*/|| singleDate > currentDate)
+                                            if(freeSpace.ending > currentHour && freeSpace.starting < currentHour || freeSpace.starting > currentHour ||/*added this after bug no 6D ,needs checking*/ freeSpace.starting == currentHour  /*until here*/|| singleDate > currentDate)
                                             {//The if checks and handles dueDate (day,month,year) calculation
                                                 print(dueHour)
                                                 if(endDueDate > singleDate || singleDate > currentDate && endDueDate == singleDate && freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour || singleDate == currentDate && endDueDate == singleDate && currentHour.add(hour: asstimatedWorkTime) <= dueHour)
