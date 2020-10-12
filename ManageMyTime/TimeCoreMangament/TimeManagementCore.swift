@@ -896,13 +896,10 @@ class Core{
             let breakPeriod = Hour(context: managedContext)
                 breakPeriod.hour=0
                 breakPeriod.minutes=20
-            let startOfDayHour = Hour(context: managedContext)
-               startOfDayHour.hour=startOfTheDay
-               startOfDayHour.minutes=0
+        
+            let startOfDayHour = GetStartOfDay()
                                                            
-            let endOfDayHour = Hour(context: managedContext)
-               endOfDayHour.hour=endOfTheDay
-               endOfDayHour.minutes=0
+            let endOfDayHour = GetEndOfDay()
             
             let components = Calendar.current.dateComponents([.hour, .minute], from: dueDate)
             let dueHours = components.hour ?? 0
@@ -1276,13 +1273,11 @@ class Core{
                                                         //delete old FS object
                                                         deleteFreeSpace(freeSpaceId: freeSpace.id)
                                                         
-                                                        let startOfDayHour = Hour(context: managedContext)
-                                                        startOfDayHour.hour=startOfTheDay
-                                                        startOfDayHour.minutes=0
+                                                        let startOfDayHour = GetStartOfDay()
+                                                     
                                                         
-                                                        let endOfDayHour = Hour(context: managedContext)
-                                                         endOfDayHour.hour=endOfTheDay
-                                                         endOfDayHour.minutes=0
+                                                        let endOfDayHour = GetEndOfDay()
+                                                       
                                                         
                                                         let newDuration = Hour(context: managedContext)
                                                            newDuration.hour=0
@@ -2054,13 +2049,9 @@ class Core{
         
   
         
-        let startDayHour = Hour(context: managedContext)
-           startDayHour.hour=startOfTheDay
-           startDayHour.minutes=0
+        let startDayHour = GetStartOfDay()
                                                        
-        let endDayHour = Hour(context: managedContext)
-            endDayHour.hour=endOfTheDay
-            endDayHour.minutes=0
+        let endDayHour = GetEndOfDay()
       
         let theZeroHour = Hour(context: managedContext)
             theZeroHour.hour=0
