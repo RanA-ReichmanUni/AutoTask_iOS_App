@@ -444,6 +444,7 @@ class TaskModel : UIViewController
                     retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
                     retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
                     retrivedObject.setValue(breakPeriodsValue, forKey: "breakPeriods")
+                    retrivedObject.setValue(animationStyleValue, forKey: "animationStyle")
            
                 
         
@@ -1357,6 +1358,7 @@ class TaskModel : UIViewController
                  
               var allTasks=[TasksPerHourPerDay]()
               var coreManagment=Core()
+                var restrictedSpaceModel=RestrictedSpaceModel()
           
               var opacity:CGFloat
            
@@ -1413,10 +1415,38 @@ class TaskModel : UIViewController
                       var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                           for dayOfTheWeek in weekSequence
                           {
-                              if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
+                              if(restrictedSpaceModel.getAllRestrictedSpace().contains(where: { dayOfTheWeek.dayOfWeek().lowercased()==$0.dayOfTheWeek.lowercased() && (($0.startTime == beginningOfHour) || ($0.startTime <= beginningOfHour && $0.endTime > beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime < nextHour) || ($0.startTime > beginningOfHour && $0.endTime <  beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime > beginningOfHour && $0.startTime.hour==hour) || ($0.endTime > beginningOfHour && $0.startTime.hour < hour)) }) || result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
                               {
-                                  let data = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
-
+                                  let filteredTaskObjects = result.all(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+                                 
+                                if(dayOfTheWeek.day==11)
+                                {
+                                    print("here")
+                                }
+                                var releventRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpace().all(where: { dayOfTheWeek.dayOfWeek().lowercased()==$0.dayOfTheWeek.lowercased() && (($0.startTime == beginningOfHour) || ($0.startTime <= beginningOfHour && $0.endTime > beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime < nextHour) || ($0.startTime > beginningOfHour && $0.endTime <  beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime > beginningOfHour && $0.startTime.hour==hour) || ($0.endTime > beginningOfHour && $0.startTime.hour < hour)) })
+                                
+                                var calendarObjects=[CalendarObject]()
+                                
+                                for obj in filteredTaskObjects{
+                                    
+                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.taskName,color:obj.color!,startTime: obj.startTime!,endTime:obj.endTime!)
+                                    //calendarInstance.date=obj.date
+                                    
+                                    calendarObjects.append(calendarInstance)
+                                    
+                                    
+                                }
+                                
+                                for obj in releventRestrictedSpaces{
+                                    
+                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.name,color:obj.color,startTime: obj.startTime,endTime:obj.endTime)
+                                    calendarInstance.isRepeatedActivity=true
+                                    
+                                    calendarObjects.append(calendarInstance)
+                                    
+                                }
+                                
+                                
                                  tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                                   
                                   tasksPerHourPerDay.isEmptySlot=false
@@ -1424,20 +1454,20 @@ class TaskModel : UIViewController
                                   
                                   var heightFactor=CGFloat(1.6)
                                   
-                                  if(data.count > 1)
+                                  if(calendarObjects.count > 1)
                                   {
                                       heightFactor=1.9
                                       
                                       
-                                      for task in data{
-                                       if(task.completed || task.date < currentDate || task.date == currentDate && nextHour < currentTime)
+                                      for task in calendarObjects{
+                                       if(/*task.completed ||*/ dayOfTheWeek < currentDate || dayOfTheWeek == currentDate && nextHour < currentTime)
                                               {
                                                   opacity=lowOpacity
                                               }else
                                               {
                                                   opacity=standardOpacity
                                               }
-                                           var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(color: task.color),opacity:opacity)
                                                                                                                                                                               
                                            taskPerHour.id=task.id
                                        
@@ -1449,11 +1479,11 @@ class TaskModel : UIViewController
                                   /*else{
                                       heightFactor=1.6
                                   }*/
-                                  else{
+                                  else {
                                       
-                                      if(data[0].startTime! > beginningOfHour)
+                                      if(calendarObjects[0].startTime > beginningOfHour)
                                        {
-                                           if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                           if(/*calendarObjects[0].completed ||*/ dayOfTheWeek < currentDate || dayOfTheWeek == currentDate && nextHour < currentTime)
                                              {
                                                  opacity=lowOpacity
                                              }else
@@ -1463,7 +1493,7 @@ class TaskModel : UIViewController
                                            tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
                                        }
                                    
-                                       if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
+                                       if(/*calendarObjects[0].completed ||*/ dayOfTheWeek < currentDate || dayOfTheWeek == currentDate && nextHour < currentTime)
                                          {
                                              opacity=lowOpacity
                                          }else
@@ -1471,15 +1501,15 @@ class TaskModel : UIViewController
                                              opacity=standardOpacity
                                          }
                                       
-                                       var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
-                                       taskPerHour.id=data[0].id
+                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObjects[0].taskName,color:getTaskColor(color: calendarObjects[0].color),opacity:opacity)
+                                       taskPerHour.id=calendarObjects[0].id
                                    
                                       tasksPerHourPerDay.tasks.append(taskPerHour)
                                               //Multiple tasks per hour
                                       
-                                      if(data[0].endTime! < nextHour)
+                                      if(calendarObjects[0].endTime < nextHour)
                                        {
-                                           if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate &&  nextHour < currentTime)
+                                           if(/*calendarObjects[0].completed || */dayOfTheWeek < currentDate || dayOfTheWeek == currentDate &&  nextHour < currentTime)
                                             {
                                                 opacity=lowOpacity
                                             }else

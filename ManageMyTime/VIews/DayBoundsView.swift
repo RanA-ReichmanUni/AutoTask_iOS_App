@@ -29,7 +29,7 @@ struct DayBoundsView: View {
     
     var body: some View {
         VStack{
-            Rectangle().isHidden(true).frame(height:70)
+            Rectangle().isHidden(true).frame(height:130)
         Form{
            
                
@@ -38,7 +38,7 @@ struct DayBoundsView: View {
                         Text("Day Starts At: ").font(Font.custom("MarkerFelt-Wide", size: 16))
                     }) {
                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
-                 }.navigationBarTitle("Add Personal Repeated Activity",displayMode: .inline)
+                 }
                                            
                                    
                Section(header: HStack {
@@ -91,7 +91,7 @@ struct DayBoundsView: View {
             
               
             
-        }
+        }.navigationBarTitle("Set Day Bounds For Auto Scheduling", displayMode: .inline)
         
         
     }

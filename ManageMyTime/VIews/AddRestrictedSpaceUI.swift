@@ -24,9 +24,13 @@ struct AddRestrictedSpaceUI: View {
     
     //var taskViewModel = TaskViewModel()
    @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var taskViewModel:TaskViewModel
     
+    @ObservedObject var taskViewModel:TaskViewModel
+    @ObservedObject var restrictedSpaceViewModel = RestrictedSpaceViewModel()
+       
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+   
     
     @State var activeTask : Bool = true
     @State var taskName : String = ""
@@ -232,42 +236,19 @@ struct AddRestrictedSpaceUI: View {
                             }
                             else{
                                     
-                                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                                                self.permissionAqcuired=success
-                                            DispatchQueue.main.async {
-                                            
-                                            if self.permissionAqcuired ?? false {
-                                                        do{
-                                                            try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.fromSelection[0],workTimeMinutes: self.fromSelection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex,notificationIndex:self.selectedNotificationIndex)
-                                                              
-                                                                  self.taskViewModel.UpdateAllTasks()
-                                                                  self.addTaskFlag=false
-                                                                  self.listFlag=true
-                                                          
-                                                                  self.mode.wrappedValue.dismiss()
-                                                 
-                                                          }
-                                                           catch DatabaseError.taskCanNotBeScheduledInDue {
-                                                              self.isError = true
-                                                              self.alertType=1
-                                                              
-                                                          }
-                                                          catch {
-                                                             self.isError = true
-                                                             self.alertType=1
-                                                         }
-                                                        
-                                            } else if !(self.permissionAqcuired ?? true){
-                                                
-                                                       
-                                                        self.isError = true
-                                                        self.alertType=3
-                                                    }
-                                             
-                                          
-                                        }
-                            
+                              do{
+                                    try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:self.selectedColorIndex,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , dayOfTheWeek: self.dayNameValues[self.selectedDayValuesIndex],difficulty:"average")
                                 }
+                                catch RestrictedSpaceError.alreadyScheduled{
+                                    
+                                    self.isError=true
+                                }
+                                catch {
+                                     
+                                    self.isError=true
+                                 }
+                                
+                              self.mode.wrappedValue.dismiss()
                               
                                   
                                                                 
@@ -284,32 +265,11 @@ struct AddRestrictedSpaceUI: View {
                                 
                         } .alert(isPresented: self.$isError) {
                             
-                            switch self.alertType{
-                            case 1:
-                              return Alert(title: Text("Task Can't Be Scheduled"),
-                                     message: Text("\nThere is not enough room in your schedule for the new task with this chosen Due Date.\n\nTry making some room or change the Due Date."),
-                                     dismissButton: .default(Text("OK")))
-                            case 2:
-                                return    Alert(title: Text("Missing Required Fields"),
-                                          message: Text("\n Task Name, Work Hours (From and To), and Days are required fields.\n\n'From Hour' field should be smaller then 'To Hour' field"),
-                                          dismissButton: .default(Text("OK")))
-                            case 3:
-                                
-                                 return Alert(title: Text("Missing Required Premissions"), message: Text("Manage My Time Needs A premission To Present Notifications In Order For It to Update You on Upcoming Assigments"), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
-                                                                            
-                                              UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                                            
-                                              //  self.permissionAqcuired=nil
-                                                
-                                        
-                                      
-                                   
-                                  }, secondaryButton: .cancel())
-                            default:
+                         
                               return Alert(title: Text("Task can not be scheduled"),
                                                                message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),
                                                                dismissButton: .default(Text("OK")))
-                            }
+                            
                                         
 
                            }

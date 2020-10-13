@@ -93,6 +93,7 @@
 		25BB43F82513FAEC00AD2957 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BB43F62513FAEC00AD2957 /* Task+CoreDataClass.swift */; };
 		25BB43F92513FAEC00AD2957 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BB43F72513FAEC00AD2957 /* Task+CoreDataProperties.swift */; };
 		25C0BABE25113A530050EA79 /* WorkPerDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0BABD25113A530050EA79 /* WorkPerDate.swift */; };
+		25C9C2F62534E54D00DA8F66 /* CalendarObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9C2F52534E54D00DA8F66 /* CalendarObject.swift */; };
 		25CAAE5E252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CAAE5D252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift */; };
 		25CD218A24BB59CF0048DDAC /* CustomDate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218424BB59CF0048DDAC /* CustomDate+CoreDataClass.swift */; };
 		25CD218B24BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD218524BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift */; };
@@ -237,6 +238,7 @@
 		25BB43F62513FAEC00AD2957 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25BB43F72513FAEC00AD2957 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25C0BABD25113A530050EA79 /* WorkPerDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkPerDate.swift; sourceTree = "<group>"; };
+		25C9C2F52534E54D00DA8F66 /* CalendarObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarObject.swift; sourceTree = "<group>"; };
 		25CAAE5D252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceVerticalCard.swift; sourceTree = "<group>"; };
 		25CD218424BB59CF0048DDAC /* CustomDate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDate+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25CD218524BB59CF0048DDAC /* CustomDate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDate+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				253C5CE924B11A0400C95A06 /* HourlyTask.swift */,
 				25DB2DAB24B6633F00E86600 /* AvailableDay.swift */,
 				2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */,
+				25C9C2F52534E54D00DA8F66 /* CalendarObject.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				253C5CE824B1193800C95A06 /* DayObject.swift in Sources */,
 				253C7E0124DB4A2C0063952B /* SmallChar.swift in Sources */,
 				250159D625338D32003F1A28 /* AddRestrictedSpaceUI.swift in Sources */,
+				25C9C2F62534E54D00DA8F66 /* CalendarObject.swift in Sources */,
 				25FFDC68253487400093A9D1 /* SettingsEntity+CoreDataClass.swift in Sources */,
 				258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */,
 				25407EEB24D72290003110E9 /* LoadLevel+CoreDataProperties.swift in Sources */,

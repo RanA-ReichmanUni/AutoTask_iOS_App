@@ -13,6 +13,7 @@ import SwiftUI
 struct TaskPerHour:Identifiable{
     
     var id:UUID
+    var isRepeatedActivity:Bool?
     var taskName : String
     var taskId:UUID?
     var heightFactor:CGFloat

@@ -12,8 +12,8 @@ struct SettingsUI: View {
     
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Extremly Dense","Maximum Capacity"]
-    var schedulingAlgorithm = ["Smart - Least work stress, based on task difficulty and work time in combine.","Optimal - Least work time per day.","Advanced - Least work time per day, exclude personal activities.","Earliest","Latest - Near due"]
-    var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Break","Classic 1:30 Hour Work Sections, 20 Minutes Break","2 Hours Work Sections, 30 Minutes Break","3 Hours Work Sections, 1 Hour Break","5 Hours Sections, 1:30 Hour Break","Continues - No Breaks"]
+    var schedulingAlgorithm = ["Smart - Least work stress (based on difficulty and work time in combine)","Optimal - Least work time per day.","Advanced - Least work time per day, exclude personal activities.","Earliest","Latest - Near due"]
+    var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Break","Classic - 1:30 Hour Work Sections, 20 Minutes Break","2 Hours Work Sections, 30 Minutes Break","3 Hours Work Sections, 1 Hour Break","5 Hours Sections, 1:30 Hour Break","Continues - No Breaks"]
     var animationsValues = ["Smooth","Fast","Spring"]
     @State var selectedDensityIndex = 2
     @State var selectedSchedulingAlgorithmIndex = 0
@@ -63,6 +63,16 @@ struct SettingsUI: View {
                                             Spacer()
                                           }
                                        }
+    
+                        NavigationLink(destination:DayBoundsView(taskViewModel: self.taskViewModel,fromSelection: self.$fromSelection,toSelection:self.$toSelection)){
+                              HStack{
+                                  
+                                  
+                                     Text("Set Day Bounds For Auto Scheduling")
+                                      Spacer()
+                                    }
+                                 }
+      
                             
     /*NavigationLink(destination:AddRestrictedSpaceUI(taskViewModel: self.taskViewModel, listFlag: self.$listFlag, addTaskFlag: self.$addTaskFlag)){
                                 HStack{
@@ -97,15 +107,7 @@ struct SettingsUI: View {
                                    }
                                     
                                     
-                                NavigationLink(destination:DayBoundsView(taskViewModel: self.taskViewModel,fromSelection: self.$fromSelection,toSelection:self.$toSelection)){
-                                    HStack{
-                                        
-                                        
-                                           Text("Start And End Of A Day")
-                                            Spacer()
-                                          }
-                                       }
-    
+                              
     
                                 
                                  
