@@ -20,6 +20,30 @@ enum RestrictedSpaceError: Error {
 class RestrictedSpaceModel : UIViewController
 {
 
+    func DayStringToNumConverter(dayOfTheWeek:String) -> Int
+       {
+           switch dayOfTheWeek.lowercased() {
+           case "sunday":
+               return 0
+           case "monday":
+               return 1
+           case "tuesday":
+               return 2
+           case "wednesday":
+               return 3
+           case "thursday":
+               return 4
+           case "friday":
+               return 5
+           case "saturday":
+               return 6
+           default:
+               return 0
+           }
+           
+           return 0
+           
+       }
     
     func getAllRestrictedSpace() -> [RestrictedSpace]
     {
@@ -56,17 +80,20 @@ class RestrictedSpaceModel : UIViewController
              {
                  print(error)
              }
-               
-            restrictedSpace.sort {
-                             ($0.startTime) <
-                                 ($1.endTime)
-            }
+            
+        
+            restrictedSpace.sort{
+            (DayStringToNumConverter(dayOfTheWeek:$0.dayOfTheWeek),$0.startTime.hour, $0.startTime.minutes) <
+                                   (DayStringToNumConverter(dayOfTheWeek:$1.dayOfTheWeek),$1.startTime.hour, $1.startTime.minutes)
+                            }
+            
     
             return restrictedSpace
         
         
         
     }
+    
     func getRestrictedSpaceColor (restrictedSpace:RestrictedSpace) -> Color
        {
            if(restrictedSpace.color.hasPrefix("#"))
@@ -219,7 +246,7 @@ class RestrictedSpaceModel : UIViewController
           
       }
     
-    func CreateRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String) throws
+    func CreateRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,daysOfTheWeek: [String],difficulty:String) throws
        {
            
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -229,7 +256,7 @@ class RestrictedSpaceModel : UIViewController
            
            
            let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
-           fetchRequest.predicate = NSPredicate(format: "dayOfTheWeek = %@", dayOfTheWeek as CVarArg)
+           
            var alreadyScheduled=false
            var allSpacesAtDay = [RestrictedSpace]()
            
@@ -248,42 +275,48 @@ class RestrictedSpaceModel : UIViewController
                    print(error)
                }
            
-           for space in allSpacesAtDay
+           for day in daysOfTheWeek
            {
-               
-               if(startTime >= space.startTime && endTime <= space.endTime || startTime < space.startTime && endTime > space.startTime || startTime < space.endTime && endTime >= space.endTime )
-               {
-                   alreadyScheduled=true
-               }
-               
-               
+            
+                if(allSpacesAtDay.contains(where: {day.lowercased() == $0.dayOfTheWeek && (startTime >= $0.startTime && endTime <= $0.endTime || startTime < $0.startTime && endTime > $0.startTime || startTime < $0.endTime && endTime >= $0.endTime)  }))
+                   {
+                    
+                        alreadyScheduled=true
+                    
+                   }
+      
            }
            
            if(!alreadyScheduled)
            {
-               let restrictedSpace = RestrictedSpace(context: managedContext)
-               
-               restrictedSpace.startTime=startTime
-               restrictedSpace.endTime=endTime
-               restrictedSpace.dayOfTheWeek=dayOfTheWeek
-               restrictedSpace.id=UUID()
-               restrictedSpace.difficulty=difficulty
-               restrictedSpace.name=name
-               restrictedSpace.color=color
-             //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
+                for day in daysOfTheWeek
+                {
+                    let restrictedSpace = RestrictedSpace(context: managedContext)
+                                 
+                     restrictedSpace.startTime=startTime
+                     restrictedSpace.endTime=endTime
+                     restrictedSpace.dayOfTheWeek=day
+                     restrictedSpace.id=UUID()
+                     restrictedSpace.difficulty=difficulty
+                     restrictedSpace.name=name
+                     restrictedSpace.color=color
+                   //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
 
-               do {
-                        try managedContext.save()
-                            print("Saved RestrictedSpace.")
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
+                     do {
+                              try managedContext.save()
+                                  print("Saved RestrictedSpace.")
+                          } catch let error as NSError {
+                              print("Could not save. \(error), \(error.userInfo)")
+                          }
+                    
+                }
+             
            }
            else{
             throw RestrictedSpaceError.alreadyScheduled
         }
            
-       }
+    }
     
     
     

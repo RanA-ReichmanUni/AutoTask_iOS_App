@@ -455,6 +455,8 @@ class TaskViewModel : ObservableObject
         
     }
     
+ 
+    
     func GetAnimationStyleSettings () -> String
     {
         return taskModel.GetAnimationStyleSettings()
@@ -867,6 +869,11 @@ class TaskViewModel : ObservableObject
     }
     
     
+    func retrieveAllTasksByHourOrginal(hour:Int) ->[TasksPerHourPerDay]
+     {
+
+         return taskModel.retrieveAllTasksByHourOrginal(hour: hour)
+     }
     
     func retrieveAllTasksByHour(hour:Int) ->[TasksPerHourPerDay]
     {

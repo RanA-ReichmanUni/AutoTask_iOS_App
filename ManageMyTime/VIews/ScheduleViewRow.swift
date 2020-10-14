@@ -53,9 +53,9 @@ struct ScheduleViewRow: View {
                     }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)*/
                 }
                 HStack(spacing:4){
-                    if(self.taskViewModel.absoluteAllTasks.count <= 10 || self.taskViewModel.retrieveAllTasksByHour(hour:hour).contains(where: {!$0.isEmptySlot}))
+                    if(self.taskViewModel.absoluteAllTasks.count <= 10 || self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour).contains(where: {!$0.isEmptySlot}))
                  {
-                ForEach(self.taskViewModel.retrieveAllTasksByHour(hour:hour))
+                ForEach(self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour))
                     {
                         weekByHour in
        

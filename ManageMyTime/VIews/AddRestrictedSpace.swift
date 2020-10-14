@@ -134,7 +134,7 @@ struct AddRestrictedSpace: View {
          
                         
                             do{
-                                try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:Color.green,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , dayOfTheWeek: self.dayNameValues[self.selectedDayValuesIndex],difficulty:"average")
+                               /* try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:Color.green,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , daysOfTheWeek: self.dayNameValues[self.selectedDayValuesIndex],difficulty:"average")*/
                             }
                             catch RestrictedSpaceError.alreadyScheduled{
                                 

@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct CalendarObject {
     
+   
     var taskName : String
     var color : String
     var startTime:Hour
@@ -17,9 +19,10 @@ struct CalendarObject {
     var isRepeatedActivity:Bool?
     var id:UUID
     
+    
     init(id:UUID,taskName : String, color : String,startTime:Hour,endTime:Hour)
     {
-        
+
         self.taskName=taskName
         self.color=color
         self.startTime=startTime

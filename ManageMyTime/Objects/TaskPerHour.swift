@@ -19,14 +19,18 @@ struct TaskPerHour:Identifiable{
     var heightFactor:CGFloat
     var color : Color
     var opacity : CGFloat
+ //   var startTime:Hour
+    //var endTime:Hour
     
-    init(heightFactor:CGFloat,taskName:String,color:Color,opacity:CGFloat)
+    init(heightFactor:CGFloat,taskName:String,color:Color,opacity:CGFloat/*,startTime:Hour,endTime:Hour*/)
     {
         id=UUID()
         self.taskName=taskName
         self.heightFactor=heightFactor
         self.color=color
         self.opacity=opacity
+      /*  self.startTime=startTime
+        self.endTime=endTime*/
     }
  
 }
