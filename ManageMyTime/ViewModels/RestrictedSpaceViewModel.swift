@@ -45,7 +45,7 @@ class RestrictedSpaceViewModel : ObservableObject
         
     }
     
-    func getAllRestrictedSpace ()
+    func getAllRestrictedSpace()
     {
         var allSpaces = restrictedSpaceModel.getAllRestrictedSpace()
         
@@ -110,6 +110,14 @@ class RestrictedSpaceViewModel : ObservableObject
             
         }
         
+    }
+    
+    
+    func DeleteRestrictedSpace(id:UUID)
+    {
+        
+        self.restrictedSpaceModel.DeleteRestrictedSpace(id : id)
+        getAllRestrictedSpace()
     }
     
     

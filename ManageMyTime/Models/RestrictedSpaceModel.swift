@@ -319,6 +319,48 @@ class RestrictedSpaceModel : UIViewController
     }
     
     
+    func DeleteRestrictedSpace(id:UUID)
+   {
+       
+       //As we know that container is set up in the AppDelegates so we need to refer that container.
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+             
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+             
+             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RestrictedSpace")
+             fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+            
+             var freeSpaceId=UUID()
+             
+             do
+             {
+                 let requiredRestrictedSpace = try managedContext.fetch(fetchRequest)
+                 
+                  let objectToDelete = requiredRestrictedSpace[0] as! NSManagedObject
+                    managedContext.delete(objectToDelete)
+                    do{
+                        try managedContext.save()
+         
+                        print("Deleted !.")
+                       
+                    }
+                    catch
+                    {
+                        print(error)
+                    }
+                 
+             }
+             catch
+             {
+                 print(error)
+             }
+             
+            
+            // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+             
+   }
+       
     
     
 }

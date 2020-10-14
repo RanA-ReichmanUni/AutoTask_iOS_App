@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct RestrictedSpaceVerticalCard: View {
+    @ObservedObject var restrictedSpaceViewModel:RestrictedSpaceViewModel
     @ObservedObject var taskViewModel:TaskViewModel
+    
      @Environment(\.colorScheme) var colorScheme
     var restrictedSpaceId:UUID
     var taskName1 : String
@@ -204,7 +206,7 @@ struct RestrictedSpaceVerticalCard: View {
                                                
                          
                                     self.showingAlert = true
-                                                                         
+                                    
                                             }) {
                                               VStack{
                                                 Image(systemName: "trash").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
@@ -213,8 +215,8 @@ struct RestrictedSpaceVerticalCard: View {
                                                                             
                               } .alert(isPresented:$showingAlert) {
                                          Alert(title: Text("Are you sure you want to delete this task ?"), message: Text("You can`t undo this action"), primaryButton: .destructive(Text("Delete")) {
-                                                      self.taskViewModel.deleteTask(taskId: self.restrictedSpaceId)
-                                                            self.taskViewModel.getFirstTaskColor()
+                                                      self.restrictedSpaceViewModel.DeleteRestrictedSpace(id: self.id)
+                                                        
                                                        //   self.mode.wrappedValue.dismiss()
                                             }, secondaryButton: .cancel())}
                             
