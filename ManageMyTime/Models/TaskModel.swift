@@ -577,9 +577,9 @@ class TaskModel : UIViewController
             endTime.hour=15
             endTime.minutes=0
         
-        createRestrictedSpace(name:"TextFill",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday",difficulty:"average")
-         createRestrictedSpace(name:"Basketball",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Thursday",difficulty:"average")
-        createRestrictedSpace(name:"Studies At Unvirsity",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Friday",difficulty:"average")
+       // createRestrictedSpace(name:"TextFill",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Wednesday",difficulty:"average")
+       //  createRestrictedSpace(name:"Basketball",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Thursday",difficulty:"average")
+       // createRestrictedSpace(name:"Studies At Unvirsity",color:Color.green.description,startTime: startTime,endTime: endTime,dayOfTheWeek: "Friday",difficulty:"average")
         
         
         let startTime2=Hour(context: managedContext)
@@ -603,14 +603,14 @@ class TaskModel : UIViewController
         
         
         let startTime4=Hour(context: managedContext)
-                   startTime4.hour=11
+                   startTime4.hour=13
                    startTime4.minutes=0
                let endTime4=Hour(context: managedContext)
                    endTime4.hour=17
                    endTime4.minutes=0
                
-              createRestrictedSpace(name:"TextFill2",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
-          createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Wednesday",difficulty:"average")
+           //   createRestrictedSpace(name:"TextFill2",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
+         // createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Wednesday",difficulty:"average")
           createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Sunday",difficulty:"average")
         for name in taskName
         {
@@ -1012,165 +1012,164 @@ class TaskModel : UIViewController
                  currentDate.month=Date().month
                  currentDate.day=Date().day
              
-                 // let weekSequence=coreManagment.createCalanderSequence(startDay: 26, startMonth: 7, startYear: 2020, endDay: 1, endMonth: 8, endYear: 2020)
-          //        fetchRequest.fetchLimit = 1
-          //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
-          //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
-          //
-                  do {
-                      
-                      var result = try managedContext.fetch(fetchRequest) as! [Task]
-                      
-                      result.sort {
-                          ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour) <
-                              ($1.date.year,$1.date.month,$1.date.day,$0.startTime!.hour)
-                      }
-                      
-                        //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                      
-                      var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                   
-                              if(result.contains(where: {(($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
-                              {
-                                  let data = result.all(where: { (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+         
 
-                                 tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
-                                  
-                                  tasksPerHourPerDay.isEmptySlot=false
-                                  
-                                  
-                                  var heightFactor=CGFloat(1.6)
-                                  
-                                  if(data.count > 1)
-                                  {
-                                      heightFactor=1.9
-                                      
-                                      
-                                      for task in data{
-                                        
-                                        if(task.completed || task.date < currentDate || task.date == currentDate && nextHour < currentTime)
-                                        {
-                                            opacity=lowOpacity
-                                        }else
-                                        {
-                                            opacity=standardOpacity
-                                        }
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity, isRepeatedActivity: false)
-                                        
-                                        taskPerHour.id=task.id
-                                        
-                                        tasksPerHourPerDay.tasks.append(taskPerHour)
-                    
-                                      }
-                                                           
-                                  }
-                                  /*else{
-                                      heightFactor=1.6
-                                  }*/
-                                  else{
-                                      
-                                     /* if(data[0].startTime! > beginningOfHour)
-                                       {
-                                          tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
-                                       }
-                                      */
-                                    if(data[0].endTime! < nextHour && data[0].endTime!.minutes > 45)
-                                    {
-                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
-                                           {
-                                               opacity=lowOpacity
-                                           }else
-                                           {
-                                               opacity=standardOpacity
-                                           }
-                                        
-                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
-                                                                           
-                                        taskPerHour.id=data[0].id
-                                        
-                                        tasksPerHourPerDay.tasks.append(taskPerHour)
-                                              //Multiple tasks per hour
-                                    }
-                                    else if(data[0].endTime! < nextHour && data[0].endTime!.minutes < 30)
-                                    {
-                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)//SET LOW OPACITY to past tasks
-                                           {
-                                               opacity=lowOpacity
-                                           }else
-                                           {
-                                               opacity=standardOpacity
-                                           }
-                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
-                                                                                                            
-                                        taskPerHour.id=data[0].id
-                                        
-                                        tasksPerHourPerDay.tasks.append(taskPerHour)
-                                                                                 //Multiple tasks per hour
-                                    }
-                                    else{
-                                        if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)//SET LOW OPACITY to past tasks
-                                            {
-                                                opacity=lowOpacity
-                                            }else
-                                            {
-                                                opacity=standardOpacity
-                                            }
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
-                                                                                                                                            
-                                        taskPerHour.id=data[0].id
-                                        
-                                         tasksPerHourPerDay.tasks.append(taskPerHour)
-                                    }
-                                      
-                                  /*    if(data[0].endTime! < nextHour)
-                                       {
-                                            tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white)))
-                                       }*/
-                                      
-                                      
-                                  }
+            
+                       do {
                            
-                
-                                
-                              }
-                              else{//Case it's an empty hour for that day (index)
-                                  tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
-                                  //tasksPerHourPerDay.isEmptySlot=true
-                              }
-                              
-                              allTasks.append(tasksPerHourPerDay)//Tasks per hour
-                             
-                              tasksPerHourPerDay.tasks=[]
-                          
-                          
-                      
+                           var result = try managedContext.fetch(fetchRequest) as! [Task]
+                           
+                           result.sort {
+                               ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
+                                   ($1.date.year,$1.date.month,$1.date.day,$1.startTime!.hour,$1.startTime!.minutes)
+                           }
+                           
+                             //  var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                           
+                       var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                          
-                              //allTasks.append(TasksByHour(data)
-                              
-                         // allTasks.append(tasksByHour)//All hours of the week followed each by all the appropriate tasks for each hour for the week
-                          
-                       /*   for data in allTasks
-                          {
-                              
-                              print(data.hour)
-                              for oneString in data.tasks
-                              {
-                                  print(oneString)
-                              }
-                              print("-----")
-                          }*/
-                          /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
                      
-                      
-                      print("Retrived all day tasks !")
-                      
-                    }       catch {
-                      
-                      print("Failed")
-                  }
-              
-              return allTasks
-    }
+                         if(result.contains(where: { currentDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}) || !retrieveRestrictedSpacesByHour(hour: hour, date: currentDate, taskObjects: [CalendarObject]()).isEmpty)
+                           {
+                               let filteredTaskObjects = result.all(where: { currentDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day) && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour)) })
+
+                           
+                             tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
+                                   
+                             tasksPerHourPerDay.isEmptySlot=false
+                                   
+                             var calendarObjects = [CalendarObject]()
+                             
+                             for task in filteredTaskObjects{
+                                 
+                                 let calendarInstance=CalendarObject(id:task.id,taskName:task.taskName,color:task.color!,startTime: task.startTime!,endTime:task.endTime!,isRepeatedActivity:false)
+                                 //calendarInstance.date=obj.date
+                                 
+                                 calendarObjects.append(calendarInstance)
+                                 
+                                 
+                             }
+                     
+                            let filteredRestrictedSpaces=retrieveRestrictedSpacesByHour(hour: hour, date: currentDate, taskObjects: calendarObjects)
+                             
+                                     
+                             if(!filteredRestrictedSpaces.isEmpty)
+                             {
+                                 for restrictedSpace in filteredRestrictedSpaces{
+                                     
+                                     var calendarInstance=CalendarObject(id:restrictedSpace.id,taskName:restrictedSpace.name,color:restrictedSpace.color,startTime: restrictedSpace.startTime,endTime:restrictedSpace.endTime, isRepeatedActivity: true)
+                                     //calendarInstance.date=obj.date
+                                     
+                                     calendarInstance.isRepeatedActivity=true
+                                     
+                                     calendarObjects.append(calendarInstance)
+                                 }
+                             
+                             }
+                             
+                             
+                                   
+                               var heightFactor=CGFloat(1.6)
+                               
+                               if(calendarObjects.count > 1)
+                               {
+                                   heightFactor=1.9
+                                   
+                                   
+                                 for calendarObject in calendarObjects{
+                                     
+                                    if(currentDate < currentDate || currentDate == currentDate && nextHour < currentTime)
+                                           {
+                                               opacity=lowOpacity
+                                           }else
+                                           {
+                                               opacity=standardOpacity
+                                           }
+                                     
+                                     
+                                     var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObject.taskName,color:getTaskColor(color: calendarObject.color),opacity:opacity,isRepeatedActivity:calendarObject.isRepeatedActivity)
+                                                                                                                                                                           
+                                        taskPerHour.id=calendarObject.id
+                                    
+                                       tasksPerHourPerDay.tasks.append(taskPerHour)
+                 
+                                   }
+                                                        
+                               }
+                               /*else{
+                                   heightFactor=1.6
+                               }*/
+                               else{
+                                   
+                                   if(calendarObjects[0].startTime > beginningOfHour)
+                                    {
+                                        if(currentDate < currentDate || currentDate == currentDate && nextHour < currentTime)
+                                          {
+                                              opacity=lowOpacity
+                                          }else
+                                          {
+                                              opacity=standardOpacity
+                                          }
+                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity,isRepeatedActivity:calendarObjects[0].isRepeatedActivity))
+                                    }
+                                
+                                    if(currentDate < currentDate || currentDate == currentDate && nextHour < currentTime)
+                                      {
+                                          opacity=lowOpacity
+                                      }else
+                                      {
+                                          opacity=standardOpacity
+                                      }
+                                   
+                                 var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObjects[0].taskName,color:getTaskColor(color: calendarObjects[0].color),opacity:opacity,isRepeatedActivity:calendarObjects[0].isRepeatedActivity)
+                                    taskPerHour.id=calendarObjects[0].id
+                                
+                                   tasksPerHourPerDay.tasks.append(taskPerHour)
+                                           //Multiple tasks per hour
+                                   
+                                   if(calendarObjects[0].endTime < nextHour)
+                                    {
+                                        if(currentDate < currentDate || currentDate == currentDate &&  nextHour < currentTime)
+                                         {
+                                             opacity=lowOpacity
+                                         }else
+                                         {
+                                             opacity=standardOpacity
+                                         }
+                                        
+                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity,isRepeatedActivity:calendarObjects[0].isRepeatedActivity))
+                                    }
+                                   
+                                   
+                               }
+                        
+             
+                             
+                           }
+                           else{//Case it's an empty hour for that day (index)
+                             
+                               tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: true, tasks: [TaskPerHour]())
+                               //tasksPerHourPerDay.isEmptySlot=true
+                           }
+                           
+                           allTasks.append(tasksPerHourPerDay)//Tasks per hour
+                          
+                           tasksPerHourPerDay.tasks=[]
+                       
+                       
+                   
+                  
+                  
+                   
+                   print("Retrived all tasks by hour !")
+                   
+                   } catch {
+                       
+                       print("Failed")
+                   }
+               
+               return allTasks
+               }
     
     
     func retrieveAllTasksByHour(hour:Int,sequanceNum:Int) -> [TasksPerHourPerDay] {
@@ -1762,7 +1761,7 @@ class TaskModel : UIViewController
          
          
           
-          print("Retrived all tasks by hour !")
+          //print("Retrived all tasks by hour !")
           
           } catch {
               
