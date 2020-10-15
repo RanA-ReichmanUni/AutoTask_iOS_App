@@ -18,7 +18,8 @@ class RestrictedSpaceViewModel : ObservableObject
     
     @Published var allRestrictedSpaces = [RestrictedSpace]()
     
-
+    
+    
     
     func DayStringToNumConverter(dayOfTheWeek:String) -> Int
     {

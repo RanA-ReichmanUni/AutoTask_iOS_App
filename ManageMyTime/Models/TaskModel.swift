@@ -1055,7 +1055,7 @@ class TaskModel : UIViewController
                                         {
                                             opacity=standardOpacity
                                         }
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity, isRepeatedActivity: false)
                                         
                                         taskPerHour.id=task.id
                                         
@@ -1084,7 +1084,7 @@ class TaskModel : UIViewController
                                                opacity=standardOpacity
                                            }
                                         
-                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1.5) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
                                                                            
                                         taskPerHour.id=data[0].id
                                         
@@ -1100,7 +1100,7 @@ class TaskModel : UIViewController
                                            {
                                                opacity=standardOpacity
                                            }
-                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                        var taskPerHour=TaskPerHour(heightFactor: CGFloat(1) , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
                                                                                                             
                                         taskPerHour.id=data[0].id
                                         
@@ -1115,7 +1115,7 @@ class TaskModel : UIViewController
                                             {
                                                 opacity=standardOpacity
                                             }
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
                                                                                                                                             
                                         taskPerHour.id=data[0].id
                                         
@@ -1256,7 +1256,7 @@ class TaskModel : UIViewController
                                            {
                                                opacity=standardOpacity
                                            }
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
+                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity, isRepeatedActivity: false)
                                                                                                                                                                            
                                         taskPerHour.id=task.id
                                     
@@ -1279,7 +1279,7 @@ class TaskModel : UIViewController
                                           {
                                               opacity=standardOpacity
                                           }
-                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                        tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity, isRepeatedActivity: false))
                                     }
                                 
                                     if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
@@ -1290,7 +1290,7 @@ class TaskModel : UIViewController
                                           opacity=standardOpacity
                                       }
                                    
-                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
                                     taskPerHour.id=data[0].id
                                 
                                    tasksPerHourPerDay.tasks.append(taskPerHour)
@@ -1306,7 +1306,7 @@ class TaskModel : UIViewController
                                              opacity=standardOpacity
                                          }
                                         
-                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                         tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity, isRepeatedActivity: false))
                                     }
                                    
                                    
@@ -1429,7 +1429,7 @@ class TaskModel : UIViewController
                                 
                                 for obj in filteredTaskObjects{
                                     
-                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.taskName,color:obj.color!,startTime: obj.startTime!,endTime:obj.endTime!)
+                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.taskName,color:obj.color!,startTime: obj.startTime!,endTime:obj.endTime!, isRepeatedActivity: false)
                                     //calendarInstance.date=obj.date
                                     
                                     calendarObjects.append(calendarInstance)
@@ -1439,7 +1439,7 @@ class TaskModel : UIViewController
                                 
                                 for obj in releventRestrictedSpaces{
                                     
-                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.name,color:obj.color,startTime: obj.startTime,endTime:obj.endTime)
+                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.name,color:obj.color,startTime: obj.startTime,endTime:obj.endTime, isRepeatedActivity: false)
                                     calendarInstance.isRepeatedActivity=true
                                     
                                     calendarObjects.append(calendarInstance)
@@ -1467,7 +1467,7 @@ class TaskModel : UIViewController
                                               {
                                                   opacity=standardOpacity
                                               }
-                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(color: task.color),opacity:opacity)
+                                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(color: task.color),opacity:opacity, isRepeatedActivity: false)
                                                                                                                                                                               
                                            taskPerHour.id=task.id
                                        
@@ -1490,7 +1490,7 @@ class TaskModel : UIViewController
                                              {
                                                  opacity=standardOpacity
                                              }
-                                           tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                           tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity, isRepeatedActivity: false))
                                        }
                                    
                                        if(/*calendarObjects[0].completed ||*/ dayOfTheWeek < currentDate || dayOfTheWeek == currentDate && nextHour < currentTime)
@@ -1501,7 +1501,7 @@ class TaskModel : UIViewController
                                              opacity=standardOpacity
                                          }
                                       
-                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObjects[0].taskName,color:getTaskColor(color: calendarObjects[0].color),opacity:opacity)
+                                    var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObjects[0].taskName,color:getTaskColor(color: calendarObjects[0].color),opacity:opacity, isRepeatedActivity: false)
                                        taskPerHour.id=calendarObjects[0].id
                                    
                                       tasksPerHourPerDay.tasks.append(taskPerHour)
@@ -1517,7 +1517,7 @@ class TaskModel : UIViewController
                                                 opacity=standardOpacity
                                             }
                                            
-                                            tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                            tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity, isRepeatedActivity: false))
                                        }
                                       
                                       
@@ -1643,7 +1643,7 @@ class TaskModel : UIViewController
                     
                     for task in filteredTaskObjects{
                         
-                        let calendarInstance=CalendarObject(id:task.id,taskName:task.taskName,color:task.color!,startTime: task.startTime!,endTime:task.endTime!)
+                        let calendarInstance=CalendarObject(id:task.id,taskName:task.taskName,color:task.color!,startTime: task.startTime!,endTime:task.endTime!,isRepeatedActivity:false)
                         //calendarInstance.date=obj.date
                         
                         calendarObjects.append(calendarInstance)
@@ -1658,7 +1658,7 @@ class TaskModel : UIViewController
                     {
                         for restrictedSpace in filteredRestrictedSpaces{
                             
-                            var calendarInstance=CalendarObject(id:restrictedSpace.id,taskName:restrictedSpace.name,color:restrictedSpace.color,startTime: restrictedSpace.startTime,endTime:restrictedSpace.endTime)
+                            var calendarInstance=CalendarObject(id:restrictedSpace.id,taskName:restrictedSpace.name,color:restrictedSpace.color,startTime: restrictedSpace.startTime,endTime:restrictedSpace.endTime, isRepeatedActivity: true)
                             //calendarInstance.date=obj.date
                             
                             calendarInstance.isRepeatedActivity=true
@@ -1686,7 +1686,9 @@ class TaskModel : UIViewController
                                   {
                                       opacity=standardOpacity
                                   }
-                            var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObject.taskName,color:getTaskColor(color: calendarObject.color),opacity:opacity)
+                            
+                            
+                            var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObject.taskName,color:getTaskColor(color: calendarObject.color),opacity:opacity,isRepeatedActivity:calendarObject.isRepeatedActivity)
                                                                                                                                                                   
                                taskPerHour.id=calendarObject.id
                            
@@ -1709,7 +1711,7 @@ class TaskModel : UIViewController
                                  {
                                      opacity=standardOpacity
                                  }
-                               tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                               tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity,isRepeatedActivity:calendarObjects[0].isRepeatedActivity))
                            }
                        
                            if(dateInTheWeek < currentDate || dateInTheWeek == currentDate && nextHour < currentTime)
@@ -1720,7 +1722,7 @@ class TaskModel : UIViewController
                                  opacity=standardOpacity
                              }
                           
-                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObjects[0].taskName,color:getTaskColor(color: calendarObjects[0].color),opacity:opacity)
+                        var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: calendarObjects[0].taskName,color:getTaskColor(color: calendarObjects[0].color),opacity:opacity,isRepeatedActivity:calendarObjects[0].isRepeatedActivity)
                            taskPerHour.id=calendarObjects[0].id
                        
                           tasksPerHourPerDay.tasks.append(taskPerHour)
@@ -1736,7 +1738,7 @@ class TaskModel : UIViewController
                                     opacity=standardOpacity
                                 }
                                
-                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity,isRepeatedActivity:calendarObjects[0].isRepeatedActivity))
                            }
                           
                           
@@ -1965,7 +1967,7 @@ class TaskModel : UIViewController
                                                  {
                                                      opacity=standardOpacity
                                                  }
-                                              var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity)
+                                              var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: task.taskName,color:getTaskColor(task: task),opacity:opacity, isRepeatedActivity: false)
                                                                                                                                                                                  
                                               taskPerHour.id=task.id
                                           
@@ -1988,7 +1990,7 @@ class TaskModel : UIViewController
                                                 {
                                                     opacity=standardOpacity
                                                 }
-                                              tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                              tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity, isRepeatedActivity: false))
                                           }
                                       
                                           if(data[0].completed || data[0].date < currentDate || data[0].date == currentDate && nextHour < currentTime)
@@ -1999,7 +2001,7 @@ class TaskModel : UIViewController
                                                 opacity=standardOpacity
                                             }
                                          
-                                          var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity)
+                                          var taskPerHour=TaskPerHour(heightFactor: heightFactor , taskName: data[0].taskName,color:getTaskColor(task: data[0]),opacity:opacity, isRepeatedActivity: false)
                                           taskPerHour.id=data[0].id
                                       
                                          tasksPerHourPerDay.tasks.append(taskPerHour)
@@ -2015,7 +2017,7 @@ class TaskModel : UIViewController
                                                    opacity=standardOpacity
                                                }
                                               
-                                               tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity))
+                                               tasksPerHourPerDay.tasks.append(TaskPerHour(heightFactor: heightFactor , taskName: "",color:Color(.white),opacity:opacity, isRepeatedActivity: false))
                                           }
                                          
                                          

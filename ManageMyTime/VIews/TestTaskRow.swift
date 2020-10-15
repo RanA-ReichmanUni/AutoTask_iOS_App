@@ -19,6 +19,7 @@ struct TestTaskRow: View {
     
     var fillColor:Color
     var opacity:CGFloat
+    var isRepeatedActivity:Bool
      @State var change: Bool = false
     
     @State var displayItem: Bool = false
@@ -43,8 +44,9 @@ struct TestTaskRow: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(self.borderColor,style: StrokeStyle(lineWidth: 1, dash: [self.dashCount]))
                 )).foregroundColor(.white).onAppear{self.borderColor=self.fillColor}.onTapGesture{
-                            if(self.taskId != nil)
-                               {
+                   
+                        if(self.taskId != nil && !self.isRepeatedActivity)
+                        {
                         
                                   self.taskViewModel.getTask(taskId: self.taskId!)
                                 print("here" ,self.taskViewModel.taskName)
@@ -53,7 +55,16 @@ struct TestTaskRow: View {
                                 self.borderColor=Color.init(red: 0, green: 0, blue: 102)
                                 
                                     self.dashCount = 0
-                               }
+                        }
+                      /*  else if(self.taskId != nil && self.isRepeatedActivity)
+                        {
+                            self.taskViewModel.getTask(taskId: self.taskId!)
+                            print("here" ,self.taskViewModel.taskName)
+                               self.displayItem.toggle()
+                             print("here" ,self.displayItem)
+                            self.borderColor=Color.init(red: 0, green: 0, blue: 102)
+                            
+                        }*/
             
                     }
         }

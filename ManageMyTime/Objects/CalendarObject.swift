@@ -16,11 +16,11 @@ struct CalendarObject {
     var color : String
     var startTime:Hour
     var endTime:Hour
-    var isRepeatedActivity:Bool?
+    var isRepeatedActivity:Bool
     var id:UUID
     
     
-    init(id:UUID,taskName : String, color : String,startTime:Hour,endTime:Hour)
+    init(id:UUID,taskName : String, color : String,startTime:Hour,endTime:Hour,isRepeatedActivity:Bool)
     {
 
         self.taskName=taskName
@@ -28,6 +28,7 @@ struct CalendarObject {
         self.startTime=startTime
         self.endTime=endTime
         self.id=id
+        self.isRepeatedActivity=isRepeatedActivity
         
     }
     

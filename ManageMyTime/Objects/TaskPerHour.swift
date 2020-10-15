@@ -13,7 +13,7 @@ import SwiftUI
 struct TaskPerHour:Identifiable{
     
     var id:UUID
-    var isRepeatedActivity:Bool?
+    var isRepeatedActivity:Bool
     var taskName : String
     var taskId:UUID?
     var heightFactor:CGFloat
@@ -22,13 +22,14 @@ struct TaskPerHour:Identifiable{
  //   var startTime:Hour
     //var endTime:Hour
     
-    init(heightFactor:CGFloat,taskName:String,color:Color,opacity:CGFloat/*,startTime:Hour,endTime:Hour*/)
+    init(heightFactor:CGFloat,taskName:String,color:Color,opacity:CGFloat,isRepeatedActivity:Bool/*,startTime:Hour,endTime:Hour*/)
     {
         id=UUID()
         self.taskName=taskName
         self.heightFactor=heightFactor
         self.color=color
         self.opacity=opacity
+        self.isRepeatedActivity=isRepeatedActivity
       /*  self.startTime=startTime
         self.endTime=endTime*/
     }

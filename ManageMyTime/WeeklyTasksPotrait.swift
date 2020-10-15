@@ -49,7 +49,7 @@ struct WeeklyTasksPotrait: View {
                             }
                             else{
                                 
-                                TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: task.color,opacity:task.opacity).frame(width: geometry.size.width, height:  geometry.size.height)//.padding(EdgeInsets(top: 2, leading: 2, bottom: 4, trailing: 4))
+                                TaskUnitPotrait(taskViewModel:self.taskViewModel,taskName: task.taskName,taskId:task.id, heightFactor:   task.heightFactor,fillColor: task.color,opacity:task.opacity,isRepeatedActivity:task.isRepeatedActivity).frame(width: geometry.size.width, height:  geometry.size.height)//.padding(EdgeInsets(top: 2, leading: 2, bottom: 4, trailing: 4))
                                     
                                         }
                                    

@@ -278,7 +278,7 @@ class RestrictedSpaceModel : UIViewController
            for day in daysOfTheWeek
            {
             
-                if(allSpacesAtDay.contains(where: {day.lowercased() == $0.dayOfTheWeek && (startTime >= $0.startTime && endTime <= $0.endTime || startTime < $0.startTime && endTime > $0.startTime || startTime < $0.endTime && endTime >= $0.endTime)  }))
+            if(allSpacesAtDay.contains(where: {day.lowercased() == $0.dayOfTheWeek.lowercased() && (startTime >= $0.startTime && endTime <= $0.endTime || startTime < $0.startTime && endTime > $0.startTime || startTime < $0.endTime && endTime >= $0.endTime)  }))
                    {
                     
                         alreadyScheduled=true

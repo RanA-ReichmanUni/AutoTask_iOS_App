@@ -232,23 +232,27 @@ struct AddRestrictedSpaceUI: View {
                             if(self.disableSave)
                             {
                                  self.isError=true
-                                 self.alertType=2
+                                 self.alertType=1
                             }
                             else{
                                     
                               do{
                                 try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:self.selectedColorIndex,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , daysOfTheWeek: self.selected,difficulty:"average")
+                                
+                                    self.mode.wrappedValue.dismiss()
                                 }
                                 catch RestrictedSpaceError.alreadyScheduled{
                                     
                                     self.isError=true
+                                    self.alertType=2
                                 }
                                 catch {
                                      
                                     self.isError=true
+                                    self.alertType=2
                                  }
                                 
-                              self.mode.wrappedValue.dismiss()
+                              
                               
                                   
                                                                 
@@ -266,11 +270,26 @@ struct AddRestrictedSpaceUI: View {
                         } .alert(isPresented: self.$isError) {
                             
                          
-                              return Alert(title: Text("Task can not be scheduled"),
-                                                               message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),
-                                                               dismissButton: .default(Text("OK")))
+                            switch self.alertType
+                            {
+                                
+                            case 1:
+                                
+                                return Alert(title: Text("Incorrect Fields"),
+                                message: Text("\n Repeated tasks must be given a name, in addition 'From Hour' field must be smaller then 'To Hour' field. "),
+                                                    dismissButton: .default(Text("OK")))
+                                
+                            case 2:
                             
-                                        
+                            
+                              return Alert(title: Text("Repeated Tasks Conflict"),
+                                           message: Text("\nThere is at least one task that is already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window"),
+                                                               dismissButton: .default(Text("OK")))
+                            default:
+                                return Alert(title: Text("Repeated Tasks Conflict"),
+                                message: Text("\n There is a problem with the information you entered."),
+                                                    dismissButton: .default(Text("OK")))
+                            }
 
                            }
                      Spacer()

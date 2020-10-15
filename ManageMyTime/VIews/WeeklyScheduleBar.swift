@@ -19,7 +19,7 @@ struct WeeklyScheduleBar: View {
                                       Text("Mon").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color(.systemTeal)).frame(width: geometry.size.width/2.04, height:  geometry.size.height)
                                       Text("Tue").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color.blue).frame(width: geometry.size.width/1.319, height:  geometry.size.height)
                                       Text("Wen").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color(.systemTeal)).frame(width: geometry.size.width/0.95, height:  geometry.size.height)
-                                      Text("Tue").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color.blue).frame(width: geometry.size.width/0.74, height:  geometry.size.height)
+                                      Text("Thu").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color.blue).frame(width: geometry.size.width/0.74, height:  geometry.size.height)
                                     Text("Fri").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color(.systemTeal)).frame(width: geometry.size.width/0.61, height:  geometry.size.height)
                                       Text("Sat").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(Color.blue).frame(width: geometry.size.width/0.52, height:  geometry.size.height)
                                   }
