@@ -868,6 +868,7 @@ class Core{
         var remainingWorkTime = Hour()
         var taskInternalId=UUID()
         var isBreakSet=false
+        var minimalSpaceExists=false
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Task()}
@@ -887,7 +888,7 @@ class Core{
       
             let minimalPartitionSize=Hour(context: managedContext)
                 minimalPartitionSize.hour=0
-                minimalPartitionSize.minutes=20
+                minimalPartitionSize.minutes=30
         
         
             var breakWindowEndTime = Hour(context: managedContext)
@@ -1006,6 +1007,8 @@ class Core{
                                         print("duration of free space: "+String(freeSpace.duration.hour)+":"+String(freeSpace.duration.minutes))
                                         print("Free space from"+String(freeSpace.starting.hour)+":"+String(freeSpace.starting.minutes)+" To "+String(freeSpace.ending.hour)+":"+String(freeSpace.ending.minutes))
                                         print("date of freeSpace: "+String(freeSpace.date.day)+"/"+String(freeSpace.date.month))
+                                    
+                                    
                                         if(/*freeSpace.duration.isBiggerOrEqual(newHour: asstimatedWorkTime*/
                                             !freeSpace.fullyOccupiedDay && (freeSpace.duration > minimalSpaceDuration || freeSpace.duration >= asstimatedWorkTime))
                                             
@@ -1015,9 +1018,10 @@ class Core{
                                             if(freeSpace.ending > currentHour && freeSpace.starting < currentHour || freeSpace.starting > currentHour ||/*added this after bug no 6D ,needs checking*/ freeSpace.starting == currentHour  /*until here*/|| singleDate > currentDate)
                                             {//The if checks and handles dueDate (day,month,year) calculation
                                                 print(dueHour)
+                                             
                                                 if(endDueDate > singleDate || singleDate > currentDate && endDueDate == singleDate && freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour || singleDate == currentDate && endDueDate == singleDate && currentHour.add(hour: asstimatedWorkTime) <= dueHour)
                                                 {//The if checks and handle dueHour (hour and minutes) calculation
-                                          
+                                                    
                                                         print("Here")
                                                         print(freeSpace.duration)
                                                         print(freeSpace.starting)
@@ -1027,283 +1031,322 @@ class Core{
                                                     
                                                 //print("entered d3")
                                                     //Create task
-                                                    
-                                                    let newTask = Task(context: managedContext)
-                                                    newTask.taskName=taskName
-                                                    newTask.dueDate=dueDate
-                                                    newTask.date=freeSpace.date
-                                                    
-                                                    if(freeSpace.date.day==24 && freeSpace.starting.hour==19)
+                                                    if((singleDate == currentDate) && currentHour >= startOfDayHour && freeSpace.starting <= currentHour)//Case we will start for the currentHour (this is the settings that exsits ahead and we just predict if this is the case now in order to check if there is a minimal space in that freeSpace section since we don't start scheduling from the begining of space
+                                                       {
+    
+                                                           if(freeSpace.ending.subtract(newHour: currentHour.subtract(newHour: freeSpace.starting)) >= minimalPartitionSize)
+                                                           {
+                                                               minimalSpaceExists=true
+                                                           }
+                                                           else{
+                                                               minimalSpaceExists=false
+                                                           }
+                                                           
+                                                           
+                                                       }
+                                                       else{
+                                                           minimalSpaceExists=true
+                                                       }
+                                                    if(minimalSpaceExists)
                                                     {
-                                                        print("here")
-                                                    }
-                                                    if(singleDate > currentDate)//if it's a following day, just start from the begining of free space.
-                                                    {
-                                                        newTask.startTime=freeSpace.starting
-                                                    }
-                                                    else{//If we can schedule at the same day
-                                                        if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of free space.
+                                                        let newTask = Task(context: managedContext)
+                                                        newTask.taskName=taskName
+                                                        newTask.dueDate=dueDate
+                                                        newTask.date=freeSpace.date
+                                                        
+                                                        if(freeSpace.date.day==24 && freeSpace.starting.hour==19)
+                                                        {
+                                                            print("here")
+                                                        }
+                                                        if(singleDate > currentDate)//if it's a following day, just start from the begining of free space.
                                                         {
                                                             newTask.startTime=freeSpace.starting
                                                         }
-                                                        else//If the task scheduled after or in the beginning of day, schedule from the current hour
-                                                        {
-                                                            if(freeSpace.starting > currentHour)
+                                                        else{//If we can schedule at the same day
+                                                            if(currentHour < startOfDayHour)//If the task scheduled before the start of day (at night) then schedule for the start of free space.
                                                             {
                                                                 newTask.startTime=freeSpace.starting
                                                             }
-                                                            else
+                                                            else//If the task scheduled after or in the beginning of day, schedule from the current hour
                                                             {
-                                                             newTask.startTime=currentHour
+                                                                if(freeSpace.starting > currentHour)
+                                                                {
+                                                                    newTask.startTime=freeSpace.starting
+                                                                }
+                                                                else
+                                                                {
+                                                                 newTask.startTime=currentHour
+                                                                }
                                                             }
-                                                        }
-                                                  
                                                       
-                                                    }
-                                                    //Section window handling
-                                                    var hourLimit=GetHourSection().sectionWindow!
-                                                    do{
-                                                      //Check if the task WorkTime is bigger then the available space
-                                                        if(asstimatedWorkTime > freeSpace.duration)
-                                                        {//Case we can't fit the whole task in the section window
-                                                            
                                                           
-                                                            
-                                                            
-                                                           // let remainingWorkSpace = freeSpace.duration
-                                                            
-                                                            
-                                                            //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
-                                                            if(asstimatedWorkTime.subtract(newHour: freeSpace.duration) >= minimalPartitionSize)
-                                                            {
-                                                             remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
-                                                                
-                                                            newTask.asstimatedWorkTime=freeSpace.duration
-                                                            }
-                                                            else{
-                                                                
-                                                                var workTimeToSchedule=freeSpace.duration
-                                                                var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: freeSpace.duration)
-                                                                let oneMinute=Hour(context: managedContext)
-                                                                    oneMinute.hour=0
-                                                                    oneMinute.minutes=1
-                                                                
-                                                               while(tempRemainingWorkTime < minimalPartitionSize)
-                                                               {
-                                                                    workTimeToSchedule=workTimeToSchedule.subtract(newHour: oneMinute)
-                                                                tempRemainingWorkTime=tempRemainingWorkTime.add(hour: oneMinute)
-                                                                
-                                                                
-                                                               }
-                                                            
-                                                                remainingWorkTime=tempRemainingWorkTime
-                                                                newTask.asstimatedWorkTime=workTimeToSchedule
-                                                                
-                                                            }
-                                                            
-                                                            
-                                                            newTask.endTime=newTask.startTime!.add(hour: newTask.asstimatedWorkTime)
-                                                            
-                                                            
-                                                                print("asstimatedWorkTime")
-                                                              print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
-                                                            isContinuesScheduling=true
-                                                            print(internalId?.description)
-                                                            if(internalId == nil)
-                                                              {
-                                                                
-                                                                taskInternalId=UUID()
-                                                                newTask.internalId=taskInternalId
-                                                              }
-                                                              else{
-                                                                  taskInternalId=internalId!
-                                                                  newTask.internalId=internalId
-                                                              }
-                                                            
-                                                            
                                                         }
-                                                        else{//Case we can schedule the whole task in the section window
-                                                            newTask.endTime=newTask.startTime!.add(hour: asstimatedWorkTime)
-                                                            
-                                                            newTask.asstimatedWorkTime=asstimatedWorkTime
-                                                            
-                                                              print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
-                                                            
-                                                            isContinuesScheduling=false
-                                                            if(internalId==nil)
-                                                            {
-                                                                taskInternalId=UUID()
-                                                            }
-                                                            else{
-                                                                taskInternalId=internalId!
-                                                            }
-                                                            newTask.internalId=taskInternalId
-                                                            
-                                                        
-                                                        }
-                                                        
-                                                    }
-                                                    catch{//Case there are no tasks in that day, that's the only throw option
-                                                        
-                                                        if(asstimatedWorkTime > freeSpace.duration)
-                                                           {
-                                                                   // let remainingWorkSpace = freeSpace.duration
-                                                               
-                                                     //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
-                                                              if(asstimatedWorkTime.subtract(newHour: freeSpace.duration) >= minimalPartitionSize)
-                                                              {
-                                                               remainingWorkTime = asstimatedWorkTime.subtract(newHour: freeSpace.duration)//The remaining work time to reSchedule
-                                                                  
-                                                              newTask.asstimatedWorkTime=freeSpace.duration
-                                                              }
-                                                              else{
-                                                                  
-                                                                  var workTimeToSchedule=freeSpace.duration
-                                                                  var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: freeSpace.duration)
-                                                                  let oneMinute=Hour(context: managedContext)
-                                                                      oneMinute.hour=0
-                                                                      oneMinute.minutes=1
-                                                                  
-                                                                 while(tempRemainingWorkTime < minimalPartitionSize)
-                                                                 {
-                                                                      workTimeToSchedule=workTimeToSchedule.subtract(newHour: oneMinute)
-                                                                  tempRemainingWorkTime=tempRemainingWorkTime.add(hour: oneMinute)
-                                                                  
-                                                                  
-                                                                 }
-                                                              
-                                                                  remainingWorkTime=tempRemainingWorkTime
-                                                                  newTask.asstimatedWorkTime=workTimeToSchedule
-                                                                  
-                                                              }
-                                                               
-                                                               newTask.endTime=newTask.startTime!.add(hour: newTask.asstimatedWorkTime)
-                                                              
-                                                            
-                                                            print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
-                                                            
-                                                               isContinuesScheduling=true
-                                                            //print("internalId:"+internalId!.description)
-                                                              if(internalId == nil)
-                                                              {
-                                                                taskInternalId=UUID()
-                                                                newTask.internalId=taskInternalId
-                                                              }
-                                                              else{
-                                                                  taskInternalId=internalId!
-                                                                  newTask.internalId=internalId
-                                                              }
-                                                               
-                                                                                                                   
-                                                           }
-                                                           else{//Case we can schedule the whole task in the section window
-                                                               newTask.endTime=newTask.startTime!.add(hour: asstimatedWorkTime)
-                                                               newTask.asstimatedWorkTime=asstimatedWorkTime
-                                                            print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
-                                                               isContinuesScheduling=false
-                                                               if(internalId==nil)
-                                                               {
-                                                                   taskInternalId=UUID()
-                                                               }
-                                                               else{
-                                                                   taskInternalId=internalId!
-                                                               }
-                                                                newTask.internalId=taskInternalId
-                                                              
-                                                                
-                                                            
-                                                           }
-                                                        
-                                                    }
-                                                    
-                                                
-                                                    newTask.completed=false
-                                                    newTask.color=color
-                                                    newTask.active=true
-                                                    newTask.importance=importance
-                                                    newTask.notes=notes
-                                                    newTask.id=UUID()
-                                                    newTask.isTaskBreakWindow=false
-                                                    newTask.scheduleSection="hourAndAHalf"
-                                                    newTask.associatedFreeSpaceId=freeSpace.associatedId
-                                                    newTask.difficulty=difficulty
-                                                    
-                                                    createNotification(taskName: newTask.taskName, notes: newTask.notes! , internalId: newTask.internalId!, date: newTask.date, startTime: newTask.startTime!,notificationFactor:notificationFactor)
-                                                    
-                                                    handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
-                                                    
-                                                    //Needs to send back this task at the end of execution
-                                                    
-                                            
-                                                  /*  var newFreeSpaceStartTime = newTask.endTime!
-                                                    let freeSpaceEndTime = freeSpace.ending
-                                                    
-                                                    var freeSpaceStarting:Hour
-                                                                                                                                                       
-                                                       if(isBreakSet)
-                                                       {
-                                                           newFreeSpaceStartTime=breakWindowEndTime
-                                                           
-                                                       }*/
-                                                   
-                                                    
-                                                    
-                                                    let freeSpaceDate = freeSpace.date
-                                          
-                                                    
-                                                    if(!newTask.endTime!.isEqual(newHour: freeSpace.ending))
-                                                    {//Handle deletion of old freeSpace and handling the new window of freeSpace
-                                                        print("Reached!!")
-                                                        print(String(newTask.endTime!.hour)+":"+String(newTask.endTime!.minutes))
-                                                        print(String(freeSpace.ending.hour )+":"+String(freeSpace.ending.minutes))
-                                                        let durationCalc=freeSpace.ending.subtract(newHour: newTask.endTime!)
-                                                       
-                                                        print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
-                                                        //Create new FreeSpace excluding new task window
-                                                        
-                                                       
-                                                        createFreeSpace(task:newTask,startTime:newTask.endTime! , endTime: freeSpace.ending, date: freeSpaceDate, duration: freeSpace.ending.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false,orginalFreeSpaceId:freeSpace.associatedId!)
-                                                        
-                                                        
-                                                          deleteFreeSpace(freeSpaceId: freeSpace.id)
+                                                        //Section window handling
                                                       
-                                                    }
-                                                    
-                                                    else{//If the day is now fully occupied
-                                                        //delete old FS object
-                                                        deleteFreeSpace(freeSpaceId: freeSpace.id)
-                                                        
-                                                        let startOfDayHour = GetStartOfDay()
-                                                     
-                                                        
-                                                        let endOfDayHour = GetEndOfDay()
-                                                       
-                                                        
-                                                        let newDuration = Hour(context: managedContext)
-                                                           newDuration.hour=0
-                                                           newDuration.minutes=0
-                                                        //Create new FS with fullyOccupied flag
-                                                        createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
-                                                    }
-                                                    
-                                                    if(isContinuesScheduling)
-                                                    {
                                                         do{
+                                                          //Check if the task WorkTime is bigger then the available space, or if we can'y use the whole freeSpace duration since the newTask startTime is from current hour which is bigger from the freeSpace startTime.
+                                                            let actualFreeSpaceDuration = freeSpace.ending.subtract(newHour: newTask.startTime!)
+                                                            
+                                                            if(asstimatedWorkTime > freeSpace.duration || freeSpace.ending.subtract(newHour: newTask.startTime!) < freeSpace.duration)
+                                                            {//Case we can't fit the whole task in the section window
+                                                                
+                                                              
+                                                                
+                                                                
+                                                               // let remainingWorkSpace = freeSpace.duration
+                                                                
+                                                                
+                                                                //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
+                                                                if(asstimatedWorkTime.subtract(newHour: actualFreeSpaceDuration) >= minimalPartitionSize)
+                                                                {
+                                                                    
+                                                                    newTask.asstimatedWorkTime=actualFreeSpaceDuration
+                                                                    
+                                                                    
+                                                                    
+                                                                    remainingWorkTime = asstimatedWorkTime.subtract(newHour: newTask.asstimatedWorkTime)//The remaining work time to reSchedule
+                                                                    
+                                                               
+                                                                }
+                                                                else{
+                                                                    
+                                                                    var workTimeToSchedule=actualFreeSpaceDuration
+                                                                    var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: actualFreeSpaceDuration)
+                                                                    let oneMinute=Hour(context: managedContext)
+                                                                        oneMinute.hour=0
+                                                                        oneMinute.minutes=1
+                                                                    
+                                                                   while(tempRemainingWorkTime < minimalPartitionSize)
+                                                                   {
+                                                                        workTimeToSchedule=workTimeToSchedule.subtract(newHour: oneMinute)
+                                                                    tempRemainingWorkTime=tempRemainingWorkTime.add(hour: oneMinute)
+                                                                    
+                                                                    
+                                                                   }
+                                                                
+                                                                    remainingWorkTime=tempRemainingWorkTime
+                                                                    newTask.asstimatedWorkTime=workTimeToSchedule
+                                                                    
+                                                                }
+                                                                
+                                                                
+                                                                newTask.endTime=newTask.startTime!.add(hour: newTask.asstimatedWorkTime)
+                                                                
+                                                                
+                                                                    print("asstimatedWorkTime")
+                                                                  print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
+                                                                isContinuesScheduling=true
+                                                                print(internalId?.description)
+                                                                if(internalId == nil)
+                                                                  {
+                                                                    
+                                                                    taskInternalId=UUID()
+                                                                    newTask.internalId=taskInternalId
+                                                                  }
+                                                                  else{
+                                                                      taskInternalId=internalId!
+                                                                      newTask.internalId=internalId
+                                                                  }
+                                                                
+                                                                
+                                                            }
+                                                            else{//Case we can schedule the whole task in the section window
+                                                                newTask.endTime=newTask.startTime!.add(hour: asstimatedWorkTime)
+                                                                
+                                                                newTask.asstimatedWorkTime=asstimatedWorkTime
+                                                                
+                                                                  print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
+                                                                
+                                                                isContinuesScheduling=false
+                                                                if(internalId==nil)
+                                                                {
+                                                                    taskInternalId=UUID()
+                                                                }
+                                                                else{
+                                                                    taskInternalId=internalId!
+                                                                }
+                                                                newTask.internalId=taskInternalId
+                                                                
+                                                            
+                                                            }
+                                                            
+                                                        }
+                                                        catch{//Case there are no tasks in that day, that's the only throw option
+                                                            
+                                                             let actualFreeSpaceDuration = freeSpace.ending.subtract(newHour: newTask.startTime!)
+                                                                                                                 
+                                                             if(asstimatedWorkTime > freeSpace.duration || freeSpace.ending.subtract(newHour: newTask.startTime!) < freeSpace.duration)
+                                                             {//Case we can't fit the whole task in the section window
+                                                                 
+                                                               
+                                                                 
+                                                                 
+                                                                // let remainingWorkSpace = freeSpace.duration
+                                                                 
+                                                                 
+                                                                 //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
+                                                                 if(asstimatedWorkTime.subtract(newHour: actualFreeSpaceDuration) >= minimalPartitionSize)
+                                                                 {
+                                                                     
+                                                                     newTask.asstimatedWorkTime=actualFreeSpaceDuration
+                                                                     
+                                                                     
+                                                                     
+                                                                     remainingWorkTime = asstimatedWorkTime.subtract(newHour: newTask.asstimatedWorkTime)//The remaining work time to reSchedule
+                                                                     
+                                                                
+                                                                 }
+                                                                 else{
+                                                                     
+                                                                     var workTimeToSchedule=actualFreeSpaceDuration
+                                                                     var tempRemainingWorkTime=asstimatedWorkTime.subtract(newHour: actualFreeSpaceDuration)
+                                                                     let oneMinute=Hour(context: managedContext)
+                                                                         oneMinute.hour=0
+                                                                         oneMinute.minutes=1
+                                                                     
+                                                                    while(tempRemainingWorkTime < minimalPartitionSize)
+                                                                    {
+                                                                         workTimeToSchedule=workTimeToSchedule.subtract(newHour: oneMinute)
+                                                                     tempRemainingWorkTime=tempRemainingWorkTime.add(hour: oneMinute)
+                                                                     
+                                                                     
+                                                                    }
+                                                                 
+                                                                     remainingWorkTime=tempRemainingWorkTime
+                                                                     newTask.asstimatedWorkTime=workTimeToSchedule
+                                                                     
+                                                                 }
+                                                                   
+                                                                   newTask.endTime=newTask.startTime!.add(hour: newTask.asstimatedWorkTime)
+                                                                  
+                                                                
+                                                                print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
+                                                                
+                                                                   isContinuesScheduling=true
+                                                                //print("internalId:"+internalId!.description)
+                                                                  if(internalId == nil)
+                                                                  {
+                                                                    taskInternalId=UUID()
+                                                                    newTask.internalId=taskInternalId
+                                                                  }
+                                                                  else{
+                                                                      taskInternalId=internalId!
+                                                                      newTask.internalId=internalId
+                                                                  }
+                                                                   
+                                                                                                                       
+                                                               }
+                                                               else{//Case we can schedule the whole task in the section window
+                                                                   newTask.endTime=newTask.startTime!.add(hour: asstimatedWorkTime)
+                                                                   newTask.asstimatedWorkTime=asstimatedWorkTime
+                                                                print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
+                                                                   isContinuesScheduling=false
+                                                                   if(internalId==nil)
+                                                                   {
+                                                                       taskInternalId=UUID()
+                                                                   }
+                                                                   else{
+                                                                       taskInternalId=internalId!
+                                                                   }
+                                                                    newTask.internalId=taskInternalId
+                                                                  
+                                                                    
+                                                                
+                                                               }
+                                                            
+                                                        }
+                                                        
+                                                    
+                                                        newTask.completed=false
+                                                        newTask.color=color
+                                                        newTask.active=true
+                                                        newTask.importance=importance
+                                                        newTask.notes=notes
+                                                        newTask.id=UUID()
+                                                        newTask.isTaskBreakWindow=false
+                                                        newTask.scheduleSection="hourAndAHalf"
+                                                        newTask.associatedFreeSpaceId=freeSpace.associatedId
+                                                        newTask.difficulty=difficulty
+                                                        
+                                                        createNotification(taskName: newTask.taskName, notes: newTask.notes! , internalId: newTask.internalId!, date: newTask.date, startTime: newTask.startTime!,notificationFactor:notificationFactor)
+                                                        
+                                                        handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
+                                                        
+                                                        //Needs to send back this task at the end of execution
+                                                        
+                                                
+                                                      /*  var newFreeSpaceStartTime = newTask.endTime!
+                                                        let freeSpaceEndTime = freeSpace.ending
+                                                        
+                                                        var freeSpaceStarting:Hour
+                                                                                                                                                           
+                                                           if(isBreakSet)
+                                                           {
+                                                               newFreeSpaceStartTime=breakWindowEndTime
+                                                               
+                                                           }*/
                                                        
-                                                            if(safetyCount==0)
-                                                            {
+                                                        
+                                                        
+                                                        let freeSpaceDate = freeSpace.date
+                                              
+                                                        
+                                                        if(!newTask.endTime!.isEqual(newHour: freeSpace.ending))
+                                                        {//Handle deletion of old freeSpace and handling the new window of freeSpace
+                                                            print("Reached!!")
+                                                            print(String(newTask.endTime!.hour)+":"+String(newTask.endTime!.minutes))
+                                                            print(String(freeSpace.ending.hour )+":"+String(freeSpace.ending.minutes))
+                                                            let durationCalc=freeSpace.ending.subtract(newHour: newTask.endTime!)
+                                                           
+                                                            print("duration calc: ",durationCalc.hour,":",durationCalc.minutes)
+                                                            //Create new FreeSpace excluding new task window
+                                                            
+                                                           
+                                                            createFreeSpace(task:newTask,startTime:newTask.endTime! , endTime: freeSpace.ending, date: freeSpaceDate, duration: freeSpace.ending.subtract(newHour: newTask.endTime!),fullyOccupiedDay: false,orginalFreeSpaceId:freeSpace.associatedId!)
+                                                            
+                                                            
+                                                              deleteFreeSpace(freeSpaceId: freeSpace.id)
+                                                          
+                                                        }
+                                                        
+                                                        else{//If the day is now fully occupied
+                                                            //delete old FS object
+                                                            deleteFreeSpace(freeSpaceId: freeSpace.id)
+                                                            
+                                                            let startOfDayHour = GetStartOfDay()
+                                                         
+                                                            
+                                                            let endOfDayHour = GetEndOfDay()
+                                                           
+                                                            
+                                                            let newDuration = Hour(context: managedContext)
+                                                               newDuration.hour=0
+                                                               newDuration.minutes=0
+                                                            //Create new FS with fullyOccupied flag
+                                                            createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
+                                                        }
+                                                        
+                                                        if(isContinuesScheduling)
+                                                        {
+                                                            do{
+                                                           
+                                                                if(safetyCount==0)
+                                                                {
+                                                                    throw DatabaseError.taskCanNotBeScheduledInDue
+                                                                }
+                                                                try ContinuesScheduleHandler(taskName: taskName, importance: importance, asstimatedWorkTime: remainingWorkTime, dueDate: dueDate, notes: notes, color: color, internalId: taskInternalId,safetyCount:safetyCount)
+                                                            }
+                                                            catch{
                                                                 throw DatabaseError.taskCanNotBeScheduledInDue
                                                             }
-                                                            try ContinuesScheduleHandler(taskName: taskName, importance: importance, asstimatedWorkTime: remainingWorkTime, dueDate: dueDate, notes: notes, color: color, internalId: taskInternalId,safetyCount:safetyCount)
                                                         }
-                                                        catch{
-                                                            throw DatabaseError.taskCanNotBeScheduledInDue
-                                                        }
+                                                        
+                                                        return newTask
                                                     }
-                                                    
-                                                    return newTask
                                                 }
+                                            
                                             }
+                                            
                                         }
                                     }
                                 }
@@ -2346,8 +2389,11 @@ class Core{
             
             
         }
-
-        SectionFreeSpace(date:date)
+        
+       if(!GetHourSection().isContinues)
+        {
+            SectionFreeSpace(date:date)
+        }
         
     }
     
@@ -2355,7 +2401,9 @@ class Core{
     func SectionFreeSpace(date:CustomDate)
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                       
+        guard let breakTime = GetHourSection().breakTime else {return}
+        guard let totalSectionTime = GetHourSection().sectionWindow?.add(hour: breakTime) else {return}
+        
         //We need to create a context from this container
         let managedContext = appDelegate.persistentContainer.viewContext
           
@@ -2375,8 +2423,8 @@ class Core{
      
         
         let spaceSection=GetHourSection()
-        var breakTime:Hour=spaceSection.breakTime!
-        var totalSectionTime=spaceSection.sectionWindow!.add(hour: breakTime)
+       /* var breakTime:Hour=spaceSection.breakTime!
+        var totalSectionTime=spaceSection.sectionWindow!.add(hour: breakTime)*/
         
         for retrivedSpace in retrivedSpaces
         {
