@@ -187,7 +187,7 @@ struct RestrictedSpaceVerticalCard: View {
                              }*/
                    
                             Spacer()
-                              Button(action: {
+                            /*  Button(action: {
                                                                       
                                         self.displayItem=true
                                         self.windowType=2
@@ -198,7 +198,7 @@ struct RestrictedSpaceVerticalCard: View {
                                                 Text("Edit").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                            
                                                                            
-                             }
+                             }*/
                               
                       
                               
@@ -220,7 +220,7 @@ struct RestrictedSpaceVerticalCard: View {
                                                        //   self.mode.wrappedValue.dismiss()
                                             }, secondaryButton: .cancel())}
                             
-                            Button(action: {
+                         /*   Button(action: {
                                                                                              
                                                           
                                                                                                                        
@@ -230,7 +230,7 @@ struct RestrictedSpaceVerticalCard: View {
                                                                        Text("Expand").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                                                   
                                                                                                   
-                                                    }
+                                                    }*/
                                                      
               
                             

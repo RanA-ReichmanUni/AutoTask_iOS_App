@@ -43,7 +43,7 @@ struct RestrictedSpaceCard: View {
                    
                     
                     HStack {
-                          Button(action: {
+                        /*  Button(action: {
                                                                    
                                 
                                                                                              
@@ -53,14 +53,14 @@ struct RestrictedSpaceCard: View {
                                          Text("Edit Task").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                         
                                                                         
-                          }
+                          }*/
                            
                         
                            
                            Button(action: {
                                             
                       
-                                 
+                                    
                                                                       
                                  }) {
                                    VStack{

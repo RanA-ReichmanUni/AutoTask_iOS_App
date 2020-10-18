@@ -35,7 +35,7 @@ struct CompactViewSelector: View {
                 WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9,heightFactor:8)
              }
            else {//iphone 6s,8,7,SE
-                WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9,heightFactor:9)
+                WeeklyCompact(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:9.8,heightFactor:9)
             }
 
         }

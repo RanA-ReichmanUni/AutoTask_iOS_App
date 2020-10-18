@@ -26,15 +26,22 @@ struct RegularViewSelector: View {
                 {
                    
                 
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.5,heightFactor:10)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.4,heightFactor:10)
                     
                 }
-            if(geometry.size.width <= 990.5 && geometry.size.width > 808)//IPad Pro 12.9 inch on the side
+            if(geometry.size.width <= 990.5 && geometry.size.width > 810)//IPad Pro 12.9 inch on the side
                  {
-                      
+                   
                     WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.5,heightFactor:10)
                                         
                  }
+                
+            else if(geometry.size.width <= 810 && geometry.size.width > 808)//IPad 7
+            {
+                 
+               WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.7,heightFactor:10)
+                                   
+            }
                 else if(geometry.size.width <= 808 && geometry.size.width > 768)//IPhone 11,11 Pro, 11 Pro Max
                 {
                      
@@ -44,7 +51,7 @@ struct RegularViewSelector: View {
                 else if(geometry.size.width <= 768 && geometry.size.width > 736)//IPad 6th
                 {
                      
-                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.71,heightFactor:10)
+                    WeeklyRegular(timeChar:String(hour),hourTasks: weekByHour,geometry:self.geometry,widthFactor:8.8,heightFactor:10)
                                                    
                 }
                 else if(geometry.size.width <= 736 && geometry.size.width > 703.5)//IPhone 8 Plus expanded

@@ -25,6 +25,7 @@ struct WeeklyRegular: View {
         
                 WeeklyTasksPotrait(timeChar:String(timeChar),hourTasks: hourTasks).frame(width: geometry.size.width/widthFactor, height:  geometry.size.height/heightFactor).padding(EdgeInsets(top: 2, leading: 1, bottom: 1, trailing: 1))
          
+           // Text(String(geometry.size.width.description)+"Height: "+String(geometry.size.height.description))
                 Divider().background(self.colorScheme == .dark ? Color.orange : Color.gray)//.onAppear{self.show=true}//.padding(EdgeInsets(top: 2, leading: 20, bottom: 1, trailing: 1))
         }
     }

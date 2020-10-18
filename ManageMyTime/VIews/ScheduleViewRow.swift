@@ -65,7 +65,7 @@ struct ScheduleViewRow: View {
                             Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
                             }*/
                            // Text(geometry.size.width.description)
-                         
+                                
                                 ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry).listRowBackground(Color.green)
                            
                         }
