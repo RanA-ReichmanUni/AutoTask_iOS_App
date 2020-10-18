@@ -84,7 +84,7 @@ class TaskViewModel : ObservableObject
     
     var taskModel = TaskModel()
     
-
+    @Published var hoursRange:[Int]
     
     
      init()
@@ -97,7 +97,7 @@ class TaskViewModel : ObservableObject
         taskName="Default"
         importance="Medium"
        // asstimatedWorkTime=Hour(context: managedContext)
-
+        hoursRange=[]
         dueDate=Date()
         notes="None"
         //allTasks=[]

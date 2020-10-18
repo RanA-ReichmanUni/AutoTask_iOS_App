@@ -2397,7 +2397,178 @@ class Core{
         
     }
     
+    func reSectionUsedFreeSpace()
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let breakTime = GetHourSection().breakTime else {return}
+        guard let totalSectionTime = GetHourSection().sectionWindow?.add(hour: breakTime) else {return}
+          
+        let taskModel=TaskModel()
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
         
+        let currentDate=CustomDate(context: managedContext)
+            currentDate.day=Date().day
+            currentDate.month=Date().month
+            currentDate.year=Date().year
+        
+        
+        var allTasks=taskModel.retrieveAllTasks()
+        
+        allTasks.sort {
+            ($0.date.year, $0.date.month, $0.date.day) <
+                ($1.date.year,$1.date.month,$1.date.day)
+        }
+        
+        if(allTasks.count>0)
+        {
+            let latestTask = allTasks[allTasks.count-1]
+
+            
+            var retrivedSpaces=[FreeTaskSpace]()
+            var calendarSequance=[CustomDate]()
+            
+             do{
+               calendarSequance = try createCalanderSequence(startDate: currentDate, endDate: latestTask.date)
+            }
+            catch{
+                        print(error)
+                    }
+            
+               do{
+                   for date in calendarSequance
+                   {
+                
+                        retrivedSpaces=try retrieveAllFreeSpaces(date: date)
+                        for freeSpace in retrivedSpaces
+                        {
+                            if (freeSpace.duration >= totalSectionTime)
+                            {
+                                SectionFreeSpace(date: date)
+                            }
+                            
+                        }
+                    
+                    }
+               }
+               catch{
+                   print(error)
+               }
+
+        }
+        
+        
+    }
+    
+    
+    func SectionFreeSpace(freeSpaceToSection:FreeTaskSpace)
+       {
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+           guard let breakTime = GetHourSection().breakTime else {return}
+           guard let totalSectionTime = GetHourSection().sectionWindow?.add(hour: breakTime) else {return}
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+             
+           var zeroHour=Hour(context: managedContext)
+               zeroHour.hour=0
+               zeroHour.minutes=0
+           
+           var retrivedSpaces=[FreeTaskSpace]()
+           
+      
+           
+        
+           
+           let spaceSection=GetHourSection()
+          /* var breakTime:Hour=spaceSection.breakTime!
+           var totalSectionTime=spaceSection.sectionWindow!.add(hour: breakTime)*/
+           
+         
+               var remainingSpace=freeSpaceToSection.duration
+               var currentStartingTime=freeSpaceToSection.starting
+               let absoluteFreeSpaceEnding=freeSpaceToSection.ending
+               var usedTimeEndBound=Hour(context: managedContext)
+               let orginalFreeSpaceId=freeSpaceToSection.id
+              
+               while(remainingSpace.hour > 0 || remainingSpace.minutes > 0)
+               {
+            
+                   
+                    let freeSpace = FreeTaskSpace(context: managedContext)
+                    
+                    freeSpace.date=freeSpaceToSection.date
+                     freeSpace.id=UUID()
+                     freeSpace.associatedId=UUID()
+                     freeSpace.starting=currentStartingTime
+                     
+                     if(currentStartingTime.add(hour: totalSectionTime) < absoluteFreeSpaceEnding)
+                     {
+                       
+                       freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                       
+                       let breakWindow=Task(context: managedContext)
+                           breakWindow.startTime=freeSpace.ending
+                           breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
+                           breakWindow.taskName=""
+                           breakWindow.asstimatedWorkTime=spaceSection.breakTime!
+                           breakWindow.completed=false
+                           breakWindow.color="Green"
+                           breakWindow.active=true
+                           breakWindow.importance=""
+                           breakWindow.notes=""
+                           breakWindow.id=UUID()
+                           breakWindow.isTaskBreakWindow=true
+                           breakWindow.scheduleSection="hourAndAHalf"
+                           breakWindow.date=freeSpaceToSection.date
+                           breakWindow.dueDate=Date()
+                           breakWindow.internalId=UUID()
+                           breakWindow.difficulty="average"//formality for coredata, non relvent feed
+                           
+                           usedTimeEndBound=freeSpace.ending.add(hour: breakWindow.asstimatedWorkTime)
+                   
+                       
+                     }
+                     else if(currentStartingTime.add(hour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
+                       
+                       freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                        usedTimeEndBound=freeSpace.ending
+                     }
+                     else{
+                       freeSpace.ending=absoluteFreeSpaceEnding
+                       usedTimeEndBound=freeSpace.ending
+                     }
+                   
+                  
+                   if(freeSpace.ending > freeSpace.starting)
+                   {
+                     freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                   }
+                   else{
+                       freeSpace.duration=zeroHour
+                   }
+                   
+                     freeSpace.fullyOccupiedDay=false
+                   
+                   print("absoluteFreeSpaceEnding"+String(absoluteFreeSpaceEnding.hour)+":"+String(absoluteFreeSpaceEnding.minutes)+" usedTimeEndBound"+String(usedTimeEndBound.hour)+":"+String(usedTimeEndBound.minutes))
+                   
+                     remainingSpace=absoluteFreeSpaceEnding.subtract(newHour: usedTimeEndBound)
+                     currentStartingTime=usedTimeEndBound
+           
+               }
+             
+               do {
+                   
+                      try managedContext.save()
+                          print("Saved Task !.")
+                  } catch let error as NSError {
+                      print("Could not save. \(error), \(error.userInfo)")
+                  }
+               
+               deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
+           
+           
+       }
     func SectionFreeSpace(date:CustomDate)
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }

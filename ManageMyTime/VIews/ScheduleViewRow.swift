@@ -20,7 +20,8 @@ struct ScheduleViewRow: View {
     
     @ObservedObject var taskViewModel:TaskViewModel
     var hoursRange = 7...24
-
+    @State var show=false
+    @State var key=false
     var body: some View {
         
         GeometryReader { geometry in
@@ -33,16 +34,16 @@ struct ScheduleViewRow: View {
         
     
      
-            List(self.hoursRange,id:\.self){
+            List(self.taskViewModel.hoursRange,id:\.self){
                     hour in
             
                if(hour > 9)
                 {
                 
-                 ListTextHourSelector(hour: String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
+                    ListTextHourSelector(hour: String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
                 }
                 else{
-                    ListTextHourSelector(hour: "0"+String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
+                ListTextHourSelector(hour: "0"+String(hour), geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
                     
                   /*  HStack {
                         Text(String(0)).padding(EdgeInsets(top: 5, leading: -1, bottom:0, trailing: 0))
@@ -53,9 +54,8 @@ struct ScheduleViewRow: View {
                     }.frame(width: geometry.size.width/13, height:  geometry.size.height/30)*/
                 }
                 HStack(spacing:4){
-                    if(self.taskViewModel.absoluteAllTasks.count <= 10 || self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour).contains(where: {!$0.isEmptySlot}))
-                 {
-                ForEach(self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour))
+              
+                    ForEach(self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour))
                     {
                         weekByHour in
        
@@ -65,9 +65,9 @@ struct ScheduleViewRow: View {
                             Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
                             }*/
                            // Text(geometry.size.width.description)
-                          
+                         
                                 ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry).listRowBackground(Color.green)
-                            
+                           
                         }
                           //  WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame(height:  geometry.size.height*0.098)
                             
@@ -75,7 +75,7 @@ struct ScheduleViewRow: View {
                             
                           
                         }
-                }
+                
                         
                         
                 }
@@ -95,7 +95,7 @@ struct ScheduleViewRow: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
               
-                }/*.id(UUID())*/.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
+            }/*.id(UUID())*/.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
         //  Spacer()
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
@@ -113,6 +113,12 @@ struct ScheduleViewRow: View {
 
 
             }
+        }.onDisappear{
+         withAnimation(.ripple2())
+                                         {
+         self.taskViewModel.hoursRange=[]
+         }
+            
         }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#f9f9f9").opacity(0.1)).onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.easeInOut(duration: 0.5))
     }
 }

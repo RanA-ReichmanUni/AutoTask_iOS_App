@@ -130,7 +130,7 @@ struct MainUI2: View {
                 
                
                 Button(action: {
-                     withAnimation(.easeInOut(duration: 0.7)){
+                    withAnimation(.easeInOut(duration: 0.7)){
                              
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -138,6 +138,7 @@ struct MainUI2: View {
                              self.weeklyScheduleFlag=false
                              self.listFlag=true
                              self.toggleActive=false
+                           
                          }
             
                          
@@ -172,7 +173,7 @@ struct MainUI2: View {
                 
                  //Divider().frame(maxHeight: 75)
                     Button(action: {
-                        withAnimation(.easeInOut(duration: 1.5)){
+                       
                              self.weeklyScheduleFlag=true
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -180,9 +181,41 @@ struct MainUI2: View {
                            
                              self.listFlag=false
                              self.toggleActive=true
-                        }
+                        
                         
                         self.taskViewModel.GetAllTasks()
+         
+                      
+                                   
+                                var timeFactor=0.1
+                                    var tripleTick=0
+                                    for index in 7...24
+                                 {
+                          
+                                       DispatchQueue.main.asyncAfter(deadline: .now() + timeFactor) {
+                                     self.taskViewModel.hoursRange.append(index)
+                                      
+                                        
+                                }
+                                     tripleTick+=1
+                                    
+                                   
+                                    
+                                    if(tripleTick==5)
+                                    {
+                                        
+                                        timeFactor+=0.1
+                                         tripleTick=0
+                                    }
+                                    
+                                  
+                                   
+                                    
+                                         
+                                     
+                                 
+                                // self.taskViewModel.hoursRange=[7...24]
+                                     }
                       
                     }) {
                             VStack{
@@ -195,7 +228,7 @@ struct MainUI2: View {
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                // Divider().frame(maxHeight: 75)
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 1.5)){
+                    withAnimation(.easeInOut(duration: 1)){
                             self.dailyViewFlag=true
                             self.settingsFlag=false
                             self.addTaskFlag=false
@@ -203,6 +236,7 @@ struct MainUI2: View {
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
                             self.toggleActive=true
+                      
                         }
                     }) {
                          VStack{
@@ -217,7 +251,7 @@ struct MainUI2: View {
              
               //  Divider().frame(maxHeight: 75)
                 Button(action: {
-                        withAnimation(.easeInOut(duration: 1)){
+                    withAnimation(.easeInOut(duration: 1)){
                             self.settingsFlag=true
                             
          
@@ -226,6 +260,7 @@ struct MainUI2: View {
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
                             self.toggleActive=false
+                        
                         }
                     }) {
                             VStack{

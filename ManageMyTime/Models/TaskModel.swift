@@ -429,7 +429,11 @@ class TaskModel : UIViewController
             let endOfDayDefault=Hour(context: managedContext)
                 endOfDayDefault.hour=22
                 endOfDayDefault.minutes=0
-            
+                
+            if (getSettingsValues().breakPeriods != breakPeriodsValue)
+            {
+                coreManagment.reSectionUsedFreeSpace()
+            }
        
           do {
               
@@ -558,7 +562,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 10
-        dateComponents.day = 17
+        dateComponents.day = 24
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -937,6 +941,11 @@ class TaskModel : UIViewController
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
+            let startOfTheWeek=CustomDate(context: managedContext)
+                startOfTheWeek.day=Date().startOfWeek.day
+                startOfTheWeek.month=Date().startOfWeek.month
+                startOfTheWeek.year=Date().startOfWeek.year
+        
             //Prepare the request of type NSFetchRequest  for the entity
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
              fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [false])
@@ -957,8 +966,10 @@ class TaskModel : UIViewController
                             print("Start Time ",data.startTime!.hour,":",data.startTime!.minutes)
                             print("End Time ",data.endTime!.hour,":",data.endTime!.minutes)
                     }*/
-                    
+                    if(data.date >=  startOfTheWeek)
+                    {
                         allTasks.append(data)
+                    }
                     /*    print(data.taskName)
                     print(data.asstimatedWorkTime.hour,":",data.asstimatedWorkTime.minutes)
                     print(data.startTime!.hour,":",data.startTime!.minutes)
