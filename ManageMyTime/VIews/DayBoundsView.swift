@@ -20,6 +20,8 @@ struct DayBoundsView: View {
     
      @Binding var fromSelection: [String]
     @Binding var toSelection: [String]
+    @Binding var showAlert:Bool
+    @Binding var alertType:Int
     
     var disableSave: Bool {
            ((Int(fromSelection[0]) ?? 0 > Int(toSelection[0]) ?? 0 || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0 && Int(fromSelection[1]) ?? 0 > Int(toSelection[1]) ?? 0) || (Int(fromSelection[0]) ?? 0 == Int(toSelection[0]) ?? 0  && Int(fromSelection[1]) ?? 0 == Int(toSelection[1]) ?? 0))) 
@@ -69,7 +71,12 @@ struct DayBoundsView: View {
                         
                         self.taskViewModel.UpdateStartEndDay(dayStartTimeHour: self.fromSelection[0], dayStartTimeMinutes:  self.fromSelection[1], dayEndTimeHour:  self.toSelection[0], dayEndTimeMinutes:  self.toSelection[1])
                         
+                        self.alertType=2
+                        self.showAlert=true
+                        
                         self.mode.wrappedValue.dismiss()
+                        
+                        
                     }
 
                     }) {

@@ -189,7 +189,7 @@ struct MainUI2: View {
                                    
                               var timeFactor=0.1
                                     var tripleTick=0
-                                    for index in 7...24
+                                    for index in 6...24
                                  {
                           
                                        DispatchQueue.main.asyncAfter(deadline: .now() + timeFactor) {
@@ -228,7 +228,7 @@ struct MainUI2: View {
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                // Divider().frame(maxHeight: 75)
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 1)){
+                   
                             self.dailyViewFlag=true
                             self.settingsFlag=false
                             self.addTaskFlag=false
@@ -237,7 +237,7 @@ struct MainUI2: View {
                             self.listFlag=false
                             self.toggleActive=true
                       
-                        }
+                        
                     }) {
                          VStack{
                             Image(systemName: String(String(Date().day)+".square")).resizable().shadow(radius: 1)

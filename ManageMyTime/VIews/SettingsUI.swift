@@ -31,11 +31,13 @@ struct SettingsUI: View {
     
    @State var fromSelection: [String] = [7, 0, 0].map { "\($0)" }
    @State var toSelection: [String] = [22, 0, 0].map { "\($0)" }
+    @State var alertType=1
     
     private func SetSettings() {
            
         self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex,animationStyleIndex: selectedAnimationIndex)
         self.showAlert=true
+        self.alertType=1
           
          }
     
@@ -44,6 +46,8 @@ struct SettingsUI: View {
             self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex,animationStyleIndex: selectedAnimationIndex)
         
     }
+    
+   
     
     
     
@@ -64,7 +68,7 @@ struct SettingsUI: View {
                                           }
                                        }
     
-                        NavigationLink(destination:DayBoundsView(taskViewModel: self.taskViewModel,fromSelection: self.$fromSelection,toSelection:self.$toSelection)){
+                    NavigationLink(destination:DayBoundsView(taskViewModel: self.taskViewModel,fromSelection: self.$fromSelection,toSelection:self.$toSelection,showAlert:self.$showAlert,alertType:self.$alertType)){
                               HStack{
                                   
                                   
@@ -149,10 +153,21 @@ struct SettingsUI: View {
         
         }.alert(isPresented: self.$showAlert) {
          
-     
-           return Alert(title: Text("Updated Successfully !"),
-                  message: Text("\nThe Changes Will Take Effect In Future Assignments."),
-                  dismissButton: .default(Text("OK")))
+            switch self.alertType{
+                case 1:
+                    return Alert(title: Text("Updated Successfully !"),
+                                 message: Text("\nChanges Will Take Effect With Future Assignments."),
+                                 dismissButton: .default(Text("OK")))
+                case 2:
+                    return Alert(title: Text("Updated Successfully !"),
+                                     message: Text("\nIn Order To Not Effect Your Current Schedule, The Changes Will Take Effect With Future Scheduled Dates."),
+                                     dismissButton: .default(Text("OK")))
+                default:
+                    return Alert(title: Text("Updated Successfully !"),
+                                     message: Text("\nThe Changes Will Take Effect With Future Assignments."),
+                                     dismissButton: .default(Text("OK")))
+            }
+          
      
                      
 
