@@ -26,7 +26,7 @@ struct ExpandingMenu: View {
              
             }
             if showMenuItem2 {
-                MenuItem(name: "Auto Schedule",image:"cpu-icon",addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask: self.$showAddTask,type:self.$type,showMenuItem1:self.$showMenuItem1,showMenuItem2:self.$showMenuItem2)
+                MenuItem(name: "Auto Schedule",image:"systemname:stopwatch",addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,showAddTask: self.$showAddTask,type:self.$type,showMenuItem1:self.$showMenuItem1,showMenuItem2:self.$showMenuItem2)
             }
 
             Button(action: {
@@ -109,7 +109,7 @@ struct MenuItem: View {
                 HStack{
                     if(self.image != nil)
                     {
-                        Image(image!).resizable().frame(width: 30, height: 30)
+                        Image(systemName:"stopwatch.fill").resizable().frame(width: 30, height: 30)
                        // Image(systemName: image!) .resizable().frame(width: 30, height: 30).foregroundColor(.blue)
                     }
                     else{
