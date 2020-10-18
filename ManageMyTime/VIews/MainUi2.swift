@@ -119,7 +119,7 @@ struct MainUI2: View {
                     .frame(height: 0.8).shadow(radius: 5)
                 .edgesIgnoringSafeArea(.horizontal)
             
-            
+            //Spacer is faster !!!
             
             
             

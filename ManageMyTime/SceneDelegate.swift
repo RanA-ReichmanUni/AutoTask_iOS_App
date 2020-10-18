@@ -33,8 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
          //let buttonTestingView = ButtonTestingView().environment(\.managedObjectContext, context)
         // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
       
-        let pageViewController=PageViewController1()
-       let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
+       // let pageViewController=PageViewController1()
+      // let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
       let mainViewRouter = MainViewRouter().environmentObject(ViewRouter())
         
         // Use a UIHostingController as window root view controller.

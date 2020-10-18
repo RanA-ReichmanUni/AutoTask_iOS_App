@@ -42,13 +42,14 @@ struct DailyView: View {
                 if(hour > 9)
                 {
                 
-                    BigChar(hour:String(hour)).padding(.leading,-170)
+                    BigChar(hour:String(hour))
+                    .padding(.leading,-170)
                 }
                 else{
                     
                     BigChar(hour:"0"+String(hour)).padding(.leading,-170)
                 }
-                
+               
                 ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
                     {
                         weekByHour in
@@ -63,7 +64,7 @@ struct DailyView: View {
                                 
                     
                                
-                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width*0.8)
+                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width)
                                    
                             
                                 

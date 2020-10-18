@@ -53,9 +53,9 @@ struct DetailedTaskWithObj: View {
       
             HStack{
                 Spacer()
-            Image(systemName: "pencil.and.ellipsis.rectangle")
+            Image(systemName: "rectangle.grid.2x2.fill")
                                                      .resizable()
-                .frame(width: 65, height: 50).padding(.top,5)
+                .frame(width: 65, height: 50).padding(.top,10)
                                                     // .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
                     .foregroundColor(self.color)
                 Spacer()
@@ -64,7 +64,7 @@ struct DetailedTaskWithObj: View {
                 HStack {
                     Spacer()
                    // Text("Name: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    Text(self.taskName).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(self.taskName) .font(Font.custom("Chalkduster", size: 30)).frame(width:300,height:200) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                       Spacer()
                     
                     
@@ -75,7 +75,8 @@ struct DetailedTaskWithObj: View {
                 HStack {
                     Spacer()
                     Text("Due Date: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    Text(helper.dateToString(date: dueDate)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(helper.dateToStringNormalized(date: dueDate)
+                    ).foregroundColor(Color.red).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                       Spacer()
                 }
                 
@@ -100,7 +101,7 @@ struct DetailedTaskWithObj: View {
                
                 HStack {
                     Spacer()
-                    Text("Note: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text("Notes: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                    
                     Text(self.notes).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 200)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                           Spacer()
