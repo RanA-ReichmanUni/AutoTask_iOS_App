@@ -489,96 +489,7 @@ class Core{
     
     
     func SmartAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
-    {
-         let taskModel=TaskModel()
-         let restrictedSpaceModel=RestrictedSpaceModel()
-         
-         var priorityDates=[CustomDate]()
-         var calendarSequence=[CustomDate]()
-       
-          do{
-               try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
-           }
-           catch{
-             throw DateBoundsError.dueDateIsInPastTime
-           }
-         
-         
-         for singleDate in calendarSequence//Other date FreeSpace Checker
-         {
-              
-             if(restrictedSpaceModel.CheckEmptyRestrictedAndFreeSpace(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
-               {
-                 priorityDates.append(singleDate)
-               }
-
-         }
-     
-         
-        
-         var datesAndTime = [PriorityPerDate]()
-     
-         for singleDate in calendarSequence//Other date FreeSpace Checker
-         {
-            let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
-            let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
-            var workTimeRank:Double=0
-            
-            if(!allTasks.isEmpty || !allRestrictedSpaces.isEmpty)//In order to not insert a day that is not scheduled for ant restrictesSpace or task. In that case if it wasn't for this if statment the day would be inserted to the "datesAndTime" array and eventually to the "priorityDates" array, but since this is an emptySpace day, we already inserted this day. This would have cause the schedule algorithm to check this day twice !.
-            {
-                 if(!allTasks.isEmpty)
-                 {
-                     
-                         for task in allTasks//Check for summary of minutes of the current date
-                         {
-                             
-                            workTimeRank=workTimeRank+Double(task.asstimatedWorkTime.hourInMinutes())*getDifficultyFactor(difficultyPhrase: task.difficulty)
-                             
-                         }
-                         
-                    // datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
-                 }
-                
-               
-                
-                if(!allRestrictedSpaces.isEmpty)
-                   {
-                      
-                           for restrictedSpace in allRestrictedSpaces//Check for summary of minutes of the current date
-                           {
-                               let duration=restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime).hourInMinutes()
-                               
-                            workTimeRank=workTimeRank+Double(duration)*getDifficultyFactor(difficultyPhrase: restrictedSpace.difficulty)
-                               
-                           }
-                           
-                       
-                   }
-                
-                datesAndTime.append(PriorityPerDate(date: singleDate, rank: workTimeRank))
-            }
-         }
-     
-         datesAndTime.sort {
-                       ($0.rank!) <
-                           ($1.rank!)
-                   }//Sort dates by the acttual work time
-         
-         for singleDate in datesAndTime//Append dates by work load priority
-         {
-             
-             priorityDates.append(singleDate.date!)
-             
-         
-         }
-             
-             
-        return priorityDates
-       
-   }
-    
-    func OptimalAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
-    {
+     {
           let taskModel=TaskModel()
           let restrictedSpaceModel=RestrictedSpaceModel()
           
@@ -595,8 +506,10 @@ class Core{
           
           for singleDate in calendarSequence//Other date FreeSpace Checker
           {
-               
-              if(restrictedSpaceModel.CheckEmptyRestrictedAndFreeSpace(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
+                 let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+                 let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
+             
+              if(allTasks.isEmpty && allRestrictedSpaces.isEmpty)//If there is another date in the range which is completely unoccupied then we would prefer it first.
                 {
                   priorityDates.append(singleDate)
                 }
@@ -605,13 +518,13 @@ class Core{
       
           
          
-          var datesAndTime = [WorkPerDate]()
+          var datesAndTime = [PriorityPerDate]()
       
           for singleDate in calendarSequence//Other date FreeSpace Checker
           {
              let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
              let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
-             var workTimeSummary=0
+             var workTimeRank:Double=0
              
              if(!allTasks.isEmpty || !allRestrictedSpaces.isEmpty)//In order to not insert a day that is not scheduled for ant restrictesSpace or task. In that case if it wasn't for this if statment the day would be inserted to the "datesAndTime" array and eventually to the "priorityDates" array, but since this is an emptySpace day, we already inserted this day. This would have cause the schedule algorithm to check this day twice !.
              {
@@ -621,7 +534,7 @@ class Core{
                           for task in allTasks//Check for summary of minutes of the current date
                           {
                               
-                              workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                             workTimeRank=workTimeRank+Double(task.asstimatedWorkTime.hourInMinutes())*getDifficultyFactor(difficultyPhrase: task.difficulty)
                               
                           }
                           
@@ -637,20 +550,20 @@ class Core{
                             {
                                 let duration=restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime).hourInMinutes()
                                 
-                                workTimeSummary=workTimeSummary+duration
+                             workTimeRank=workTimeRank+Double(duration)*getDifficultyFactor(difficultyPhrase: restrictedSpace.difficulty)
                                 
                             }
                             
                         
                     }
                  
-                 datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                 datesAndTime.append(PriorityPerDate(date: singleDate, rank: workTimeRank))
              }
           }
       
           datesAndTime.sort {
-                        ($0.timeInMinutes!) <
-                            ($1.timeInMinutes!)
+                        ($0.rank!) <
+                            ($1.rank!)
                     }//Sort dates by the acttual work time
           
           for singleDate in datesAndTime//Append dates by work load priority
@@ -665,72 +578,165 @@ class Core{
          return priorityDates
         
     }
-    
-    func AdvancedAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
-    {
-          let taskModel=TaskModel()
-            
-            var priorityDates=[CustomDate]()
-            var calendarSequence=[CustomDate]()
-        
-             do{
-                    try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
-                }
-                catch{
-                  throw DateBoundsError.dueDateIsInPastTime
-                }
-              
-              
-              for singleDate in calendarSequence//Other date FreeSpace Checker
-              {
-                   
-                  if(taskModel.checkEmptyFreeSpaceByDate(date: singleDate))//If there is another date in the range which is completely unoccupied then we would prefer it first.
-                    {
-                      priorityDates.append(singleDate)
-                    }
-    
-              }
+     
+     func OptimalAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+     {
+           let taskModel=TaskModel()
+           let restrictedSpaceModel=RestrictedSpaceModel()
+           
+           var priorityDates=[CustomDate]()
+           var calendarSequence=[CustomDate]()
+         
+            do{
+                 try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+             }
+             catch{
+               throw DateBoundsError.dueDateIsInPastTime
+             }
+           
+           
+           for singleDate in calendarSequence//Other date FreeSpace Checker
+           {
+                 let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+                 let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
+                        
+                 if(allTasks.isEmpty && allRestrictedSpaces.isEmpty)//If there is another date in the range which is completely unoccupied then we would prefer it first.
+                 {
+                   priorityDates.append(singleDate)
+                 }
+
+           }
+       
+           
           
+           var datesAndTime = [WorkPerDate]()
+       
+           for singleDate in calendarSequence//Other date FreeSpace Checker
+           {
+              let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+              let allRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpacesByDate(date:singleDate)
+              var workTimeSummary=0
               
+              if(!allTasks.isEmpty || !allRestrictedSpaces.isEmpty)//In order to not insert a day that is not scheduled for ant restrictesSpace or task. In that case if it wasn't for this if statment the day would be inserted to the "datesAndTime" array and eventually to the "priorityDates" array, but since this is an emptySpace day, we already inserted this day. This would have cause the schedule algorithm to check this day twice !.
+              {
+                   if(!allTasks.isEmpty)
+                   {
+                       
+                           for task in allTasks//Check for summary of minutes of the current date
+                           {
+                               
+                               workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                               
+                           }
+                           
+                      // datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                   }
+                  
+                 
+                  
+                  if(!allRestrictedSpaces.isEmpty)
+                     {
+                        
+                             for restrictedSpace in allRestrictedSpaces//Check for summary of minutes of the current date
+                             {
+                                 let duration=restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime).hourInMinutes()
+                                 
+                                 workTimeSummary=workTimeSummary+duration
+                                 
+                             }
+                             
+                         
+                     }
+                  
+                  datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+              }
+           }
+       
+           datesAndTime.sort {
+                         ($0.timeInMinutes!) <
+                             ($1.timeInMinutes!)
+                     }//Sort dates by the acttual work time
+           
+           for singleDate in datesAndTime//Append dates by work load priority
+           {
+               
+               priorityDates.append(singleDate.date!)
+               
+           
+           }
+               
+               
+          return priorityDates
+         
+     }
+     
+     func AdvancedAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
+     {
+           let taskModel=TaskModel()
              
-              var datesAndTime = [WorkPerDate]()
-          
-              for singleDate in calendarSequence//Other date FreeSpace Checker
-              {
-                let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
-                  if(!allTasks.isEmpty)
-                  {
-                      var workTimeSummary=0
-                          for task in allTasks//Check for summary of minutes of the current date
-                          {
-                              
-                              workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
-                              
-                          }
-                          
-                      datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
-                  }
-              }
-          
-          datesAndTime.sort {
-                        ($0.timeInMinutes!) <
-                            ($1.timeInMinutes!)
-                    }//Sort dates by the acttual work time
-          
-          for singleDate in datesAndTime//Append dates by work load priority
-          {
+             var priorityDates=[CustomDate]()
+             var calendarSequence=[CustomDate]()
+         
+              do{
+                     try calendarSequence = createCalanderSequence(startDate:startDate, endDate: endDate)
+                 }
+                 catch{
+                   throw DateBoundsError.dueDateIsInPastTime
+                 }
+               
+               
+               for singleDate in calendarSequence//Other date FreeSpace Checker
+               {
+                 
+                     let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+    
+                     if(allTasks.isEmpty)//If there is another date in the range which is completely unoccupied then we would prefer it first.
+                     {
+                       priorityDates.append(singleDate)
+                     }
+     
+               }
+           
+               
               
-              priorityDates.append(singleDate.date!)
-              
-          
-          }
-              
-              
-         return priorityDates
-        
-        
-        
-    }
+               var datesAndTime = [WorkPerDate]()
+           
+               for singleDate in calendarSequence//Other date FreeSpace Checker
+               {
+                 let allTasks=taskModel.retrieveTasksByDate(date:singleDate)
+                   if(!allTasks.isEmpty)
+                   {
+                       var workTimeSummary=0
+                           for task in allTasks//Check for summary of minutes of the current date
+                           {
+                               
+                               workTimeSummary=workTimeSummary+task.asstimatedWorkTime.hourInMinutes()
+                               
+                           }
+                           
+                       datesAndTime.append(WorkPerDate(date: singleDate, timeInMinutes: workTimeSummary))
+                   }
+               }
+           
+           datesAndTime.sort {
+                         ($0.timeInMinutes!) <
+                             ($1.timeInMinutes!)
+                     }//Sort dates by the acttual work time
+           
+           for singleDate in datesAndTime//Append dates by work load priority
+           {
+               
+               priorityDates.append(singleDate.date!)
+               
+           
+           }
+               
+               
+          return priorityDates
+         
+         
+         
+     }
     func EarliestAlgorithm (startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
     

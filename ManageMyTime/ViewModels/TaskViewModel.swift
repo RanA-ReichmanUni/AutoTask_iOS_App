@@ -101,7 +101,7 @@ class TaskViewModel : ObservableObject
         dueDate=Date()
         notes="None"
         //allTasks=[]
-        viewModelTask=Task(context: managedContext)
+        viewModelTask=Task()
         //color=Color(.systemTeal)
         id=UUID()
         color=Color.blue

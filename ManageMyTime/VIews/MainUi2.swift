@@ -187,7 +187,7 @@ struct MainUI2: View {
          
                       
                                    
-                              /*  var timeFactor=0.1
+                              var timeFactor=0.1
                                     var tripleTick=0
                                     for index in 7...24
                                  {
@@ -215,7 +215,7 @@ struct MainUI2: View {
                                      
                                  
                                 // self.taskViewModel.hoursRange=[7...24]
-                                     }*/
+                                     }
                       
                     }) {
                             VStack{
