@@ -201,7 +201,7 @@ struct MainUI2: View {
                                     
                                    
                                     
-                                    if(tripleTick==5)
+                                    if(tripleTick==6)
                                     {
                                         
                                         timeFactor+=0.1
