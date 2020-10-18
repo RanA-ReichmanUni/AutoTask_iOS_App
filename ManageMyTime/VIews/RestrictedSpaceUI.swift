@@ -42,7 +42,7 @@ struct RestrictedSpaceUI: View {
                 RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:250)
                                              //Keeps safe space from the edge of screen so the first card can pull up to a safe area
               
-                ForEach(restrictedSpaceViewModel.allRestrictedSpaces, id: \.self) { restrictedSpace in
+                ForEach(restrictedSpaceViewModel.allRestrictedSpaces, id: \.id) { restrictedSpace in
                      VStack{
                            if(self.colorScheme != .dark)
                            {

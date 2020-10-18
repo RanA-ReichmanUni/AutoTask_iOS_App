@@ -189,7 +189,7 @@ class TaskModel : UIViewController
 
              }
              else{
-                 var settingsObject=SettingsEntity(context: managedContext)
+                 let settingsObject=SettingsEntity(context: managedContext)
                 
                    
                                 
@@ -255,7 +255,7 @@ class TaskModel : UIViewController
 
                 }
                 else{
-                    var settingsObject=SettingsEntity(context: managedContext)
+                    let settingsObject=SettingsEntity(context: managedContext)
                    
                                    
                        settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
@@ -318,7 +318,7 @@ class TaskModel : UIViewController
                 if(result.isEmpty)
                 {
                     
-                        var settingsObject=SettingsEntity(context: managedContext)
+                    let settingsObject=SettingsEntity(context: managedContext)
                            settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                            settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                            settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
@@ -374,7 +374,7 @@ class TaskModel : UIViewController
                  {
                   
                     
-                     var retrivedObject = result[0] as! NSManagedObject
+                    let retrivedObject = result[0] as! NSManagedObject
                      
                      
                       retrivedObject.setValue(dayStartTime, forKey: "dayStartTime")
@@ -384,7 +384,7 @@ class TaskModel : UIViewController
                  }
                  else{
                     
-                    var settingsObject=SettingsEntity(context: managedContext)
+                    let settingsObject=SettingsEntity(context: managedContext)
                     
                         settingsObject.scheduleAlgorithim=scheduleAlgorithm.smart.rawValue
                         settingsObject.scheduleDensity=scheduleDensity.maximumCapacity.rawValue
@@ -443,7 +443,7 @@ class TaskModel : UIViewController
                {
                 
                   
-                   var retrivedObject = result[0] as! NSManagedObject
+                let retrivedObject = result[0] as! NSManagedObject
                    
                     retrivedObject.setValue(scheduleAlgorithim, forKey: "scheduleAlgorithim")
                     retrivedObject.setValue(scheduleDensity, forKey: "scheduleDensity")
@@ -455,7 +455,7 @@ class TaskModel : UIViewController
                }
                else{
                   
-                  var settingsObject=SettingsEntity(context: managedContext)
+                let settingsObject=SettingsEntity(context: managedContext)
                   
                       settingsObject.scheduleAlgorithim=scheduleAlgorithim
                       settingsObject.scheduleDensity=scheduleDensity
@@ -572,7 +572,7 @@ class TaskModel : UIViewController
         
         let colorArray = ["Green","Teal","Pink","Red","Orange","Blue","Indigo"].shuffled()
        
-        let difficultyValues = ["diffcult","average","easy"].shuffled()
+      //  let difficultyValues = ["diffcult","average","easy"].shuffled()
         
         let startTime=Hour(context: managedContext)
             startTime.hour=7
@@ -629,7 +629,7 @@ class TaskModel : UIViewController
                     asstimatedWorkTime.hour=Int.random(in: 1 ... 3)
                     asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
            do {
-            try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",difficulty:"average",color:colorArray[Int.random(in: 0 ... 6)])
+            _=try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",difficulty:"average",color:colorArray[Int.random(in: 0 ... 6)])
            }
             catch{
                  throw DatabaseError.taskCanNotBeScheduledInDue
@@ -656,12 +656,12 @@ class TaskModel : UIViewController
         let managedContext = appDelegate.persistentContainer.viewContext
         
         //Now let’s create an entity and new user records.
-        let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
+       // let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
         
         //final, we need to add some data to our newly created record for each keys using
         //here adding 5 data with loop
         do {
-            try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
+            _ = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
         }
         catch{
             throw DatabaseError.taskCanNotBeScheduledInDue
@@ -918,7 +918,7 @@ class TaskModel : UIViewController
                 
                              let retrievedObject = requiredTask[0] as! Task
                           
-                       print("Name:",retrievedObject.taskName as! String)
+                  //     print("Name:",retrievedObject.taskName as! String)
                        
                          return retrievedObject
                      }
@@ -1186,12 +1186,11 @@ class TaskModel : UIViewController
     func retrieveAllTasksByHour(hour:Int,sequanceNum:Int) -> [TasksPerHourPerDay] {
               
            var allTasks=[TasksPerHourPerDay]()
-           var coreManagment=Core()
+        let coreManagment=Core()
        
            var opacity:CGFloat
         
-           let startOfDay=7
-           let endOfDay=24
+        
        
            //As we know that container is set up in the AppDelegates so we need to refer that container.
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
@@ -1240,7 +1239,7 @@ class TaskModel : UIViewController
                    
                    var tasksPerHourPerDay=TasksPerHourPerDay(isEmptySlot: false, tasks: [TaskPerHour]())
                     
-                        var dayOfTheWeek=weekSequence[sequanceNum]
+                let dayOfTheWeek=weekSequence[sequanceNum]
                         
                            if(result.contains(where: { dayOfTheWeek.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)  && (($0.startTime! == beginningOfHour) || ($0.startTime! <= beginningOfHour && $0.endTime! > beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! < nextHour) || ($0.startTime! > beginningOfHour && $0.endTime! <  beginningOfHour) || ($0.startTime! > beginningOfHour && $0.endTime! > beginningOfHour && $0.startTime!.hour==hour) || ($0.endTime! > beginningOfHour && $0.startTime!.hour < hour))}))
                            {
@@ -1367,13 +1366,12 @@ class TaskModel : UIViewController
     func retrieveAllTasksByHour(hour:Int) -> [TasksPerHourPerDay] {
                  
               var allTasks=[TasksPerHourPerDay]()
-              var coreManagment=Core()
-                var restrictedSpaceModel=RestrictedSpaceModel()
+        let coreManagment=Core()
+        let restrictedSpaceModel=RestrictedSpaceModel()
           
               var opacity:CGFloat
            
-              let startOfDay=7
-              let endOfDay=24
+             
           
               //As we know that container is set up in the AppDelegates so we need to refer that container.
               let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -1433,13 +1431,13 @@ class TaskModel : UIViewController
                                 {
                                     print("here")
                                 }
-                                var releventRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpace().all(where: { dayOfTheWeek.dayOfWeek().lowercased()==$0.dayOfTheWeek.lowercased() && (($0.startTime == beginningOfHour) || ($0.startTime <= beginningOfHour && $0.endTime > beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime < nextHour) || ($0.startTime > beginningOfHour && $0.endTime <  beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime > beginningOfHour && $0.startTime.hour==hour) || ($0.endTime > beginningOfHour && $0.startTime.hour < hour)) })
+                                let releventRestrictedSpaces=restrictedSpaceModel.getAllRestrictedSpace().all(where: { dayOfTheWeek.dayOfWeek().lowercased()==$0.dayOfTheWeek.lowercased() && (($0.startTime == beginningOfHour) || ($0.startTime <= beginningOfHour && $0.endTime > beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime < nextHour) || ($0.startTime > beginningOfHour && $0.endTime <  beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime > beginningOfHour && $0.startTime.hour==hour) || ($0.endTime > beginningOfHour && $0.startTime.hour < hour)) })
                                 
                                 var calendarObjects=[CalendarObject]()
                                 
                                 for obj in filteredTaskObjects{
                                     
-                                    var calendarInstance=CalendarObject(id:obj.id,taskName:obj.taskName,color:obj.color!,startTime: obj.startTime!,endTime:obj.endTime!, isRepeatedActivity: false)
+                                    let calendarInstance=CalendarObject(id:obj.id,taskName:obj.taskName,color:obj.color!,startTime: obj.startTime!,endTime:obj.endTime!, isRepeatedActivity: false)
                                     //calendarInstance.date=obj.date
                                     
                                     calendarObjects.append(calendarInstance)
@@ -1579,13 +1577,11 @@ class TaskModel : UIViewController
     func retrieveAllTasksByHourOrginal(hour:Int) -> [TasksPerHourPerDay] {
              
           var allTasks=[TasksPerHourPerDay]()
-          var coreManagment=Core()
+        let coreManagment=Core()
       
           var opacity:CGFloat
        
-          let startOfDay=7
-          let endOfDay=24
-      
+       
           //As we know that container is set up in the AppDelegates so we need to refer that container.
           let appDelegate = UIApplication.shared.delegate as! AppDelegate
           
@@ -1816,22 +1812,13 @@ class TaskModel : UIViewController
                  currentDate.day=Date().day
     
    
-                  
-               var calendarObjects=[CalendarObject]()
            
               if(restrictedSpaceModel.getAllRestrictedSpace().contains(where: { date.dayOfWeek().lowercased()==$0.dayOfTheWeek.lowercased() && (($0.startTime == beginningOfHour) || ($0.startTime <= beginningOfHour && $0.endTime > beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime < nextHour) || ($0.startTime > beginningOfHour && $0.endTime <  beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime > beginningOfHour && $0.startTime.hour==hour) || ($0.endTime > beginningOfHour && $0.startTime.hour < hour)) }))
               {
                 
                   let data=restrictedSpaceModel.getAllRestrictedSpace().all(where: { date.dayOfWeek().lowercased()==$0.dayOfTheWeek.lowercased() && (($0.startTime == beginningOfHour) || ($0.startTime <= beginningOfHour && $0.endTime > beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime < nextHour) || ($0.startTime > beginningOfHour && $0.endTime <  beginningOfHour) || ($0.startTime > beginningOfHour && $0.endTime > beginningOfHour && $0.startTime.hour==hour) || ($0.endTime > beginningOfHour && $0.startTime.hour < hour)) })
 
-                
-                          
-                              
-                    var heightFactor=CGFloat(1.6)
-                   
-       
-                   
-                   
+
                     
                     for restrictedSpace in data
                     {
@@ -1888,7 +1875,7 @@ class TaskModel : UIViewController
                 
              var allTasksPerDay=[TasksPerHourPerDay]()
              var allTasksObject=[TasksPerHourPerDayOfTheWeek]()
-             var coreManagment=Core()
+            let coreManagment=Core()
          
              var opacity:CGFloat
           
@@ -2171,7 +2158,7 @@ class TaskModel : UIViewController
           //We need to create a context from this container
           let managedContext = appDelegate.persistentContainer.viewContext
           
-          var sentTask=self.retrieveTask(taskID: id)
+        let sentTask=self.retrieveTask(taskID: id)
         
           let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
             fetchRequest.predicate = NSPredicate(format: "internalId = %@", sentTask.internalId! as CVarArg)
@@ -2226,7 +2213,7 @@ class TaskModel : UIViewController
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         fetchRequest.predicate = NSPredicate(format: "id = %@", taskId as CVarArg)
        
-        var freeSpaceId=UUID()
+      
         
         do
         {
@@ -2261,7 +2248,7 @@ class TaskModel : UIViewController
                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
                fetchRequest.predicate = NSPredicate(format: "internalId = %@", internalId as CVarArg)
               
-             var freeSpaceId:UUID
+           
          
                var tasks=[Task]()
          

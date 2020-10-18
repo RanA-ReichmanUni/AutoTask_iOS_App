@@ -10,7 +10,7 @@ import SwiftUI
 
 
 
-struct ButtonTestingView: View {
+/*struct ButtonTestingView: View {
     
     var tm=Core()
     
@@ -26,7 +26,7 @@ struct ButtonTestingView: View {
             Spacer()
             Spacer()
             Spacer()
-           Button(action: { self.tm.createCalanderSequence(startDay: 10, startMonth: 5, startYear: 2020, endDay: 20, endMonth: 3, endYear: 2021)}) {
+           Button(action: { _=self.tm.createCalanderSequence(startDay: 10, startMonth: 5, startYear: 2020, endDay: 20, endMonth: 3, endYear: 2021)}) {
                      Text("Click to do some high risk testing")
                  }
                
@@ -47,7 +47,7 @@ struct ButtonTestingView: View {
             
         }.navigationBarTitle(Text("Testing"))
     }
-}
+}*/
 
 /*struct ButtonTestingView_Previews: PreviewProvider {
     static var previews: some View {

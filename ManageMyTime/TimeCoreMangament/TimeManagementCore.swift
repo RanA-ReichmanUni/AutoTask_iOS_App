@@ -100,14 +100,14 @@ class Core{
     
    
     
-    func scheduleHandler(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String,scheduleSection:String) throws
+  /*  func scheduleHandler(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:String,scheduleSection:String) throws
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
 
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        var isContinues=false
+        
         var taskSection:Double = 0
         var workTimeMinutes=Double(asstimatedWorkTime.hour*60 + asstimatedWorkTime.minutes)
         var intervals=1
@@ -153,12 +153,12 @@ class Core{
         
         
         
-        for num in 0...intervals
+        for _ in 0...intervals
         {
             
             
             do {
-                  try ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: hourSection, dueDate: dueDate, notes: notes ,color:color,internalId:currentTaskInternalId)
+                  _=try ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: hourSection, dueDate: dueDate, notes: notes ,color:color,internalId:currentTaskInternalId)
             }
            catch{
                 throw DatabaseError.taskCanNotBeScheduledInDue
@@ -178,7 +178,7 @@ class Core{
         
         
         
-    }
+    }*/
     
     func breakHandler(date:CustomDate,scheduleSection:String)
     {
@@ -301,17 +301,17 @@ class Core{
         
            let managedContext = appDelegate.persistentContainer.viewContext
                   
-           var hourSection = Hour(context: managedContext)
-           var breakSection = Hour(context: managedContext)
+        let hourSection = Hour(context: managedContext)
+        let breakSection = Hour(context: managedContext)
         
-           var isContinues=false
-           var taskSection:Double = 0
+        
+       
         
            var spaceSection=SpaceSection()
         
            switch scheduleSection {
                  case "fortyFiveMinutes":
-                     taskSection=45
+                   
                      hourSection.hour=0
                      hourSection.minutes=45
                      
@@ -322,7 +322,7 @@ class Core{
                      spaceSection.sectionWindow=hourSection
             
                  case "hourAndAHalf":
-                     taskSection=105
+                  
                      hourSection.hour=1
                      hourSection.minutes=30
                        
@@ -334,7 +334,7 @@ class Core{
                     spaceSection.sectionWindow=hourSection
                           
                  case "twoHours":
-                     taskSection=120
+                    
                      hourSection.hour=2
                      hourSection.minutes=0
                
@@ -346,7 +346,7 @@ class Core{
                     spaceSection.sectionWindow=hourSection
             
                  case "threeHours":
-                     taskSection=180
+                   
                      hourSection.hour=3
                      hourSection.minutes=0
                
@@ -358,7 +358,7 @@ class Core{
                     spaceSection.sectionWindow=hourSection
             
                 case "fiveHours":
-                    taskSection=300
+                  
                     hourSection.hour=5
                     hourSection.minutes=0
                           
@@ -370,14 +370,14 @@ class Core{
                     spaceSection.sectionWindow=hourSection
             
                  case "Continues":
-                    isContinues=true
+                   
             
                     spaceSection.breakTime=nil
                     spaceSection.sectionWindow=nil
                     spaceSection.isContinues=true
                        
                  default:
-                     taskSection=105
+                  
                      hourSection.hour=1
                      hourSection.minutes=30
                        
@@ -404,7 +404,7 @@ class Core{
         
         do{
 
-            try ScheduleTask(taskName:taskName,importance:importance,asstimatedWorkTime:asstimatedWorkTime,dueDate:dueDate,notes:notes,color:color,internalId:internalId,safetyCount: count)
+            _=try ScheduleTask(taskName:taskName,importance:importance,asstimatedWorkTime:asstimatedWorkTime,dueDate:dueDate,notes:notes,color:color,internalId:internalId,safetyCount: count)
             
         
         }
@@ -423,7 +423,7 @@ class Core{
     
     func GetTaskEndsWith(date:CustomDate,endsIn:Hour)throws ->  Task
     {
-        var allTasks=[Task]()
+       
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Task()}
                
@@ -789,13 +789,13 @@ class Core{
                   return scheduleAlgorithm.smart
             }
         
-        return scheduleAlgorithm.smart
+        
     }
         
     func SchedulingPriorityAlgrorithmDates(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
     {
       
-        var taskModel=TaskModel()
+        let taskModel=TaskModel()
         
         let schedulingAlgorithm = ScheduleAlgorithmEnumConverter(phrase:taskModel.getSettingsValues().scheduleAlgorithim)
       
@@ -860,14 +860,14 @@ class Core{
     {
       
         
-        let todayDay = Date().day
+       
         var retrivedFreeDays = [FreeTaskSpace]()
         var suitableFreeSpaces = [FreeTaskSpace]()
         var calanderSequence:[CustomDate]
         var isContinuesScheduling=false
         var remainingWorkTime = Hour()
         var taskInternalId=UUID()
-        var isBreakSet=false
+       
         var minimalSpaceExists=false
         
             //As we know that container is set up in the AppDelegates so we need to refer that container.
@@ -876,13 +876,13 @@ class Core{
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
-            var currentHour = Hour(context: managedContext)
+        let currentHour = Hour(context: managedContext)
             currentHour.hour=Date().hour
             currentHour.minutes=Date().minutes
             
             currentHour.add(minutesValue: 15)
             
-            var minimalSpaceDuration=Hour(context: managedContext)
+        let minimalSpaceDuration=Hour(context: managedContext)
                 minimalSpaceDuration.hour=0
                 minimalSpaceDuration.minutes=30
       
@@ -891,7 +891,7 @@ class Core{
                 minimalPartitionSize.minutes=30
         
         
-            var breakWindowEndTime = Hour(context: managedContext)
+        let breakWindowEndTime = Hour(context: managedContext)
                 breakWindowEndTime.hour=0
                 breakWindowEndTime.minutes=0
             let breakPeriod = Hour(context: managedContext)
@@ -900,7 +900,7 @@ class Core{
         
             let startOfDayHour = GetStartOfDay()
                                                            
-            let endOfDayHour = GetEndOfDay()
+            //let endOfDayHour = GetEndOfDay()
             
             let components = Calendar.current.dateComponents([.hour, .minute], from: dueDate)
             let dueHours = components.hour ?? 0
@@ -989,7 +989,7 @@ class Core{
                                 if(suitableFreeSpaces.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//Check if we already have a FreeSpace object in that date, can't check if the duration in sufficient since this else case goes to create a new FreeSpace object for that day, assuming this term hasn't satisfied only because such an object doesn't exist at all and not because it doesn't match the duration needs. We will check this condition in the next if.
                                 {
                                     
-                                    var matchingFreeSpaces=suitableFreeSpaces.all(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} )
+                                    let matchingFreeSpaces=suitableFreeSpaces.all(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} )
                                     
                                    // print("entred d1")
                                     for freeSpace in matchingFreeSpaces
@@ -1136,7 +1136,7 @@ class Core{
                                                                     print("asstimatedWorkTime")
                                                                   print("asstimatedSorkTime"+String(newTask.asstimatedWorkTime.hour)+":"+String(newTask.asstimatedWorkTime.minutes))
                                                                 isContinuesScheduling=true
-                                                                print(internalId?.description)
+                                                                print(internalId?.description ?? "0")
                                                                 if(internalId == nil)
                                                                   {
                                                                     
@@ -1323,7 +1323,7 @@ class Core{
                                                                newDuration.hour=0
                                                                newDuration.minutes=0
                                                             //Create new FS with fullyOccupied flag
-                                                            createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
+                                                            _=createFreeSpace(startTime:startOfDayHour , endTime: endOfDayHour, date: freeSpaceDate, duration:newDuration,fullyOccupiedDay: true)
                                                         }
                                                         
                                                         if(isContinuesScheduling)
@@ -1593,12 +1593,12 @@ class Core{
                                                      
                                  
         fetchRequest.predicate = NSPredicate(format: "date.day = %@ AND date.month = %@ AND date.year = %@ AND isTaskBreakWindow = %@", argumentArray: [date.day,date.month,date.year,false])
-         var taskModel=TaskModel()
-         var algorithm=scheduleDensity.maximumCapacity//DensityEnumConverter(phrase: taskModel.getSettingsValues().scheduleDensity) // since the algorithms determining best results already, it's meaningless to upperbound a day density capicity, if the user doesn't want any more tasks he won't insert them the spreading of stress is already ideal.
-         var isDayAvailable = true
+        
+        let algorithm=scheduleDensity.maximumCapacity//DensityEnumConverter(phrase: taskModel.getSettingsValues().scheduleDensity) // since the algorithms determining best results already, it's meaningless to upperbound a day density capicity, if the user doesn't want any more tasks he won't insert them the spreading of stress is already ideal.
+        
          var scheduledDuration = workTime.hourInMinutes()
          var duration:Hour
-         var aviliableDayHours = endOfTheDay-startOfTheDay
+     
         
          var tasks = [Task]()
                         
@@ -1837,7 +1837,7 @@ class Core{
        let userCalendar = Calendar.current // user calendar
        let dateTime = userCalendar.date(from: dateComponents)!
        
-       var sortedFreeSpaces=retriveAndSortFreeSpaces(dueDate:dateTime)
+        let sortedFreeSpaces=retriveAndSortFreeSpaces(dueDate:dateTime)
        
        var freeSpacesToDelete=[UUID]()
         var createdFreeSpaceId=UUID()
@@ -1879,7 +1879,7 @@ class Core{
                     
                        print("Found mergeble free space from"+String(sortedFreeSpaces[index+1].starting.hour)+":"+String(sortedFreeSpaces[index+1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                         print("Free space will be merged with the latest freeSpace creted a second ago")
-                        createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                        _=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
                        print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                     
                         freeSpacesToDelete.append(createdFreeSpaceId)
@@ -1892,7 +1892,7 @@ class Core{
                         
                     }
                    else{
-                    createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:sortedFreeSpaces[index].associatedId!)
+                    _=createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:sortedFreeSpaces[index].associatedId!)
                     
                               print("Created merged free space from"+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                     }
@@ -1943,7 +1943,7 @@ class Core{
         
 
         
-                var dDate = CustomDate(context: managedContext)
+        let dDate = CustomDate(context: managedContext)
                 dDate.day=dueDate.day
                 dDate.month=dueDate.month
                 dDate.year=dueDate.year
@@ -2019,7 +2019,7 @@ class Core{
                     currentDate.month=Date().month
                    currentDate.day=Date().day
            
-                   var dDate = CustomDate(context: managedContext)
+        let dDate = CustomDate(context: managedContext)
                    dDate.day=dueDate.day
                    dDate.month=dueDate.month
                    dDate.year=dueDate.year
@@ -2470,11 +2470,11 @@ class Core{
            //We need to create a context from this container
            let managedContext = appDelegate.persistentContainer.viewContext
              
-           var zeroHour=Hour(context: managedContext)
+        let zeroHour=Hour(context: managedContext)
                zeroHour.hour=0
                zeroHour.minutes=0
            
-           var retrivedSpaces=[FreeTaskSpace]()
+         
            
       
            
@@ -2578,7 +2578,7 @@ class Core{
         //We need to create a context from this container
         let managedContext = appDelegate.persistentContainer.viewContext
           
-        var zeroHour=Hour(context: managedContext)
+        let zeroHour=Hour(context: managedContext)
             zeroHour.hour=0
             zeroHour.minutes=0
         
@@ -2686,10 +2686,10 @@ class Core{
  
     
     
-  func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
+  /*func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
     {
 
-         var dayOfToday = Date().day
+        let dayOfToday = Date().day
         
         if (dayOfToday==0)
         {
@@ -2822,7 +2822,7 @@ class Core{
            
            
                
-       }
+       }*/
     
     func retrieveFreeSpace(date:CustomDate) throws -> FreeTaskSpace
     {
@@ -2932,11 +2932,11 @@ class Core{
         
         var dateSequence=[CustomDate]()
              
-        var startOfMonthIndex:Int
+      
         
         //Seems like a managedContext var is passed by refrence !, when we are moving to a new month for example, the currentIndexDate changes and thus we need to seperate it from the orginal object that the ScheduleTask method uses and create a new seperate object.
         
-        var currentIndexDate=CustomDate(context: managedContext)
+        let currentIndexDate=CustomDate(context: managedContext)
         currentIndexDate.day=startDate.day
         currentIndexDate.month=startDate.month
         currentIndexDate.year=startDate.year
@@ -3025,7 +3025,7 @@ class Core{
             
            var dateSequence=[CustomDate]()
                   var currentIndexDate:CustomDate
-                  var startOfMonthIndex:Int
+                 
            
            currentIndexDate=startDate
            
@@ -3285,7 +3285,7 @@ class Core{
     
     
     
-    func createData(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String){
+    /*func createData(taskName:String,importance:String,asstimatedWorkTime:Int32,dueDate:Date,notes:String){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -3415,7 +3415,7 @@ class Core{
         
         
         
-    }
+    }*/
    
         
         

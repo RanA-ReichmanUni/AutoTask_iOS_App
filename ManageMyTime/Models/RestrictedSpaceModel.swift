@@ -41,7 +41,7 @@ class RestrictedSpaceModel : UIViewController
                return 0
            }
            
-           return 0
+       
            
        }
     
@@ -166,7 +166,7 @@ class RestrictedSpaceModel : UIViewController
                         fetch.predicate = NSPredicate(format: "dayOfTheWeek = %@",argumentArray: [date.dayOfWeek()])
                                      
                   
-                   var restrictedSpace = [RestrictedSpace]()
+                  
                        
                      do
                      {
@@ -331,7 +331,7 @@ class RestrictedSpaceModel : UIViewController
              let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RestrictedSpace")
              fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
             
-             var freeSpaceId=UUID()
+            
              
              do
              {

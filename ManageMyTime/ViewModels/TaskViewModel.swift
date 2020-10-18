@@ -101,7 +101,7 @@ class TaskViewModel : ObservableObject
         dueDate=Date()
         notes="None"
         //allTasks=[]
-        viewModelTask=Task()
+        viewModelTask=Task(context: managedContext)
         //color=Color(.systemTeal)
         id=UUID()
         color=Color.blue
@@ -146,7 +146,7 @@ class TaskViewModel : ObservableObject
                return 0
            }
            
-           return 0
+          
            
        }
     
@@ -181,10 +181,10 @@ class TaskViewModel : ObservableObject
         self.dueDate=dueDate
         self.notes=notes
        // asstimatedWorkTime=Hour(context: managedContext)
-        self.asstimatedWorkTimeHour=workTimeHours ?? "0"
-        self.asstimatedWorkTimeMinutes=workTimeMinutes ?? "30"
+        self.asstimatedWorkTimeHour=workTimeHours
+        self.asstimatedWorkTimeMinutes=workTimeMinutes
         
-        var workTime=Hour(context: managedContext)
+        let workTime=Hour(context: managedContext)
             workTime.hour=Int(workTimeHours) ?? 0
             workTime.minutes=Int(workTimeMinutes) ?? 30
         
@@ -373,10 +373,7 @@ class TaskViewModel : ObservableObject
     }
     func SetSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int,breakPeriodsIndex:Int,animationStyleIndex:Int)
     {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return  }
-        
-        //We need to create a context from this container
-        let managedContext = appDelegate.persistentContainer.viewContext
+       
         
      
         
@@ -464,14 +461,14 @@ class TaskViewModel : ObservableObject
     }
     func GetDayBoundsSettingsValues () -> [String]
    {
-       var settingsObject=taskModel.getSettingsValues()
+    let settingsObject=taskModel.getSettingsValues()
     
         return [String(settingsObject.dayStartTime.hour),String(settingsObject.dayStartTime.minutes),String(settingsObject.dayEndTime.hour),String(settingsObject.dayEndTime.minutes)]
     }
     
     func getSettingsValues () -> [Int]
     {
-        var settingsObject=taskModel.getSettingsValues()
+        let settingsObject=taskModel.getSettingsValues()
         
         var scheduleAlgorithmPick=0
         var scheduleDensityPick=2
@@ -637,7 +634,7 @@ class TaskViewModel : ObservableObject
             
         case 1:
             self.latestDayChoiseIndex=1
-            var dayName=DaysOfTheWeek.Sunday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Sunday.rawValue.lowercased()
              var tasks=taskModel.retrieveAllTasks()
                  
                  tasks.sort {
@@ -661,7 +658,7 @@ class TaskViewModel : ObservableObject
             
         case 2:
             self.latestDayChoiseIndex=2
-             var dayName=DaysOfTheWeek.Monday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Monday.rawValue.lowercased()
              var tasks=taskModel.retrieveAllTasks()
                  
                  tasks.sort {
@@ -683,7 +680,7 @@ class TaskViewModel : ObservableObject
             allTasks=matchingTasks
         case 3:
             self.latestDayChoiseIndex=3
-            var dayName=DaysOfTheWeek.Tuesday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Tuesday.rawValue.lowercased()
              var tasks=taskModel.retrieveAllTasks()
                  
                  tasks.sort {
@@ -705,7 +702,7 @@ class TaskViewModel : ObservableObject
             allTasks=matchingTasks
         case 4:
             self.latestDayChoiseIndex=4
-              var dayName=DaysOfTheWeek.Wednesday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Wednesday.rawValue.lowercased()
              var tasks=taskModel.retrieveAllTasks()
                  
                  tasks.sort {
@@ -727,7 +724,7 @@ class TaskViewModel : ObservableObject
             allTasks=matchingTasks
         case 5:
             self.latestDayChoiseIndex=5
-             var dayName=DaysOfTheWeek.Thursday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Thursday.rawValue.lowercased()
              var tasks=taskModel.retrieveAllTasks()
                  
                  tasks.sort {
@@ -749,7 +746,7 @@ class TaskViewModel : ObservableObject
             allTasks=matchingTasks
         case 6:
             self.latestDayChoiseIndex=6
-             var dayName=DaysOfTheWeek.Friday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Friday.rawValue.lowercased()
              var tasks=taskModel.retrieveAllTasks()
                  
                  tasks.sort {
@@ -771,7 +768,7 @@ class TaskViewModel : ObservableObject
             allTasks=matchingTasks
         case 7:
             self.latestDayChoiseIndex=7
-               var dayName=DaysOfTheWeek.Saturday.rawValue.lowercased()
+            let dayName=DaysOfTheWeek.Saturday.rawValue.lowercased()
                var tasks=taskModel.retrieveAllTasks()
                    
                    tasks.sort {
@@ -897,11 +894,6 @@ class TaskViewModel : ObservableObject
     }
     
     func UpdateData(id:UUID,newTaskName : String, newNotes : String,color:Color ){
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-           
-           //We need to create a context from this container
-           let managedContext = appDelegate.persistentContainer.viewContext
         
 
         

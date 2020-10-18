@@ -20,9 +20,8 @@ struct ColorPicker: View {
         {
             color in
             
-            Button(action:{ })//self.colorChoise=color
-                             //  self.mode.wrappedValue.dismiss()})
-                {
+            Button(action:{ })
+            {
                  
                 RoundedRectangle(cornerRadius: 20).fill(color)
             

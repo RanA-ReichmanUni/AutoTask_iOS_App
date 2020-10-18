@@ -29,7 +29,7 @@ class HelperFuncs{
     func dateToString(date : CustomDate) -> String
        {
             
-           var dateString=String(date.day)+"/"+String(date.month)+"/"+String(date.year)
+        let dateString=String(date.day)+"/"+String(date.month)+"/"+String(date.year)
 
            return dateString
        }
@@ -38,7 +38,7 @@ class HelperFuncs{
       
       func initTask() -> Task{
         
-         var task = Task()
+        let task = Task()
         
           task.setValue("Test", forKey: "taskName")
           task.setValue("Test", forKey: "importance")

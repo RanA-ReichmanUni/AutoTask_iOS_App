@@ -172,13 +172,13 @@ struct SettingsUI: View {
           endPoint:.bottom
         )))*/.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
             
-            var settingsObject=self.taskViewModel.getSettingsValues()
+            let settingsObject=self.taskViewModel.getSettingsValues()
             self.selectedDensityIndex=settingsObject[0]
             self.selectedSchedulingAlgorithmIndex=settingsObject[1]
             self.selectedBreakPeriodsIndex=settingsObject[2]
             self.selectedAnimationIndex=settingsObject[3]
             
-            var dayBoundsSettings = self.taskViewModel.GetDayBoundsSettingsValues()
+            let dayBoundsSettings = self.taskViewModel.GetDayBoundsSettingsValues()
             
             self.fromSelection=[dayBoundsSettings[0],dayBoundsSettings[1]]
             self.toSelection=[dayBoundsSettings[2],dayBoundsSettings[3]]

@@ -34,7 +34,7 @@ struct ScheduleViewRow: View {
         
     
      
-            List(self.taskViewModel.hoursRange,id:\.self){
+                List(self.hoursRange,id:\.self){
                     hour in
             
                if(hour > 9)
@@ -95,7 +95,7 @@ struct ScheduleViewRow: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
               
-            }/*.id(UUID())*/.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
+                }.id(UUID()).animation(.easeInOut(duration: 1))/*.id(UUID())*/.frame( maxWidth: .infinity, maxHeight: .infinity)//.colorMultiply(Color(hex:"#fff3d4"))
         //  Spacer()
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))

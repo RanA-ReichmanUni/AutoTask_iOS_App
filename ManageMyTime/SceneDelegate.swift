@@ -23,18 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         
-         var taskViewModel = TaskViewModel()
+        let taskViewModel = TaskViewModel()
         taskViewModel.retrieveAllTasks()
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = ContentView().environment(\.managedObjectContext, context)
+       
        // let addTask = AddTask().environment(\.managedObjectContext, context)
        // let taskList = TaskList().environment(\.managedObjectContext, context)
          //let buttonTestingView = ButtonTestingView().environment(\.managedObjectContext, context)
         // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
-        let tempNavigator = TempNavigator().environment(\.managedObjectContext, context).environmentObject(taskViewModel)
-        let tableTestD = TableTestD().environment(\.managedObjectContext, context)
-         let mainUI = MainUI().environment(\.managedObjectContext, context)
+      
         
        let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
       

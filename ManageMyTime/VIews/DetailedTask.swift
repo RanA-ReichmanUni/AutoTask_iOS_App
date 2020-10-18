@@ -86,7 +86,7 @@ struct DetailedTask: View {
                 
                 HStack {
                     Text("Note: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    Text(notes as! String).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width:180,height:200)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    Text(notes).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width:180,height:200)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                 }
                 
                 HStack {
