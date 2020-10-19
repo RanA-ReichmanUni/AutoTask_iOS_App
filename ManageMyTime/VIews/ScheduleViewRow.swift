@@ -55,7 +55,7 @@ struct ScheduleViewRow: View {
                 }
                 HStack(spacing:4){
               
-                    ForEach(self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour))
+                    ForEach(self.taskViewModel.retrieveAllTasksByHourOrginal(hour:hour),id:\.id)
                     {
                         weekByHour in
        

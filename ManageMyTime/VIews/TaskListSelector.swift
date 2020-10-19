@@ -20,19 +20,19 @@ struct TaskListSelector: View {
         VStack{
             if(taskViewModel.GetAnimationStyleSettings()==animationStyle.smooth.rawValue)
             {
-                TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
+                TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.DayToIndexConverter(),geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
                 
             }
             else if(taskViewModel.GetAnimationStyleSettings()==animationStyle.fast.rawValue)
             {
-                TaskListFastAnimation(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
+                TaskListFastAnimation(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.DayToIndexConverter(),geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
             }
             else if(taskViewModel.GetAnimationStyleSettings()==animationStyle.spring.rawValue)
             {
-                TaskListSpringAnimation(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
+                TaskListSpringAnimation(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.DayToIndexConverter(),geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
             }
             else{
-                TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
+                TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.DayToIndexConverter(),geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
             }
         }
     }

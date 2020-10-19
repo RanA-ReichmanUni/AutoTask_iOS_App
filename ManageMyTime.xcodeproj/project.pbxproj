@@ -72,6 +72,7 @@
 		256B6B75253CCF9D0024D3EF /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B6B74253CCF9D0024D3EF /* ViewRouter.swift */; };
 		256B6B77253CCFE20024D3EF /* MainViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B6B76253CCFE20024D3EF /* MainViewRouter.swift */; };
 		256B6B79253CE8040024D3EF /* DailyListTextHourSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B6B78253CE8040024D3EF /* DailyListTextHourSelector.swift */; };
+		256CB0B5253D9AA1009D4D82 /* OnBoardingQuickSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CB0B4253D9AA1009D4D82 /* OnBoardingQuickSettings.swift */; };
 		256DA01F24F94DED003A408E /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256DA01E24F94DED003A408E /* SummaryView.swift */; };
 		256E883A24ED73E400293706 /* RestrictedSpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E883924ED73E400293706 /* RestrictedSpaceModel.swift */; };
 		256E883C24ED74AF00293706 /* RestrictedSpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256E883B24ED74AF00293706 /* RestrictedSpaceViewModel.swift */; };
@@ -227,6 +228,7 @@
 		256B6B74253CCF9D0024D3EF /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		256B6B76253CCFE20024D3EF /* MainViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewRouter.swift; sourceTree = "<group>"; };
 		256B6B78253CE8040024D3EF /* DailyListTextHourSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyListTextHourSelector.swift; sourceTree = "<group>"; };
+		256CB0B4253D9AA1009D4D82 /* OnBoardingQuickSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingQuickSettings.swift; sourceTree = "<group>"; };
 		256DA01E24F94DED003A408E /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		256E883924ED73E400293706 /* RestrictedSpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceModel.swift; sourceTree = "<group>"; };
 		256E883B24ED74AF00293706 /* RestrictedSpaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceViewModel.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				2563B3B5253CA20900306FB2 /* PageViewController1.swift */,
 				256B6B70253CA42C0024D3EF /* PagingScrollingView.swift */,
 				2563B3AD253C95BD00306FB2 /* PageControl.swift */,
+				256CB0B4253D9AA1009D4D82 /* OnBoardingQuickSettings.swift */,
 			);
 			path = SecondOnboardingViews;
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 				25EDA89F24B4C05200094B23 /* HourlyTime.swift in Sources */,
 				257392EE251CEF7900C81F05 /* RestrictedSpace+CoreDataClass.swift in Sources */,
 				2519384B24C686290010E72D /* TempNavigator.swift in Sources */,
+				256CB0B5253D9AA1009D4D82 /* OnBoardingQuickSettings.swift in Sources */,
 				2585BC562506828C00EED2EB /* SpaceSection.swift in Sources */,
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
 				25105F9424E14A940066758B /* CardTaskRow.swift in Sources */,

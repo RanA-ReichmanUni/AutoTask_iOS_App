@@ -45,7 +45,7 @@ class TaskViewModel : ObservableObject
 {
     
     
-    private var viewModelTask : Task
+    private var viewModelTask : Task?
     
     @Published var allTasks = [Task]()
     
@@ -101,7 +101,8 @@ class TaskViewModel : ObservableObject
         dueDate=Date()
         notes="None"
         //allTasks=[]
-        viewModelTask=Task()
+       // viewModelTask=Task()
+      
         //color=Color(.systemTeal)
         id=UUID()
         color=Color.blue
@@ -168,6 +169,13 @@ class TaskViewModel : ObservableObject
         
     }
     
+    func DestroyAll()
+    {
+        
+        taskModel.DestroyAll()
+        allTasks=[]
+        
+    }
   
     
     func createTask(taskName:String,importance:String,workTimeHours:String,workTimeMinutes:String,dueDate:Date,notes:String,color:Color=Color.green,difficultyIndex:Int,notificationIndex:Int) throws
@@ -261,14 +269,14 @@ class TaskViewModel : ObservableObject
 
          viewModelTask=taskModel.retrieveTask(taskID: taskUUID)
           
-        self.taskName=viewModelTask.taskName
-        self.importance=viewModelTask.importance!
+        self.taskName=viewModelTask!.taskName
+        self.importance=viewModelTask!.importance!
         //self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
-        self.dueDate=viewModelTask.dueDate
-        self.notes=viewModelTask.notes!
-        self.color=taskModel.getTaskColor(color:viewModelTask.color!)
+        self.dueDate=viewModelTask!.dueDate
+        self.notes=viewModelTask!.notes!
+        self.color=taskModel.getTaskColor(color:viewModelTask!.color!)
         
-        SetViewHourStandard(startTime: viewModelTask.startTime!, endTime: viewModelTask.endTime!, asstimatedWorkTime: viewModelTask.asstimatedWorkTime)
+        SetViewHourStandard(startTime: viewModelTask!.startTime!, endTime: viewModelTask!.endTime!, asstimatedWorkTime: viewModelTask!.asstimatedWorkTime)
         //taskModel.retrieveAllTasks()
           
       }
@@ -549,14 +557,14 @@ class TaskViewModel : ObservableObject
         
         viewModelTask=taskModel.retrieveTask(taskName: taskName)
           
-        self.taskName=viewModelTask.taskName
-        self.importance=viewModelTask.importance!
+        self.taskName=viewModelTask!.taskName
+        self.importance=viewModelTask!.importance!
         //self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
-        self.dueDate=viewModelTask.dueDate
-        self.notes=viewModelTask.notes!
-        self.color=taskModel.getTaskColor(color: viewModelTask.color!)
+        self.dueDate=viewModelTask!.dueDate
+        self.notes=viewModelTask!.notes!
+        self.color=taskModel.getTaskColor(color: viewModelTask!.color!)
        
-        SetViewHourStandard(startTime: viewModelTask.startTime!, endTime: viewModelTask.endTime!, asstimatedWorkTime: viewModelTask.asstimatedWorkTime)
+        SetViewHourStandard(startTime: viewModelTask!.startTime!, endTime: viewModelTask!.endTime!, asstimatedWorkTime: viewModelTask!.asstimatedWorkTime)
         //taskModel.retrieveAllTasks()
           
       }
@@ -619,6 +627,33 @@ class TaskViewModel : ObservableObject
           
           
       }
+    
+    func DayToIndexConverter() -> Int
+    {
+           
+        switch Date().dayOfWeek()!.lowercased()
+        {
+                
+            case "sunday":
+                 return 1
+            case "monday":
+                 return 2
+            case "tuesday":
+                 return 3
+            case "wednesday":
+                 return 4
+            case "thursday":
+                 return 5
+            case "friday":
+                 return 6
+            case "saturday":
+                 return 7
+            default:
+                return 0
+  
+        }
+        
+    }
     
     func GetDayTasksByIndex(index:Int)
     {
@@ -916,19 +951,19 @@ class TaskViewModel : ObservableObject
         
         viewModelTask=taskModel.retrieveTask(taskID: taskId)
         
-        self.taskName=viewModelTask.taskName
-        self.importance=viewModelTask.importance!
+        self.taskName=viewModelTask!.taskName
+        self.importance=viewModelTask!.importance!
         //self.asstimatedWorkTime=viewModelTask.asstimatedWorkTime
-        print(viewModelTask.asstimatedWorkTime)
-        self.dueDate=viewModelTask.dueDate
-        self.notes=viewModelTask.notes!
-        self.date=viewModelTask.date
+        print(viewModelTask!.asstimatedWorkTime)
+        self.dueDate=viewModelTask!.dueDate
+        self.notes=viewModelTask!.notes!
+        self.date=viewModelTask!.date
         //self.startTime=viewModelTask.startTime!
         //self.endTime=viewModelTask.endTime!
-        self.id=viewModelTask.id
-        self.color=taskModel.getTaskColor(color: viewModelTask.color!)
+        self.id=viewModelTask!.id
+        self.color=taskModel.getTaskColor(color: viewModelTask!.color!)
         
-        SetViewHourStandard(startTime: viewModelTask.startTime!, endTime: viewModelTask.endTime!, asstimatedWorkTime: viewModelTask.asstimatedWorkTime)
+        SetViewHourStandard(startTime: viewModelTask!.startTime!, endTime: viewModelTask!.endTime!, asstimatedWorkTime: viewModelTask!.asstimatedWorkTime)
     }
     
     

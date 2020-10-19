@@ -118,6 +118,254 @@ class TaskModel : UIViewController
                 }
    
     }
+    
+    func DestroyAll()
+       {
+           
+         
+              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+              
+              //We need to create a context from this container
+              let managedContext = appDelegate.persistentContainer.viewContext
+           
+              let currentDate = CustomDate(context:managedContext)
+               currentDate.year=Date().year
+               currentDate.month=Date().month
+               currentDate.day=Date().day
+           
+        
+              
+           
+              let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "LoadLevel")
+                                               
+             
+                      
+                    do
+                    {
+                        let results = try managedContext.fetch(fetchRequest)
+                        
+                  
+                            
+                            
+                          for result in results as! [NSManagedObject] {
+
+                                managedContext.delete(result)
+                               do{
+                                   try managedContext.save()
+                    
+                                   print("Deleted !.")
+                                  
+                               }
+                               catch
+                               {
+                                   print(error)
+                               }
+                                
+                            }
+                    }
+                    catch
+                    {
+                        print(error)
+                    }
+        
+        
+        let fetchRequest2:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Task")
+                                          
+        
+                 
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest2)
+                   
+             
+                       
+                       
+                     for result in results as! [NSManagedObject] {
+
+                           managedContext.delete(result)
+                          do{
+                              try managedContext.save()
+               
+                              print("Deleted !.")
+                             
+                          }
+                          catch
+                          {
+                              print(error)
+                          }
+                           
+                       }
+               }
+               catch
+               {
+                   print(error)
+               }
+                      
+           let fetchRequest3:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Hour")
+                                             
+           
+                    
+                  do
+                  {
+                      let results = try managedContext.fetch(fetchRequest3)
+                      
+                
+                          
+                          
+                        for result in results as! [NSManagedObject] {
+
+                              managedContext.delete(result)
+                             do{
+                                 try managedContext.save()
+                  
+                                 print("Deleted !.")
+                                
+                             }
+                             catch
+                             {
+                                 print(error)
+                             }
+                              
+                          }
+                  }
+                  catch
+                  {
+                      print(error)
+                  }
+        
+        let fetchRequest4:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "CustomDate")
+                                          
+        
+                 
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest4)
+                   
+             
+                       
+                       
+                     for result in results as! [NSManagedObject] {
+
+                           managedContext.delete(result)
+                          do{
+                              try managedContext.save()
+               
+                              print("Deleted !.")
+                             
+                          }
+                          catch
+                          {
+                              print(error)
+                          }
+                           
+                       }
+               }
+               catch
+               {
+                   print(error)
+               }
+                  
+        
+        let fetchRequest5:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+                                          
+        
+                 
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest5)
+                   
+             
+                       
+                       
+                     for result in results as! [NSManagedObject] {
+
+                           managedContext.delete(result)
+                          do{
+                              try managedContext.save()
+               
+                              print("Deleted !.")
+                             
+                          }
+                          catch
+                          {
+                              print(error)
+                          }
+                           
+                       }
+               }
+               catch
+               {
+                   print(error)
+               }
+        
+        let fetchRequest6:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
+                                          
+        
+                 
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest6)
+                   
+             
+                       
+                       
+                     for result in results as! [NSManagedObject] {
+
+                           managedContext.delete(result)
+                          do{
+                              try managedContext.save()
+               
+                              print("Deleted !.")
+                             
+                          }
+                          catch
+                          {
+                              print(error)
+                          }
+                           
+                       }
+               }
+               catch
+               {
+                   print(error)
+               }
+        
+           
+        
+        
+        let fetchRequest7:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "SettingsEntity")
+                                          
+        
+                 
+               do
+               {
+                   let results = try managedContext.fetch(fetchRequest7)
+                   
+             
+                       
+                       
+                     for result in results as! [NSManagedObject] {
+
+                           managedContext.delete(result)
+                          do{
+                              try managedContext.save()
+               
+                              print("Deleted !.")
+                             
+                          }
+                          catch
+                          {
+                              print(error)
+                          }
+                           
+                       }
+               }
+               catch
+               {
+                   print(error)
+               }
+           
+       }
     func getFirstTaskColor() ->Color
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Color.white }

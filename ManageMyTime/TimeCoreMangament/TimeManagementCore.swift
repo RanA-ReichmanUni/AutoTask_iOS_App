@@ -882,13 +882,13 @@ class Core{
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
-        let currentHour = Hour(context: managedContext)
+        var currentHour = Hour(context: managedContext)
             currentHour.hour=Date().hour
             currentHour.minutes=Date().minutes
             
-            currentHour.add(minutesValue: 15)
+           // currentHour=currentHour.add(minutesValue: 15)
             
-        let minimalSpaceDuration=Hour(context: managedContext)
+            let minimalSpaceDuration=Hour(context: managedContext)
                 minimalSpaceDuration.hour=0
                 minimalSpaceDuration.minutes=30
       
@@ -1093,7 +1093,7 @@ class Core{
                                                           //Check if the task WorkTime is bigger then the available space, or if we can'y use the whole freeSpace duration since the newTask startTime is from current hour which is bigger from the freeSpace startTime.
                                                             let actualFreeSpaceDuration = freeSpace.ending.subtract(newHour: newTask.startTime!)
                                                             
-                                                            if(asstimatedWorkTime > freeSpace.duration || freeSpace.ending.subtract(newHour: newTask.startTime!) < freeSpace.duration)
+                                                            if(asstimatedWorkTime > freeSpace.duration || freeSpace.ending.subtract(newHour: newTask.startTime!) < freeSpace.duration && actualFreeSpaceDuration < asstimatedWorkTime)
                                                             {//Case we can't fit the whole task in the section window
                                                                 
                                                               
@@ -1101,7 +1101,7 @@ class Core{
                                                                 
                                                                // let remainingWorkSpace = freeSpace.duration
                                                                 
-                                                                
+                                                                print("P2: "+asstimatedWorkTime.hour.description+":"+asstimatedWorkTime.minutes.description)
                                                                 //if the remanining WorkTime after therotically scheduling this task is bigger or equal to the minimalPartitionSize then schedule the current task
                                                                 if(asstimatedWorkTime.subtract(newHour: actualFreeSpaceDuration) >= minimalPartitionSize)
                                                                 {
@@ -1181,7 +1181,7 @@ class Core{
                                                             
                                                              let actualFreeSpaceDuration = freeSpace.ending.subtract(newHour: newTask.startTime!)
                                                                                                                  
-                                                             if(asstimatedWorkTime > freeSpace.duration || freeSpace.ending.subtract(newHour: newTask.startTime!) < freeSpace.duration)
+                                                             if(asstimatedWorkTime > freeSpace.duration || freeSpace.ending.subtract(newHour: newTask.startTime!) < freeSpace.duration && actualFreeSpaceDuration < asstimatedWorkTime                                                                                                             )
                                                              {//Case we can't fit the whole task in the section window
                                                                  
                                                                
@@ -2434,6 +2434,7 @@ class Core{
             var retrivedSpaces=[FreeTaskSpace]()
             var calendarSequance=[CustomDate]()
             
+            print(latestTask.date.day.description+"/"+latestTask.date.month.description)
              do{
                calendarSequance = try createCalanderSequence(startDate: currentDate, endDate: latestTask.date)
             }
@@ -2931,87 +2932,87 @@ class Core{
    }
     
    func createCalanderSequence(startDate:CustomDate,endDate:CustomDate) throws -> [CustomDate]
-    {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate] ()}
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        var dateSequence=[CustomDate]()
-             
-      
-        
-        //Seems like a managedContext var is passed by refrence !, when we are moving to a new month for example, the currentIndexDate changes and thus we need to seperate it from the orginal object that the ScheduleTask method uses and create a new seperate object.
-        
-        let currentIndexDate=CustomDate(context: managedContext)
-        currentIndexDate.day=startDate.day
-        currentIndexDate.month=startDate.month
-        currentIndexDate.year=startDate.year
-        
-        while(currentIndexDate.year < endDate.year)
-        {
-            while(currentIndexDate.month < 13)
-            {
-                for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
-                {
-                    let newDate = CustomDate(context:managedContext)
-                        newDate.year=currentIndexDate.year
-                        newDate.month=currentIndexDate.month
-                        newDate.day=day
-                    
-                      dateSequence.append(newDate)
-                                                             
-               }
-                currentIndexDate.day=1
-                currentIndexDate.month+=1
-            }
-            
-            currentIndexDate.month=1
-            currentIndexDate.year+=1
-        }
-        //Same year
-        
-        while(currentIndexDate.month < endDate.month)
-        {
-             for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
-              {
-                
-                let newDate = CustomDate(context:managedContext)
-                               newDate.year=currentIndexDate.year
-                               newDate.month=currentIndexDate.month
-                               newDate.day=day
-                
-                dateSequence.append(newDate)
-                                                                 
-              }
-                currentIndexDate.day=1
-                currentIndexDate.month+=1
-        }
-        //Same month
-        do{
-            for day in currentIndexDate.day...endDate.day
-            {
-                let newDate = CustomDate(context:managedContext)
-                                            newDate.year=currentIndexDate.year
-                                            newDate.month=currentIndexDate.month
-                                            newDate.day=day
-                
-                  dateSequence.append(newDate)
-                                                                               
-            }
-        }
-        catch{
-            throw   DateBoundsError.dueDateIsInPastTime
-        }
+   {
+       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [CustomDate] ()}
        
-      /*  for data in dateSequence
-        {
-            print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
-        }*/
-        
-        return dateSequence
-     
+       let managedContext = appDelegate.persistentContainer.viewContext
+       
+       var dateSequence=[CustomDate]()
+            
+       var startOfMonthIndex:Int
+       
+       //Seems like a managedContext var is passed by refrence !, when we are moving to a new month for example, the currentIndexDate changes and thus we need to seperate it from the orginal object that the ScheduleTask method uses and create a new seperate object.
+       
+       var currentIndexDate=CustomDate(context: managedContext)
+       currentIndexDate.day=startDate.day
+       currentIndexDate.month=startDate.month
+       currentIndexDate.year=startDate.year
+       
+       while(currentIndexDate.year < endDate.year)
+       {
+           while(currentIndexDate.month < 13)
+           {
+               for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
+               {
+                   let newDate = CustomDate(context:managedContext)
+                       newDate.year=currentIndexDate.year
+                       newDate.month=currentIndexDate.month
+                       newDate.day=day
+                   
+                     dateSequence.append(newDate)
+                                                            
+              }
+               currentIndexDate.day=1
+               currentIndexDate.month+=1
+           }
+           
+           currentIndexDate.month=1
+           currentIndexDate.year+=1
+       }
+       //Same year
+       
+       while(currentIndexDate.month < endDate.month)
+       {
+            for day in currentIndexDate.day...currentIndexDate.endOfMonth.day
+             {
+               
+               let newDate = CustomDate(context:managedContext)
+                              newDate.year=currentIndexDate.year
+                              newDate.month=currentIndexDate.month
+                              newDate.day=day
+               
+               dateSequence.append(newDate)
+                                                                
+             }
+               currentIndexDate.day=1
+               currentIndexDate.month+=1
+       }
+       //Same month
+       do{
+           for day in currentIndexDate.day...endDate.day
+           {
+               let newDate = CustomDate(context:managedContext)
+                                           newDate.year=currentIndexDate.year
+                                           newDate.month=currentIndexDate.month
+                                           newDate.day=day
+               
+                 dateSequence.append(newDate)
+                                                                              
+           }
+       }
+       catch{
+           throw   DateBoundsError.dueDateIsInPastTime
+       }
+      
+     /*  for data in dateSequence
+       {
+           print("D: ",data.day,"M: ",data.month,"Y: ",data.year)
+       }*/
+       
+       return dateSequence
+    
 
-    }
+   }
     
     func createCalanderSequence(startDay:Int,startMonth:Int,startYear:Int,endDay:Int,endMonth:Int,endYear:Int)-> [CustomDate]
        {

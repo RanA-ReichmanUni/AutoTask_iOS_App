@@ -76,7 +76,7 @@ struct TaskListSpringAnimation: View {
                 
                  
                     
-                    ForEach(self.taskViewModel.allTasks, id: \.self) { task in
+                    ForEach(self.taskViewModel.allTasks, id: \.id) { task in
                         
                         VStack{
                             if(self.colorScheme != .dark)

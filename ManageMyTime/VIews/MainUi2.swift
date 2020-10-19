@@ -139,6 +139,7 @@ struct MainUI2: View {
                              self.listFlag=true
                              self.toggleActive=false
                            
+                        self.taskViewModel.hoursRange=[]
                          }
             
                          
@@ -236,7 +237,7 @@ struct MainUI2: View {
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
                             self.toggleActive=true
-                      
+                       self.taskViewModel.hoursRange=[]
                         
                     }) {
                          VStack{
@@ -260,7 +261,7 @@ struct MainUI2: View {
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
                             self.toggleActive=false
-                        
+                         self.taskViewModel.hoursRange=[]
                         }
                     }) {
                             VStack{

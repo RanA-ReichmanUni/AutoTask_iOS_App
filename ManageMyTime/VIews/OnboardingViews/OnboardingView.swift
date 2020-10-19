@@ -35,7 +35,7 @@ struct OnboardingView: View {
                     Text(self.titles[self.currentPageIndex])
                         .font(.title)
                         
-                    Text(self.captions[self.currentPageIndex])
+                        Text(self.captions[self.currentPageIndex])
                     .font(.subheadline)
                     .foregroundColor(.gray)
                        

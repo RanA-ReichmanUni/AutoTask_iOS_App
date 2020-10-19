@@ -9,22 +9,23 @@
 import SwiftUI
 
 struct MainViewRouter : View {
-    
+    @ObservedObject var taskViewModel:TaskViewModel
     @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack {
             if viewRouter.currentPage == "PageViewController1" {
-                PageViewController1()
+                PageViewController1(taskViewModel:self.taskViewModel)
             } else if viewRouter.currentPage == "MainUI2" {
-                MainUI2()
+                MainUI2(taskViewModel:self.taskViewModel)
             }
         }
     }
 }
 
-struct MainViewRouter_Previews: PreviewProvider {
+/*struct MainViewRouter_Previews: PreviewProvider {
     static var previews: some View {
         MainViewRouter().environmentObject(ViewRouter())
     }
 }
+*/

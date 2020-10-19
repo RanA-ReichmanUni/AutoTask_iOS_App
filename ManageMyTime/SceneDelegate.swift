@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       
        // let pageViewController=PageViewController1()
       // let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
-      let mainViewRouter = MainViewRouter().environmentObject(ViewRouter())
+      let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter())
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

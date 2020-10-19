@@ -25,7 +25,7 @@ struct TaskList: View {
     var helper = HelperFuncs()
     var dayNames = ["Week Tasks "," Sunday "," Monday "," Tuesday "," Wednesday "," Thursday "," Friday "," Saturday "]
     @State var show:Bool=false
-    @State var dayIndexSelector:Int=0
+    @State var dayIndexSelector:Int
     var geometry:GeometryProxy
     @Binding var addTaskFlag:Bool
     @Binding var listFlag:Bool
@@ -71,7 +71,9 @@ struct TaskList: View {
                                 Spacer()
                                                               }
                               
-                              RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350)
+                              RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).onAppear{self.dayIndexSelector=self.taskViewModel.DayToIndexConverter()
+                                self.GetTasksByChoise()
+                        }
                               //Keeps safe space from the edge of screen so the first card can pull up to a safe area
                           }
                 
@@ -196,7 +198,7 @@ struct TaskList: View {
                                         }*/
                
                 
-            }.background(self.colorScheme == .dark ? Color.black : Color.white).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex}
+            }.background(self.colorScheme == .dark ? Color.black : Color.white)
             
             
             ZStack(alignment: .bottomTrailing) {
