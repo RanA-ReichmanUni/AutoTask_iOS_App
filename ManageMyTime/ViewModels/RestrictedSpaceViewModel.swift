@@ -107,6 +107,9 @@ class RestrictedSpaceViewModel : ObservableObject
         catch RestrictedSpaceError.alreadyScheduled {
             throw RestrictedSpaceError.alreadyScheduled
         }
+        catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
+            throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
+        }
         catch{
             
         }

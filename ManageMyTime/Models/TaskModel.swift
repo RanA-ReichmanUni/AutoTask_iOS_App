@@ -940,6 +940,101 @@ class TaskModel : UIViewController
         }
     }
     
+    func createData(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:Color=Color.green,difficulty:String=difficultyLevel.average.rawValue,notificationFactor:Int=10,internalId:UUID) throws {
+        
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        //Now let’s create an entity and new user records.
+       // let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
+        
+        //final, we need to add some data to our newly created record for each keys using
+        //here adding 5 data with loop
+        do {
+            _ = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
+        }
+        catch{
+            throw DatabaseError.taskCanNotBeScheduledInDue
+        }
+            
+            /*let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
+            task.setValue(retrivedTask.taskName, forKeyPath: "taskName")
+            task.setValue(retrivedTask.importance, forKeyPath: "importance")
+            task.setValue(retrivedTask.asstimatedWorkTime, forKeyPath: "asstimatedWorkTime")
+            task.setValue(retrivedTask.dueDate, forKeyPath: "dueDate")
+            task.setValue(retrivedTask.notes, forKeyPath: "notes")
+            task.setValue(retrivedTask.startTime, forKeyPath: "startTime")
+            task.setValue(retrivedTask.date, forKeyPath: "date")
+            task.setValue(retrivedTask.endTime, forKeyPath: "endTime")
+            task.setValue(retrivedTask.completed, forKeyPath: "completed")
+            task.setValue(retrivedTask.color, forKeyPath: "color")
+            task.setValue(retrivedTask.active, forKeyPath: "active")
+            task.setValue(UUID(), forKeyPath: "id")*/
+        
+
+        //Now we have set all the values. The next step is to save them inside the Core Data
+        
+        do {
+            try managedContext.save()
+                print("Saved Task !.")
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func CreateDataAndReturn(taskName:String,importance:String,asstimatedWorkTime:Hour,dueDate:Date,notes:String,color:Color=Color.green,difficulty:String=difficultyLevel.average.rawValue,notificationFactor:Int=10,internalId:UUID) throws -> UUID  {
+           
+           //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return UUID() }
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+           //Now let’s create an entity and new user records.
+          // let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
+           
+           //final, we need to add some data to our newly created record for each keys using
+           //here adding 5 data with loop
+        let taskId=UUID()
+        
+           do {
+               let task = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
+           }
+           catch{
+               throw DatabaseError.taskCanNotBeScheduledInDue
+           }
+               
+        
+               /*let task = NSManagedObject(entity: taskEntity, insertInto: managedContext)
+               task.setValue(retrivedTask.taskName, forKeyPath: "taskName")
+               task.setValue(retrivedTask.importance, forKeyPath: "importance")
+               task.setValue(retrivedTask.asstimatedWorkTime, forKeyPath: "asstimatedWorkTime")
+               task.setValue(retrivedTask.dueDate, forKeyPath: "dueDate")
+               task.setValue(retrivedTask.notes, forKeyPath: "notes")
+               task.setValue(retrivedTask.startTime, forKeyPath: "startTime")
+               task.setValue(retrivedTask.date, forKeyPath: "date")
+               task.setValue(retrivedTask.endTime, forKeyPath: "endTime")
+               task.setValue(retrivedTask.completed, forKeyPath: "completed")
+               task.setValue(retrivedTask.color, forKeyPath: "color")
+               task.setValue(retrivedTask.active, forKeyPath: "active")
+               task.setValue(UUID(), forKeyPath: "id")*/
+           
+
+           //Now we have set all the values. The next step is to save them inside the Core Data
+           
+           do {
+               try managedContext.save()
+                   print("Saved Task !.")
+           } catch let error as NSError {
+               print("Could not save. \(error), \(error.userInfo)")
+           }
+        
+        return taskId
+       }
+    
     func createRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String)
     {
         
@@ -1822,6 +1917,19 @@ class TaskModel : UIViewController
               }
     
 
+    func CheckHourContradiction(objectStartTime:Hour,objectEndTime:Hour,secondObjectStartTime:Hour,secondObjectEndTime:Hour) -> Bool
+    {
+        
+        if((objectStartTime == secondObjectStartTime) || (objectStartTime <= secondObjectStartTime && objectEndTime > secondObjectStartTime) || (objectStartTime > secondObjectStartTime && objectEndTime < secondObjectEndTime) || (objectStartTime > secondObjectStartTime && objectEndTime <  secondObjectStartTime) || (objectStartTime > secondObjectStartTime && objectEndTime > secondObjectStartTime /*&& $0.startTime!.hour==hour) || (objectEndTime > secondObjectStartTime && $0.startTime!.hour < hour*/))
+        {
+            return true
+        }
+        
+        return false
+        
+        
+    }
+    
     func retrieveAllTasksByHourOrginal(hour:Int) -> [TasksPerHourPerDay] {
              
           var allTasks=[TasksPerHourPerDay]()
@@ -2477,6 +2585,57 @@ class TaskModel : UIViewController
         {
             print(error)
         }
+        
+       
+       // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+        
+        
+        
+    }
+    
+    func SingularTaskDelete(taskId : UUID){
+        
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", taskId as CVarArg)
+       
+      
+        
+        do
+        {
+            let requiredTask = try managedContext.fetch(fetchRequest)
+            
+            let objectToDelete = requiredTask[0] as! NSManagedObject
+            
+            let task = requiredTask[0] as! Task
+            let freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
+            coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+            
+               managedContext.delete(objectToDelete)
+               do{
+                   try managedContext.save()
+
+                   print("Deleted !.")
+
+                   
+               }
+               catch
+               {
+                   print(error)
+            }
+            
+        }
+        catch
+        {
+            print(error)
+        }
+        
+        
         
        
        // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)

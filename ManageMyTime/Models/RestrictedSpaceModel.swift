@@ -248,7 +248,7 @@ class RestrictedSpaceModel : UIViewController
     
     func CreateRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,daysOfTheWeek: [String],difficulty:String) throws
        {
-           
+           var taskModel=TaskModel()
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
            
           
@@ -289,6 +289,33 @@ class RestrictedSpaceModel : UIViewController
            
            if(!alreadyScheduled)
            {
+            
+            
+            let allTasks = taskModel.retrieveAllTasks()
+            var restrictedSpacesIds=[UUID]()
+            var tasksToDelete=[Task]()
+            var datesToRescheduleFreeSpaces=[CustomDate]()
+            
+              for day in daysOfTheWeek
+              {
+                if(allTasks.contains(where: {$0.date.dayOfWeek().lowercased()==day.lowercased() && taskModel.CheckHourContradiction(objectStartTime: $0.startTime!, objectEndTime: $0.endTime!, secondObjectStartTime: startTime, secondObjectEndTime: endTime)}))
+                    {
+                        
+                        let matchingTasks=(allTasks.all(where: {$0.date.dayOfWeek().lowercased()==day.lowercased() && taskModel.CheckHourContradiction(objectStartTime: $0.startTime!, objectEndTime: $0.endTime!, secondObjectStartTime: startTime, secondObjectEndTime: endTime)}))
+                        
+                        for task in matchingTasks
+                        {
+                            if (!datesToRescheduleFreeSpaces.contains(task.date))
+                            {
+                                datesToRescheduleFreeSpaces.append(task.date)
+                            }
+                            
+                        }
+                        
+                        tasksToDelete.append(contentsOf:matchingTasks )
+ 
+                    }
+              }
                 for day in daysOfTheWeek
                 {
                     let restrictedSpace = RestrictedSpace(context: managedContext)
@@ -301,7 +328,10 @@ class RestrictedSpaceModel : UIViewController
                      restrictedSpace.name=name
                      restrictedSpace.color=color
                    //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
-
+                    
+                    
+                    restrictedSpacesIds.append(restrictedSpace.id)
+                    
                      do {
                               try managedContext.save()
                                   print("Saved RestrictedSpace.")
@@ -310,6 +340,50 @@ class RestrictedSpaceModel : UIViewController
                           }
                     
                 }
+            
+            
+                
+            
+            
+            do{
+                if(!tasksToDelete.isEmpty)
+                {
+                    try RescheduleTasks(tasksToDelete: tasksToDelete, restrictedSpacesIds: restrictedSpacesIds,datesToRescheduleFreeSpaces: datesToRescheduleFreeSpaces)
+                }
+            }
+            catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
+                
+                //Insert restricted spaces that was deleted in order to schedule the previous dates again
+                for day in daysOfTheWeek
+                {
+                    let restrictedSpace = RestrictedSpace(context: managedContext)
+                                 
+                     restrictedSpace.startTime=startTime
+                     restrictedSpace.endTime=endTime
+                     restrictedSpace.dayOfTheWeek=day
+                     restrictedSpace.id=UUID()
+                     restrictedSpace.difficulty=difficulty
+                     restrictedSpace.name=name
+                     restrictedSpace.color=color
+                   //  coreManagment.createDayFreeSpace(restrictedStartTime: startTime, restrictedEndTime: endTime, dayOfTheWeek: dayOfTheWeek)
+                    
+                    restrictedSpacesIds.append(restrictedSpace.id)
+                    
+                     do {
+                              try managedContext.save()
+                                  print("Saved RestrictedSpace.")
+                          } catch let error as NSError {
+                              print("Could not save. \(error), \(error.userInfo)")
+                          }
+           
+                }
+                
+                throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
+            }
+            
+          
+            
+            
              
            }
            else{
@@ -318,10 +392,84 @@ class RestrictedSpaceModel : UIViewController
            
     }
     
+    func RescheduleTasks(tasksToDelete:[Task],restrictedSpacesIds:[UUID],datesToRescheduleFreeSpaces:[CustomDate]) throws{
+        
+        var newScheduledTasksIds=[UUID]()
+        let managmentCore=Core()
+        let taskModel=TaskModel()
+       // let allTasks = taskModel.retrieveAllTasks()
+        var tasksToReschedule=[TempTaskObject]()
+         for taskToDelete in tasksToDelete
+         {
+            print("associId: "+taskToDelete.associatedFreeSpaceId!.description)
+            tasksToReschedule.append(TempTaskObject(active: taskToDelete.active, color: taskToDelete.color!, completed: taskToDelete.completed, dueDate: taskToDelete.dueDate, id: taskToDelete.id, importance: taskToDelete.importance!, isTaskBreakWindow: taskToDelete.isTaskBreakWindow, notes: taskToDelete.notes!, taskName: taskToDelete.taskName, internalId: taskToDelete.internalId!, asstimatedWorkTime: taskToDelete.asstimatedWorkTime, date: taskToDelete.date, endTime: taskToDelete.endTime!, startTime: taskToDelete.startTime!, scheduleSection: taskToDelete.scheduleSection, associatedFreeSpaceId: taskToDelete.associatedFreeSpaceId!, difficulty: taskToDelete.difficulty))
+
+         }
+         
+         
+        
+        for date in datesToRescheduleFreeSpaces
+        {
+            
+            managmentCore.ScheduleFreeSpacesWithNoSection(date: date)
+        }
+         
+         for taskToReschedule in tasksToReschedule
+         {
+             do{
+                try taskModel.createData(taskName: taskToReschedule.taskName, importance: taskToReschedule.importance, asstimatedWorkTime: taskToReschedule.asstimatedWorkTime, dueDate: taskToReschedule.dueDate, notes: taskToReschedule.notes,color:taskModel.getTaskColor(color: taskToReschedule.color) ,difficulty:taskToReschedule.difficulty,internalId:taskToReschedule.internalId)
+             }
+             catch DatabaseError.taskCanNotBeScheduledInDue{
+                 
+                 for id in restrictedSpacesIds{
+                     
+                     DeleteRestrictedSpace(id: id)
+                    
+                 }//Deletes All Previous Shceduled Restricted Spaces
+                 
+                 let allTasks = taskModel.retrieveAllTasks()
+                 
+                 for taskToReschedule in tasksToReschedule{
+                     
+                     if(!allTasks.contains(where: {$0.id==taskToReschedule.id}))
+                     {
+                        
+                        
+                        let taskId=try taskModel.CreateDataAndReturn(taskName: taskToReschedule.taskName, importance: taskToReschedule.importance, asstimatedWorkTime: taskToReschedule.asstimatedWorkTime, dueDate: taskToReschedule.dueDate, notes: taskToReschedule.notes,color:taskModel.getTaskColor(color: taskToReschedule.color),difficulty:taskToReschedule.difficulty,internalId:taskToReschedule.internalId)
+ 
+                        newScheduledTasksIds.append(taskId)
+                     }
+                     
+                 }
+                 
+                 
+                 
+                 
+                 
+                 
+                 throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
+             }
+            
+            //Get rid of some tasks that was rescheduled
+            for id in newScheduledTasksIds
+            {
+                taskModel.deleteTask(taskId: id)
+            }
+            //If all did go well, delete the orginal tasks
+            for taskToDelete in tasksToDelete
+            {
+                
+                taskModel.SingularTaskDelete(taskId: taskToDelete.id)
+                
+            }
+             
+         }
+        
+    }
     
     func DeleteRestrictedSpace(id:UUID)
    {
-       
+      
        //As we know that container is set up in the AppDelegates so we need to refer that container.
              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
              
@@ -336,7 +484,8 @@ class RestrictedSpaceModel : UIViewController
              do
              {
                  let requiredRestrictedSpace = try managedContext.fetch(fetchRequest)
-                 
+               
+                
                   let objectToDelete = requiredRestrictedSpace[0] as! NSManagedObject
                     managedContext.delete(objectToDelete)
                     do{
@@ -360,6 +509,54 @@ class RestrictedSpaceModel : UIViewController
             // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
              
    }
+    
+    
+    /*func DeleteRestrictedSpaceAndFillBack(id:UUID,date:CustomDate)
+      {
+          var coreManagment=Core()
+          //As we know that container is set up in the AppDelegates so we need to refer that container.
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                
+                //We need to create a context from this container
+                let managedContext = appDelegate.persistentContainer.viewContext
+                
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RestrictedSpace")
+                fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+               
+               
+                
+                do
+                {
+                    let requiredRestrictedSpace = try managedContext.fetch(fetchRequest)
+                    let restrictedSpace = requiredRestrictedSpace[0] as! RestrictedSpace
+                    
+                    let freeSpaceId=coreManagment.createFreeSpace(startTime: restrictedSpace.startTime, endTime: restrictedSpace.endTime, date: date, duration: restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime), fullyOccupiedDay: false)
+                    
+                    coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                   
+                     let objectToDelete = requiredRestrictedSpace[0] as! NSManagedObject
+                       managedContext.delete(objectToDelete)
+                       do{
+                           try managedContext.save()
+            
+                           print("Deleted !.")
+                          
+                       }
+                       catch
+                       {
+                           print(error)
+                       }
+                    
+                }
+                catch
+                {
+                    print(error)
+                }
+                
+               
+               // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                
+      }*/
        
     
     

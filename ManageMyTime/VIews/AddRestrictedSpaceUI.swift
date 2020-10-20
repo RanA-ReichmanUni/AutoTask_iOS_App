@@ -246,6 +246,11 @@ struct AddRestrictedSpaceUI: View {
                                     self.isError=true
                                     self.alertType=2
                                 }
+                              catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
+                                
+                                    self.isError=true
+                                    self.alertType=3
+                              }
                                 catch {
                                      
                                     self.isError=true
@@ -285,6 +290,10 @@ struct AddRestrictedSpaceUI: View {
                               return Alert(title: Text("Repeated Tasks Conflict"),
                                            message: Text("\nThere is at least one task that is already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window"),
                                                                dismissButton: .default(Text("OK")))
+                            case 3:
+                                return Alert(title: Text("Attention !, Scheduled Tasks Conflict"),
+                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated task./n/n Your Repeated task will only take effect in the future.\n\n You can also manually delete the scheduled tasks that conflicts with your new repeated activity time window and try to reschedule this tasks again with different Duration or Due Date"),
+                                                          dismissButton: .default(Text("OK")))
                             default:
                                 return Alert(title: Text("Repeated Tasks Conflict"),
                                 message: Text("\n There is a problem with the information you entered."),

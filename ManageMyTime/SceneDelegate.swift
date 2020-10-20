@@ -34,13 +34,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
       
        // let pageViewController=PageViewController1()
-      // let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
+       let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
       let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter())
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: mainViewRouter)
+            window.rootViewController = UIHostingController(rootView: mainUI2)
             self.window = window
             window.makeKeyAndVisible()
         }
