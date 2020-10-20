@@ -1025,7 +1025,7 @@ class Core{
                                             {//The if checks and handles dueDate (day,month,year) calculation
                                                 print("due: "+dueHour.hour.description+":"+dueHour.minutes.description)
                                              
-                                                if(endDueDate > singleDate || singleDate > currentDate && endDueDate == singleDate && freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour || singleDate == currentDate && endDueDate == singleDate && ( (((singleDate == currentDate) && currentHour >= startOfDayHour && freeSpace.starting <= currentHour) && currentHour.add(hour: asstimatedWorkTime) <= dueHour ) || freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour ))
+                                                if(endDueDate > singleDate || singleDate > currentDate && endDueDate == singleDate && freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour || singleDate == currentDate && endDueDate == singleDate && ( (((singleDate == currentDate) && currentHour >= startOfDayHour && freeSpace.starting <= currentHour) && currentHour.add(hour: asstimatedWorkTime) <= dueHour ) || (!(((singleDate == currentDate) && currentHour >= startOfDayHour && freeSpace.starting <= currentHour)) && freeSpace.starting.add(hour: asstimatedWorkTime) <= dueHour )))
                                                 {//The if checks and handle dueHour (hour and minutes) calculation
                                                     
                                                         print("Here")
