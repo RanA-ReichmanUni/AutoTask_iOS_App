@@ -2593,6 +2593,62 @@ class TaskModel : UIViewController
         
     }
     
+    
+    func deleteBreakWindowTask(freeSpaceaAssociatedId : UUID){
+        let coreManagment=Core()
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "associatedFreeSpaceId = %@ AND isTaskBreakWindow = %@",argumentArray: [freeSpaceaAssociatedId,true])
+        
+      
+     
+        
+        do
+        {
+            
+            let requiredTask = try managedContext.fetch(fetchRequest)
+            if(!requiredTask.isEmpty)
+            {
+                let task = requiredTask[0] as! Task
+                  
+                let freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false)
+                
+                 coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                
+                let objectToDelete = task as! NSManagedObject
+                
+                managedContext.delete(objectToDelete)
+              
+                do{
+                       try managedContext.save()
+
+                       print("Deleted !.")
+                      
+                   }
+                   catch
+                   {
+                       print(error)
+                   }
+            }
+            
+        }
+        catch
+        {
+            print(error)
+        }
+        
+       
+       // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+        
+        
+        
+    }
+    
     func SingularTaskDelete(taskId : UUID){
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.

@@ -13,7 +13,7 @@ struct SettingsUI: View {
     @ObservedObject var restrictedSpaceViewModel=RestrictedSpaceViewModel()
     var densityValues = ["Very Spacious", "Spacious", "Medium Density", "Dense","Very Dense","Extremly Dense","Maximum Capacity"]
     var schedulingAlgorithm = ["Smart - Least work stress (based on difficulty and work time in combine)","Optimal - Least work time per day.","Advanced - Least work time per day, exclude personal activities.","Earliest","Latest - Near due"]
-    var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Break","Classic - 1:30 Hour Work Sections, 20 Minutes Break","2 Hours Work Sections, 30 Minutes Break","3 Hours Work Sections, 1 Hour Break","5 Hours Sections, 1:30 Hour Break"/*,"Continues - No Breaks" disabled for know !!!!*/]
+    var breakPeriods = ["45 Minutes Work Scections, 5 Minutes Breaks","Classic - 1:30 Hour Work Sections, At Least 20 Minutes Breaks","2 Hours Work Sections, At Least 30 Minutes Breaks","3 Hours Work Sections, At Least 1 Hour Breaks","5 Hours Sections, At Least 1:30 Hour Breaks"/*,"Continues - No Breaks" disabled for know !!!!*/]
     var animationsValues = ["Smooth","Fast","Spring"]
     @State var selectedDensityIndex = 2
     @State var selectedSchedulingAlgorithmIndex = 0
@@ -96,8 +96,10 @@ struct SettingsUI: View {
                                     
                                  //Using Binding extention
                                    Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
-                                       ForEach(0 ..< self.schedulingAlgorithm.count) {
-                                             Text(self.schedulingAlgorithm[$0])
+                                    ForEach(0 ..< self.schedulingAlgorithm.count) {
+  
+                                                Text(self.schedulingAlgorithm[$0]).padding(.leading,10)
+
                                            }
                                    }
                             
@@ -106,7 +108,7 @@ struct SettingsUI: View {
                                  //Using Binding extention
                                 Picker(selection: self.$selectedBreakPeriodsIndex.onUpdate(SetSettings), label: Text("Break Periods")) {
                                        ForEach(0 ..< self.breakPeriods.count) {
-                                             Text(self.breakPeriods[$0])
+                                             Text(self.breakPeriods[$0]).padding(.leading,50)
                                            }
                                    }
                                     

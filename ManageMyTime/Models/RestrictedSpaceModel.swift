@@ -521,13 +521,24 @@ class RestrictedSpaceModel : UIViewController
                 currentDate.day=Date().day
                 currentDate.month=Date().month
                 currentDate.year=Date().year
-            
+    
+                var restrictedSpaceStartTime=Hour(context: managedContext)
+                    restrictedSpaceStartTime.hour=0
+                    restrictedSpaceStartTime.minutes=0
+                var restrictesSpaceEndTime=Hour(context: managedContext)
+                    restrictesSpaceEndTime.hour=0
+                    restrictesSpaceEndTime.minutes=0
+            var restrictedSpaceDay=""
              
              do
              {
                  let requiredRestrictedSpace = try managedContext.fetch(fetchRequest)
                
                  let restrictedSpace = requiredRestrictedSpace[0] as! RestrictedSpace
+                    restrictedSpaceStartTime=restrictedSpace.startTime
+                    restrictesSpaceEndTime=restrictedSpace.endTime
+                    
+                 restrictedSpaceDay=restrictedSpace.dayOfTheWeek
                 
                   let objectToDelete = requiredRestrictedSpace[0] as! NSManagedObject
                     managedContext.delete(objectToDelete)
@@ -535,6 +546,37 @@ class RestrictedSpaceModel : UIViewController
                         try managedContext.save()
          
                         print("Deleted !.")
+                        
+                           //Create freeSpace to days (from current day) that restrictedSpace effected until now
+                                        
+                        let existingFreeSpaces = coreManagment.retriveAndSortFreeSpaces(startDate: currentDate)
+                        
+                          print(existingFreeSpaces[0].date.description)
+                          print(existingFreeSpaces[0].date.dayOfWeek().lowercased())
+                          print(restrictedSpaceDay.lowercased())
+                      
+                        let existingFreeSpacesInDates =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpaceDay.lowercased()})
+                        
+                        var nonDuplicateDates=[CustomDate]()
+                      
+                        for existedFreeSpace in existingFreeSpacesInDates
+                        {
+                          
+                          if (!nonDuplicateDates.contains(existedFreeSpace.date))
+                          {
+                              nonDuplicateDates.append(existedFreeSpace.date)
+                          }
+                      }
+                      
+                      for date in nonDuplicateDates
+                      {
+        
+                            let freeSpaceId=coreManagment.createFreeSpace(startTime: restrictedSpaceStartTime, endTime: restrictesSpaceEndTime, date: date, duration: restrictesSpaceEndTime.subtract(newHour: restrictedSpaceStartTime), fullyOccupiedDay: false)
+                            
+                            coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                            
+                            coreManagment.SectionSingleFreeSpace(id:freeSpaceId)//Needs to check if it's working
+                        }
                        
                     }
                     catch
@@ -543,32 +585,7 @@ class RestrictedSpaceModel : UIViewController
                     }
                 
                 
-                  //Create freeSpace to days (from current day) that restrictedSpace effected until now
-                  
-                  let existingFreeSpaces = coreManagment.retriveAndSortFreeSpaces(startDate: currentDate)
-                  
-                  let existingFreeSpacesInDates =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpace.dayOfTheWeek.lowercased()})
-                  
-                  var nonDuplicateDates=[CustomDate]()
-                
-                  for existedFreeSpace in existingFreeSpacesInDates
-                  {
-                    
-                    if (!nonDuplicateDates.contains(existedFreeSpace.date))
-                    {
-                        nonDuplicateDates.append(existedFreeSpace.date)
-                    }
-                }
-                
-                for date in nonDuplicateDates
-                {
-  
-                      let freeSpaceId=coreManagment.createFreeSpace(startTime: restrictedSpace.startTime, endTime: restrictedSpace.endTime, date: date, duration: restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime), fullyOccupiedDay: false)
-                      
-                      coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
-                      
-                      //coreManagment.SectionSingleFreeSpace(id:freeSpaceId)
-                  }
+             
                  
              }
              catch
