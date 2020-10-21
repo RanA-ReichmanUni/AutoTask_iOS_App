@@ -2003,6 +2003,75 @@ class Core{
         return suitableFreeDays
     }
     
+    func retriveAndSortFreeSpaces(startDate:CustomDate) -> [FreeTaskSpace]
+       {
+           
+           var retrivedFreeDays = [FreeTaskSpace]()
+           var suitableFreeDays = [FreeTaskSpace]()
+           
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [FreeTaskSpace]()}
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+           let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+                 
+
+                 fetchRequest.predicate = NSPredicate(format: "date.year >= %@", argumentArray: [Date().year])
+           
+
+           
+        
+                           
+                 do
+                 {
+                     let results = try managedContext.fetch(fetchRequest)
+                     
+               
+                         
+                         
+                       for result in results as! [NSManagedObject] {
+
+                             let spaceObj = result as! FreeTaskSpace
+                         
+                             retrivedFreeDays.append(spaceObj)
+                             
+                        }
+                 }
+                 catch
+                 {
+                     print(error)
+                 }
+                     
+                //retrivedFreeDays.sort{ $0.day == $1.day ? $0.day < $1.day : $0.month < $1.month } not good, it's only two arguments
+                 
+                 
+                 //Sort by this order preference: year, month, day
+                 retrivedFreeDays.sort {
+                     ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
+                         ($1.date.year,$1.date.month,$1.date.day,$1.starting.hour)
+                 }
+              
+                 for freeDay in retrivedFreeDays
+                 
+                 {//Filter and find relevent future freeSpace days in context to dueDate of the new task
+                     //print(freeDay.date.day," ",freeDay.date.month)
+                   if (freeDay.date >= startDate)//If it's a future year then any date relevent
+                     {
+                           suitableFreeDays.append(freeDay)
+                         /*print("Item:",String(freeDay.date.day)," ",String(freeDay.date.month)," ",String(freeDay.date.year))*/
+                     }
+
+                     
+                 
+                 //retrivedFreeDays=retrivedFreeDays.sorted(by:{$0.day > $1.day})//sorted by the rule of $0 item day field is > then somw other $1 item day field
+                 
+                 
+             }
+
+           return suitableFreeDays
+       }
+    
     func retriveAndSortFreeSpaces(dueDate:Date) -> [FreeTaskSpace]
        {
            
@@ -2660,13 +2729,22 @@ class Core{
                        {
                            print(error)
                        }
-               
+                    
+                       existingFreeSpaces.sort {
+                                         ($0.date.year, $0.date.month, $0.date.day,$0.starting.hour) <
+                                             ($1.date.year,$1.date.month,$1.date.day,$1.starting.hour)
+                                     }
                            
                      if(!existingFreeSpaces.isEmpty)
                      {
                          for freeSpaceInstance in existingFreeSpaces{
                          
-                  
+                            print("Rs: "+restrictedSlot.startTime.hour.description+":"+restrictedSlot.startTime.minutes.description)
+                            print("Re: "+restrictedSlot.endTime.hour.description+":"+restrictedSlot.endTime.minutes.description)
+                            
+                            print("Fs: "+freeSpaceInstance.starting.hour.description+":"+freeSpaceInstance.starting.minutes.description)
+                            print("Fe: "+freeSpaceInstance.ending.hour.description+":"+freeSpaceInstance.ending.minutes.description)
+                            
                              if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
                              {
                                  
@@ -3208,6 +3286,7 @@ class Core{
            
            
        }
+    
     func SectionFreeSpace(date:CustomDate)
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -3324,7 +3403,152 @@ class Core{
     }
  
     
+    func SectionSingleFreeSpace(id:UUID)
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let breakTime = GetHourSection().breakTime else {return}
+        guard let totalSectionTime = GetHourSection().sectionWindow?.add(hour: breakTime) else {return}
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+          
+        let zeroHour=Hour(context: managedContext)
+            zeroHour.hour=0
+            zeroHour.minutes=0
+        
+        var retrivedSpace=FreeTaskSpace()
+        
+        do{
+            retrivedSpace = GetFreeSpace(id: id)
+        }
+        catch{
+            print(error)
+        }
+        
+     
+        
+        let spaceSection=GetHourSection()
+       /* var breakTime:Hour=spaceSection.breakTime!
+        var totalSectionTime=spaceSection.sectionWindow!.add(hour: breakTime)*/
+        
+       
+            var remainingSpace=retrivedSpace.duration
+            var currentStartingTime=retrivedSpace.starting
+            let absoluteFreeSpaceEnding=retrivedSpace.ending
+            var usedTimeEndBound=Hour(context: managedContext)
+            let orginalFreeSpaceId=retrivedSpace.id
+           
+            while(remainingSpace.hour > 0 || remainingSpace.minutes > 0)
+            {
+         
+                
+                 let freeSpace = FreeTaskSpace(context: managedContext)
+                 
+                  freeSpace.date=retrivedSpace.date
+                  freeSpace.id=UUID()
+                  freeSpace.associatedId=UUID()
+                  freeSpace.starting=currentStartingTime
+                  
+                  if(currentStartingTime.add(hour: totalSectionTime) < absoluteFreeSpaceEnding)
+                  {
+                    
+                    freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                    
+                    let breakWindow=Task(context: managedContext)
+                        breakWindow.startTime=freeSpace.ending
+                        breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
+                        breakWindow.taskName=""
+                        breakWindow.asstimatedWorkTime=spaceSection.breakTime!
+                        breakWindow.completed=false
+                        breakWindow.color="Green"
+                        breakWindow.active=true
+                        breakWindow.importance=""
+                        breakWindow.notes=""
+                        breakWindow.id=UUID()
+                        breakWindow.isTaskBreakWindow=true
+                        breakWindow.scheduleSection="hourAndAHalf"
+                        breakWindow.date=retrivedSpace.date
+                        breakWindow.dueDate=Date()
+                        breakWindow.internalId=UUID()
+                        breakWindow.difficulty="average"//formality for coredata, non relvent feed
+                        
+                        usedTimeEndBound=freeSpace.ending.add(hour: breakWindow.asstimatedWorkTime)
+                
+                    
+                  }
+                  else if(currentStartingTime.add(hour: spaceSection.sectionWindow!) < absoluteFreeSpaceEnding){
+                    
+                    freeSpace.ending=currentStartingTime.add(hour: spaceSection.sectionWindow!)
+                     usedTimeEndBound=freeSpace.ending
+                  }
+                  else{
+                    freeSpace.ending=absoluteFreeSpaceEnding
+                    usedTimeEndBound=freeSpace.ending
+                  }
+                
+               
+                if(freeSpace.ending > freeSpace.starting)
+                {
+                  freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                }
+                else{
+                    freeSpace.duration=zeroHour
+                }
+                
+                  freeSpace.fullyOccupiedDay=false
+                
+                print("absoluteFreeSpaceEnding"+String(absoluteFreeSpaceEnding.hour)+":"+String(absoluteFreeSpaceEnding.minutes)+" usedTimeEndBound"+String(usedTimeEndBound.hour)+":"+String(usedTimeEndBound.minutes))
+                
+                  remainingSpace=absoluteFreeSpaceEnding.subtract(newHour: usedTimeEndBound)
+                  currentStartingTime=usedTimeEndBound
+        
+            }
+          
+            do {
+                
+                   try managedContext.save()
+                       print("Saved Task !.")
+               } catch let error as NSError {
+                   print("Could not save. \(error), \(error.userInfo)")
+               }
+            
+            deleteFreeSpace(freeSpaceId: orginalFreeSpaceId)
+        
+        
+    }
     
+    
+    func GetFreeSpace (id : UUID) -> FreeTaskSpace {
+          
+           
+             //As we know that container is set up in the AppDelegates so we need to refer that container.
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return FreeTaskSpace() }
+             
+             //We need to create a context from this container
+             let managedContext = appDelegate.persistentContainer.viewContext
+             
+             let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+            fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+             do
+             {
+                 let requiredTask = try managedContext.fetch(fetchRequest)
+                   
+                     let retrievedObject = requiredTask[0] as! FreeTaskSpace
+                  
+             //  print("Name:",retrievedObject.taskName as! String)
+               
+         
+                 return retrievedObject
+             }
+               
+             catch
+             {
+                 print(error)
+             }
+           
+               //Shouldn't get here theoretically
+               return FreeTaskSpace()
+    }
   /*func retrieveAllSpaces() throws//We assume all appropriate days have been constructed beforehand
     {
 

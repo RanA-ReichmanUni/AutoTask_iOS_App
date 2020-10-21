@@ -339,6 +339,8 @@ class RestrictedSpaceModel : UIViewController
                               print("Could not save. \(error), \(error.userInfo)")
                           }
                     
+                BoundFreeSpacesToRestrictedSpaces(restrictedSpace:restrictedSpace)
+                    
                 }
             
             
@@ -375,6 +377,8 @@ class RestrictedSpaceModel : UIViewController
                           } catch let error as NSError {
                               print("Could not save. \(error), \(error.userInfo)")
                           }
+                    
+               
            
                 }
                 
@@ -392,6 +396,37 @@ class RestrictedSpaceModel : UIViewController
            
     }
     
+    func BoundFreeSpacesToRestrictedSpaces(restrictedSpace:RestrictedSpace)
+    {//Handles bounding(deletion or change in length) of exsiting free spaces according to the new restrictedSpace set at a date
+         let coreManagment=Core()
+        
+            //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let currentDate=CustomDate(context: managedContext)
+                           currentDate.day=Date().day
+                           currentDate.month=Date().month
+                           currentDate.year=Date().year
+                      
+        
+        
+        //Create freeSpace to days (from current day) that restrictedSpace effected until now
+                           
+           let existingFreeSpaces = coreManagment.retriveAndSortFreeSpaces(startDate: currentDate)
+           
+            let freeSpacesToBound =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpace.dayOfTheWeek.lowercased()})
+           
+           for freeSpaceToBound in freeSpacesToBound
+           {
+              
+            coreManagment.ScheduleFreeSpacesWithNoSection(date: freeSpaceToBound.date)
+               //coreManagment.SectionSingleFreeSpace(id:freeSpaceId)
+           }
+        
+    }
     func RescheduleTasks(tasksToDelete:[Task],restrictedSpacesIds:[UUID],datesToRescheduleFreeSpaces:[CustomDate]) throws{
         
         var newScheduledTasksIds=[UUID]()
@@ -423,7 +458,9 @@ class RestrictedSpaceModel : UIViewController
                  
                  for id in restrictedSpacesIds{
                      
+                    
                      DeleteRestrictedSpace(id: id)
+                    
                     
                  }//Deletes All Previous Shceduled Restricted Spaces
                  
@@ -470,6 +507,7 @@ class RestrictedSpaceModel : UIViewController
     func DeleteRestrictedSpace(id:UUID)
    {
       
+       let coreManagment=Core()
        //As we know that container is set up in the AppDelegates so we need to refer that container.
              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
              
@@ -478,13 +516,18 @@ class RestrictedSpaceModel : UIViewController
              
              let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RestrictedSpace")
              fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
-            
+    
+             let currentDate=CustomDate(context: managedContext)
+                currentDate.day=Date().day
+                currentDate.month=Date().month
+                currentDate.year=Date().year
             
              
              do
              {
                  let requiredRestrictedSpace = try managedContext.fetch(fetchRequest)
                
+                 let restrictedSpace = requiredRestrictedSpace[0] as! RestrictedSpace
                 
                   let objectToDelete = requiredRestrictedSpace[0] as! NSManagedObject
                     managedContext.delete(objectToDelete)
@@ -498,6 +541,34 @@ class RestrictedSpaceModel : UIViewController
                     {
                         print(error)
                     }
+                
+                
+                  //Create freeSpace to days (from current day) that restrictedSpace effected until now
+                  
+                  let existingFreeSpaces = coreManagment.retriveAndSortFreeSpaces(startDate: currentDate)
+                  
+                  let existingFreeSpacesInDates =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpace.dayOfTheWeek.lowercased()})
+                  
+                  var nonDuplicateDates=[CustomDate]()
+                
+                  for existedFreeSpace in existingFreeSpacesInDates
+                  {
+                    
+                    if (!nonDuplicateDates.contains(existedFreeSpace.date))
+                    {
+                        nonDuplicateDates.append(existedFreeSpace.date)
+                    }
+                }
+                
+                for date in nonDuplicateDates
+                {
+  
+                      let freeSpaceId=coreManagment.createFreeSpace(startTime: restrictedSpace.startTime, endTime: restrictedSpace.endTime, date: date, duration: restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime), fullyOccupiedDay: false)
+                      
+                      coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                      
+                      //coreManagment.SectionSingleFreeSpace(id:freeSpaceId)
+                  }
                  
              }
              catch
@@ -511,9 +582,9 @@ class RestrictedSpaceModel : UIViewController
    }
     
     
-    /*func DeleteRestrictedSpaceAndFillBack(id:UUID,date:CustomDate)
+    func DeleteRestrictedSpaceAndFillBack(id:UUID)
       {
-          var coreManagment=Core()
+        let coreManagment=Core()
           //As we know that container is set up in the AppDelegates so we need to refer that container.
                 guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
                 
@@ -522,7 +593,11 @@ class RestrictedSpaceModel : UIViewController
                 
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RestrictedSpace")
                 fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
-               
+        
+               let currentDate=CustomDate(context: managedContext)
+                    currentDate.day=Date().day
+                    currentDate.month=Date().month
+                    currentDate.year=Date().year
                
                 
                 do
@@ -530,10 +605,7 @@ class RestrictedSpaceModel : UIViewController
                     let requiredRestrictedSpace = try managedContext.fetch(fetchRequest)
                     let restrictedSpace = requiredRestrictedSpace[0] as! RestrictedSpace
                     
-                    let freeSpaceId=coreManagment.createFreeSpace(startTime: restrictedSpace.startTime, endTime: restrictedSpace.endTime, date: date, duration: restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime), fullyOccupiedDay: false)
                     
-                    coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
-                   
                      let objectToDelete = requiredRestrictedSpace[0] as! NSManagedObject
                        managedContext.delete(objectToDelete)
                        do{
@@ -547,6 +619,21 @@ class RestrictedSpaceModel : UIViewController
                            print(error)
                        }
                     
+                    //Create freeSpace to days (from current day) that restrictedSpace effected until now
+                    
+                    let existingFreeSpaces = coreManagment.retriveAndSortFreeSpaces(startDate: currentDate)
+                    
+                    let daysToCreateFreeSpaceTo =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpace.dayOfTheWeek.lowercased()})
+                    
+                    for dayToCreateFreeSpaceTo in daysToCreateFreeSpaceTo
+                    {
+                        let freeSpaceId=coreManagment.createFreeSpace(startTime: restrictedSpace.startTime, endTime: restrictedSpace.endTime, date: dayToCreateFreeSpaceTo.date, duration: restrictedSpace.endTime.subtract(newHour: restrictedSpace.startTime), fullyOccupiedDay: false)
+                        
+                        coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                        
+                        //coreManagment.SectionSingleFreeSpace(id:freeSpaceId)
+                    }
+                    
                 }
                 catch
                 {
@@ -556,7 +643,7 @@ class RestrictedSpaceModel : UIViewController
                
                // coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
                 
-      }*/
+      }
        
     
     
