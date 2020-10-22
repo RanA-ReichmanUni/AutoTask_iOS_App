@@ -1931,7 +1931,113 @@ class Core{
         
     }
     
-    
+    func mergeFreeSpacesAndReturnId(createdFreeSpace:UUID) -> UUID
+       {
+          
+          var dateComponents = DateComponents()
+          dateComponents.year = Date().year
+          dateComponents.month = Date().month+1
+          dateComponents.day = Date().day
+
+
+          // Create date from components
+          let userCalendar = Calendar.current // user calendar
+          let dateTime = userCalendar.date(from: dateComponents)!
+          
+           let sortedFreeSpaces=retriveAndSortFreeSpaces(dueDate:dateTime)
+          
+          var freeSpacesToDelete=[UUID]()
+           var createdFreeSpaceId=UUID()
+        
+        var newlyCreatedFreeSpaceId:UUID?
+           
+          var didCreateFreeSpace = false
+           
+        
+          for index in 0...sortedFreeSpaces.count-1
+          {
+          
+                print("General free space in the loop from "+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+           
+               if(sortedFreeSpaces[index].id==createdFreeSpace)
+              {
+               
+               
+               if(index > 0 && sortedFreeSpaces[index].date==sortedFreeSpaces[index-1].date && sortedFreeSpaces[index].starting == sortedFreeSpaces[index-1].ending && sortedFreeSpaces[index].associatedId!==sortedFreeSpaces[index-1].associatedId!)//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
+                  {
+                      didCreateFreeSpace=true
+                   
+                      print(sortedFreeSpaces[index].ending)
+                      print(sortedFreeSpaces[index-1].starting)
+                       print("Found mergeble free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index-1].ending.hour)+":"+String(sortedFreeSpaces[index-1].ending.minutes))
+                       
+                      createdFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                    
+                    newlyCreatedFreeSpaceId=createdFreeSpace
+                    
+                    print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+                       
+                   print("freeSpace to delete is: " + createdFreeSpace.description )
+                   print("freeSpace to delete is: " + sortedFreeSpaces[index-1].id.description )
+                       freeSpacesToDelete.append(createdFreeSpace)
+                       freeSpacesToDelete.append(sortedFreeSpaces[index-1].id)
+                     
+                   
+                  }
+                   
+               if(index+1 <= sortedFreeSpaces.count-1 && sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting && sortedFreeSpaces[index].associatedId!==sortedFreeSpaces[index+1].associatedId!)
+                  {
+                      if(didCreateFreeSpace)
+                      {
+                       
+                          print("Found mergeble free space from"+String(sortedFreeSpaces[index+1].starting.hour)+":"+String(sortedFreeSpaces[index+1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
+                           print("Free space will be merged with the latest freeSpace creted a second ago")
+                           newlyCreatedFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                          print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
+                       
+                           freeSpacesToDelete.append(createdFreeSpaceId)
+                       
+                           print("Will delete old free space from: "+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+                       print("freeSpace to delete is: " + sortedFreeSpaces[index].id.description )
+                       
+                           
+                       
+                           
+                       }
+                      else{
+                       newlyCreatedFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:sortedFreeSpaces[index].associatedId!)
+                       
+                                 print("Created merged free space from"+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
+                       }
+                   
+                           if(!freeSpacesToDelete.contains(createdFreeSpace))
+                           {
+                                   freeSpacesToDelete.append(createdFreeSpace)
+                                 print("freeSpace to delete is: " + createdFreeSpace.description )
+                           }
+                   
+                           freeSpacesToDelete.append(sortedFreeSpaces[index+1].id)
+                   print("freeSpace to delete is: " + sortedFreeSpaces[index+1].id.description )
+                       
+                   
+                   }
+              }
+              
+          }
+          
+          for freeSpaceId in freeSpacesToDelete
+          {
+              print("Going to delete ",freeSpaceId.description)
+              deleteFreeSpace(freeSpaceId: freeSpaceId)
+          }
+          
+          
+            //If nothting was merged return the orginal freeSpaceId
+            return newlyCreatedFreeSpaceId ?? createdFreeSpace
+
+          
+           
+       }
  
     func retriveAndSortFreeSpaces(currentDate:CustomDate,dueDate:Date) -> [FreeTaskSpace]
     {
@@ -4795,8 +4901,9 @@ class Core{
                   print("Could not save. \(error), \(error.userInfo)")
               }
         
-            mergeFreeSpaces(createdFreeSpace: freeSpace.id)
-        return freeSpace.id
+             var orginalOrFreshlyMergedFreeSpaceId = mergeFreeSpacesAndReturnId(createdFreeSpace: freeSpace.id)
+        
+        return orginalOrFreshlyMergedFreeSpaceId
     }
     
     
@@ -4830,8 +4937,10 @@ class Core{
                  } catch let error as NSError {
                      print("Could not save. \(error), \(error.userInfo)")
                  }
-                mergeFreeSpaces(createdFreeSpace: freeSpace.id)
-           return freeSpace.id
+        
+                var orginalOrFreshlyMergedFreeSpaceId = mergeFreeSpacesAndReturnId(createdFreeSpace: freeSpace.id)
+                
+                return orginalOrFreshlyMergedFreeSpaceId
        }
     
     

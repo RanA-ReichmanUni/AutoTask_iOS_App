@@ -612,7 +612,13 @@ class TaskModel : UIViewController
             let endOfDayDefault=Hour(context: managedContext)
                 endOfDayDefault.hour=dayEndTime.hour
                 endOfDayDefault.minutes=dayEndTime.minutes
-                  
+            
+            var boundsChanged=false
+        
+            if(getSettingsValues().dayStartTime != dayStartTime || getSettingsValues().dayEndTime != dayEndTime)
+            {
+                boundsChanged=true
+            }
              
             do {
                 
@@ -655,6 +661,11 @@ class TaskModel : UIViewController
               {
                   print(error)
               }
+        
+            if (boundsChanged)
+             {
+                 coreManagment.reSectionUsedFreeSpace()
+             }
 
             
     }
