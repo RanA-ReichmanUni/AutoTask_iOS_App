@@ -677,10 +677,12 @@ class TaskModel : UIViewController
             let endOfDayDefault=Hour(context: managedContext)
                 endOfDayDefault.hour=22
                 endOfDayDefault.minutes=0
-                
-            if (getSettingsValues().breakPeriods != breakPeriodsValue)
+             
+          var breakPeriodsChanged=false
+        
+          if (getSettingsValues().breakPeriods != breakPeriodsValue)
             {
-                coreManagment.reSectionUsedFreeSpace()
+                breakPeriodsChanged=true
             }
        
           do {
@@ -727,7 +729,11 @@ class TaskModel : UIViewController
                 print(error)
             }
 
-      
+            if (breakPeriodsChanged)
+           {
+               coreManagment.reSectionUsedFreeSpace()
+           }
+        
       
       
       
@@ -1330,6 +1336,40 @@ class TaskModel : UIViewController
         
         return allTasks
         }
+    
+    func retrieveAllBreakWindows() -> [Task] {
+        var allTasks=[Task]()
+              
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+               
+            
+        let managedContext = appDelegate.persistentContainer.viewContext
+               
+           
+            
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [true])
+   
+           do {
+               
+               let result = try managedContext.fetch(fetchRequest)
+               for data in result as! [Task] {
+                
+                 
+                       allTasks.append(data)
+                   
+                  
+              
+               }
+               print("Retrived all tasks !")
+               
+           } catch {
+               
+               print("Failed")
+           }
+       
+       return allTasks
+    }
     
     func retrieveAllDayTasks(hour:Int) -> [TasksPerHourPerDay] {
         
@@ -1947,7 +1987,7 @@ class TaskModel : UIViewController
           //Prepare the request of type NSFetchRequest  for the entity
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
      
-          fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND isTaskBreakWindow = %@", argumentArray: [Date().year,false])
+          fetchRequest.predicate = NSPredicate(format: "date.year >= %@" /*AND isTaskBreakWindow = %@"*/, argumentArray: [Date().year/*,false*/])
               
           let nextHour = Hour(context: managedContext)
               nextHour.hour=hour+1
@@ -2577,7 +2617,7 @@ class TaskModel : UIViewController
             
             let taskToFreeSpace = requiredTask[0] as! Task
               
-            
+            print(taskToFreeSpace.internalId!.description)
             DeleteAllByInternalId(internalId: taskToFreeSpace.internalId!)
             
         }
@@ -2593,6 +2633,107 @@ class TaskModel : UIViewController
         
     }
     
+    func DeleteAllBreakWindows()
+    {
+       
+        
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+         
+         //We need to create a context from this container
+         let managedContext = appDelegate.persistentContainer.viewContext
+         
+         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+         fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [true])
+        
+       var freeSpaceId:UUID
+   
+        
+   
+         do
+         {
+             let results = try managedContext.fetch(fetchRequest)
+           
+             for result in results as! [NSManagedObject] {
+                
+                    var task = result as! Task
+                
+                    freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
+                
+                     managedContext.delete(result)
+                
+                    do{
+                        try managedContext.save()
+         
+                        print("Deleted !.")
+                       
+                    }
+                    catch
+                    {
+                        print(error)
+                        
+                    }
+                      coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+              }
+    
+       
+  
+       
+             
+         }
+         catch
+         {
+             print(error)
+         }
+        
+      do
+      {
+          let results = try managedContext.fetch(fetchRequest)
+        
+              for result in results as! [NSManagedObject] {
+                var task = result as! Task
+                print(task.taskName+" "+task.startTime!.description)
+                print(task.endTime!.description+task.date.description)
+                }
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+    
+    func PrintAllBreakWindows() -> [Task]
+      {
+         
+          
+          //As we know that container is set up in the AppDelegates so we need to refer that container.
+           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [Task]()}
+           
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+           
+           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+           fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [true])
+
+          
+        do
+        {
+            let results = try managedContext.fetch(fetchRequest)
+          
+                for result in results as! [NSManagedObject] {
+                  var task = result as! Task
+                  print(task.taskName+" "+task.startTime!.description)
+                  print(task.endTime!.description+task.date.description)
+                  }
+            return results as! [Task]
+          }
+          catch
+          {
+              print(error)
+          }
+        
+        return [Task]()
+      }
     
     func deleteBreakWindowTask(freeSpaceaAssociatedId : UUID){
         let coreManagment=Core()
@@ -2611,29 +2752,35 @@ class TaskModel : UIViewController
         do
         {
             
-            let requiredTask = try managedContext.fetch(fetchRequest)
-            if(!requiredTask.isEmpty)
+            let requiredTasks = try managedContext.fetch(fetchRequest)
+            
+            if(!requiredTasks.isEmpty)
             {
-                let task = requiredTask[0] as! Task
-                  
-                let freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false)
+                let retrivedTasks=requiredTasks as! [Task]
                 
-                 coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
-                
-                let objectToDelete = task as! NSManagedObject
-                
-                managedContext.delete(objectToDelete)
-              
-                do{
-                       try managedContext.save()
-
-                       print("Deleted !.")
+                for task in retrivedTasks
+                {
+                   
                       
-                   }
-                   catch
-                   {
-                       print(error)
-                   }
+                    let freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false)
+                    
+                     coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                    
+                    let objectToDelete = task as! NSManagedObject
+                    
+                    managedContext.delete(objectToDelete)
+                  
+                    do{
+                           try managedContext.save()
+
+                           print("Deleted !.")
+                          
+                       }
+                       catch
+                       {
+                           print(error)
+                       }
+                }
             }
             
         }
@@ -2764,7 +2911,7 @@ class TaskModel : UIViewController
                         tasks.append(spaceObj)
                         
                    }
-                    
+         
                 for task in tasks
                 {
 
@@ -2783,6 +2930,7 @@ class TaskModel : UIViewController
                     catch
                     {
                         print(error)
+                        
                     }
                     print("Going to merge "+freeSpaceId.description)
                    

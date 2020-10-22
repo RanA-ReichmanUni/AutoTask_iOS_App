@@ -2702,6 +2702,22 @@ class Core{
         
     }
     
+    func SaveAndMergeFreeSpace(freeSpaceId:UUID)
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                           
+       //We need to create a context from this container
+       let managedContext = appDelegate.persistentContainer.viewContext
+                  
+        
+        do {
+                    try managedContext.save()
+                        print("Saved Task !.")
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+        mergeFreeSpaces(createdFreeSpace: freeSpaceId)
+    }
     
     func scheduleFreeSpaceBoundToTasks (date:CustomDate)
        {
@@ -2725,7 +2741,7 @@ class Core{
                theZeroHour.minutes=0
         
         var freeSpacesForDate=retriveAndSortFreeSpaces(forDate: date)
-        
+     
            let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
           
           
@@ -2773,7 +2789,7 @@ class Core{
                         } catch let error as NSError {
                             print("Could not save. \(error), \(error.userInfo)")
                         }
-               
+                mergeFreeSpaces(createdFreeSpace: freeSpace.id)
                
            }
            
@@ -2781,7 +2797,7 @@ class Core{
         
            for restrictedSlot in retrivedRestrictedSlots
            {
-            let existingFreeSpaces = freeSpacesForDate
+            let existingFreeSpaces = retriveAndSortFreeSpaces(forDate: date)
                
                      
                if(!existingFreeSpaces.isEmpty)
@@ -2802,7 +2818,9 @@ class Core{
                             freeSpace.ending=restrictedSlot.startTime
                             freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                             freeSpace.fullyOccupiedDay=false
-                            
+                        
+                            SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                        
                             let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
                             
                             secondaryFreeSpace.starting=restrictedSlot.endTime
@@ -2815,6 +2833,8 @@ class Core{
                             secondaryFreeSpace.id=UUID()
                             secondaryFreeSpace.associatedId=UUID()
                            
+                            SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                        
                            deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                           
                         }
@@ -2834,6 +2854,7 @@ class Core{
                               freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                               freeSpace.fullyOccupiedDay=false
                               
+                            SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                              
                              deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                             
@@ -2854,6 +2875,7 @@ class Core{
                              freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                              freeSpace.fullyOccupiedDay=false
                              
+                            SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                             
                             deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                            
@@ -2922,7 +2944,9 @@ class Core{
                                   freeSpace.ending=restrictedSlot.startTime
                                   freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                   freeSpace.fullyOccupiedDay=false
-                                  
+                                
+                                  SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                
                                   let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
                                   
                                   secondaryFreeSpace.starting=restrictedSlot.endTime
@@ -2933,7 +2957,9 @@ class Core{
                                   secondaryFreeSpace.date=date
                                   secondaryFreeSpace.fullyOccupiedDay=false
                                   secondaryFreeSpace.id=UUID()
-                                 
+                                
+                                 SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                                
                                  deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                 
                               }
@@ -2952,7 +2978,9 @@ class Core{
                                   freeSpace.ending=restrictedSlot.startTime
                                   freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                   freeSpace.fullyOccupiedDay=false
-       
+                                
+                                 SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                
                                  deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                 
                               }
@@ -2971,101 +2999,13 @@ class Core{
                                  freeSpace.ending=freeSpaceInstance.ending
                                  freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                  freeSpace.fullyOccupiedDay=false
-
+                                
+                                SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                
                                 deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                
                              }
-                     /*     //restrictedSlot starts and ends exactly like freeSpace, complete congruence
-                        else if(restrictedSlot.startTime == freeSpaceInstance.starting && restrictedSlot.endTime == freeSpaceInstance.ending)
-                        {
-                           
-                           deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)
-                           
-                               let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
-                                     
-                                     
-                               fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
-                               
-                               var availableFreeSpaces=[FreeTaskSpace]()
-                                           
-                                 do
-                                 {
-                                     let results = try managedContext.fetch(fetchRequest)
-                                     
-                               
-                                         
-                                         
-                                       for result in results as! [NSManagedObject] {
-
-                                             let spaceObj = result as! FreeTaskSpace
-                                         
-                                             availableFreeSpaces.append(spaceObj)
-                                             
-                                        }
-                                  
-                                 }
-                                 catch
-                                 {
-                                     print(error)
-                                 }
-                           
-                           if(availableFreeSpaces.isEmpty)
-                           {
-                           
-                              let freeSpace = FreeTaskSpace(context: managedContext)
-                              freeSpace.date=date
-                              freeSpace.id=UUID()
-                              freeSpace.associatedId=UUID()
-                              freeSpace.starting=startDayHour
-                              freeSpace.ending=endDayHour
-                              freeSpace.duration=theZeroHour
-                              freeSpace.fullyOccupiedDay=true
-                           }
-                                
-                        }*/
-                       /* else if(restrictedSlot.startTime == freeSpaceInstance.starting)
-                        {
-                            
-      
-                              let freeSpace = FreeTaskSpace(context: managedContext)
-                              freeSpace.date=date
-                              freeSpace.id=UUID()
-                              freeSpace.starting=restrictedSlot.endTime
-                              freeSpace.ending=freeSpaceInstance.ending
-                              freeSpace.duration=freeSpaceInstance.ending.subtract(newHour: freeSpace.starting)
-                              //print(endDayHour.subtract(newHour: freeSpace.starting))
-                              //print(freeSpace.duration)
-                              freeSpace.fullyOccupiedDay=false
-                               
-                               deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
-                                              
-                           
-                               
-                            
-                        }
-                        else if (restrictedSlot.endTime == freeSpaceInstance.ending)
-                        {
-                              let freeSpace = FreeTaskSpace(context: managedContext)
-                                freeSpace.date=date
-                                freeSpace.id=UUID()
-                                freeSpace.associatedId=UUID()
-                                freeSpace.starting=freeSpaceInstance.starting
-                                freeSpace.ending=restrictedSlot.startTime
-                                freeSpace.duration=restrictedSlot.startTime.subtract(newHour: freeSpaceInstance.starting)
-                                freeSpace.fullyOccupiedDay=false
-                           
-                               deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
-                                          
-                            
-                        }
-                       
-                  
-                       do {
-                              try managedContext.save()
-                                  print("Saved Free Space !.")
-                          } catch let error as NSError {
-                              print("Could not save. \(error), \(error.userInfo)")
-                          }*/
+             
                        
                    
                    }
@@ -3074,7 +3014,7 @@ class Core{
                }
                    
                    
-               else{//If there isn't any exsiting free spaces yet
+             /*  else{//If there isn't any exsiting free spaces yet
                    if(date.day==24)
                    {
                        //print("here")
@@ -3147,27 +3087,43 @@ class Core{
                      } catch let error as NSError {
                          print("Could not save. \(error), \(error.userInfo)")
                      }
-               }
+               }*/
                  
                
                
            }
         
             let allTasks=taskModel.retrieveAllTasks()
-        
+            var tasksInDate=[Task]()
+            for task in allTasks
+            {
+                if(task.date==date)
+                {
+                    tasksInDate.append(task)
+                }
+            }
+            
             //Retrieve freeSpaces again after new freeSpaces might have scheduled in the previous section
             freeSpacesForDate=retriveAndSortFreeSpaces(forDate: date)
         
-            for task in allTasks
+            for task in tasksInDate
               {
-               let existingFreeSpaces = freeSpacesForDate
+               let existingFreeSpaces = retriveAndSortFreeSpaces(forDate: date)
                   
-                        
+               /* if(task.taskName=="Reading In Modern Physics" && task.startTime!.hour==12 && task.startTime!.minutes==30 && task.date.day==23)
+                {
+                    print("Reached $#")
+                    
+                }*/
                   if(!existingFreeSpaces.isEmpty)
                   {
                       for freeSpaceInstance in existingFreeSpaces{
-                      
-               
+                        
+                      /*  print(freeSpaceInstance.starting.description)
+                        print(freeSpaceInstance.ending.description)
+                        print(freeSpaceInstance.duration.description)*/
+                       
+                            
                           if(task.startTime! > freeSpaceInstance.starting && task.endTime! < freeSpaceInstance.ending)
                           {
                               
@@ -3182,6 +3138,8 @@ class Core{
                                freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                freeSpace.fullyOccupiedDay=false
                                
+                                SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                            
                                let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
                                
                                secondaryFreeSpace.starting=task.endTime!
@@ -3194,6 +3152,8 @@ class Core{
                                secondaryFreeSpace.id=UUID()
                                secondaryFreeSpace.associatedId=UUID()
                               
+                                SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                            
                               deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                              
                            }
@@ -3212,7 +3172,8 @@ class Core{
                                  freeSpace.ending=freeSpaceInstance.ending
                                  freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                  freeSpace.fullyOccupiedDay=false
-                                 
+                                
+                                 SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                                 
                                 deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                
@@ -3233,6 +3194,7 @@ class Core{
                                 freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                 freeSpace.fullyOccupiedDay=false
                                 
+                                SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                                
                                deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                               
@@ -3302,6 +3264,8 @@ class Core{
                                      freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                      freeSpace.fullyOccupiedDay=false
                                      
+                                     SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                    
                                      let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
                                      
                                      secondaryFreeSpace.starting=task.endTime!
@@ -3312,6 +3276,8 @@ class Core{
                                      secondaryFreeSpace.date=date
                                      secondaryFreeSpace.fullyOccupiedDay=false
                                      secondaryFreeSpace.id=UUID()
+                                    
+                                     SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
                                     
                                     deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                    
@@ -3332,6 +3298,8 @@ class Core{
                                      freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                      freeSpace.fullyOccupiedDay=false
           
+                                    SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                    
                                     deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                    
                                  }
@@ -3351,6 +3319,8 @@ class Core{
                                     freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                     freeSpace.fullyOccupiedDay=false
 
+                                    SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                
                                    deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                   
                                 }
@@ -3362,7 +3332,7 @@ class Core{
                   }
                       
                       
-                  else{//If there isn't any exsiting free spaces yet
+                 /* else{//If there isn't any exsiting free spaces yet
                       if(date.day==24)
                       {
                           //print("here")
@@ -3435,7 +3405,7 @@ class Core{
                         } catch let error as NSError {
                             print("Could not save. \(error), \(error.userInfo)")
                         }
-                  }
+                  }*/
                     
                   
                   
@@ -3945,11 +3915,13 @@ class Core{
             currentDate.month=Date().month
             currentDate.year=Date().year
         
-        var exsitingFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
+       
         
         var freeSpacesDates=[CustomDate]()
         
         var taskBreakWindowsToDeleteIds=[UUID]()
+        
+         let exsitingFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
         
         if(exsitingFreeSpaces.count>0)
         {
@@ -3963,26 +3935,30 @@ class Core{
                 
                 if(!taskBreakWindowsToDeleteIds.contains(freeSpace.associatedId ?? UUID()))
                 {
-                    taskBreakWindowsToDeleteIds.append(freeSpace.associatedId!)
+                    taskBreakWindowsToDeleteIds.append(freeSpace.associatedId ?? UUID())
                 }
                 
             }
             
-            for breakWindowInternalId in taskBreakWindowsToDeleteIds
+            taskModel.DeleteAllBreakWindows()
+            
+            var breakWindowsCheck=taskModel.PrintAllBreakWindows()
+          /*  for breakWindowAssociatedId in taskBreakWindowsToDeleteIds
                {
-                   taskModel.deleteBreakWindowTask(freeSpaceaAssociatedId: breakWindowInternalId)
-               }
+                   taskModel.deleteBreakWindowTask(freeSpaceaAssociatedId: breakWindowAssociatedId)
+               }*/
             
             //Update the list of freeSpaces after deletion, since it's creating new freeSpaces.
-            exsitingFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
+            let updatedFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
             
-            for freeSpace in exsitingFreeSpaces
+            for freeSpace in updatedFreeSpaces
             {
                 
                 deleteFreeSpace(freeSpaceId: freeSpace.id)
             }
+             breakWindowsCheck=taskModel.PrintAllBreakWindows()
             
-       
+            var exsitingFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
             
             
             for freeSpaceDate in freeSpacesDates
@@ -3990,8 +3966,9 @@ class Core{
                 scheduleFreeSpaceBoundToTasks(date: freeSpaceDate)
             }
             
-          
-
+             breakWindowsCheck=taskModel.PrintAllBreakWindows()
+             
+            print("f")
         }
         
         
@@ -4047,7 +4024,7 @@ class Core{
                        let breakWindow=Task(context: managedContext)
                            breakWindow.startTime=freeSpace.ending
                            breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
-                           breakWindow.taskName=""
+                           breakWindow.taskName="BreakWindow"
                            breakWindow.asstimatedWorkTime=spaceSection.breakTime!
                            breakWindow.completed=false
                            breakWindow.color="Green"
@@ -4163,7 +4140,7 @@ class Core{
                     let breakWindow=Task(context: managedContext)
                         breakWindow.startTime=freeSpace.ending
                         breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
-                        breakWindow.taskName=""
+                        breakWindow.taskName="BreakWindow"
                         breakWindow.asstimatedWorkTime=spaceSection.breakTime!
                         breakWindow.completed=false
                         breakWindow.color="Green"
@@ -4279,7 +4256,7 @@ class Core{
                     let breakWindow=Task(context: managedContext)
                         breakWindow.startTime=freeSpace.ending
                         breakWindow.endTime=breakWindow.startTime!.add(hour: spaceSection.breakTime!)
-                        breakWindow.taskName=""
+                        breakWindow.taskName="BreakWindow"
                         breakWindow.asstimatedWorkTime=spaceSection.breakTime!
                         breakWindow.completed=false
                         breakWindow.color="Green"
