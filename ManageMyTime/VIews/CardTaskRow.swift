@@ -349,7 +349,7 @@ struct CardTaskRow: View {
                         self.overlayPadding=98
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
                             if(self.paddingBottom == 70)
                             {
                                 withAnimation(.easeInOut) {

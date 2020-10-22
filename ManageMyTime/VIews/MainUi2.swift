@@ -97,7 +97,37 @@ struct MainUI2: View {
                 else if(self.weeklyScheduleFlag)
                      {
                         Rectangle().isHidden(true).frame(height:36)
-                        ScheduleViewRow(taskViewModel:self.taskViewModel)
+                        ScheduleViewRow(taskViewModel:self.taskViewModel).onAppear{self.taskViewModel.hoursRange=[]
+                                     
+                                var timeFactor=0.1
+                                      var tripleTick=0
+                                      for index in 6...24
+                                   {
+                            
+                                         DispatchQueue.main.asyncAfter(deadline: .now() + timeFactor) {
+                                       self.taskViewModel.hoursRange.append(index)
+                                        
+                                          
+                                  }
+                                       tripleTick+=1
+                                      
+                                     
+                                      
+                                      if(tripleTick==6)
+                                      {
+                                          
+                                          timeFactor+=0.1
+                                           tripleTick=0
+                                      }
+                                      
+                                    
+                                     
+                                      
+                                           
+                                       
+                                   
+                                  // self.taskViewModel.hoursRange=[7...24]
+                                       }}
                         
                      }
                  else if(self.settingsFlag)
@@ -130,7 +160,8 @@ struct MainUI2: View {
                 
                
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.7)){
+                   
+                    withAnimation(.easeInOut(duration: 0.1)){
                              
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -139,7 +170,7 @@ struct MainUI2: View {
                              self.listFlag=true
                              self.toggleActive=false
                            
-                        self.taskViewModel.hoursRange=[]
+                         self.taskViewModel.hoursRange=[]
                          }
             
                          
@@ -184,39 +215,11 @@ struct MainUI2: View {
                              self.toggleActive=true
                         
                         
-                        self.taskViewModel.GetAllTasks()
-         
-                      
-                                   
-                              var timeFactor=0.1
-                                    var tripleTick=0
-                                    for index in 6...24
-                                 {
-                          
-                                       DispatchQueue.main.asyncAfter(deadline: .now() + timeFactor) {
-                                     self.taskViewModel.hoursRange.append(index)
-                                      
-                                        
-                                }
-                                     tripleTick+=1
-                                    
-                                   
-                                    
-                                    if(tripleTick==6)
-                                    {
-                                        
-                                        timeFactor+=0.1
-                                         tripleTick=0
-                                    }
-                                    
-                                  
-                                   
-                                    
-                                         
-                                     
-                                 
-                                // self.taskViewModel.hoursRange=[7...24]
-                                     }
+                        //self.taskViewModel.GetAllTasks()
+                        self.taskViewModel.retrieveAllTasks()
+                        self.taskViewModel.retrieveAllTasksByHour()
+                        
+                        
                       
                     }) {
                             VStack{
@@ -229,7 +232,8 @@ struct MainUI2: View {
                         }.background(Rectangle().fill(Color.white.opacity(0))).padding(.top,12)
                // Divider().frame(maxHeight: 75)
                 Button(action: {
-                   
+                    
+                     withAnimation(.easeInOut(duration: 1)){
                             self.dailyViewFlag=true
                             self.settingsFlag=false
                             self.addTaskFlag=false
@@ -238,6 +242,7 @@ struct MainUI2: View {
                             self.listFlag=false
                             self.toggleActive=true
                        self.taskViewModel.hoursRange=[]
+                    }
                         
                     }) {
                          VStack{

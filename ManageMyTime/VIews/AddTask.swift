@@ -132,7 +132,7 @@ struct AddTask: View {
                                      Spacer()
                                      Picker(selection: self.$selectedColorIndex, label:Text("")) {
                                                ForEach(self.colorArray ,id:\.self) { color in
-                                                Rectangle().fill(color).tag(color)//Tag return a value that we chose to the selected index instead of the default int index. For some reason the default behavior doesn't work here, the int selected index doesn't bind to the choise.
+                                                Rectangle().fill(color).tag(color).animation(.easeInOut(duration: 0.6))//Tag return a value that we chose to the selected index instead of the default int index. For some reason the default behavior doesn't work here, the int selected index doesn't bind to the choise.
                                                }
                                                                              //.labelsHidden()
                                                                   

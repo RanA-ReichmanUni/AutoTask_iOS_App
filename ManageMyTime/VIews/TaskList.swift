@@ -71,8 +71,7 @@ struct TaskList: View {
                                 Spacer()
                                                               }
                               
-                              RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).onAppear{self.dayIndexSelector=self.taskViewModel.DayToIndexConverter()
-                                self.GetTasksByChoise()
+                              RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).onAppear{self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex
                         }
                               //Keeps safe space from the edge of screen so the first card can pull up to a safe area
                           }
@@ -102,7 +101,7 @@ struct TaskList: View {
                                     else{
                                            
                                              CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToStringNormalized(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:false,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onAppear{
-                                                     self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex
+                                                    self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex
                                              }.animation(.easeInOut(duration:0.6))
                                         
                                             
