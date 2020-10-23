@@ -1348,6 +1348,47 @@ class TaskModel : UIViewController
         return allTasks
         }
     
+    func retrieveAllTasksAndBreakWindows() -> [Task] {
+           var allTasks=[Task]()
+            //As we know that container is set up in the AppDelegates so we need to refer that container.
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+            
+            //We need to create a context from this container
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            let startOfTheWeek=CustomDate(context: managedContext)
+                startOfTheWeek.day=Date().startOfWeek.day
+                startOfTheWeek.month=Date().startOfWeek.month
+                startOfTheWeek.year=Date().startOfWeek.year
+        
+            //Prepare the request of type NSFetchRequest  for the entity
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+             //fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [true])
+
+            do {
+                
+                let result = try managedContext.fetch(fetchRequest)
+                for data in result as! [Task] {
+                        
+               
+                    if(data.date >=  startOfTheWeek)
+                    {
+                        allTasks.append(data)
+                    }
+ 
+               
+                }
+                print("Retrived all tasks !")
+                
+            } catch {
+                
+                print("Failed")
+            }
+        
+        return allTasks
+        }
+    
+    
     func retrieveAllBreakWindows() -> [Task] {
         var allTasks=[Task]()
               

@@ -3124,7 +3124,7 @@ class Core{
    
            }
         
-            let allTasks=taskModel.retrieveAllTasks()
+            let allTasks=taskModel.retrieveAllTasksAndBreakWindows()
             var tasksInDate=[Task]()
             for task in allTasks
             {
@@ -3994,6 +3994,7 @@ class Core{
             
             for freeSpaceDate in freeSpacesDates
             {
+                CreateIntialBreak(date:freeSpaceDate)
                 scheduleFreeSpaceBoundToTasks(date: freeSpaceDate)
             }
             
@@ -4002,6 +4003,82 @@ class Core{
             print("f")
         }
         
+        
+    }
+    
+    func CreateIntialBreak(date:CustomDate)
+    {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+             
+               
+                 
+           let taskModel=TaskModel()
+           //We need to create a context from this container
+           let managedContext = appDelegate.persistentContainer.viewContext
+
+        let allTasks=taskModel.retrieveAllTasks()
+        
+        if(!allTasks.isEmpty)
+        {
+            var tasksInDate=[Task]()
+            for task in allTasks
+            {
+                if (task.date==date)
+                {
+                    tasksInDate.append(task)
+                    
+                }
+            }
+            
+            
+            
+            
+            tasksInDate.sort {
+                        ($0.endTime!.hour,$0.endTime!.minutes) <
+                            ($1.endTime!.hour,$1.endTime!.minutes)
+                    }
+            
+            let lastTask = tasksInDate[tasksInDate.count-1]
+            
+            let hourSection = GetHourSection()
+            let startOfDay=GetStartOfDay()
+            let endOfDay=GetEndOfDay()
+            
+            if(!hourSection.isContinues)
+            {
+                if(lastTask.endTime!.add(hour: hourSection.breakTime!) < endOfDay)
+                {
+                    let breakWindow=Task(context: managedContext)
+                     breakWindow.startTime=lastTask.endTime!
+                     breakWindow.endTime=breakWindow.startTime!.add(hour:  hourSection.breakTime!)
+                     breakWindow.taskName="BreakWindow"
+                     breakWindow.asstimatedWorkTime = hourSection.breakTime!
+                     breakWindow.completed=false
+                     breakWindow.color="Green"
+                     breakWindow.active=true
+                     breakWindow.importance=""
+                     breakWindow.notes=""
+                     breakWindow.id=UUID()
+                     breakWindow.isTaskBreakWindow=true
+                     breakWindow.scheduleSection="hourAndAHalf"
+                     breakWindow.date=date
+                     breakWindow.dueDate=Date()
+                     breakWindow.internalId=UUID()
+                     breakWindow.associatedFreeSpaceId=UUID()
+                     breakWindow.difficulty="average"
+                    
+                    do {
+                                     
+                            try managedContext.save()
+                                print("Saved Task !.")
+                        } catch let error as NSError {
+                            print("Could not save. \(error), \(error.userInfo)")
+                        }
+                    
+                }
+            }
+        }
         
     }
     
