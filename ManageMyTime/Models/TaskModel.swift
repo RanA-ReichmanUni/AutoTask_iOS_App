@@ -2039,7 +2039,7 @@ class TaskModel : UIViewController
           //Prepare the request of type NSFetchRequest  for the entity
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
      
-          fetchRequest.predicate = NSPredicate(format: "date.year >= %@" /*AND isTaskBreakWindow = %@"*/, argumentArray: [Date().year/*,false*/])
+          fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND isTaskBreakWindow = %@", argumentArray: [Date().year,false])
               
           let nextHour = Hour(context: managedContext)
               nextHour.hour=hour+1

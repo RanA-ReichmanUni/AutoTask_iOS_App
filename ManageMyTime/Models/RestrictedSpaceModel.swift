@@ -351,6 +351,7 @@ class RestrictedSpaceModel : UIViewController
                 if(!tasksToDelete.isEmpty)
                 {
                     try RescheduleTasks(tasksToDelete: tasksToDelete, restrictedSpacesIds: restrictedSpacesIds,datesToRescheduleFreeSpaces: datesToRescheduleFreeSpaces)
+                    
                 }
             }
             catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
@@ -385,7 +386,7 @@ class RestrictedSpaceModel : UIViewController
                 throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
             }
             
-          
+         
             
             
              
@@ -499,6 +500,7 @@ class RestrictedSpaceModel : UIViewController
                 taskModel.SingularTaskDelete(taskId: taskToDelete.id)
                 
             }
+            
              
          }
         

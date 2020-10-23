@@ -20,7 +20,7 @@ struct PageViewController1: View {
     ]
     @State var buttonControl=false
     @State var finished=false
-    @State var showQuickSettings=false
+    
     var body: some View {
         
        GeometryReader { geometry in
@@ -68,7 +68,7 @@ struct PageViewController1: View {
                        if(self.currentPage == self.pages.count-1)
                        {
                         self.finished=true
-                        self.showQuickSettings=true
+
                        }
                        else{
                             self.currentPage = (self.currentPage + 1)%self.pages.count
@@ -100,7 +100,7 @@ struct PageViewController1: View {
         }
         else{
             
-            MainUI2().sheet(isPresented:self.$showQuickSettings){OnBoardingQuickSettings(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel)}
+            MainUI2()
         }
         }
     }

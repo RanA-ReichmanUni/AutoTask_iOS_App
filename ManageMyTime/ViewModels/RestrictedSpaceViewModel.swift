@@ -78,7 +78,7 @@ class RestrictedSpaceViewModel : ObservableObject
     {
        return restrictedSpaceModel.getRestrictedSpaceColor(restrictedSpace:restrictedSpace)
     }
-    func CreateRestrictedSpace(name:String,color:Color,startTimeHour:String,startTimeMinutes:String,endTimeHour:String,endTimeMinutes:String,daysOfTheWeek:Set<IdentifiableString>,difficulty:String) throws
+    func CreateRestrictedSpace(name:String,color:Color,startTimeHour:String,startTimeMinutes:String,endTimeHour:String,endTimeMinutes:String,daysOfTheWeek:Set<IdentifiableString>,difficulty:String,taskViewModel:TaskViewModel,restrictedSpaceViewModel:RestrictedSpaceViewModel) throws
     {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -103,6 +103,11 @@ class RestrictedSpaceViewModel : ObservableObject
         
         do{
             try restrictedSpaceModel.CreateRestrictedSpace(name:name,color:color.description,startTime: startTime, endTime: endTime, daysOfTheWeek: daysInTheWeek,difficulty:difficulty)
+            
+            taskViewModel.UpdateAllTasks()
+            taskViewModel.GetDayTasksByIndex(index: taskViewModel.latestDayChoiseIndex)//In order to update the published task array after deletion
+            restrictedSpaceViewModel.getAllRestrictedSpace()
+            
         }
         catch RestrictedSpaceError.alreadyScheduled {
             throw RestrictedSpaceError.alreadyScheduled

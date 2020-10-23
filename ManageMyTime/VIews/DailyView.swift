@@ -43,11 +43,11 @@ struct DailyView: View {
                 {
                 
                     BigChar(hour:String(hour))
-                    .padding(.leading,-170)
+                    .padding(.leading,-160)
                 }
                 else{
                     
-                    BigChar(hour:"0"+String(hour)).padding(.leading,-170)
+                    BigChar(hour:"0"+String(hour)).padding(.leading,-160)
                 }
                
                 ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
@@ -63,10 +63,9 @@ struct DailyView: View {
                                 }*/
                                 
                     
-                               
-                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width)
-                                   
-                            
+                           
+                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width*1.5).padding(.trailing,geometry.size.width/1.3)
+                                
                                 
                             }
                          }
@@ -84,7 +83,7 @@ struct DailyView: View {
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))
                         TestTaskRow(heightFactor: CGFloat(1.5)).padding(EdgeInsets(top: 6, leading: 0, bottom:-2, trailing: 0))*/
-                    }.animation(.easeInOut(duration: 1))
+                    }.environment(\.defaultMinListRowHeight, 80).animation(.easeInOut(duration: 1))
              /*   HStack{
                      Text(self.timeChar).padding(EdgeInsets(top: 5, leading: 0, bottom:0, trailing: 10))
                 

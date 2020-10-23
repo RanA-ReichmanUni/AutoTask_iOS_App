@@ -237,8 +237,9 @@ struct AddRestrictedSpaceUI: View {
                             else{
                                     
                               do{
-                                try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:self.selectedColorIndex,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , daysOfTheWeek: self.selected,difficulty:"average")
+                                try self.restrictedSpaceViewModel.CreateRestrictedSpace(name:self.taskName,color:self.selectedColorIndex,startTimeHour: self.fromSelection[0], startTimeMinutes: self.fromSelection[1] , endTimeHour: self.toSelection[0], endTimeMinutes: self.toSelection[1] , daysOfTheWeek: self.selected,difficulty:"average",taskViewModel:self.taskViewModel,restrictedSpaceViewModel:self.restrictedSpaceViewModel)
                                 
+                               
                                     self.mode.wrappedValue.dismiss()
                                 }
                                 catch RestrictedSpaceError.alreadyScheduled{

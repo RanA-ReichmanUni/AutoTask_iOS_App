@@ -241,7 +241,7 @@ struct MainUI2: View {
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
                             self.toggleActive=true
-                       self.taskViewModel.hoursRange=[]
+                       //self.taskViewModel.hoursRange=[]
                     }
                         
                     }) {
