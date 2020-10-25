@@ -33,7 +33,10 @@ struct DailyView: View {
                // WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
  
-       
+            HStack{
+                          Text("Daily Schedule").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                          Spacer()
+                      }.padding(10)
         
             List(self.dayRange,id:\.self){
                     hour in

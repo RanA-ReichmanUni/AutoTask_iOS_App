@@ -213,7 +213,7 @@ struct CardTaskRow: View {
                                                                             
                                                                             
                               } .alert(isPresented:$showingAlert) {
-                                         Alert(title: Text("Are you sure you want to delete this task ?"), message: Text("You can`t undo this action"), primaryButton: .destructive(Text("Delete")) {
+                                         Alert(title: Text("Are you sure you want to delete this task ?"), message: Text("\nThis Task And All It's Sub Schedules Will Be Deleted. \nYou can`t undo this action"), primaryButton: .destructive(Text("Delete")) {
                                                       self.taskViewModel.deleteTask(taskId: self.taskId)
                                                             self.taskViewModel.getFirstTaskColor()
                                                        //   self.mode.wrappedValue.dismiss()
@@ -221,15 +221,16 @@ struct CardTaskRow: View {
                             
                             Button(action: {
                                                                                              
-                                                          
+                                self.displayItem=true
+                                self.windowType=1
                                                                                                                        
-                                                                  }) {
-                                                                   
-                                                                     VStack{  Image(systemName: "square.and.arrow.up").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
-                                                                       Text("Expand").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
-                                                                                                  
-                                                                                                  
-                                                    }
+                                      }) {
+                                       
+                                         VStack{  Image(systemName: "square.and.arrow.up").foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)
+                                           Text("Expand").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
+                                                                      
+                                                                      
+                        }
                                                      
               
                             
@@ -265,7 +266,11 @@ struct CardTaskRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(isPresented: self.$displayItem) {
             if(self.windowType==1)
             {
-                DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem, completed: self.$completed)/*.onTapGesture {
+                
+                DetailedTaskWithObj(taskViewModel: self.taskViewModel, displayItem: self.$displayItem, taskName: self.taskName1, importance: self.importance1, dueDate: self.dueDate, notes: self.notes, asstimatedWorkTimeHour: String(self.workTimeHour),asstimatedWorkTimeMinutes:String(self.workTimeMinutes),startTimeHour:String(self.startTimeHour),startTimeMinutes:String(self.startTimeMinutes),endTimeHour:String(self.endTimeHour),endTimeMinutes:String(self.endTimeMinutes),day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color)
+                 
+               /* DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem, completed: self.$completed)*/
+                    /*.onTapGesture {
                     self.taskViewModel.getFirstTaskColor()
                         self.displayItem=false
                     
@@ -277,7 +282,7 @@ struct CardTaskRow: View {
                                 self.padding = 0}
                     }
                      
-                }*/.onDisappear{
+                }.onDisappear{
                     self.taskViewModel.getFirstTaskColor()
                                     self.displayItem=false
                                     //self.padding = 0
@@ -290,7 +295,7 @@ struct CardTaskRow: View {
                                         self.padding = 0
                                     self.vStackPadding=5}
                         
-                }
+                }*/
                             
             }
             if(self.windowType==2)

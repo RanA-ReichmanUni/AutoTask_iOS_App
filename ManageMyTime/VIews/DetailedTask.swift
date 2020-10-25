@@ -52,7 +52,16 @@ struct DetailedTask: View {
                          .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
                
                 }*/
-                
+                HStack{
+                    Spacer()
+                Image(systemName: "rectangle.grid.2x2.fill")
+                                                         .resizable()
+                    .frame(width: 65, height: 50).padding(.top,10)
+                                                        // .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
+                        .foregroundColor(self.color)
+                    Spacer()
+                }
+
      
                 HStack {
                     

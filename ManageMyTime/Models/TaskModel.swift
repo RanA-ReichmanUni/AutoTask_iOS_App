@@ -2966,7 +2966,7 @@ class TaskModel : UIViewController
          
                 for task in tasks
                 {
-
+                    coreManagment.RemoveLocalNotification(id: task.id)
                     freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
                     
                     print("FreeSpace is from"+String(task.startTime!.hour)+":"+String(task.startTime!.minutes)+" To "+String(task.endTime!.hour)+":"+String(task.endTime!.minutes))

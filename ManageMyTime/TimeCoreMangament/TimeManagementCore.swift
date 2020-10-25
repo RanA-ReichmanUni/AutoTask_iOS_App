@@ -1274,7 +1274,7 @@ class Core{
                                                         newTask.associatedFreeSpaceId=freeSpace.associatedId
                                                         newTask.difficulty=difficulty
                                                         
-                                                        createNotification(taskName: newTask.taskName, notes: newTask.notes! , internalId: newTask.internalId!, date: newTask.date, startTime: newTask.startTime!,notificationFactor:notificationFactor)
+                                                        createNotification(taskName: newTask.taskName, notes: newTask.notes! , id: newTask.id, date: newTask.date, startTime: newTask.startTime!,notificationFactor:notificationFactor)
                                                         
                                                         handleLoad(date: newTask.date, duration: newTask.endTime!.subtract(newHour: newTask.startTime!))
                                                         
@@ -1471,7 +1471,7 @@ class Core{
      }
     
     
-    func createNotification(taskName:String,notes:String,internalId:UUID,date:CustomDate,startTime:Hour,notificationFactor:Int)
+    func createNotification(taskName:String,notes:String,id:UUID,date:CustomDate,startTime:Hour,notificationFactor:Int)
     {
         
         if(notificationFactor != -1)//-1 represent no notification option.
@@ -1482,12 +1482,25 @@ class Core{
             content.title = "Its Almost Time To Start Working On "+taskName+" !"
             content.subtitle = "You May Start At: "+viewHourString
             content.sound = UNNotificationSound.default
-
+            
+            
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+             
+           
+             let managedContext = appDelegate.persistentContainer.viewContext
+            
+            let theZeroHour = Hour(context: managedContext)
+                       theZeroHour.hour=0
+                       theZeroHour.minutes=0
         
+            var notificationAlert = startTime
             
-         
-            
-            let notificationAlert = startTime.subtract(minutesValue: notificationFactor)
+            if(startTime != theZeroHour)//In case it's shceduled to 00:00
+            {
+                
+               notificationAlert = startTime.subtract(minutesValue: notificationFactor)
+                
+            }
             
             var dateComponents = DateComponents()
                 dateComponents.year = date.year
@@ -1501,11 +1514,24 @@ class Core{
             let trigger = UNCalendarNotificationTrigger(dateMatching:dateComponents, repeats: false)
 
             // choose a random identifier
-            let request = UNNotificationRequest(identifier: internalId.uuidString, content: content, trigger: trigger)
-
+            let request = UNNotificationRequest(identifier: id.uuidString, content: content, trigger: trigger)
+            
             // add our notification request
             UNUserNotificationCenter.current().add(request)
         }
+        
+    }
+    
+    func RemoveLocalNotification(id:UUID)
+    {
+        
+        
+        var identifiers=[String]()
+        identifiers.append(id.uuidString)
+        
+         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers:identifiers)
+        
         
     }
     
