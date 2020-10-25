@@ -827,7 +827,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 10
-        dateComponents.day = 24
+        dateComponents.day = 31
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -880,7 +880,7 @@ class TaskModel : UIViewController
                
            //   createRestrictedSpace(name:"TextFill2",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
          // createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Wednesday",difficulty:"average")
-          createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Sunday",difficulty:"average")
+          createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Monday",difficulty:"average")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -2039,7 +2039,7 @@ class TaskModel : UIViewController
           //Prepare the request of type NSFetchRequest  for the entity
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
      
-          fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND isTaskBreakWindow = %@", argumentArray: [Date().year,false])
+          fetchRequest.predicate = NSPredicate(format: "date.year >= %@" /*AND isTaskBreakWindow = %@*/, argumentArray: [Date().year/*,false*/])
               
           let nextHour = Hour(context: managedContext)
               nextHour.hour=hour+1

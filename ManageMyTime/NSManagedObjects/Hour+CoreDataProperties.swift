@@ -272,6 +272,14 @@ extension Hour {
         return false
     }
     
+    static func != (left: Hour, right: Hour) -> Bool { // 1
+          
+           if(left == right)
+           {
+               return false
+           }
+           return true
+       }
     
     static func <= (left: Hour, right: Hour) -> Bool { // 1
        

@@ -379,6 +379,24 @@ class TaskViewModel : ObservableObject
         
         taskModel.UpdateStartEndDay(dayStartTime:startOfDay,dayEndTime:endOfDay)
     }
+    
+    func TempFuncForDate() -> Date{
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = 2020
+        dateComponents.month = 10
+        dateComponents.day = 25
+      
+        dateComponents.hour = Date().hour
+        dateComponents.minute = Date().minutes
+
+        // Create date from components
+        let userCalendar = Calendar.current // user calendar
+        let someDateTime = userCalendar.date(from: dateComponents)
+        
+        return someDateTime!
+    }
+    
     func SetSettingsValues(scheduleAlgorithimIndex:Int,scheduleDensityIndex:Int,breakPeriodsIndex:Int,animationStyleIndex:Int)
     {
        

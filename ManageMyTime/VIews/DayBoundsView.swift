@@ -31,31 +31,33 @@ struct DayBoundsView: View {
     
     var body: some View {
         VStack{
-            Rectangle().isHidden(true).frame(height:130)
-        Form{
-           
+            Spacer()
+    
+            
                
                 Section(header: HStack {
                         Image(systemName:"clock").foregroundColor(.blue)
                         Text("Day Starts At: ").font(Font.custom("MarkerFelt-Wide", size: 16))
+                        Spacer()
                     }) {
-                       MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
-                 }
+                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f9f9f9").opacity(0.8)))
+                }.padding()
                                            
-                                   
+                
                Section(header: HStack {
                          Image(systemName:"clock").foregroundColor(.blue)
                          Text("Day Ends In: ").font(Font.custom("MarkerFelt-Wide", size: 16))
+                        Spacer()
                      }) {
-                        MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding()
-                  }
+                        MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f9f9f9").opacity(0.8)))
+               }.padding()
          
             
             
+            Spacer()
+           
             
-            
-            
-        }
+      
         
        
         HStack{

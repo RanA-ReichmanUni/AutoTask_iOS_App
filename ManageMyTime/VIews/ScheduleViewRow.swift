@@ -32,7 +32,7 @@ struct ScheduleViewRow: View {
                 HStack{
                     Text("Weekly Schedule").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
                     Spacer()
-                }.padding(10)
+                }.padding(20)
         WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
         
