@@ -169,18 +169,9 @@ struct UpdateTask: View {
                                  self.alertType=2
                             }
                             else{
-                                do{
-                                    try  self.taskViewModel.UpdateData(id: self.id, newTaskName: self.taskName,  newNotes: self.notes, color: self.selectedColorIndex)
+                                
+                             self.taskViewModel.UpdateData(id: self.id, newTaskName: self.taskName, newNotes: self.notes, color: self.selectedColorIndex)
                        
-                                }
-                                 catch DatabaseError.taskCanNotBeScheduledInDue {
-                                    self.isError = true
-                                    self.alertType=1
-                                }
-                                catch {
-                                           self.isError = true
-                                           self.alertType=1
-                                       }
                                 
                               self.taskViewModel.UpdateAllTasks()
                                 //self.addTaskFlag=false

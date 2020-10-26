@@ -248,7 +248,7 @@ class RestrictedSpaceModel : UIViewController
     
     func CreateRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,daysOfTheWeek: [String],difficulty:String) throws
        {
-           var taskModel=TaskModel()
+        let taskModel=TaskModel()
            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
            
           

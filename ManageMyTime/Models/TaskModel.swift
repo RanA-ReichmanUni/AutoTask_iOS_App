@@ -1018,7 +1018,7 @@ class TaskModel : UIViewController
         let taskId=UUID()
         
            do {
-               let task = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
+            _ = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
            }
            catch{
                throw DatabaseError.taskCanNotBeScheduledInDue
@@ -2708,7 +2708,7 @@ class TaskModel : UIViewController
            
              for result in results as! [NSManagedObject] {
                 
-                    var task = result as! Task
+                let task = result as! Task
                 
                     freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
                 
@@ -2743,7 +2743,7 @@ class TaskModel : UIViewController
           let results = try managedContext.fetch(fetchRequest)
         
               for result in results as! [NSManagedObject] {
-                var task = result as! Task
+                let task = result as! Task
                 print(task.taskName+" "+task.startTime!.description)
                 print(task.endTime!.description+task.date.description)
                 }
@@ -2773,7 +2773,7 @@ class TaskModel : UIViewController
             let results = try managedContext.fetch(fetchRequest)
           
                 for result in results as! [NSManagedObject] {
-                  var task = result as! Task
+                    let task = result as! Task
                   print(task.taskName+" "+task.startTime!.description)
                   print(task.endTime!.description+task.date.description)
                   }

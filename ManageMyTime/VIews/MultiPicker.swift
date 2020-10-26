@@ -30,14 +30,14 @@ struct MultiPicker: View  {
                 
                 HStack {
            
-                    ForEach(0..<self.data.count) { column in
+                    ForEach(0..<self.data.count, id: \.self) { column in
                         VStack {
                   
                             Text(self.data[column].0).font(Font.custom("MarkerFelt-Wide", size: 16))
                     
                             
                             Picker("", selection: self.$selection[column]) {
-                                ForEach(0..<self.data[column].1.count) { row in
+                                ForEach(0..<self.data[column].1.count, id: \.self) { row in
                                     Text(verbatim: self.data[column].1[row])
                                     .tag(self.data[column].1[row])
                                 }

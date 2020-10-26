@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Get the managed object context from the shared persistent container.
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         
         let taskViewModel = TaskViewModel()
@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // let scheduleViewRow = ScheduleViewRow().environment(\.managedObjectContext, context)
       
        // let pageViewController=PageViewController1()
-       let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
+       //let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
       let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter())
         
         // Use a UIHostingController as window root view controller.

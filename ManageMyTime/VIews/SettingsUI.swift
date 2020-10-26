@@ -96,7 +96,7 @@ struct SettingsUI: View {
                                     
                                  //Using Binding extention
                                    Picker(selection: self.$selectedSchedulingAlgorithmIndex.onUpdate(SetSettings), label: Text("Schedule Algorithm")) {
-                                    ForEach(0 ..< self.schedulingAlgorithm.count) {
+                                    ForEach(0 ..< self.schedulingAlgorithm.count, id: \.self) {
   
                                                 Text(self.schedulingAlgorithm[$0]).padding(.leading,10)
 
@@ -107,7 +107,7 @@ struct SettingsUI: View {
                     
                                  //Using Binding extention
                                 Picker(selection: self.$selectedBreakPeriodsIndex.onUpdate(SetSettings), label: Text("Break Periods")) {
-                                       ForEach(0 ..< self.breakPeriods.count) {
+                                       ForEach(0 ..< self.breakPeriods.count, id: \.self) {
                                              Text(self.breakPeriods[$0]).padding(.leading,50)
                                            }
                                    }
@@ -121,7 +121,7 @@ struct SettingsUI: View {
                                 
 
                             Picker(selection: self.$selectedAnimationIndex.onUpdate(SetSettingsAnimation), label: Text("Main View Animation")) {
-                                ForEach(0 ..< self.animationsValues.count) {
+                                ForEach(0 ..< self.animationsValues.count, id: \.self) {
                                       Text(self.animationsValues[$0])
                                     }
                             }

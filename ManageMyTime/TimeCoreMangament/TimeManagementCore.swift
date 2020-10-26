@@ -844,13 +844,7 @@ class Core{
                 throw DateBoundsError.dueDateIsInPastTime
             }
 
-        default:
-           do{
-                return try OptimalAlgorithm(startDate: startDate, endDate: endDate)
-             }
-             catch{
-                 throw DateBoundsError.dueDateIsInPastTime
-             }
+       
         }
         
       
@@ -871,7 +865,7 @@ class Core{
         var suitableFreeSpaces = [FreeTaskSpace]()
         var calanderSequence:[CustomDate]
         var isContinuesScheduling=false
-        var remainingWorkTime = Hour()
+        
         var taskInternalId=UUID()
        
         var minimalSpaceExists=false
@@ -881,8 +875,12 @@ class Core{
             
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
-            
-        var currentHour = Hour(context: managedContext)
+          
+        var remainingWorkTime = Hour(context: managedContext)
+            remainingWorkTime.hour=0
+            remainingWorkTime.minutes=0
+        
+        let currentHour = Hour(context: managedContext)
             currentHour.hour=Date().hour
             currentHour.minutes=Date().minutes
             
@@ -1448,9 +1446,7 @@ class Core{
                                               
                      
                         throw DatabaseError.taskCanNotBeScheduledInDue
-                        //Shouldn't get here, if we do, return an empty task. Needs to check how to properly handle this.
-                        return Task()
-        //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
+                        
     }
     
     func PrioritizeFreeSpaces(asstimatedWorkTime:Hour,freeSpaces:[FreeTaskSpace],currentHour:Hour) -> [FreeTaskSpace]
@@ -1696,7 +1692,7 @@ class Core{
                     return scheduleDensity.mediumDensity
               }
           
-            return scheduleDensity.mediumDensity
+           
       }
     
     func densityHandler(date:CustomDate,workTime:Hour,includePersonalTime:Bool) -> Bool
@@ -1830,8 +1826,7 @@ class Core{
                   return false
             case .maximumCapacity:// Unlimited hours of work per day
                      return true
-            default:
-                return true
+          
             }
          
     
@@ -2966,7 +2961,7 @@ class Core{
                theZeroHour.hour=0
                theZeroHour.minutes=0
         
-        var freeSpacesForDate=retriveAndSortFreeSpaces(forDate: date)
+        let freeSpacesForDate=retriveAndSortFreeSpaces(forDate: date)
      
            let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
           
@@ -3509,7 +3504,7 @@ class Core{
                SectionFreeSpace(date:date)
            }
            
-         let existingFreeSpaces = retriveAndSortFreeSpaces(forDate: date)
+        
         
        }
     
@@ -4039,12 +4034,7 @@ class Core{
             
             taskModel.DeleteAllBreakWindows()
             
-            var breakWindowsCheck=taskModel.PrintAllBreakWindows()
-          /*  for breakWindowAssociatedId in taskBreakWindowsToDeleteIds
-               {
-                   taskModel.deleteBreakWindowTask(freeSpaceaAssociatedId: breakWindowAssociatedId)
-               }*/
-            
+        
             //Update the list of freeSpaces after deletion, since it's creating new freeSpaces.
             let updatedFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
             
@@ -4053,11 +4043,7 @@ class Core{
                 
                 deleteFreeSpace(freeSpaceId: freeSpace.id)
             }
-             breakWindowsCheck=taskModel.PrintAllBreakWindows()
-            
-            var exsitingFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
-            
-            
+
             
             for freeSpaceDate in freeSpacesDates
             {
@@ -4065,16 +4051,9 @@ class Core{
                 scheduleFreeSpaceBoundToTasks(date: freeSpaceDate)
             }
             
-             breakWindowsCheck=taskModel.PrintAllBreakWindows()
+           
              
-              exsitingFreeSpaces=retriveAndSortFreeSpaces(startDate: currentDate)
-            
-            for space in exsitingFreeSpaces
-            {
-                
-                print("h: "+space.date.day.description)
-            }
-            print("f")
+           
         }
         
         
@@ -4116,7 +4095,6 @@ class Core{
             let lastTask = tasksInDate[tasksInDate.count-1]
             
             let hourSection = GetHourSection()
-            let startOfDay=GetStartOfDay()
             let endOfDay=GetEndOfDay()
             
             if(!hourSection.isContinues)
@@ -4282,13 +4260,9 @@ class Core{
         
         var retrivedSpaces=[FreeTaskSpace]()
         
-        do{
-            retrivedSpaces=try retrieveAllFreeSpaces(date: date)
-        }
-        catch{
-            print(error)
-        }
         
+            retrivedSpaces=retrieveAllFreeSpaces(date: date)
+    
        
         
      
@@ -4409,12 +4383,9 @@ class Core{
         
         var retrivedSpace=FreeTaskSpace()
         
-        do{
+
             retrivedSpace = GetFreeSpace(id: id)
-        }
-        catch{
-            print(error)
-        }
+     
         
      
         
@@ -4791,7 +4762,7 @@ class Core{
        
        var dateSequence=[CustomDate]()
             
-       var startOfMonthIndex:Int
+       //var startOfMonthIndex:Int
        
        //Seems like a managedContext var is passed by refrence !, when we are moving to a new month for example, the currentIndexDate changes and thus we need to seperate it from the orginal object that the ScheduleTask method uses and create a new seperate object.
        
@@ -4841,6 +4812,10 @@ class Core{
        }
        //Same month
        do{
+            if(endDate.day < currentIndexDate.day)
+            {
+                throw DateBoundsError.dueDateIsInPastTime
+            }
            for day in currentIndexDate.day...endDate.day
            {
                let newDate = CustomDate(context:managedContext)
@@ -5066,7 +5041,7 @@ class Core{
                   print("Could not save. \(error), \(error.userInfo)")
               }
         
-             var orginalOrFreshlyMergedFreeSpaceId = mergeFreeSpacesAndReturnId(createdFreeSpace: freeSpace.id)
+        let orginalOrFreshlyMergedFreeSpaceId = mergeFreeSpacesAndReturnId(createdFreeSpace: freeSpace.id)
         
         return orginalOrFreshlyMergedFreeSpaceId
     }
@@ -5103,7 +5078,7 @@ class Core{
                      print("Could not save. \(error), \(error.userInfo)")
                  }
         
-                var orginalOrFreshlyMergedFreeSpaceId = mergeFreeSpacesAndReturnId(createdFreeSpace: freeSpace.id)
+        let orginalOrFreshlyMergedFreeSpaceId = mergeFreeSpacesAndReturnId(createdFreeSpace: freeSpace.id)
                 
                 return orginalOrFreshlyMergedFreeSpaceId
        }
