@@ -896,6 +896,9 @@ class Core{
                 minimalPartitionSize.hour=0
                 minimalPartitionSize.minutes=30
         
+        let largeHourFactor=Hour(context: managedContext)
+            largeHourFactor.hour=23
+            largeHourFactor.minutes=59
         
         let breakWindowEndTime = Hour(context: managedContext)
                 breakWindowEndTime.hour=0
@@ -996,7 +999,29 @@ class Core{
                                 if(suitableFreeSpaces.contains(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} ) )//Check if we already have a FreeSpace object in that date, can't check if the duration in sufficient since this else case goes to create a new FreeSpace object for that day, assuming this term hasn't satisfied only because such an object doesn't exist at all and not because it doesn't match the duration needs. We will check this condition in the next if.
                                 {
                                     
-                                    let matchingFreeSpaces=suitableFreeSpaces.all(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} )
+                                    var matchingFreeSpaces=suitableFreeSpaces.all(where: { singleDate.isEqual(year: $0.date.year, month: $0.date.month, day: $0.date.day)} )
+                                   
+                             
+                                  matchingFreeSpaces=PrioritizeFreeSpaces(asstimatedWorkTime: asstimatedWorkTime, freeSpaces: matchingFreeSpaces, currentHour: currentHour)
+                                    
+                                  print("PPPOE one channel")
+                                    for space in matchingFreeSpaces
+                                    {
+                                        
+                                        if (space.starting < currentHour && space.ending > currentHour)
+                                        {
+                                            print("starts "+space.starting.hour.description+space.starting.minutes.description)
+                                             print("ends "+space.ending.hour.description+space.ending.minutes.description)
+                                            print("duration "+space.ending.subtract(newHour: currentHour).hour.description+":"+space.ending.subtract(newHour: currentHour).minutes.description)
+                                            
+                                        }
+                                        else{
+                                            print("starts "+space.starting.hour.description+space.starting.minutes.description)
+                                            print("ends "+space.ending.hour.description+space.ending.minutes.description)
+                                            print("duration "+space.duration.hour.description+":"+space.duration.minutes.description)
+                                            
+                                        }
+                                    }
                                     
                                    // print("entred d1")
                                     for freeSpace in matchingFreeSpaces
@@ -1428,6 +1453,66 @@ class Core{
         //Needs to return task object to the calling precedure (probably from the Model, or ViewModel)
     }
     
+    func PrioritizeFreeSpaces(asstimatedWorkTime:Hour,freeSpaces:[FreeTaskSpace],currentHour:Hour) -> [FreeTaskSpace]
+    {
+        var matchingFreeSpaces=freeSpaces
+        var freeSpacesRank=[FreeSpaceRank]()
+        if(asstimatedWorkTime >= GetHourSection().sectionWindow! || asstimatedWorkTime.hourInMinutes() >= GetHourSection().sectionWindow!.hourInMinutes()*65/100 )
+           {
+               matchingFreeSpaces.sort{($0.duration) > (($1.starting < currentHour && $1.ending > currentHour) ? $1.ending.subtract(newHour: currentHour) : $1.duration)}
+               
+               return matchingFreeSpaces
+           }
+           else{
+             
+                for space in matchingFreeSpaces
+                {
+                    var actualDuration=space.duration
+                    
+                    if(space.starting < currentHour && space.ending > currentHour)
+                   {
+                       actualDuration=space.ending.subtract(newHour: currentHour)
+                   }
+                    
+                    if(space.duration > asstimatedWorkTime)
+                    {
+                       
+                        
+                        freeSpacesRank.append(FreeSpaceRank(freeSpace: space, rank: Double(-1*actualDuration.hourInMinutes())/Double(asstimatedWorkTime.hourInMinutes())))
+                        
+                        print((Double(-1*space.duration.hourInMinutes())/Double(asstimatedWorkTime.hourInMinutes())).description)
+                    }
+                    else if(space.duration == asstimatedWorkTime)
+                    {
+                        freeSpacesRank.append(FreeSpaceRank(freeSpace: space, rank: Double(-900)))
+                    }
+                    else{
+                        
+                        freeSpacesRank.append(FreeSpaceRank(freeSpace: space, rank: Double(actualDuration.hourInMinutes())/Double(asstimatedWorkTime.hourInMinutes())))
+                        
+                        print((Double(space.duration.hourInMinutes())/Double(asstimatedWorkTime.hourInMinutes())).description)
+                    }
+                    
+                }
+                
+                
+                freeSpacesRank.sort{ $0.rank < $1.rank }
+            
+                matchingFreeSpaces=[]
+                for spaceRank in freeSpacesRank
+                {
+                    matchingFreeSpaces.append(spaceRank.freeSpace)
+                    
+                }
+                
+                return matchingFreeSpaces
+                
+                
+                
+            }
+        
+        
+    }
     func ViewStandardHourConverter(hourVar:Hour) ->String
        {
             var viewStandardisedHour=""

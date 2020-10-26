@@ -119,8 +119,8 @@ extension Hour {
     
     func subtract(newHour:Hour) -> Hour
     {
-        print(String(newHour.hour)+":"+String(newHour.minutes))
-        print(String(self.hour)+":"+String(self.minutes))
+       // print(String(newHour.hour)+":"+String(newHour.minutes))
+       // print(String(self.hour)+":"+String(self.minutes))
         guard newHour.hour>=0 && newHour.minutes>=0 else {
             return Hour()
         }

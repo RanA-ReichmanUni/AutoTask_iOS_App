@@ -50,6 +50,7 @@
 		25419FC224C79E3F004063A4 /* DayFreeSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25419FC024C79E3F004063A4 /* DayFreeSpace+CoreDataClass.swift */; };
 		25419FC324C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25419FC124C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift */; };
 		2548847024FC0BEE005AF006 /* PreSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548846F24FC0BEE005AF006 /* PreSelector.swift */; };
+		255673A32546FAB200E69EC5 /* FreeSpaceRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255673A22546FAB200E69EC5 /* FreeSpaceRank.swift */; };
 		2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2558924B24D084F600346AC6 /* ListTextHourSelector.swift */; };
 		255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255BA0BF251FCA2F00207331 /* UpdateTask.swift */; };
 		255E5F12251A4B9A00AF3806 /* FirstRowGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E5F11251A4B9A00AF3806 /* FirstRowGen.swift */; };
@@ -203,6 +204,7 @@
 		25419FC024C79E3F004063A4 /* DayFreeSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayFreeSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25419FC124C79E3F004063A4 /* DayFreeSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayFreeSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2548846F24FC0BEE005AF006 /* PreSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSelector.swift; sourceTree = "<group>"; };
+		255673A22546FAB200E69EC5 /* FreeSpaceRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSpaceRank.swift; sourceTree = "<group>"; };
 		2558924B24D084F600346AC6 /* ListTextHourSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextHourSelector.swift; sourceTree = "<group>"; };
 		255BA0BF251FCA2F00207331 /* UpdateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTask.swift; sourceTree = "<group>"; };
 		255E5F11251A4B9A00AF3806 /* FirstRowGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRowGen.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				25DB2DAB24B6633F00E86600 /* AvailableDay.swift */,
 				2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */,
 				25C9C2F52534E54D00DA8F66 /* CalendarObject.swift */,
+				255673A22546FAB200E69EC5 /* FreeSpaceRank.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				256B6B79253CE8040024D3EF /* DailyListTextHourSelector.swift in Sources */,
 				25407EEA24D72290003110E9 /* LoadLevel+CoreDataClass.swift in Sources */,
 				25D920B424CFA36A00A852BF /* WeeklyCompact.swift in Sources */,
+				255673A32546FAB200E69EC5 /* FreeSpaceRank.swift in Sources */,
 				25680717249FF1FC0096AB89 /* SceneDelegate.swift in Sources */,
 				2563B3AC253C95A300306FB2 /* Subview.swift in Sources */,
 				2563B3AA253C952100306FB2 /* OnboardingView.swift in Sources */,
