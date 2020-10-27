@@ -60,9 +60,8 @@ struct UpdateTask: View {
    // @Binding var addTaskFlag:Bool
     
     var body: some View {
-        UITableView.appearance().backgroundColor = Color(hex:"#fcfcfc").uiColor()
-                  
-        return
+          UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
+                  return
         VStack(spacing:0) {
             GeometryReader{ geometry in
                 Form {
@@ -227,10 +226,12 @@ struct UpdateTask: View {
                        // .disabled(disableSave)
                     
              
-                }.background(Color(hex:"#fcfcfc"))//.frame(height:30)
+                }//.background(Color(hex:"#fcfcfc"))//.frame(height:30)
            
                     
-        }.background(Color(hex:"#fcfcfc"))/*.background(
+        }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#f9f9f9").opacity(0.1))
+        
+        /*.background(
             self.colorScheme == .dark ? ( LinearGradient(
                 gradient: Gradient(colors: [Color("#f1f1f1"),Color("#d1d1d1"),Color("#ffffff"),self.colorChoise]),
                          startPoint: UnitPoint(x: 0.2, y: 0.4),

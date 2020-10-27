@@ -23,7 +23,8 @@ struct ScheduleViewRow: View {
     @State var show=false
     @State var key=false
     var body: some View {
-        
+        UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
+                  return
         GeometryReader { geometry in
             
         

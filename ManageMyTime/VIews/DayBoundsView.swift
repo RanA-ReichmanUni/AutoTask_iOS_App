@@ -11,7 +11,7 @@ import SwiftUI
 struct DayBoundsView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
+    @Environment(\.colorScheme) var colorScheme
     @State var data: [(String, [String])] = [
         ("Hours", Array(1...23).map { "\($0)" }),
         ("Minutes", Array(0...59).map { "\($0)" })
@@ -30,8 +30,14 @@ struct DayBoundsView: View {
     @State private var isError = false
     
     var body: some View {
+        
+        UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color.white.uiColor()
+                   return
         VStack{
-            Spacer()
+            
+            RoundedRectangle(cornerRadius: 20).frame(height:60).isHidden(true)
+        Form{
+          
     
             
                
@@ -40,7 +46,7 @@ struct DayBoundsView: View {
                         Text("Day Starts At: ").font(Font.custom("MarkerFelt-Wide", size: 16))
                         Spacer()
                     }) {
-                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f9f9f9").opacity(0.8)))
+                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill((self.colorScheme == .dark ? Color(hex:"#303030") : Color(hex:"#f9f9f9")).opacity(0.9)))
                 }.padding()
                                            
                 
@@ -49,14 +55,15 @@ struct DayBoundsView: View {
                          Text("Day Ends In: ").font(Font.custom("MarkerFelt-Wide", size: 16))
                         Spacer()
                      }) {
-                        MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#f9f9f9").opacity(0.8)))
+                        MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill((self.colorScheme == .dark ?  Color(hex:"#303030") : Color(hex:"#f9f9f9")).opacity(0.9)))
                }.padding()
          
             
             
-            Spacer()
            
-            
+           
+        }.background(self.colorScheme == .dark ? Color.black : Color.white .opacity(0.1))
+            .navigationBarTitle("Set Day Bounds For Auto Scheduling", displayMode: .inline)
       
         
        
@@ -99,8 +106,8 @@ struct DayBoundsView: View {
                    }
             
               
-            
-        }.navigationBarTitle("Set Day Bounds For Auto Scheduling", displayMode: .inline)
+        }
+      
         
         
     }
