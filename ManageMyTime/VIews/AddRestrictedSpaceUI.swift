@@ -292,8 +292,8 @@ struct AddRestrictedSpaceUI: View {
                                            message: Text("\nThere is at least one task that is already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window"),
                                                                dismissButton: .default(Text("OK")))
                             case 3:
-                                return Alert(title: Text("Attention !, Scheduled Tasks Conflict"),
-                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated task./n/n Your Repeated task will only take effect in the future.\n\n You can also manually delete the scheduled tasks that conflicts with your new repeated activity time window and try to reschedule this tasks again with different Duration or Due Date"),
+                                return Alert(title: Text("Attention ! \nScheduled Tasks Conflict"),
+                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated activity.\n\n Your repeated activity will only take effect in the future, but it will appear on the repeated activity dash board.\n\n Tip: you can also manually delete the scheduled tasks that conflicts with your new repeated activity time window so it will take effect immediately.\n\n Tip: You can try and reschedule the lost tasks using different duration time or due date"),
                                                           dismissButton: .default(Text("OK")))
                             default:
                                 return Alert(title: Text("Repeated Tasks Conflict"),

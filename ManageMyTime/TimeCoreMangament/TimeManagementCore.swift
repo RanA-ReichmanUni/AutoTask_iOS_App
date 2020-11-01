@@ -3024,137 +3024,44 @@ class Core{
                if(!existingFreeSpaces.isEmpty)
                {
                    for freeSpaceInstance in existingFreeSpaces{
-                   
-            
-                       if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
-                       {
-                           
-                          
-                          let freeSpace = FreeTaskSpace(context: managedContext)
-                                  freeSpace.date=date
-                                  freeSpace.id=UUID()
-                                  freeSpace.associatedId=UUID()
-                 
-                           freeSpace.starting=freeSpaceInstance.starting
-                            freeSpace.ending=restrictedSlot.startTime
-                            freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
-                            freeSpace.fullyOccupiedDay=false
-                        
-                            SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
-                        
-                            let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
-                            
-                            secondaryFreeSpace.starting=restrictedSlot.endTime
-                            secondaryFreeSpace.ending=freeSpaceInstance.ending
-                    
-                            secondaryFreeSpace.duration=secondaryFreeSpace.ending.subtract(newHour: secondaryFreeSpace.starting)
-                           // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
-                            secondaryFreeSpace.date=date
-                            secondaryFreeSpace.fullyOccupiedDay=false
-                            secondaryFreeSpace.id=UUID()
-                            secondaryFreeSpace.associatedId=UUID()
-                           
-                            SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
-                        
-                           deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
-                                          
-                        }
-                           
-                      //restrictedSlot starts before freeSpace and ends before freeSpace but some section in between the freeSpace
-                      else if(restrictedSlot.startTime < freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending && restrictedSlot.endTime > freeSpaceInstance.starting)
-                         {
-                             
-                            
-                            let freeSpace = FreeTaskSpace(context: managedContext)
-                                    freeSpace.date=date
-                                    freeSpace.id=UUID()
-                                    freeSpace.associatedId=UUID()
-                   
-                             freeSpace.starting=restrictedSlot.endTime
-                              freeSpace.ending=freeSpaceInstance.ending
-                              freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
-                              freeSpace.fullyOccupiedDay=false
-                              
-                            SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
-                             
-                             deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
-                                            
-                          }
-                           
-                       //restrictedSlot starts after freeSpace and ends after freeSpace but some section in between the freeSpace
-                       else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.startTime < freeSpaceInstance.ending && restrictedSlot.endTime > freeSpaceInstance.ending)
+                        if(freeSpaceInstance.duration != theZeroHour)//Fixed a major bug here, if the whole schedule is full until some date, without filtering the fully used spaces by duration or fullOccupied bool flag, the freeSpace will look like fully avilable space.
                         {
+                           if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                           {
+                               
+                              
+                              let freeSpace = FreeTaskSpace(context: managedContext)
+                                      freeSpace.date=date
+                                      freeSpace.id=UUID()
+                                      freeSpace.associatedId=UUID()
+                     
+                               freeSpace.starting=freeSpaceInstance.starting
+                                freeSpace.ending=restrictedSlot.startTime
+                                freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                freeSpace.fullyOccupiedDay=false
                             
-                           
-                           let freeSpace = FreeTaskSpace(context: managedContext)
-                                   freeSpace.date=date
-                                   freeSpace.id=UUID()
-                                   freeSpace.associatedId=UUID()
-                  
-                             freeSpace.starting=freeSpaceInstance.starting
-                             freeSpace.ending=restrictedSlot.startTime
-                             freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
-                             freeSpace.fullyOccupiedDay=false
-                             
-                            SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                             
-                            deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
-                                           
-                         }
-                       //restrictedSlot starts before freeSpace and ends after freeSpace, complete coverage but bigger or complete coverage, or bigger from one direction left or right. see ios notebook in Ipad.
-                       else if(restrictedSlot.startTime <= freeSpaceInstance.starting && restrictedSlot.endTime >= freeSpaceInstance.ending)
-                         {
-                             
-                            
-                            deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)
-                            
-                                let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
-                                      
-                                      
-                                fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
+                                let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
                                 
-                                var availableFreeSpaces=[FreeTaskSpace]()
-                                            
-                                  do
-                                  {
-                                      let results = try managedContext.fetch(fetchRequest)
-                                      
-                                
-                                          
-                                          
-                                        for result in results as! [NSManagedObject] {
-
-                                              let spaceObj = result as! FreeTaskSpace
-                                          
-                                              availableFreeSpaces.append(spaceObj)
+                                secondaryFreeSpace.starting=restrictedSlot.endTime
+                                secondaryFreeSpace.ending=freeSpaceInstance.ending
+                        
+                                secondaryFreeSpace.duration=secondaryFreeSpace.ending.subtract(newHour: secondaryFreeSpace.starting)
+                               // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
+                                secondaryFreeSpace.date=date
+                                secondaryFreeSpace.fullyOccupiedDay=false
+                                secondaryFreeSpace.id=UUID()
+                                secondaryFreeSpace.associatedId=UUID()
+                               
+                                SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                            
+                               deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                               
-                                         }
-                                   
-                                  }
-                                  catch
-                                  {
-                                      print(error)
-                                  }
-                            
-                            if(availableFreeSpaces.isEmpty)
-                            {
-                            
-                               let freeSpace = FreeTaskSpace(context: managedContext)
-                               freeSpace.date=date
-                               freeSpace.id=UUID()
-                               freeSpace.associatedId=UUID()
-                               freeSpace.starting=startDayHour
-                               freeSpace.ending=endDayHour
-                               freeSpace.duration=theZeroHour
-                               freeSpace.fullyOccupiedDay=true
-                                
-                                 SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                             }
-                                            
-                          }
-                           
-                        //restrictedSlot starts after freeSpace and ends before freeSpace, in the middle of it.
-                       else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                               
+                          //restrictedSlot starts before freeSpace and ends before freeSpace but some section in between the freeSpace
+                          else if(restrictedSlot.startTime < freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending && restrictedSlot.endTime > freeSpaceInstance.starting)
                              {
                                  
                                 
@@ -3163,53 +3070,19 @@ class Core{
                                         freeSpace.id=UUID()
                                         freeSpace.associatedId=UUID()
                        
-                                 freeSpace.starting=freeSpaceInstance.starting
-                                  freeSpace.ending=restrictedSlot.startTime
+                                 freeSpace.starting=restrictedSlot.endTime
+                                  freeSpace.ending=freeSpaceInstance.ending
                                   freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                   freeSpace.fullyOccupiedDay=false
-                                
-                                  SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
-                                
-                                  let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
                                   
-                                  secondaryFreeSpace.starting=restrictedSlot.endTime
-                                  secondaryFreeSpace.ending=freeSpaceInstance.ending
-                          
-                                  secondaryFreeSpace.duration=secondaryFreeSpace.ending.subtract(newHour: secondaryFreeSpace.starting)
-                                 // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
-                                  secondaryFreeSpace.date=date
-                                  secondaryFreeSpace.fullyOccupiedDay=false
-                                  secondaryFreeSpace.id=UUID()
-                                
-                                 SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
-                                
-                                 deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
-                                                
-                              }
-                           
-                           //restrictedSlot starts after freeSpace but ends at the same spot.
-                           else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime==freeSpaceInstance.ending)
-                             {
+                                SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                                  
-                                
-                                let freeSpace = FreeTaskSpace(context: managedContext)
-                                        freeSpace.date=date
-                                        freeSpace.id=UUID()
-                                        freeSpace.associatedId=UUID()
-                       
-                                 freeSpace.starting=freeSpaceInstance.starting
-                                  freeSpace.ending=restrictedSlot.startTime
-                                  freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
-                                  freeSpace.fullyOccupiedDay=false
-                                
-                                 SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
-                                
                                  deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                 
                               }
-                           
-                       //restrictedSlot starts at the same spot as freeSpace but ends before
-                           else if(restrictedSlot.startTime == freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                               
+                           //restrictedSlot starts after freeSpace and ends after freeSpace but some section in between the freeSpace
+                           else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.startTime < freeSpaceInstance.ending && restrictedSlot.endTime > freeSpaceInstance.ending)
                             {
                                 
                                
@@ -3218,23 +3091,152 @@ class Core{
                                        freeSpace.id=UUID()
                                        freeSpace.associatedId=UUID()
                       
-                                freeSpace.starting=restrictedSlot.endTime
-                                 freeSpace.ending=freeSpaceInstance.ending
+                                 freeSpace.starting=freeSpaceInstance.starting
+                                 freeSpace.ending=restrictedSlot.startTime
                                  freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
                                  freeSpace.fullyOccupiedDay=false
-                                
+                                 
                                 SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
                                 
                                 deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
                                                
                              }
-             
+                           //restrictedSlot starts before freeSpace and ends after freeSpace, complete coverage but bigger or complete coverage, or bigger from one direction left or right. see ios notebook in Ipad.
+                           else if(restrictedSlot.startTime <= freeSpaceInstance.starting && restrictedSlot.endTime >= freeSpaceInstance.ending)
+                             {
+                                 
+                                
+                                deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)
+                                
+                                    let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+                                          
+                                          
+                                    fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
+                                    
+                                    var availableFreeSpaces=[FreeTaskSpace]()
+                                                
+                                      do
+                                      {
+                                          let results = try managedContext.fetch(fetchRequest)
+                                          
+                                    
+                                              
+                                              
+                                            for result in results as! [NSManagedObject] {
+
+                                                  let spaceObj = result as! FreeTaskSpace
+                                              
+                                                  availableFreeSpaces.append(spaceObj)
+                                                  
+                                             }
+                                       
+                                      }
+                                      catch
+                                      {
+                                          print(error)
+                                      }
+                                
+                                if(availableFreeSpaces.isEmpty)
+                                {
+                                
+                                   let freeSpace = FreeTaskSpace(context: managedContext)
+                                   freeSpace.date=date
+                                   freeSpace.id=UUID()
+                                   freeSpace.associatedId=UUID()
+                                   freeSpace.starting=startDayHour
+                                   freeSpace.ending=endDayHour
+                                   freeSpace.duration=theZeroHour
+                                   freeSpace.fullyOccupiedDay=true
+                                    
+                                     SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                }
+                                                
+                              }
+                               
+                            //restrictedSlot starts after freeSpace and ends before freeSpace, in the middle of it.
+                           else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                                 {
+                                     
+                                    
+                                    let freeSpace = FreeTaskSpace(context: managedContext)
+                                            freeSpace.date=date
+                                            freeSpace.id=UUID()
+                                            freeSpace.associatedId=UUID()
+                           
+                                     freeSpace.starting=freeSpaceInstance.starting
+                                      freeSpace.ending=restrictedSlot.startTime
+                                      freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                      freeSpace.fullyOccupiedDay=false
+                                    
+                                      SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                    
+                                      let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
+                                      
+                                      secondaryFreeSpace.starting=restrictedSlot.endTime
+                                      secondaryFreeSpace.ending=freeSpaceInstance.ending
+                              
+                                      secondaryFreeSpace.duration=secondaryFreeSpace.ending.subtract(newHour: secondaryFreeSpace.starting)
+                                     // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
+                                      secondaryFreeSpace.date=date
+                                      secondaryFreeSpace.fullyOccupiedDay=false
+                                      secondaryFreeSpace.id=UUID()
+                                    
+                                     SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                                    
+                                     deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                                    
+                                  }
+                               
+                               //restrictedSlot starts after freeSpace but ends at the same spot.
+                               else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime==freeSpaceInstance.ending)
+                                 {
+                                     
+                                    
+                                    let freeSpace = FreeTaskSpace(context: managedContext)
+                                            freeSpace.date=date
+                                            freeSpace.id=UUID()
+                                            freeSpace.associatedId=UUID()
+                           
+                                     freeSpace.starting=freeSpaceInstance.starting
+                                      freeSpace.ending=restrictedSlot.startTime
+                                      freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                      freeSpace.fullyOccupiedDay=false
+                                    
+                                     SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                    
+                                     deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                                    
+                                  }
+                               
+                           //restrictedSlot starts at the same spot as freeSpace but ends before
+                               else if(restrictedSlot.startTime == freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                                {
+                                    
+                                   
+                                   let freeSpace = FreeTaskSpace(context: managedContext)
+                                           freeSpace.date=date
+                                           freeSpace.id=UUID()
+                                           freeSpace.associatedId=UUID()
+                          
+                                    freeSpace.starting=restrictedSlot.endTime
+                                     freeSpace.ending=freeSpaceInstance.ending
+                                     freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                     freeSpace.fullyOccupiedDay=false
+                                    
+                                    SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                    
+                                    deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                                   
+                                 }
+                 
+                           
                        
-                   
-                   }
-                   
-                   
-               }
+                       }
+                       
+                       
+                    }
+                
+            }
                    
    
            }
@@ -3508,6 +3510,315 @@ class Core{
         
        }
     
+    func ReScheduleFreeSpacesBoundByRestrictedSpaces(date:CustomDate)
+    {
+       
+        let helper=HelperFuncs()
+              
+         var retrivedRestrictedSlots = [RestrictedSpace]()
+         
+         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                  
+          //We need to create a context from this container
+         let managedContext = appDelegate.persistentContainer.viewContext
+         
+   
+         
+         let startDayHour = GetStartOfDay()
+                                                        
+         let endDayHour = GetEndOfDay()
+       
+         let theZeroHour = Hour(context: managedContext)
+             theZeroHour.hour=0
+             theZeroHour.minutes=0
+      
+        let freeSpacesForDate=retriveAndSortFreeSpaces(forDate: date)
+   
+         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "RestrictedSpace")
+        
+        
+         fetchRequest.predicate = NSPredicate(format: "dayOfTheWeek = %@", argumentArray: [date.dayOfWeek()])
+                      
+                  
+        do
+        {
+            let results = try managedContext.fetch(fetchRequest)
+            
+      
+                
+                
+              for result in results as! [NSManagedObject] {
+
+                    let spaceObj = result as! RestrictedSpace
+                
+                    retrivedRestrictedSlots.append(spaceObj)
+                    
+               }
+         
+        }
+        catch
+        {
+            print(error)
+        }
+      
+      
+      
+      if(freeSpacesForDate.isEmpty)// was including "retrivedRestrictedSlots.isEmpty&&" whice caused Bag no: 1ED2 since autoFill testing method would fill some restricted spaces on sunday (25.10.20) so there wouldn't be any space at this point to bound with restricted spaces and task. When trying to schedule the ScheduleTask Main TMC func would create free space on the entire day since the reSection method would have deleted all free spaces beforehand, and sinc this function won't handle the bound and creation of new free space for that day, the day may have considred like empty day !
+         {
+       
+                 let freeSpace = FreeTaskSpace(context: managedContext)
+                  freeSpace.date=date
+                  freeSpace.id=UUID()
+                  freeSpace.associatedId=UUID()
+                  freeSpace.starting=startDayHour
+                  freeSpace.ending=endDayHour
+                  freeSpace.duration=endDayHour.subtract(newHour: startDayHour)
+                  freeSpace.fullyOccupiedDay=false
+                 
+                 do {
+                          try managedContext.save()
+                              print("Saved Task !.")
+                      } catch let error as NSError {
+                          print("Could not save. \(error), \(error.userInfo)")
+                      }
+              //mergeFreeSpaces(createdFreeSpace: freeSpace.id)
+             
+         }
+         
+     
+      
+         for restrictedSlot in retrivedRestrictedSlots
+         {
+          let existingFreeSpaces = retriveAndSortFreeSpaces(forDate: date)
+             
+                   
+             if(!existingFreeSpaces.isEmpty)
+             {
+                 for freeSpaceInstance in existingFreeSpaces{
+                    
+                    print("at: "+helper.dateToString(date: freeSpaceInstance.date))
+                    print("Starts at: "+helper.hourToString(hour: freeSpaceInstance.starting))
+                    print("Ends at: "+helper.hourToString(hour: freeSpaceInstance.ending))
+                    
+                    if(freeSpaceInstance.duration != theZeroHour)
+                    {
+                      
+                         if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                         {
+                             
+                            
+                            let freeSpace = FreeTaskSpace(context: managedContext)
+                                    freeSpace.date=date
+                                    freeSpace.id=UUID()
+                                    freeSpace.associatedId=UUID()
+                   
+                             freeSpace.starting=freeSpaceInstance.starting
+                              freeSpace.ending=restrictedSlot.startTime
+                              freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                              freeSpace.fullyOccupiedDay=false
+                          
+                              SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                          
+                              let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
+                              
+                              secondaryFreeSpace.starting=restrictedSlot.endTime
+                              secondaryFreeSpace.ending=freeSpaceInstance.ending
+                      
+                              secondaryFreeSpace.duration=secondaryFreeSpace.ending.subtract(newHour: secondaryFreeSpace.starting)
+                             // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
+                              secondaryFreeSpace.date=date
+                              secondaryFreeSpace.fullyOccupiedDay=false
+                              secondaryFreeSpace.id=UUID()
+                              secondaryFreeSpace.associatedId=UUID()
+                             
+                              SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                          
+                             deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                            
+                          }
+                             
+                        //restrictedSlot starts before freeSpace and ends before freeSpace but some section in between the freeSpace
+                        else if(restrictedSlot.startTime < freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending && restrictedSlot.endTime > freeSpaceInstance.starting)
+                           {
+                               
+                              
+                              let freeSpace = FreeTaskSpace(context: managedContext)
+                                      freeSpace.date=date
+                                      freeSpace.id=UUID()
+                                      freeSpace.associatedId=UUID()
+                     
+                               freeSpace.starting=restrictedSlot.endTime
+                                freeSpace.ending=freeSpaceInstance.ending
+                                freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                freeSpace.fullyOccupiedDay=false
+                                
+                              SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                               
+                               deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                              
+                            }
+                             
+                         //restrictedSlot starts after freeSpace and ends after freeSpace but some section in between the freeSpace
+                         else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.startTime < freeSpaceInstance.ending && restrictedSlot.endTime > freeSpaceInstance.ending)
+                          {
+                              
+                             
+                             let freeSpace = FreeTaskSpace(context: managedContext)
+                                     freeSpace.date=date
+                                     freeSpace.id=UUID()
+                                     freeSpace.associatedId=UUID()
+                    
+                               freeSpace.starting=freeSpaceInstance.starting
+                               freeSpace.ending=restrictedSlot.startTime
+                               freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                               freeSpace.fullyOccupiedDay=false
+                               
+                              SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                              
+                              deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                             
+                           }
+                         //restrictedSlot starts before freeSpace and ends after freeSpace, complete coverage but bigger or complete coverage, or bigger from one direction left or right. see ios notebook in Ipad.
+                         else if(restrictedSlot.startTime <= freeSpaceInstance.starting && restrictedSlot.endTime >= freeSpaceInstance.ending)
+                           {
+                               
+                              
+                              deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)
+                              
+                                  let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FreeTaskSpace")
+                                        
+                                        
+                                  fetchRequest.predicate = NSPredicate(format: "date = %@", argumentArray: [date])
+                                  
+                                  var availableFreeSpaces=[FreeTaskSpace]()
+                                              
+                                    do
+                                    {
+                                        let results = try managedContext.fetch(fetchRequest)
+                                        
+                                  
+                                            
+                                            
+                                          for result in results as! [NSManagedObject] {
+
+                                                let spaceObj = result as! FreeTaskSpace
+                                            
+                                                availableFreeSpaces.append(spaceObj)
+                                                
+                                           }
+                                     
+                                    }
+                                    catch
+                                    {
+                                        print(error)
+                                    }
+                              
+                              if(availableFreeSpaces.isEmpty)
+                              {
+                              
+                                 let freeSpace = FreeTaskSpace(context: managedContext)
+                                 freeSpace.date=date
+                                 freeSpace.id=UUID()
+                                 freeSpace.associatedId=UUID()
+                                 freeSpace.starting=startDayHour
+                                 freeSpace.ending=endDayHour
+                                 freeSpace.duration=theZeroHour
+                                 freeSpace.fullyOccupiedDay=true
+                                  
+                                   SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                              }
+                                              
+                            }
+                             
+                          //restrictedSlot starts after freeSpace and ends before freeSpace, in the middle of it.
+                         else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                               {
+                                   
+                                  
+                                  let freeSpace = FreeTaskSpace(context: managedContext)
+                                          freeSpace.date=date
+                                          freeSpace.id=UUID()
+                                          freeSpace.associatedId=UUID()
+                         
+                                   freeSpace.starting=freeSpaceInstance.starting
+                                    freeSpace.ending=restrictedSlot.startTime
+                                    freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                    freeSpace.fullyOccupiedDay=false
+                                  
+                                    SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                  
+                                    let secondaryFreeSpace=FreeTaskSpace(context: managedContext)
+                                    
+                                    secondaryFreeSpace.starting=restrictedSlot.endTime
+                                    secondaryFreeSpace.ending=freeSpaceInstance.ending
+                            
+                                    secondaryFreeSpace.duration=secondaryFreeSpace.ending.subtract(newHour: secondaryFreeSpace.starting)
+                                   // print(freeSpaceInstance.ending.subtract(newHour: secondaryFreeSpace.starting))
+                                    secondaryFreeSpace.date=date
+                                    secondaryFreeSpace.fullyOccupiedDay=false
+                                    secondaryFreeSpace.id=UUID()
+                                  
+                                   SaveAndMergeFreeSpace(freeSpaceId: secondaryFreeSpace.id)
+                                  
+                                   deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                                  
+                                }
+                             
+                             //restrictedSlot starts after freeSpace but ends at the same spot.
+                             else if(restrictedSlot.startTime > freeSpaceInstance.starting && restrictedSlot.endTime==freeSpaceInstance.ending)
+                               {
+                                   
+                                  
+                                  let freeSpace = FreeTaskSpace(context: managedContext)
+                                          freeSpace.date=date
+                                          freeSpace.id=UUID()
+                                          freeSpace.associatedId=UUID()
+                         
+                                   freeSpace.starting=freeSpaceInstance.starting
+                                    freeSpace.ending=restrictedSlot.startTime
+                                    freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                    freeSpace.fullyOccupiedDay=false
+                                  
+                                   SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                  
+                                   deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                                  
+                                }
+                             
+                         //restrictedSlot starts at the same spot as freeSpace but ends before
+                             else if(restrictedSlot.startTime == freeSpaceInstance.starting && restrictedSlot.endTime < freeSpaceInstance.ending)
+                              {
+                                  
+                                 
+                                 let freeSpace = FreeTaskSpace(context: managedContext)
+                                         freeSpace.date=date
+                                         freeSpace.id=UUID()
+                                         freeSpace.associatedId=UUID()
+                        
+                                  freeSpace.starting=restrictedSlot.endTime
+                                   freeSpace.ending=freeSpaceInstance.ending
+                                   freeSpace.duration=freeSpace.ending.subtract(newHour: freeSpace.starting)
+                                   freeSpace.fullyOccupiedDay=false
+                                  
+                                  SaveAndMergeFreeSpace(freeSpaceId: freeSpace.id)
+                                  
+                                  deleteFreeSpace(freeSpaceId: freeSpaceInstance.id)//Delete old free space since we made changes and created one or two free spaces instead
+                                                 
+                               }
+               
+                         
+                     
+                     }
+                     
+                 
+                }
+                
+            }
+                 
+ 
+         }
+        
+    }
     
     func ScheduleFreeSpacesWithNoSection (date:CustomDate)
        {

@@ -826,8 +826,8 @@ class TaskModel : UIViewController
 
         var dateComponents = DateComponents()
         dateComponents.year = 2020
-        dateComponents.month = 10
-        dateComponents.day = 31
+        dateComponents.month = 11
+        dateComponents.day = 1
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -1015,10 +1015,20 @@ class TaskModel : UIViewController
            
            //final, we need to add some data to our newly created record for each keys using
            //here adding 5 data with loop
-        let taskId=UUID()
+     
         
            do {
-            _ = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
+            let newTask = try coreManagment.ScheduleTask(taskName: taskName, importance: importance, asstimatedWorkTime: asstimatedWorkTime, dueDate: dueDate, notes: notes,difficulty:difficulty,color:color.description,notificationFactor:notificationFactor)
+            
+            do {
+                  try managedContext.save()
+                      print("Saved Task !.")
+              } catch let error as NSError {
+                  print("Could not save. \(error), \(error.userInfo)")
+              }
+            
+            return newTask.id
+            
            }
            catch{
                throw DatabaseError.taskCanNotBeScheduledInDue
@@ -1042,14 +1052,9 @@ class TaskModel : UIViewController
 
            //Now we have set all the values. The next step is to save them inside the Core Data
            
-           do {
-               try managedContext.save()
-                   print("Saved Task !.")
-           } catch let error as NSError {
-               print("Could not save. \(error), \(error.userInfo)")
-           }
+          
         
-        return taskId
+        return UUID()
        }
     
     func createRestrictedSpace(name:String,color:String,startTime: Hour,endTime: Hour,dayOfTheWeek: String,difficulty:String)
@@ -2012,10 +2017,42 @@ class TaskModel : UIViewController
     func CheckHourContradiction(objectStartTime:Hour,objectEndTime:Hour,secondObjectStartTime:Hour,secondObjectEndTime:Hour) -> Bool
     {
         
-        if((objectStartTime == secondObjectStartTime) || (objectStartTime <= secondObjectStartTime && objectEndTime > secondObjectStartTime) || (objectStartTime > secondObjectStartTime && objectEndTime < secondObjectEndTime) || (objectStartTime > secondObjectStartTime && objectEndTime <  secondObjectStartTime) || (objectStartTime > secondObjectStartTime && objectEndTime > secondObjectStartTime /*&& $0.startTime!.hour==hour) || (objectEndTime > secondObjectStartTime && $0.startTime!.hour < hour*/))
+        
+        if(objectStartTime > secondObjectStartTime && objectEndTime < secondObjectEndTime)
+        {
+             return true
+        }
+        
+        if(objectStartTime < secondObjectStartTime && objectEndTime < secondObjectEndTime && objectEndTime > secondObjectStartTime)
         {
             return true
         }
+        if(objectStartTime > secondObjectStartTime && objectEndTime > secondObjectEndTime && objectStartTime < secondObjectEndTime )
+        {
+            return true
+        }
+        if(objectStartTime <= secondObjectStartTime && objectEndTime >= secondObjectEndTime)
+        {
+            return true
+        }
+        if(objectStartTime > secondObjectStartTime && objectEndTime < secondObjectEndTime)
+        {
+            return true
+        }
+        if(objectStartTime > secondObjectStartTime && objectEndTime == secondObjectEndTime)
+        {
+            return true
+        }
+        if(objectStartTime == secondObjectStartTime && objectEndTime < secondObjectEndTime)
+        {
+             return true
+        }
+        
+        
+      /*  if((objectStartTime == secondObjectStartTime) || (objectStartTime <= secondObjectStartTime && objectEndTime > secondObjectStartTime) || (objectStartTime > secondObjectStartTime && objectEndTime < secondObjectEndTime) || (objectStartTime > secondObjectStartTime && objectEndTime <  secondObjectStartTime) || (objectStartTime > secondObjectStartTime && objectEndTime > secondObjectStartTime /*&& $0.startTime!.hour==hour) || (objectEndTime > secondObjectStartTime && $0.startTime!.hour < hour*/))
+        {
+            return true
+        }*/
         
         return false
         
@@ -2062,6 +2099,9 @@ class TaskModel : UIViewController
             let fullCurrentDate=Date()
     
     let weekSequence=coreManagment.createCalanderSequence(startDay: fullCurrentDate.startOfWeek.day, startMonth: fullCurrentDate.startOfWeek.month, startYear: fullCurrentDate.startOfWeek.year, endDay: fullCurrentDate.endOfWeek.day, endMonth: fullCurrentDate.endOfWeek.month, endYear: fullCurrentDate.endOfWeek.year)
+        
+    
+        
       //        fetchRequest.fetchLimit = 1
       //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
       //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
@@ -2652,6 +2692,8 @@ class TaskModel : UIViewController
     
     func deleteTask(taskId : UUID){
         
+   
+       
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -2668,7 +2710,7 @@ class TaskModel : UIViewController
             let requiredTask = try managedContext.fetch(fetchRequest)
             
             let taskToFreeSpace = requiredTask[0] as! Task
-              
+            
             print(taskToFreeSpace.internalId!.description)
             DeleteAllByInternalId(internalId: taskToFreeSpace.internalId!)
             
@@ -2967,7 +3009,12 @@ class TaskModel : UIViewController
                 for task in tasks
                 {
                     coreManagment.RemoveLocalNotification(id: task.id)
+                    
                     freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
+                    
+                    coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                    
+                    coreManagment.ReScheduleFreeSpacesBoundByRestrictedSpaces(date: task.date)
                     
                     print("FreeSpace is from"+String(task.startTime!.hour)+":"+String(task.startTime!.minutes)+" To "+String(task.endTime!.hour)+":"+String(task.endTime!.minutes))
                     
@@ -2984,14 +3031,17 @@ class TaskModel : UIViewController
                         print(error)
                         
                     }
-                    print("Going to merge "+freeSpaceId.description)
+                    /*print("Going to merge "+freeSpaceId.description)
                    
                     print("FreeSpace from ")
                     let freeSpaceObj=retrieveFreeSpace(freeSpaceID: freeSpaceId)
-                     print("Free space from "+String(freeSpaceObj.starting.hour)+":"+String(freeSpaceObj.starting.minutes)+" To "+String(freeSpaceObj.ending.hour)+":"+String(freeSpaceObj.ending.minutes))
+                     print("Free space from "+String(freeSpaceObj.starting.hour)+":"+String(freeSpaceObj.starting.minutes)+" To "+String(freeSpaceObj.ending.hour)+":"+String(freeSpaceObj.ending.minutes))*/
                     
-                    coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                  
+                    
                     print("after merge freeSpaces")
+                    
+                     
                 }
                 
                 

@@ -20,7 +20,7 @@ enum UUIDError: Error {
   enum DatabaseError: Error {
         case taskCanNotBeScheduledInDue
         case newRestrictedSpaceContradictionCantRescheduleTasks
-        
+        case someTaskHaveBeenMoved
     }
 
 enum DateBoundsError: Error {
