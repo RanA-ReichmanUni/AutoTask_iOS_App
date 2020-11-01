@@ -252,6 +252,14 @@ struct AddRestrictedSpaceUI: View {
                                     self.isError=true
                                     self.alertType=3
                               }
+                              catch DatabaseError.someTaskHaveBeenMoved
+                              {
+                                      self.isError=true
+                                      self.alertType=4
+                                
+                        
+                                
+                              }
                                 catch {
                                      
                                     self.isError=true
@@ -288,20 +296,28 @@ struct AddRestrictedSpaceUI: View {
                             case 2:
                             
                             
-                              return Alert(title: Text("Repeated Tasks Conflict"),
-                                           message: Text("\nThere is at least one task that is already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window"),
+                              return Alert(title: Text("Repeated Activity Conflict"),
+                                           message: Text("\nThere is at least one repeated activity that has already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window"),
                                                                dismissButton: .default(Text("OK")))
                             case 3:
                                 return Alert(title: Text("Attention ! \nScheduled Tasks Conflict"),
-                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated activity.\n\n Your repeated activity will only take effect in the future, but it will appear on the repeated activity dash board.\n\n Tip: you can also manually delete the scheduled tasks that conflicts with your new repeated activity time window so it will take effect immediately.\n\n Tip: You can try and reschedule the lost tasks using different duration time or due date"),
-                                                          dismissButton: .default(Text("OK")))
+                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated activity.\n\n Your repeated activity has been set successfully but will only take effect in your schedule in the future.\n\n Tip: you can also manually delete the scheduled tasks that conflicts with your new repeated activity time window so it will take effect immediately.\n\n Tip: You can try and reschedule the lost tasks using different duration time or due date"),
+                                                          dismissButton:  Alert.Button.default(
+                                                                                                                               Text("OK"), action: { self.mode.wrappedValue.dismiss() }))
+                            case 4:
+                            
+                            
+                              return Alert(title: Text("Some Tasks Have Been Moved"),
+                                           message: Text("\n Your repeated activity has been set successfully but some auto scheduled task/s have been moved in order to match your repeated activity schedule."),
+                                                               dismissButton:  Alert.Button.default(
+                                                                      Text("OK"), action: { self.mode.wrappedValue.dismiss() }))
                             default:
                                 return Alert(title: Text("Repeated Tasks Conflict"),
                                 message: Text("\n There is a problem with the information you entered."),
                                                     dismissButton: .default(Text("OK")))
                             }
 
-                           }
+                        }
                      Spacer()
                       
                     

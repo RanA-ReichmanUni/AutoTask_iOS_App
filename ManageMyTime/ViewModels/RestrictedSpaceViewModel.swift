@@ -115,6 +115,14 @@ class RestrictedSpaceViewModel : ObservableObject
         catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
             throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
         }
+        catch DatabaseError.someTaskHaveBeenMoved
+        {
+            taskViewModel.UpdateAllTasks()
+            taskViewModel.GetDayTasksByIndex(index: taskViewModel.latestDayChoiseIndex)//In order to update the published task array after deletion
+            restrictedSpaceViewModel.getAllRestrictedSpace()
+            
+            throw DatabaseError.someTaskHaveBeenMoved
+        }
         catch{
             
         }

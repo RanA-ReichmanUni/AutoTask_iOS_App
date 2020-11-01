@@ -358,6 +358,7 @@ class RestrictedSpaceModel : UIViewController
                 {
                     try RescheduleTasks(tasksToDelete: tasksToDelete, restrictedSpacesIds: restrictedSpacesIds,datesToRescheduleFreeSpaces: datesToRescheduleFreeSpaces)
                     
+                    throw DatabaseError.someTaskHaveBeenMoved
                 }
             }
             catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
