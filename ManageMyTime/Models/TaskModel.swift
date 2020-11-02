@@ -2076,7 +2076,7 @@ class TaskModel : UIViewController
           //Prepare the request of type NSFetchRequest  for the entity
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
      
-          fetchRequest.predicate = NSPredicate(format: "date.year >= %@" /*AND isTaskBreakWindow = %@*/, argumentArray: [Date().year/*,false*/])
+          fetchRequest.predicate = NSPredicate(format: "date.year >= %@ AND isTaskBreakWindow = %@", argumentArray: [Date().year,false])
               
           let nextHour = Hour(context: managedContext)
               nextHour.hour=hour+1
@@ -2311,7 +2311,7 @@ class TaskModel : UIViewController
                     for restrictedSpace in data
                     {
                         
-                        if(!taskObjects.contains(where: { (($0.startTime == restrictedSpace.startTime) || ($0.startTime <= restrictedSpace.startTime && $0.endTime > restrictedSpace.startTime) || ($0.startTime > restrictedSpace.startTime && $0.endTime < restrictedSpace.endTime) || ($0.startTime > restrictedSpace.startTime && $0.endTime <  restrictedSpace.startTime) )}))
+                        if(!taskObjects.contains(where: { CheckHourContradiction(objectStartTime: $0.startTime, objectEndTime: $0.endTime, secondObjectStartTime: restrictedSpace.startTime, secondObjectEndTime: restrictedSpace.endTime)}))
                         {
                             
                             filteredRestrictedSpaces.append(restrictedSpace)

@@ -301,7 +301,7 @@ struct AddRestrictedSpaceUI: View {
                                                                dismissButton: .default(Text("OK")))
                             case 3:
                                 return Alert(title: Text("Attention ! \nScheduled Tasks Conflict"),
-                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated activity.\n\n Your repeated activity has been set successfully but will only take effect in your schedule in the future.\n\n Tip: you can also manually delete the scheduled tasks that conflicts with your new repeated activity time window so it will take effect immediately.\n\n Tip: You can try and reschedule the lost tasks using different duration time or due date"),
+                                      message: Text("\nThere is at least one task that can't be rescheduled with your current repeated activity.\n\n Your repeated activity has been set successfully but will only take full effect on your schedule in the future.\n\n Tip: you can also manually delete the scheduled tasks that conflicts with your new repeated activity time window so it will take effect immediately.\n\n Tip: You can try and reschedule the lost tasks using different duration time or due date"),
                                                           dismissButton:  Alert.Button.default(
                                                                                                                                Text("OK"), action: { self.mode.wrappedValue.dismiss() }))
                             case 4:
