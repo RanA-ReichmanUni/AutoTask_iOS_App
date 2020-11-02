@@ -106,6 +106,11 @@ struct DayBoundsView: View {
                    }
             
               
+        }.onDisappear{
+            let dayBoundsSettings = self.taskViewModel.GetDayBoundsSettingsValues()
+            
+            self.fromSelection=[dayBoundsSettings[0],dayBoundsSettings[1]]
+            self.toSelection=[dayBoundsSettings[2],dayBoundsSettings[3]]
         }
       
         

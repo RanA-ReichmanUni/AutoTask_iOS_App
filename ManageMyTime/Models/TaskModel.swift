@@ -827,7 +827,7 @@ class TaskModel : UIViewController
         var dateComponents = DateComponents()
         dateComponents.year = 2020
         dateComponents.month = 11
-        dateComponents.day = 2
+        dateComponents.day = 7
         dateComponents.hour=22
         dateComponents.minute=0
 
@@ -3010,9 +3010,13 @@ class TaskModel : UIViewController
                 {
                     coreManagment.RemoveLocalNotification(id: task.id)
                     
-                    freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
+                   // freeSpaceId=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:task.associatedFreeSpaceId!)
                     
-                    coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
+                   // _=coreManagment.createFreeSpace(startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false)
+                    
+                    coreManagment.createFreeSpace(task:task,startTime: task.startTime!, endTime: task.endTime!, date: task.date, duration: task.asstimatedWorkTime, fullyOccupiedDay: false,orginalFreeSpaceId:task.associatedFreeSpaceId!)
+                    
+                    //coreManagment.mergeFreeSpaces(createdFreeSpace:freeSpaceId)
                     
                     coreManagment.ReScheduleFreeSpacesBoundByRestrictedSpaces(date: task.date)
                     

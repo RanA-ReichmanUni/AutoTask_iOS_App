@@ -242,7 +242,14 @@ class TaskViewModel : ObservableObject
         return stringValues
    
     }
-    
+  
+    func feedAllFreeSpacesTest()
+    {
+        let coreManagment=Core()
+        
+        coreManagment.feedSpacesToMergeFreeSpaces()
+        
+    }
   func autoFillTesting() throws
   {
         do{

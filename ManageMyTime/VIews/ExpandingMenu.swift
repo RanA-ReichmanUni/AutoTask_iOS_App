@@ -109,7 +109,7 @@ struct MenuItem: View {
                 HStack{
                     if(self.image != nil)
                     {
-                        Image(systemName:"stopwatch.fill").resizable().frame(width: 30, height: 30)
+                        Image(systemName:"stopwatch.fill").resizable().frame(width: 28, height: 30)
                        // Image(systemName: image!) .resizable().frame(width: 30, height: 30).foregroundColor(.blue)
                     }
                     else{

@@ -54,7 +54,8 @@ struct SettingsUI: View {
     var body: some View {
         UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
             return  NavigationView {
-           
+             
+         
   Form{
                 
                                        
@@ -145,6 +146,16 @@ struct SettingsUI: View {
                         }
     
     
+                        HStack{
+                              
+                              Button(action: { self.taskViewModel.feedAllFreeSpacesTest()
+                                         self.taskViewModel.retrieveAllTasks()
+                                     }) {
+                                             Text("Feed Free Spaces To Merge")
+                                             }
+                          }
+    
+    
                         
                        /* HStack{
                                           
@@ -160,9 +171,9 @@ struct SettingsUI: View {
                         
                         
                     
-  }
+  }.navigationBarTitle(Text("Settings"),displayMode: .inline)
         
-        }.alert(isPresented: self.$showAlert) {
+                }.alert(isPresented: self.$showAlert) {
          
             switch self.alertType{
                 case 1:
