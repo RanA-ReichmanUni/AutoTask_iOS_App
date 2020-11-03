@@ -13,7 +13,7 @@ import SwiftUI
 struct ScheduleViewRow: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     @Environment(\.colorScheme) var colorScheme
-    
+    let helper=HelperFuncs()
   //  @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var timeChar = "25"
     //var columns : [String]
@@ -31,8 +31,18 @@ struct ScheduleViewRow: View {
             VStack(spacing:0){
            
                 HStack{
+                    
                     Text("Weekly Schedule").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
                     Spacer()
+             
+                        HStack{
+                    Text(self.helper.dateToStringNormalizedExcludYear(date:Date().startOfWeek)).font(Font.custom("MarkerFelt-Wide", size: 18)).bold().foregroundColor(Color(.systemTeal))
+                    Text(" - ").font(Font.custom("MarkerFelt-Wide", size: 18)).bold()
+                            Text(self.helper.dateToStringNormalizedExcludYear(date:Date().endOfWeek)).font(Font.custom("MarkerFelt-Wide", size: 18)).bold().foregroundColor(Color.blue)
+                        }.background( RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#e6f2ff")).frame(width:150,height:40))
+                       
+                    
+                    
                 }.padding(20)
         WeeklyScheduleBar()
         //Create special object for the view to achieve low coupling from the model, don't send task as is.

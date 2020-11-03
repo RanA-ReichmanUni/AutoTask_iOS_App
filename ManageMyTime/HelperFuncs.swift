@@ -25,6 +25,11 @@ class HelperFuncs{
         return String(date.day)+"/"+String(date.month)+"/"+String(date.year)
    }
     
+    func dateToStringNormalizedExcludYear(date : Date) -> String
+    {
+         return String(date.day)+"/"+String(date.month)
+    }
+    
     func hourToString(hour : Hour) -> String
       {
            return String(hour.hour)+":"+String(hour.minutes)

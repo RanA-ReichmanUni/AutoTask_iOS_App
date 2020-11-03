@@ -59,7 +59,8 @@ struct DetailedTaskWithObj: View {
                                                     // .padding(EdgeInsets(top: 0, leading: -5, bottom: 0, trailing: 0))
                     .foregroundColor(self.color)
                 Spacer()
-            }
+            }.padding(.top,5)
+            Spacer()
             
                 HStack {
                     Spacer()
@@ -68,7 +69,7 @@ struct DetailedTaskWithObj: View {
                       Spacer()
                     
                     
-                }
+                }.padding(.bottom,10)
             
             
               
@@ -99,40 +100,37 @@ struct DetailedTaskWithObj: View {
                     Spacer()
                 }
                
-                HStack {
-                    Spacer()
-                    Text("Notes: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                   
-                    Text(self.notes).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 200)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                          Spacer()
-                }
+         
                 
-             HStack {
-                Spacer()
-                        Text("Start Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                    Text(String(self.startTimeHour)+":"+String(self.startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                  Spacer()
-                            }
-                 HStack {
-                    Spacer()
-                        Text("End Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                             Text(String(self.endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                      Spacer()
-                 }
+          
         
                  VStack {
                 HStack {
                         Spacer()
-                        Text("Date: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                        Text("Scheduled To: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                     HStack(spacing:0){
                        // Text(String(self.day)+"/").font(.system(size: 20))
                         Text(String(self.day)+"/"+String(self.month)+"/").font(.system(size: 20))
                         Text(String(self.year)).font(.system(size: 20))
                        
-                    }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
+                    }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)
                        Spacer()
                        //.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                            }
+                    
+                    
+                HStack {
+                     Spacer()
+                             Text("Start Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                         Text(String(self.startTimeHour)+":"+String(self.startTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                       Spacer()
+                                 }
+                      HStack {
+                         Spacer()
+                             Text("End Time: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                                  Text(String(self.endTimeHour)+":"+String(endTimeMinutes)).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                           Spacer()
+                      }
                 
                 /*HStack {
                                   Text("Month: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
@@ -147,6 +145,15 @@ struct DetailedTaskWithObj: View {
                 
             }   .frame( maxWidth: .infinity, maxHeight: .infinity)
           
+            
+            HStack {
+                     Spacer()
+                     Text("Notes: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                    
+                     Text(self.notes).font(.system(size: 20)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(width: 180, height: 200)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
+                           Spacer()
+                 }
+            
              Spacer()
           
      
