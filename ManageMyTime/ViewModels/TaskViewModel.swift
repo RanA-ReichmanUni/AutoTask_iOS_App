@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 import SwiftUI
+import Purchases
 
 enum UUIDError: Error {
       case notConfirmedToUUID
@@ -86,6 +87,9 @@ class TaskViewModel : ObservableObject
     
     @Published var hoursRange:[Int]
     
+    @Published var AvailableSubscriptions : [Subscription]
+    
+    @Published var SubscriptionTitles : [String]
     
      init()
      {
@@ -117,7 +121,8 @@ class TaskViewModel : ObservableObject
         startTimeMinutes="0"
         endTimeHour="0"
         endTimeMinutes="0"
-        
+        AvailableSubscriptions=[Subscription]()
+        SubscriptionTitles=[String]()
         date.day=0
         date.month=0
         date.year=0
@@ -250,6 +255,92 @@ class TaskViewModel : ObservableObject
         coreManagment.feedSpacesToMergeFreeSpaces()
         
     }
+    
+    
+    func retrieveSubscriptionInfo()
+    {
+        
+        Purchases.shared.offerings { (offerings, error) in
+            
+            if let offerings = offerings{
+                
+                let offer=offerings.current
+                let packages = offer?.availablePackages
+                
+                guard packages != nil else{
+                    return
+                }
+                
+                for i in 0...packages!.count-1 {
+                    
+                    let package = packages![i]
+                    
+                    
+                    
+                    let product = package.product
+                    
+                    
+                    //product.localizedTitle - for appstoreconnect loclized title
+                    
+                    var title = product.localizedTitle
+                    let price = product.price
+                    
+                
+                   
+                    var currency=""
+                    var currencySymbol=""
+                    if(product.priceLocale.currencyCode != nil)
+                    {
+                        currency=product.priceLocale.currencyCode!
+                        
+                        let locale = NSLocale.autoupdatingCurrent
+                        
+                        
+                    
+                       if(locale.currencySymbol != nil)
+                       {
+                            currencySymbol=locale.currencySymbol!
+                       }
+                        
+                        if(currencySymbol=="¤")
+                        {
+                            currencySymbol=currency
+                        }
+                        
+                    }
+                    
+                    var duration=""
+                    let subscriptionPeriod = product.subscriptionPeriod
+                    
+                    switch subscriptionPeriod!.unit {
+                    case SKProduct.PeriodUnit.year:
+                        duration="\(subscriptionPeriod!.numberOfUnits) Year"
+                    default:
+                        duration = ""
+                    }
+                    
+                    self.AvailableSubscriptions.append(Subscription(title: title, price: price.description, duration: duration))
+                    
+                    if(product.productIdentifier=="at_3_1y_1w0")
+                    {
+                        
+                       
+                        title="1 Week Free Trail ! \nAfter that "+product.localizedTitle
+                        
+                         self.SubscriptionTitles.append(title + " Of " + duration + " At Introductory Price Of " + price.description+" "+currencySymbol + "\nCancel Any Time During The Trail Period.")
+                    }
+                    else{
+                        self.SubscriptionTitles.append(title + " " + duration + " " + price.description+" "+currencySymbol)
+                    }
+                }
+            }
+        }
+    
+        
+        
+        
+    }
+    
   func autoFillTesting() throws
   {
         do{

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -88,6 +88,7 @@
 		257E557324D1B6880056911B /* RestrictedSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E557224D1B6880056911B /* RestrictedSpaceView.swift */; };
 		257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */; };
 		2583029D24D34701003935B7 /* TableTestD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583029C24D34701003935B7 /* TableTestD.swift */; };
+		25839C642551E18200A16D46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25839C632551E18200A16D46 /* StoreKit.framework */; };
 		2585BAF624FF5C2300BDCB7B /* BackgroundToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */; };
 		2585BC562506828C00EED2EB /* SpaceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585BC552506828C00EED2EB /* SpaceSection.swift */; };
 		2585C76724F1EE9A00539FDD /* BottomMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */; };
@@ -98,6 +99,9 @@
 		2592C8B62513FEBC00E36E3A /* PriorityPerDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2592C8B52513FEBC00E36E3A /* PriorityPerDate.swift */; };
 		259303A024BF425600869932 /* TasksPerHourPerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593039F24BF425600869932 /* TasksPerHourPerDay.swift */; };
 		259303A224BF42C100869932 /* TaskPerHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259303A124BF42C100869932 /* TaskPerHour.swift */; };
+		259C4E9F2552DA060037D576 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = 259C4E9E2552DA060037D576 /* Purchases */; };
+		259C4EA12552E1DF0037D576 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA02552E1DF0037D576 /* Subscription.swift */; };
+		259C4EA32552E3CB0037D576 /* PayWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA22552E3CB0037D576 /* PayWall.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
 		25A77A6724DAA81300667165 /* DetailedTaskWithObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */; };
 		25B6B918250B17D400CB57FB /* SettingsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6B917250B17D400CB57FB /* SettingsUI.swift */; };
@@ -246,6 +250,7 @@
 		257E557224D1B6880056911B /* RestrictedSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedSpaceView.swift; sourceTree = "<group>"; };
 		257ECFE424B27A7C006051C5 /* RestrictedSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RestrictedSpace.swift; path = ManageMyTime/RestrictedSpace.swift; sourceTree = SOURCE_ROOT; };
 		2583029C24D34701003935B7 /* TableTestD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTestD.swift; sourceTree = "<group>"; };
+		25839C632551E18200A16D46 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2585BAF524FF5C2300BDCB7B /* BackgroundToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundToggleStyle.swift; sourceTree = "<group>"; };
 		2585BC552506828C00EED2EB /* SpaceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSection.swift; sourceTree = "<group>"; };
 		2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMainMenu.swift; sourceTree = "<group>"; };
@@ -256,6 +261,8 @@
 		2592C8B52513FEBC00E36E3A /* PriorityPerDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPerDate.swift; sourceTree = "<group>"; };
 		2593039F24BF425600869932 /* TasksPerHourPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDay.swift; sourceTree = "<group>"; };
 		259303A124BF42C100869932 /* TaskPerHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPerHour.swift; sourceTree = "<group>"; };
+		259C4EA02552E1DF0037D576 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		259C4EA22552E3CB0037D576 /* PayWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWall.swift; sourceTree = "<group>"; };
 		25A248E324AA861000E74F51 /* DetailedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTask.swift; sourceTree = "<group>"; };
 		25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTaskWithObj.swift; sourceTree = "<group>"; };
 		25B6B917250B17D400CB57FB /* SettingsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUI.swift; sourceTree = "<group>"; };
@@ -311,6 +318,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25839C642551E18200A16D46 /* StoreKit.framework in Frameworks */,
+				259C4E9F2552DA060037D576 /* Purchases in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +354,7 @@
 		253C5CE624B118F100C95A06 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				259C4EA02552E1DF0037D576 /* Subscription.swift */,
 				251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */,
 				25C0BABD25113A530050EA79 /* WorkPerDate.swift */,
 				2592C8B52513FEBC00E36E3A /* PriorityPerDate.swift */,
@@ -370,6 +380,7 @@
 		253C7DFD24DAEA370063952B /* VIews */ = {
 			isa = PBXGroup;
 			children = (
+				259C4EA22552E3CB0037D576 /* PayWall.swift */,
 				2563B3B2253CA1A800306FB2 /* SecondOnboardingViews */,
 				2563B3B1253C964800306FB2 /* OnboardingViews */,
 				25F1DDDB2529534500167015 /* Collapsible.swift */,
@@ -449,6 +460,7 @@
 				2568072D249FF1FF0096AB89 /* ManageMyTimeTests */,
 				251F916624BCB80F005B0498 /* ManageMyTimeTests2 */,
 				25680712249FF1FC0096AB89 /* Products */,
+				25839C5C2551DB2700A16D46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -572,6 +584,14 @@
 			path = NSManagedObjects;
 			sourceTree = "<group>";
 		};
+		25839C5C2551DB2700A16D46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25839C632551E18200A16D46 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -606,6 +626,9 @@
 			dependencies = (
 			);
 			name = ManageMyTime;
+			packageProductDependencies = (
+				259C4E9E2552DA060037D576 /* Purchases */,
+			);
 			productName = ManageMyTime;
 			productReference = 25680711249FF1FC0096AB89 /* ManageMyTime.app */;
 			productType = "com.apple.product-type.application";
@@ -660,6 +683,9 @@
 				Base,
 			);
 			mainGroup = 25680708249FF1FC0096AB89;
+			packageReferences = (
+				259C4E9D2552DA060037D576 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+			);
 			productRefGroup = 25680712249FF1FC0096AB89 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -790,6 +816,7 @@
 				257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */,
 				257E557324D1B6880056911B /* RestrictedSpaceView.swift in Sources */,
 				25F047FA24CDB995003CC7D6 /* DailyView.swift in Sources */,
+				259C4EA32552E3CB0037D576 /* PayWall.swift in Sources */,
 				25BB43F82513FAEC00AD2957 /* Task+CoreDataClass.swift in Sources */,
 				256E883C24ED74AF00293706 /* RestrictedSpaceViewModel.swift in Sources */,
 				25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */,
@@ -825,6 +852,7 @@
 				250F5B0224AA707100ABCDA4 /* HelperFuncs.swift in Sources */,
 				25F4E1B32509834E00D541F5 /* FreeTaskSpace+CoreDataClass.swift in Sources */,
 				2583029D24D34701003935B7 /* TableTestD.swift in Sources */,
+				259C4EA12552E1DF0037D576 /* Subscription.swift in Sources */,
 				25755200252A30B20005B515 /* CollapsableWheelPicker.swift in Sources */,
 				2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */,
 				2563B3B6253CA20900306FB2 /* PageViewController1.swift in Sources */,
@@ -1048,7 +1076,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.Test.ManageMyTIme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RanAmir.AutoTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1070,7 +1098,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.IMPACT.Test.ManageMyTIme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RanAmir.AutoTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1166,6 +1194,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		259C4E9D2552DA060037D576 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.7.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		259C4E9E2552DA060037D576 /* Purchases */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 259C4E9D2552DA060037D576 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = Purchases;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */ = {

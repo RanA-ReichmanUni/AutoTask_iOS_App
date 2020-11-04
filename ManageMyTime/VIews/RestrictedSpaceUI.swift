@@ -147,7 +147,7 @@ struct RestrictedSpaceUI: View {
                 
             }.onAppear{self.restrictedSpaceViewModel.getAllRestrictedSpace()
                 //self.taskViewModel.getFirstTaskColor()  //also after clicking the delete button
-            }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#fcfcfc")).navigationBarTitle("Personal Activities", displayMode: .inline) //.padding(.top,5)
+            }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#fcfcfc")).navigationBarTitle("Repeated Activities", displayMode: .inline) //.padding(.top,5)
              
             
          

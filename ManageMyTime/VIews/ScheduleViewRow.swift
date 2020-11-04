@@ -39,7 +39,7 @@ struct ScheduleViewRow: View {
                     Text(self.helper.dateToStringNormalizedExcludYear(date:Date().startOfWeek)).font(Font.custom("MarkerFelt-Wide", size: 18)).bold().foregroundColor(Color(.systemTeal))
                     Text(" - ").font(Font.custom("MarkerFelt-Wide", size: 18)).bold()
                             Text(self.helper.dateToStringNormalizedExcludYear(date:Date().endOfWeek)).font(Font.custom("MarkerFelt-Wide", size: 18)).bold().foregroundColor(Color.blue)
-                        }.background( RoundedRectangle(cornerRadius: 20).fill(Color(hex:"#e6f2ff")).frame(width:150,height:40))
+                        }.background( RoundedRectangle(cornerRadius: 20).fill(self.colorScheme == .dark ? Color.orange.opacity(0.3) : Color(hex:"#e6f2ff")).frame(width:150,height:40))
                        
                     
                     

@@ -16,7 +16,7 @@ struct DailyView: View {
     //@Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @ObservedObject var taskViewModel=TaskViewModel()
-    
+
     var dayRange = 7...24
     
     @State var blurEffect:CGFloat = 0
@@ -34,7 +34,7 @@ struct DailyView: View {
         //Create special object for the view to achieve low coupling from the model, don't send task as is.
  
             HStack{
-                          Text("Daily Schedule").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                Text("Daily Schedule").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
                           Spacer()
                       }.padding(10)
         
