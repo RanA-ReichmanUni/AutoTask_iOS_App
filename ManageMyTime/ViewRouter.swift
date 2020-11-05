@@ -7,10 +7,13 @@
 //
 
 import Foundation
-class ViewRouter: ObservableObject {
 
-    init() {
-        if !UserDefaults.standard.bool(forKey: "didLaunchBefore") {
+class ViewRouter: ObservableObject {
+    
+  
+    
+    init(hasFullAccess:Bool) {
+        if (!UserDefaults.standard.bool(forKey: "didLaunchBefore") && hasFullAccess) {
             UserDefaults.standard.set(true, forKey: "didLaunchBefore")
             currentPage = "PageViewController1"
         } else {

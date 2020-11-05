@@ -37,13 +37,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        // let pageViewController=PageViewController1()
        //let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
         let payWall = PayWall(taskViewModel:taskViewModel)
-        
-      let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter())
+        let paymentRouter=PaymentRouter(taskViewModel:taskViewModel)
+        let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter(hasFullAccess: taskViewModel.hasFullAccess))
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: payWall)
+            window.rootViewController = UIHostingController(rootView: paymentRouter)
             self.window = window
             window.makeKeyAndVisible()
         }

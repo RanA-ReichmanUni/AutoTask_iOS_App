@@ -2,7 +2,7 @@
 //  PayWall.swift
 //  ManageMyTime
 //
-//  Created by רן א on 04/11/2020.
+//  Created by רן א on 05/11/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 
@@ -10,15 +10,48 @@ import SwiftUI
 
 struct PayWall: View {
     @ObservedObject var taskViewModel:TaskViewModel
+    @State var presentPayWall=false
     var body: some View {
+    
         
-        ForEach(self.taskViewModel.SubscriptionTitles, id: \.self) { subscription in
-            Button(action:{})
-            {
+        GeometryReader{ geometry in
+            VStack{
                 
-                Text(subscription).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 25).fill(Color.blue).frame(width:400,height:100))
+                Image("robotHand")
+                .resizable()
+                    .aspectRatio(contentMode: .fit)
+                Spacer()
+                
+                Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled\n\nPlease Chose A New One Below" : "AutoTask Requires A Subscription Plan\n\nPlease Chose One Below").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                Spacer()
+                Button(action:{self.presentPayWall=true})
+                   {
+                       
+                       Text("Chose A Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                       
+                }.padding().sheet(isPresented: self.$presentPayWall)
+                {
+                    
+                    PayWallSubscriptions(taskViewModel: self.taskViewModel).onAppear{self.taskViewModel.retrieveSubscriptionInfo()}
+                    
+                }
+                
+                
+                /* Button(action:{self.taskViewModel.SetAccessTest()})
+                   {
+                       
+                       Text("Full Access Test").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                       
+                }.padding()*/
+                
+                
                 
             }
+            
+            
+            
+            
+            
         }
     }
 }

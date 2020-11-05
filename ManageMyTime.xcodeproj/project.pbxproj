@@ -99,9 +99,12 @@
 		2592C8B62513FEBC00E36E3A /* PriorityPerDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2592C8B52513FEBC00E36E3A /* PriorityPerDate.swift */; };
 		259303A024BF425600869932 /* TasksPerHourPerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593039F24BF425600869932 /* TasksPerHourPerDay.swift */; };
 		259303A224BF42C100869932 /* TaskPerHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259303A124BF42C100869932 /* TaskPerHour.swift */; };
+		2597C723255418AB00634A42 /* PayWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597C722255418AB00634A42 /* PayWall.swift */; };
+		2597C725255423AA00634A42 /* SubscriptionObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597C724255423AA00634A42 /* SubscriptionObj.swift */; };
+		2597C727255431BF00634A42 /* PaymentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597C726255431BF00634A42 /* PaymentRouter.swift */; };
 		259C4E9F2552DA060037D576 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = 259C4E9E2552DA060037D576 /* Purchases */; };
 		259C4EA12552E1DF0037D576 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA02552E1DF0037D576 /* Subscription.swift */; };
-		259C4EA32552E3CB0037D576 /* PayWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA22552E3CB0037D576 /* PayWall.swift */; };
+		259C4EA32552E3CB0037D576 /* PayWallSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA22552E3CB0037D576 /* PayWallSubscriptions.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
 		25A77A6724DAA81300667165 /* DetailedTaskWithObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */; };
 		25B6B918250B17D400CB57FB /* SettingsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6B917250B17D400CB57FB /* SettingsUI.swift */; };
@@ -261,8 +264,11 @@
 		2592C8B52513FEBC00E36E3A /* PriorityPerDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPerDate.swift; sourceTree = "<group>"; };
 		2593039F24BF425600869932 /* TasksPerHourPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDay.swift; sourceTree = "<group>"; };
 		259303A124BF42C100869932 /* TaskPerHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPerHour.swift; sourceTree = "<group>"; };
+		2597C722255418AB00634A42 /* PayWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWall.swift; sourceTree = "<group>"; };
+		2597C724255423AA00634A42 /* SubscriptionObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionObj.swift; sourceTree = "<group>"; };
+		2597C726255431BF00634A42 /* PaymentRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRouter.swift; sourceTree = "<group>"; };
 		259C4EA02552E1DF0037D576 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
-		259C4EA22552E3CB0037D576 /* PayWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWall.swift; sourceTree = "<group>"; };
+		259C4EA22552E3CB0037D576 /* PayWallSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallSubscriptions.swift; sourceTree = "<group>"; };
 		25A248E324AA861000E74F51 /* DetailedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTask.swift; sourceTree = "<group>"; };
 		25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedTaskWithObj.swift; sourceTree = "<group>"; };
 		25B6B917250B17D400CB57FB /* SettingsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUI.swift; sourceTree = "<group>"; };
@@ -355,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				259C4EA02552E1DF0037D576 /* Subscription.swift */,
+				2597C724255423AA00634A42 /* SubscriptionObj.swift */,
 				251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */,
 				25C0BABD25113A530050EA79 /* WorkPerDate.swift */,
 				2592C8B52513FEBC00E36E3A /* PriorityPerDate.swift */,
@@ -380,7 +387,8 @@
 		253C7DFD24DAEA370063952B /* VIews */ = {
 			isa = PBXGroup;
 			children = (
-				259C4EA22552E3CB0037D576 /* PayWall.swift */,
+				259C4EA22552E3CB0037D576 /* PayWallSubscriptions.swift */,
+				2597C722255418AB00634A42 /* PayWall.swift */,
 				2563B3B2253CA1A800306FB2 /* SecondOnboardingViews */,
 				2563B3B1253C964800306FB2 /* OnboardingViews */,
 				25F1DDDB2529534500167015 /* Collapsible.swift */,
@@ -489,6 +497,7 @@
 				25F347FF24A2304D00671D09 /* DurationSelector.swift */,
 				253455D724A14B7B007CB6BF /* TestView3.swift */,
 				25680716249FF1FC0096AB89 /* SceneDelegate.swift */,
+				2597C726255431BF00634A42 /* PaymentRouter.swift */,
 				256B6B74253CCF9D0024D3EF /* ViewRouter.swift */,
 				25E5847624ABD49F00F251D5 /* ScheduleView2.swift */,
 				257ECFE624B27AD9006051C5 /* TimeCoreMangament */,
@@ -762,6 +771,7 @@
 				256CB0B5253D9AA1009D4D82 /* OnBoardingQuickSettings.swift in Sources */,
 				2585BC562506828C00EED2EB /* SpaceSection.swift in Sources */,
 				251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */,
+				2597C727255431BF00634A42 /* PaymentRouter.swift in Sources */,
 				25105F9424E14A940066758B /* CardTaskRow.swift in Sources */,
 				25D920B024CF985900A852BF /* TaskUnitPotrait.swift in Sources */,
 				2592C8B62513FEBC00E36E3A /* PriorityPerDate.swift in Sources */,
@@ -803,6 +813,7 @@
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */,
 				25FFDC69253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift in Sources */,
+				2597C723255418AB00634A42 /* PayWall.swift in Sources */,
 				253A476F252BE4C700FD013D /* ExpandingMenu.swift in Sources */,
 				251CDB2424EF0B3000026911 /* MainUI.swift in Sources */,
 				2591C8CD2518615900C39269 /* DayTaskList.swift in Sources */,
@@ -816,7 +827,7 @@
 				257ECFE524B27A7C006051C5 /* RestrictedSpace.swift in Sources */,
 				257E557324D1B6880056911B /* RestrictedSpaceView.swift in Sources */,
 				25F047FA24CDB995003CC7D6 /* DailyView.swift in Sources */,
-				259C4EA32552E3CB0037D576 /* PayWall.swift in Sources */,
+				259C4EA32552E3CB0037D576 /* PayWallSubscriptions.swift in Sources */,
 				25BB43F82513FAEC00AD2957 /* Task+CoreDataClass.swift in Sources */,
 				256E883C24ED74AF00293706 /* RestrictedSpaceViewModel.swift in Sources */,
 				25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */,
@@ -855,6 +866,7 @@
 				259C4EA12552E1DF0037D576 /* Subscription.swift in Sources */,
 				25755200252A30B20005B515 /* CollapsableWheelPicker.swift in Sources */,
 				2558924C24D084F600346AC6 /* ListTextHourSelector.swift in Sources */,
+				2597C725255423AA00634A42 /* SubscriptionObj.swift in Sources */,
 				2563B3B6253CA20900306FB2 /* PageViewController1.swift in Sources */,
 				2585C76724F1EE9A00539FDD /* BottomMainMenu.swift in Sources */,
 				25E75A7324F2BD0500C772B5 /* MenuView.swift in Sources */,

@@ -91,6 +91,10 @@ class TaskViewModel : ObservableObject
     
     @Published var SubscriptionTitles : [String]
     
+    @Published var SubscriptionObjects : [SubscriptionObj]
+    
+    @Published var hasFullAccess:Bool
+    
      init()
      {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -123,6 +127,9 @@ class TaskViewModel : ObservableObject
         endTimeMinutes="0"
         AvailableSubscriptions=[Subscription]()
         SubscriptionTitles=[String]()
+        SubscriptionObjects=[SubscriptionObj]()
+        hasFullAccess=false
+        
         date.day=0
         date.month=0
         date.year=0
@@ -256,12 +263,57 @@ class TaskViewModel : ObservableObject
         
     }
     
+    func SetAccessTest()
+    {
+        self.hasFullAccess=true
+    }
+    func CheckSubscription()
+    {
+        Purchases.shared.restoreTransactions { (purchaserInfo, error) in
+            if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+               // Unlock that great "pro" content
+               self.hasFullAccess=true
+                UserDefaults.standard.set(true, forKey: "nonSuspicious")
+                UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+             }
+            else{
+                self.hasFullAccess=false
+                 UserDefaults.standard.set(false, forKey: "nonSuspicious")
+            }
+            
+            if (purchaserInfo == nil){
+                self.hasFullAccess=false
+                UserDefaults.standard.set(false, forKey: "nonSuspicious")
+            }
+        }
+        
+    }
+    
+    func MakeAPurchase(package:Purchases.Package)
+    {
+        if Purchases.canMakePayments() {
+            // User is authorized to make payments
+       
+            Purchases.shared.purchasePackage(package) { (transaction, purchaserInfo, error, userCancelled) in
+              if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+                // Unlock that great "pro" content
+                self.hasFullAccess=true
+                 UserDefaults.standard.set(true, forKey: "nonSuspicious")
+              }
+            }
+        }
+        
+        
+        
+    }
     
     func retrieveSubscriptionInfo()
     {
         
         Purchases.shared.offerings { (offerings, error) in
-            
+            self.SubscriptionObjects=[]
+            self.SubscriptionTitles=[]
+            self.AvailableSubscriptions=[]
             if let offerings = offerings{
                 
                 let offer=offerings.current
@@ -295,17 +347,22 @@ class TaskViewModel : ObservableObject
                         
                         let locale = NSLocale.autoupdatingCurrent
                         
-                        
+                        currencySymbol=currency
                     
-                       if(locale.currencySymbol != nil)
+                    
+                        if(locale.currencySymbol != nil && locale.currencyCode != nil)
                        {
-                            currencySymbol=locale.currencySymbol!
+                            if(locale.currencyCode! == currency)
+                            {
+                                currencySymbol=locale.currencySymbol!
+                            }
                        }
                         
                         if(currencySymbol=="¤")
                         {
                             currencySymbol=currency
                         }
+                         
                         
                     }
                     
@@ -325,12 +382,16 @@ class TaskViewModel : ObservableObject
                     {
                         
                        
-                        title="1 Week Free Trail ! \nAfter that "+product.localizedTitle
+                        title="7 Days Free Trail For New Users \n\n"
                         
-                         self.SubscriptionTitles.append(title + " Of " + duration + " At Introductory Price Of " + price.description+" "+currencySymbol + "\nCancel Any Time During The Trail Period.")
+                         self.SubscriptionTitles.append(title + "When Trail Ends - Introductory Price:\nFirst Year" + " At " + price.description+" "+currencySymbol)
+                        self.SubscriptionObjects.append(SubscriptionObj(text: title + "When Trail Ends - Introductory Price:\nAnnual Subscription For A Year" + " At " + price.description+" "+currencySymbol+" !", packageObject: package))
+                            
                     }
                     else{
                         self.SubscriptionTitles.append(title + " " + duration + " " + price.description+" "+currencySymbol)
+                        
+                        self.SubscriptionObjects.append(SubscriptionObj(text: title + " " + duration + " " + price.description+" "+currencySymbol, packageObject: package))
                     }
                 }
             }
