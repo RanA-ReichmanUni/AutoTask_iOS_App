@@ -269,15 +269,19 @@ struct AddTask: View {
                                                                   self.mode.wrappedValue.dismiss()
                                                  
                                                           }
-                                                           catch DatabaseError.taskCanNotBeScheduledInDue {
-                                                              self.isError = true
-                                                              self.alertType=1
+                                                          catch DatabaseError.taskCanNotBeScheduledInDue {
+                                                                self.isError = true
+                                                                self.alertType=1
                                                               
                                                           }
-                                                          catch {
-                                                             self.isError = true
-                                                             self.alertType=1
-                                                         }
+                                                          catch PaymentError.TrailEndReached{
+                                                                self.isError = true
+                                                                self.alertType=4
+                                                           }
+                                                           catch {
+                                                                self.isError = true
+                                                                self.alertType=1
+                                                           }
                                                         
                                             } else if !(self.permissionAqcuired ?? true){
                                                 
@@ -327,6 +331,14 @@ struct AddTask: View {
                                       
                                    
                                   }, secondaryButton: .cancel())
+                            case 4:
+                                
+                                return Alert(title: Text("Trail Limit Reached"), message: Text("Auto Task Let New Users To Try The App Services With Up To 6 Auto Schedules.\n In Order To Keep The Stressful Student Life At Check And Keep Using The App, Please Check Out Auto Task Fair Subscription Plans."), primaryButton: .destructive(Text("Subscribe")) {
+                                                                          
+                                       
+                                        self.taskViewModel.SetTrailEnd()
+                                 
+                                }, secondaryButton: .cancel())
                             default:
                               return Alert(title: Text("Task can not be scheduled"),
                                                                message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),

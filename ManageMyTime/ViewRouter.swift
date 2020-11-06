@@ -12,9 +12,9 @@ class ViewRouter: ObservableObject {
     
   
     
-    init(hasFullAccess:Bool) {
-        if (!UserDefaults.standard.bool(forKey: "didLaunchBefore") && hasFullAccess) {
-            UserDefaults.standard.set(true, forKey: "didLaunchBefore")
+    init() {
+        if (!UserDefaults.standard.bool(forKey: "didLaunchBefore")) {
+            
             currentPage = "PageViewController1"
         } else {
             currentPage = "MainUI2"

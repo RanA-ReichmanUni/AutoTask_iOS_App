@@ -30,6 +30,12 @@ enum DateBoundsError: Error {
       
   }
 
+enum PaymentError: Error {
+    case TrailEndReached
+
+    
+}
+
 enum DaysOfTheWeek:String {
           
         case Sunday
@@ -95,6 +101,8 @@ class TaskViewModel : ObservableObject
     
     @Published var hasFullAccess:Bool
     
+    @Published var trailEnded:Bool
+    
      init()
      {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -129,6 +137,7 @@ class TaskViewModel : ObservableObject
         SubscriptionTitles=[String]()
         SubscriptionObjects=[SubscriptionObj]()
         hasFullAccess=false
+        trailEnded=false
         
         date.day=0
         date.month=0
@@ -137,6 +146,17 @@ class TaskViewModel : ObservableObject
         //retrieveAllTasks()
     
      }
+    
+    func SetTrailEnd()
+    {
+        UserDefaults.standard.set(true,forKey: "trailEnded")
+        self.trailEnded=true
+    }
+    
+    func UpdateTrailEndStatus()
+    {
+        self.trailEnded=UserDefaults.standard.bool(forKey: "trailEnded")
+    }
     
     func DayStringToNumConverter(dayOfTheWeek:String) -> Int
        {
@@ -231,10 +251,25 @@ class TaskViewModel : ObservableObject
             notificationPick=notificationIndex-1
         }
         
-        do{
-            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
-        }
+        let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
+                  
+          if(numberOfTasks>=6)
+          {
+              throw PaymentError.TrailEndReached
+          }
         
+        do{
+            
+          
+  
+            try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
+           
+            if(numberOfTasks<8)
+            {
+                UserDefaults.standard.set(numberOfTasks+1, forKey: "numberOfTasks")
+            }
+        }
+     
         catch{
             throw DatabaseError.taskCanNotBeScheduledInDue
         }

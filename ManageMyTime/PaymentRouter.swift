@@ -13,15 +13,17 @@ struct PaymentRouter: View {
     
     var body: some View {
         VStack{
-            if(UserDefaults.standard.bool(forKey: "nonSuspicious") || self.taskViewModel.hasFullAccess)
+            if(!taskViewModel.trailEnded || UserDefaults.standard.bool(forKey: "nonSuspicious") || self.taskViewModel.hasFullAccess)
             {
-                MainViewRouter(taskViewModel:self.taskViewModel).environmentObject(ViewRouter(hasFullAccess: self.taskViewModel.hasFullAccess))
+                MainViewRouter(taskViewModel:self.taskViewModel).environmentObject(ViewRouter())
             }
             else
             {
                 PayWall(taskViewModel:self.taskViewModel)
             }
-        }.onAppear{self.taskViewModel.CheckSubscription()}
+        }.onAppear{self.taskViewModel.CheckSubscription()
+                   self.taskViewModel.UpdateTrailEndStatus()
+        }
     }
 }
 

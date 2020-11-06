@@ -15,7 +15,8 @@ struct PageViewController1: View {
                       IntroPage(imageName:"robotHand",title:"Here To Help",description:"RoboTask is here to help you relieve the heavy stress from your student shoulders"),
                       IntroPage(imageName:"sitting",title:"Add And Forget",description:"Use RoboTask to auto plan your many courses tasks inside your complicated schedule"),
                       IntroPage(imageName:"sitting",title:"Planning Your Tasks According To Your Own Schedule",description:"Before using auto schedule, insert your regular personal activties tasks, colleague classes, personal actvities and more... \nRoboTask will plan your new tasks according to your schedule"),
-                      IntroPage(imageName:"sitting",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs")
+                      IntroPage(imageName:"sitting",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs"),
+                      IntroPage(imageName:"robotHand",title:"Free To Experience",description:"Try Auto Task For Free Without A Subscription Comitment, And See How It Improves Your Work Experience. \nOnce You Reached The Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.")
     
     ]
     @State var buttonControl=false
@@ -68,7 +69,7 @@ struct PageViewController1: View {
                        if(self.currentPage == self.pages.count-1)
                        {
                         self.finished=true
-
+                        UserDefaults.standard.set(true, forKey: "didLaunchBefore")
                        }
                        else{
                             self.currentPage = (self.currentPage + 1)%self.pages.count
