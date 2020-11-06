@@ -184,7 +184,7 @@
 		251CDB2324EF0B3000026911 /* MainUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUI.swift; sourceTree = "<group>"; };
 		251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		251EE60924A52E2400AC82F3 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
-		251F916524BCB80F005B0498 /* ManageMyTimeTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManageMyTimeTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		251F916524BCB80F005B0498 /* AutoTaskTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoTaskTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		251F916724BCB80F005B0498 /* ManageMyTimeTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyTimeTests2.swift; sourceTree = "<group>"; };
 		251F916924BCB80F005B0498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDayOfTheWeek.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		2563B3B5253CA20900306FB2 /* PageViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController1.swift; sourceTree = "<group>"; };
 		2564A73424D728EE00B3C2BA /* StressDailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressDailyView.swift; sourceTree = "<group>"; };
 		2565CC6424AF7A070006BF97 /* TaskSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSchedule.swift; sourceTree = "<group>"; };
-		25680711249FF1FC0096AB89 /* ManageMyTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManageMyTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25680711249FF1FC0096AB89 /* AutoTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25680714249FF1FC0096AB89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25680716249FF1FC0096AB89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2568071B249FF1FC0096AB89 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		25680720249FF1FF0096AB89 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25680723249FF1FF0096AB89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25680725249FF1FF0096AB89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2568072A249FF1FF0096AB89 /* ManageMyTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManageMyTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2568072A249FF1FF0096AB89 /* AutoTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2568072E249FF1FF0096AB89 /* ManageMyTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyTimeTests.swift; sourceTree = "<group>"; };
 		25680730249FF1FF0096AB89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256B6B70253CA42C0024D3EF /* PagingScrollingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingScrollingView.swift; sourceTree = "<group>"; };
@@ -475,9 +475,9 @@
 		25680712249FF1FC0096AB89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				25680711249FF1FC0096AB89 /* ManageMyTime.app */,
-				2568072A249FF1FF0096AB89 /* ManageMyTimeTests.xctest */,
-				251F916524BCB80F005B0498 /* ManageMyTimeTests2.xctest */,
+				25680711249FF1FC0096AB89 /* AutoTask.app */,
+				2568072A249FF1FF0096AB89 /* AutoTaskTests.xctest */,
+				251F916524BCB80F005B0498 /* AutoTaskTests2.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -604,9 +604,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		251F916424BCB80F005B0498 /* ManageMyTimeTests2 */ = {
+		251F916424BCB80F005B0498 /* AutoTaskTests2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 251F916E24BCB80F005B0498 /* Build configuration list for PBXNativeTarget "ManageMyTimeTests2" */;
+			buildConfigurationList = 251F916E24BCB80F005B0498 /* Build configuration list for PBXNativeTarget "AutoTaskTests2" */;
 			buildPhases = (
 				251F916124BCB80F005B0498 /* Sources */,
 				251F916224BCB80F005B0498 /* Frameworks */,
@@ -617,14 +617,14 @@
 			dependencies = (
 				251F916B24BCB80F005B0498 /* PBXTargetDependency */,
 			);
-			name = ManageMyTimeTests2;
+			name = AutoTaskTests2;
 			productName = ManageMyTimeTests2;
-			productReference = 251F916524BCB80F005B0498 /* ManageMyTimeTests2.xctest */;
+			productReference = 251F916524BCB80F005B0498 /* AutoTaskTests2.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		25680710249FF1FC0096AB89 /* ManageMyTime */ = {
+		25680710249FF1FC0096AB89 /* AutoTask */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 25680733249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "ManageMyTime" */;
+			buildConfigurationList = 25680733249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "AutoTask" */;
 			buildPhases = (
 				2568070D249FF1FC0096AB89 /* Sources */,
 				2568070E249FF1FC0096AB89 /* Frameworks */,
@@ -634,17 +634,17 @@
 			);
 			dependencies = (
 			);
-			name = ManageMyTime;
+			name = AutoTask;
 			packageProductDependencies = (
 				259C4E9E2552DA060037D576 /* Purchases */,
 			);
 			productName = ManageMyTime;
-			productReference = 25680711249FF1FC0096AB89 /* ManageMyTime.app */;
+			productReference = 25680711249FF1FC0096AB89 /* AutoTask.app */;
 			productType = "com.apple.product-type.application";
 		};
-		25680729249FF1FF0096AB89 /* ManageMyTimeTests */ = {
+		25680729249FF1FF0096AB89 /* AutoTaskTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 25680736249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "ManageMyTimeTests" */;
+			buildConfigurationList = 25680736249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "AutoTaskTests" */;
 			buildPhases = (
 				25680726249FF1FF0096AB89 /* Sources */,
 				25680727249FF1FF0096AB89 /* Frameworks */,
@@ -655,9 +655,9 @@
 			dependencies = (
 				2568072C249FF1FF0096AB89 /* PBXTargetDependency */,
 			);
-			name = ManageMyTimeTests;
+			name = AutoTaskTests;
 			productName = ManageMyTimeTests;
-			productReference = 2568072A249FF1FF0096AB89 /* ManageMyTimeTests.xctest */;
+			productReference = 2568072A249FF1FF0096AB89 /* AutoTaskTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -683,7 +683,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2568070C249FF1FC0096AB89 /* Build configuration list for PBXProject "ManageMyTime" */;
+			buildConfigurationList = 2568070C249FF1FC0096AB89 /* Build configuration list for PBXProject "AutoTask" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -699,9 +699,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				25680710249FF1FC0096AB89 /* ManageMyTime */,
-				25680729249FF1FF0096AB89 /* ManageMyTimeTests */,
-				251F916424BCB80F005B0498 /* ManageMyTimeTests2 */,
+				25680710249FF1FC0096AB89 /* AutoTask */,
+				25680729249FF1FF0096AB89 /* AutoTaskTests */,
+				251F916424BCB80F005B0498 /* AutoTaskTests2 */,
 			);
 		};
 /* End PBXProject section */
@@ -894,12 +894,12 @@
 /* Begin PBXTargetDependency section */
 		251F916B24BCB80F005B0498 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 25680710249FF1FC0096AB89 /* ManageMyTime */;
+			target = 25680710249FF1FC0096AB89 /* AutoTask */;
 			targetProxy = 251F916A24BCB80F005B0498 /* PBXContainerItemProxy */;
 		};
 		2568072C249FF1FF0096AB89 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 25680710249FF1FC0096AB89 /* ManageMyTime */;
+			target = 25680710249FF1FC0096AB89 /* AutoTask */;
 			targetProxy = 2568072B249FF1FF0096AB89 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -934,7 +934,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoTask.app/AutoTask";
 			};
 			name = Debug;
 		};
@@ -956,7 +956,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoTask.app/AutoTask";
 			};
 			name = Release;
 		};
@@ -1138,7 +1138,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoTask.app/AutoTask";
 			};
 			name = Debug;
 		};
@@ -1162,14 +1162,14 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ManageMyTime.app/ManageMyTime";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoTask.app/AutoTask";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		251F916E24BCB80F005B0498 /* Build configuration list for PBXNativeTarget "ManageMyTimeTests2" */ = {
+		251F916E24BCB80F005B0498 /* Build configuration list for PBXNativeTarget "AutoTaskTests2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				251F916C24BCB80F005B0498 /* Debug */,
@@ -1178,7 +1178,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2568070C249FF1FC0096AB89 /* Build configuration list for PBXProject "ManageMyTime" */ = {
+		2568070C249FF1FC0096AB89 /* Build configuration list for PBXProject "AutoTask" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				25680731249FF1FF0096AB89 /* Debug */,
@@ -1187,7 +1187,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		25680733249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "ManageMyTime" */ = {
+		25680733249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "AutoTask" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				25680734249FF1FF0096AB89 /* Debug */,
@@ -1196,7 +1196,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		25680736249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "ManageMyTimeTests" */ = {
+		25680736249FF1FF0096AB89 /* Build configuration list for PBXNativeTarget "AutoTaskTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				25680737249FF1FF0096AB89 /* Debug */,
