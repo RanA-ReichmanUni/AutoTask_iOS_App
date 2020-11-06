@@ -224,7 +224,7 @@ struct SettingsUI: View {
                     return Alert(title: Text("Purchase A Subscription ?"), message: Text("\nYou can subscribe for an annual plan of unlimited usage of the app now, but it will end your trail status."), primaryButton: .destructive(Text("End Trail And Subscribe")) {
                                                                                             
                                                          
-                                                          self.taskViewModel.SetTrailEnd()
+                                                          self.taskViewModel.SetEndTrail()
                                                    
                                                   }, secondaryButton: .cancel())
                 default:

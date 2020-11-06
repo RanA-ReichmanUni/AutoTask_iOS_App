@@ -158,7 +158,7 @@ class TaskViewModel : ObservableObject
         self.restoredSubscription=false
         self.failedRestoringSubscription=false
     }
-    func SetTrailEnd()
+    func SetEndTrail()
     {
         UserDefaults.standard.set(true,forKey: "trailEnded")
         self.trailEnded=true
@@ -345,7 +345,7 @@ class TaskViewModel : ObservableObject
                self.hasFullAccess=true
                 UserDefaults.standard.set(true, forKey: "nonSuspicious")
                 UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
-                self.SetTrailEnd()
+                self.SetEndTrail()
                 
                 self.restoredSubscription=true
                 

@@ -336,7 +336,7 @@ struct AddTask: View {
                                 return Alert(title: Text("Trail Limit Reached"), message: Text("Auto Task Let New Users To Try The App Services With Up To 6 Auto Schedules.\n In Order To Keep The Stressful Student Life At Check And Keep Using The App, Please Check Out Auto Task Fair Subscription Plans."), primaryButton: .destructive(Text("Subscribe")) {
                                                                           
                                        
-                                        self.taskViewModel.SetTrailEnd()
+                                        self.taskViewModel.SetEndTrail()
                                  
                                 }, secondaryButton: .cancel())
                             default:
