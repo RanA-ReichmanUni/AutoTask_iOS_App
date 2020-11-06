@@ -169,6 +169,37 @@ class TaskViewModel : ObservableObject
         self.trailEnded=UserDefaults.standard.bool(forKey: "trailEnded")
     }
     
+    func setIdToKeychain(login: String="app", pass: String="123")
+    {
+        do{
+           let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
+                                                   account: login,
+                                                   accessGroup: KeychainConfiguration.accessGroup)
+
+
+           // Save in keychain
+           try passwordItem.savePassword(pass)
+         } catch { print(error.localizedDescription) }
+    }
+    
+   func getInstallID(forUser user: String="app") -> String? {
+        do {
+            let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
+                                                    account: user,
+                                                    accessGroup: KeychainConfiguration.accessGroup)
+                    
+            // Read password form Keychain
+            let pass = try passwordItem.readPassword()
+                    
+            return pass
+            
+            } catch { print(error.localizedDescription) }
+    
+           return nil
+    }
+       
+    
+
     func DayStringToNumConverter(dayOfTheWeek:String) -> Int
        {
            switch dayOfTheWeek.lowercased() {

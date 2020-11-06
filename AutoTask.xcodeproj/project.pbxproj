@@ -27,6 +27,9 @@
 		251EE60A24A52E2400AC82F3 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60924A52E2400AC82F3 /* TaskModel.swift */; };
 		251F916824BCB80F005B0498 /* ManageMyTimeTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251F916724BCB80F005B0498 /* ManageMyTimeTests2.swift */; };
 		251F917024BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */; };
+		252EB24D255593FE00BB6385 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 252EB249255593FE00BB6385 /* README.md */; };
+		252EB24E255593FE00BB6385 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252EB24A255593FE00BB6385 /* KeychainPasswordItem.swift */; };
+		252EB250255593FF00BB6385 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 252EB24C255593FE00BB6385 /* LICENSE.txt */; };
 		252FCC8E24B518060026EB03 /* Hour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */; };
 		252FCC8F24B518060026EB03 /* Hour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */; };
 		253455D424A12539007CB6BF /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D324A12539007CB6BF /* AddTask.swift */; };
@@ -120,6 +123,7 @@
 		25D067CD24EAA06C000E31A5 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D067CC24EAA06C000E31A5 /* PickerView.swift */; };
 		25D067CF24EAA73D000E31A5 /* RestrictedDayUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D067CE24EAA73D000E31A5 /* RestrictedDayUI.swift */; };
 		25D3255E250EA5B4007D74E8 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3255D250EA5B4007D74E8 /* ColorPicker.swift */; };
+		25D716922555919900EEDB5A /* KeyChainConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D716912555919900EEDB5A /* KeyChainConfiguration.swift */; };
 		25D920AC24CF97D700A852BF /* ScheduleViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920AB24CF97D700A852BF /* ScheduleViewPortrait.swift */; };
 		25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920AD24CF981D00A852BF /* WeeklyTasksPotrait.swift */; };
 		25D920B024CF985900A852BF /* TaskUnitPotrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */; };
@@ -188,6 +192,9 @@
 		251F916724BCB80F005B0498 /* ManageMyTimeTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyTimeTests2.swift; sourceTree = "<group>"; };
 		251F916924BCB80F005B0498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		251F916F24BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksPerHourPerDayOfTheWeek.swift; sourceTree = "<group>"; };
+		252EB249255593FE00BB6385 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		252EB24A255593FE00BB6385 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		252EB24C255593FE00BB6385 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		252FCC8A24B518060026EB03 /* Hour+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hour+CoreDataClass.swift"; sourceTree = "<group>"; };
 		252FCC8B24B518060026EB03 /* Hour+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hour+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		253455D324A12539007CB6BF /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
@@ -284,6 +291,7 @@
 		25D067CC24EAA06C000E31A5 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		25D067CE24EAA73D000E31A5 /* RestrictedDayUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedDayUI.swift; sourceTree = "<group>"; };
 		25D3255D250EA5B4007D74E8 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		25D716912555919900EEDB5A /* KeyChainConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainConfiguration.swift; sourceTree = "<group>"; };
 		25D920AB24CF97D700A852BF /* ScheduleViewPortrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewPortrait.swift; sourceTree = "<group>"; };
 		25D920AD24CF981D00A852BF /* WeeklyTasksPotrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksPotrait.swift; sourceTree = "<group>"; };
 		25D920AF24CF985900A852BF /* TaskUnitPotrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUnitPotrait.swift; sourceTree = "<group>"; };
@@ -357,6 +365,16 @@
 			path = ManageMyTimeTests2;
 			sourceTree = "<group>";
 		};
+		252EB21C255592CA00BB6385 /* GenericKey */ = {
+			isa = PBXGroup;
+			children = (
+				252EB24A255593FE00BB6385 /* KeychainPasswordItem.swift */,
+				252EB24C255593FE00BB6385 /* LICENSE.txt */,
+				252EB249255593FE00BB6385 /* README.md */,
+			);
+			path = GenericKey;
+			sourceTree = "<group>";
+		};
 		253C5CE624B118F100C95A06 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +398,7 @@
 				2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */,
 				25C9C2F52534E54D00DA8F66 /* CalendarObject.swift */,
 				255673A22546FAB200E69EC5 /* FreeSpaceRank.swift */,
+				25D716912555919900EEDB5A /* KeyChainConfiguration.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -485,6 +504,7 @@
 		25680713249FF1FC0096AB89 /* ManageMyTime */ = {
 			isa = PBXGroup;
 			children = (
+				252EB21C255592CA00BB6385 /* GenericKey */,
 				257ECFEF24B287C5006051C5 /* NSManagedObjects */,
 				251EE60624A52BB600AC82F3 /* ViewModels */,
 				25680739249FF34F0096AB89 /* Models */,
@@ -720,6 +740,8 @@
 			files = (
 				25680724249FF1FF0096AB89 /* LaunchScreen.storyboard in Resources */,
 				25680721249FF1FF0096AB89 /* Preview Assets.xcassets in Resources */,
+				252EB24D255593FE00BB6385 /* README.md in Resources */,
+				252EB250255593FF00BB6385 /* LICENSE.txt in Resources */,
 				2568071E249FF1FF0096AB89 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -761,6 +783,7 @@
 				2577A5EC24AD5D8E0006E1D2 /* DailyViewRow.swift in Sources */,
 				25B6B918250B17D400CB57FB /* SettingsUI.swift in Sources */,
 				259303A224BF42C100869932 /* TaskPerHour.swift in Sources */,
+				25D716922555919900EEDB5A /* KeyChainConfiguration.swift in Sources */,
 				251F917024BD0E6B005B0498 /* TasksPerHourPerDayOfTheWeek.swift in Sources */,
 				256B6B71253CA42C0024D3EF /* PagingScrollingView.swift in Sources */,
 				2565CC6524AF7A070006BF97 /* TaskSchedule.swift in Sources */,
@@ -810,6 +833,7 @@
 				25118A0F24DB52870062D518 /* BigChar.swift in Sources */,
 				25EDA8B424B5135100094B23 /* ButtonTestingView.swift in Sources */,
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
+				252EB24E255593FE00BB6385 /* KeychainPasswordItem.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
 				255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */,
 				25FFDC69253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift in Sources */,

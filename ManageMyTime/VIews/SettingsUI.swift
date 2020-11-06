@@ -184,6 +184,28 @@ struct SettingsUI: View {
                       }
     
     
+                        HStack{
+                                                       
+                               Button(action: {
+                                    self.taskViewModel.setIdToKeychain()
+                                
+                                   }) {
+                                           Text("Save Install Data")
+                                   }
+                           }
+    
+                        HStack{
+                                                       
+                               Button(action: {
+                                    self.taskViewModel.getInstallID()
+                                
+                                   }) {
+                                           Text("Get Install Data")
+                                   }
+                           }
+    
+    
+    
                         
                        /* HStack{
                                           
