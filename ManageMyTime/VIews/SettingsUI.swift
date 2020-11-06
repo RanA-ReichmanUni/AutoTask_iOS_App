@@ -136,24 +136,52 @@ struct SettingsUI: View {
                                            }
                         }
     
-                        HStack{
-                            
-                            Button(action: { self.taskViewModel.DestroyAll()
-                                       self.taskViewModel.retrieveAllTasks()
-                                   }) {
-                                           Text("Destroy All !")
-                                           }
-                        }
+       
     
-    
+                    if(!self.taskViewModel.hasFullAccess)
+                    {
                         HStack{
                               
-                              Button(action: { self.taskViewModel.feedAllFreeSpacesTest()
-                                         self.taskViewModel.retrieveAllTasks()
+                              Button(action: {
+                               
+                                self.taskViewModel.TrailModeCheckSubscription()
+                                
+                                if(self.taskViewModel.restoredSubscription)
+                                {
+                                    self.showAlert=true
+                                    self.alertType=3
+                                    self.taskViewModel.DefaultRestoreSubscriptionValues()
+                                }
+                                 else if(self.taskViewModel.failedRestoringSubscription)
+                                {
+                                    
+                                    self.showAlert=true
+                                    self.alertType=4
+                                    self.taskViewModel.DefaultRestoreSubscriptionValues()
+                                }
                                      }) {
-                                             Text("Feed Free Spaces To Merge")
+                                             Text("Restore Existing Subscription")
                                              }
                           }
+                    }
+    
+                    if(!self.taskViewModel.trailEnded)
+                      {
+                          HStack{
+                                
+                                Button(action: {
+                                 
+                                  
+                                 
+                               
+                                      self.showAlert=true
+                                      self.alertType=5
+                                 
+                                    }) {
+                                            Text("Purchase")
+                                    }
+                            }
+                      }
     
     
                         
@@ -184,6 +212,21 @@ struct SettingsUI: View {
                     return Alert(title: Text("Updated Successfully !"),
                                      message: Text("\nIn Order To Not Effect Your Current Schedule, The Changes Will Take Effect With Future Scheduled Dates."),
                                      dismissButton: .default(Text("OK")))
+                case 3:
+                return Alert(title: Text("Subscription Restored Successfully"),
+                                 message: Text("\nAuto Task Is Ready For Full Functional Use !"),
+                                 dismissButton: .default(Text("OK")))
+                case 4:
+                return Alert(title: Text("Couldn't Find An Active Subscription"),
+                                 message: Text("\nCouldn't find any active subscription related to your Apple ID."),
+                                 dismissButton: .default(Text("OK")))
+                case 5:
+                    return Alert(title: Text("Purchase A Subscription ?"), message: Text("\nYou can subscribe for an annual plan of unlimited usage of the app now, but it will end your trail status."), primaryButton: .destructive(Text("End Trail And Subscribe")) {
+                                                                                            
+                                                         
+                                                          self.taskViewModel.SetTrailEnd()
+                                                   
+                                                  }, secondaryButton: .cancel())
                 default:
                     return Alert(title: Text("Updated Successfully !"),
                                      message: Text("\nThe Changes Will Take Effect With Future Assignments."),

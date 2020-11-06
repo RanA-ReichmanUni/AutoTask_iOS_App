@@ -63,18 +63,18 @@ struct PayWallSubscriptions: View {
                         }
                     }.background(RoundedRectangle(cornerRadius: 20).fill(Color.white.opacity(0.4)).frame(width:300))
                 }
-                HStack{
+                /*HStack{
                 Button(action:{self.showAlert=true})
                  {
                       Text("Notice About Trail Periods").frame(width:220,height:25).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 25).fill(Color.gray))
                  }
                     //Spacer()
-                }
+                }*/
             }
             Spacer()
             
       
-            }.background(Image("robotHand") .resizable()
+        }.background(Image("robotHand") .resizable()
                        
                                  
                                       .aspectRatio(contentMode: .fill)).alert(isPresented: self.$showAlert){

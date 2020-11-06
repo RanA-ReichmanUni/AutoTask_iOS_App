@@ -32,8 +32,8 @@ enum DateBoundsError: Error {
 
 enum PaymentError: Error {
     case TrailEndReached
-
-    
+    case RestoredSuccessfully
+    case NoPreviousSubscription
 }
 
 enum DaysOfTheWeek:String {
@@ -103,6 +103,10 @@ class TaskViewModel : ObservableObject
     
     @Published var trailEnded:Bool
     
+    @Published var restoredSubscription:Bool
+    
+    @Published var failedRestoringSubscription:Bool
+    
      init()
      {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -138,6 +142,8 @@ class TaskViewModel : ObservableObject
         SubscriptionObjects=[SubscriptionObj]()
         hasFullAccess=false
         trailEnded=false
+        restoredSubscription=false
+        failedRestoringSubscription=false
         
         date.day=0
         date.month=0
@@ -147,6 +153,11 @@ class TaskViewModel : ObservableObject
     
      }
     
+    func DefaultRestoreSubscriptionValues()
+    {
+        self.restoredSubscription=false
+        self.failedRestoringSubscription=false
+    }
     func SetTrailEnd()
     {
         UserDefaults.standard.set(true,forKey: "trailEnded")
@@ -324,6 +335,40 @@ class TaskViewModel : ObservableObject
         
     }
     
+    func TrailModeCheckSubscription()
+    {
+        
+        
+        Purchases.shared.restoreTransactions { (purchaserInfo, error) in
+            if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+               // Unlock that great "pro" content
+               self.hasFullAccess=true
+                UserDefaults.standard.set(true, forKey: "nonSuspicious")
+                UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                self.SetTrailEnd()
+                
+                self.restoredSubscription=true
+                
+                
+             }
+            else{
+                self.hasFullAccess=false
+                 UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                self.failedRestoringSubscription=true
+            }
+            
+            if (purchaserInfo == nil){
+                self.hasFullAccess=false
+                UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                 self.failedRestoringSubscription=true
+            }
+        }
+        
+       
+        
+    }
+    
+    
     func MakeAPurchase(package:Purchases.Package)
     {
         if Purchases.canMakePayments() {
@@ -422,6 +467,15 @@ class TaskViewModel : ObservableObject
                          self.SubscriptionTitles.append(title + "When Trail Ends - Introductory Price:\nFirst Year" + " At " + price.description+" "+currencySymbol)
                         self.SubscriptionObjects.append(SubscriptionObj(text: title + "When Trail Ends - Introductory Price:\nAnnual Subscription For A Year" + " At " + price.description+" "+currencySymbol+" !", packageObject: package))
                             
+                    }
+                    else if(product.productIdentifier=="at_3_1y")
+                    {
+                        
+                        title="Introductory Price - \n"
+                                              
+                       self.SubscriptionTitles.append(title + "\nFirst Year" + " At " + price.description+" "+currencySymbol)
+                      self.SubscriptionObjects.append(SubscriptionObj(text: title + "\nAnnual Subscription For A Year" + " At " + price.description+" "+currencySymbol, packageObject: package))
+                        
                     }
                     else{
                         self.SubscriptionTitles.append(title + " " + duration + " " + price.description+" "+currencySymbol)

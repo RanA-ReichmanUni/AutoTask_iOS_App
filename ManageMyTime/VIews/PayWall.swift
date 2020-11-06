@@ -22,7 +22,7 @@ struct PayWall: View {
                     .aspectRatio(contentMode: .fit)
                 Spacer()
                 
-                Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled\n\nPlease Chose A New One Below" : "AutoTask Requires A Subscription Plan\n\nPlease Chose One Below").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\n\nPlease Chose A New One Below:" : "AutoTask Requires A Subscription Plan.\n\nPlease Chose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
                 Spacer()
                 Button(action:{self.presentPayWall=true})
                    {
