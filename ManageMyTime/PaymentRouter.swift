@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct PaymentRouter: View {
-    @ObservedObject var taskViewModel=TaskViewModel()
+    @ObservedObject var taskViewModel:TaskViewModel
     
     var body: some View {
         VStack{
-            if(!taskViewModel.trailEnded || UserDefaults.standard.bool(forKey: "nonSuspicious") || self.taskViewModel.hasFullAccess)
+            if(!self.taskViewModel.trailEnded || UserDefaults.standard.bool(forKey: "nonSuspicious") || self.taskViewModel.hasFullAccess)
             {
                 MainViewRouter(taskViewModel:self.taskViewModel).environmentObject(ViewRouter())
             }
@@ -21,14 +21,16 @@ struct PaymentRouter: View {
             {
                 PayWall(taskViewModel:self.taskViewModel)
             }
-        }.onAppear{self.taskViewModel.CheckSubscription()
+        }.onAppear{//self.taskViewModel.CheckSubscription()
                    self.taskViewModel.UpdateTrailEndStatus()
+                   //self.taskViewModel.checkIsAtInstalledBefore()
         }
     }
 }
 
-struct PaymentRouter_Previews: PreviewProvider {
+/*struct PaymentRouter_Previews: PreviewProvider {
     static var previews: some View {
         PaymentRouter()
     }
 }
+*/

@@ -162,6 +162,7 @@ class TaskViewModel : ObservableObject
     {
         UserDefaults.standard.set(true,forKey: "trailEnded")
         self.trailEnded=true
+        
     }
     
     func UpdateTrailEndStatus()
@@ -169,7 +170,7 @@ class TaskViewModel : ObservableObject
         self.trailEnded=UserDefaults.standard.bool(forKey: "trailEnded")
     }
     
-    func setIdToKeychain(login: String="app", pass: String="123")
+    func setInstallIdToKeychain(login: String="atinalrsus", pass: String="insalrdtr")
     {
         do{
            let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
@@ -182,7 +183,8 @@ class TaskViewModel : ObservableObject
          } catch { print(error.localizedDescription) }
     }
     
-   func getInstallID(forUser user: String="app") -> String? {
+   func checkIsAtInstalledBefore(forUser user: String="atinalrsus") -> Bool  {
+        
         do {
             let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.serviceName,
                                                     account: user,
@@ -190,12 +192,25 @@ class TaskViewModel : ObservableObject
                     
             // Read password form Keychain
             let pass = try passwordItem.readPassword()
-                    
-            return pass
+           
+            if(pass=="insalrdtr")
+            {
+                SetEndTrail()
+                return true
+            }
+            else{
+                return false
+            }
+       
             
-            } catch { print(error.localizedDescription) }
+            } catch { print(error.localizedDescription)
+                
+                return false
+
+            }
     
-           return nil
+    
+           
     }
        
     
@@ -418,7 +433,11 @@ class TaskViewModel : ObservableObject
         
     }
     
-    func retrieveSubscriptionInfo()
+    
+   
+    
+    
+    func retrieveSubscriptionsInfo()
     {
         
         Purchases.shared.offerings { (offerings, error) in

@@ -32,7 +32,7 @@ struct PayWall: View {
                 }.padding().sheet(isPresented: self.$presentPayWall)
                 {
                     
-                    PayWallSubscriptions(taskViewModel: self.taskViewModel).onAppear{self.taskViewModel.retrieveSubscriptionInfo()}
+                    PayWallSubscriptions(taskViewModel: self.taskViewModel).onAppear{self.taskViewModel.retrieveSubscriptionsInfo()}
                     
                 }
                 

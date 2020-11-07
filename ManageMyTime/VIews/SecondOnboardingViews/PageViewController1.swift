@@ -68,8 +68,16 @@ struct PageViewController1: View {
                    withAnimation (.easeInOut(duration: 1.0)) {
                        if(self.currentPage == self.pages.count-1)
                        {
-                        self.finished=true
                         UserDefaults.standard.set(true, forKey: "didLaunchBefore")
+                        
+                        //Check if the app installed before and cancel trail if it was
+                      /*  if(!self.taskViewModel.checkIsAtInstalledBefore())
+                        {
+                            self.taskViewModel.setInstallIdToKeychain()
+                        }*/
+                        
+                        self.finished=true
+                        
                        }
                        else{
                             self.currentPage = (self.currentPage + 1)%self.pages.count
@@ -101,7 +109,7 @@ struct PageViewController1: View {
         }
         else{
             
-            MainUI2()
+            MainUI2(taskViewModel:self.taskViewModel)
         }
         }
     }
