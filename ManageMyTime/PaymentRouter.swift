@@ -23,7 +23,7 @@ struct PaymentRouter: View {
             }
         }.onAppear{//self.taskViewModel.CheckSubscription()
                    self.taskViewModel.UpdateTrailEndStatus()
-                   //self.taskViewModel.checkIsAtInstalledBefore()
+                  
         }
     }
 }
