@@ -31,10 +31,10 @@ struct SettingsUI: View {
     
    @State var fromSelection: [String] = [7, 0, 0].map { "\($0)" }
    @State var toSelection: [String] = [22, 0, 0].map { "\($0)" }
-    @State var alertType=1
+   @State var alertType=1
     
-    @State var signal = -1
-    
+  
+   
     private func SetSettings() {
            
         self.taskViewModel.SetSettingsValues(scheduleAlgorithimIndex: selectedSchedulingAlgorithmIndex, scheduleDensityIndex: selectedDensityIndex,breakPeriodsIndex: selectedBreakPeriodsIndex,animationStyleIndex: selectedAnimationIndex)
@@ -146,7 +146,8 @@ struct SettingsUI: View {
                         HStack{
                               
                               Button(action: {
-                                self.taskViewModel.DefaultRestoreSubscriptionValues()
+                                //self.taskViewModel.DefaultRestoreSubscriptionValues()
+                              
                                 self.taskViewModel.TrailModeCheckSubscription()
                                 
                                 if(self.taskViewModel.restoredSubscription)
@@ -187,7 +188,7 @@ struct SettingsUI: View {
                       }
     
     
-                        VStack{
+                      
                                                        
                                Button(action: {
                                     self.taskViewModel.setInstallIdToKeychain()
@@ -207,7 +208,7 @@ struct SettingsUI: View {
                                    }
                            }
     
-                        }
+                        
     
                         
                        /* HStack{
@@ -252,10 +253,7 @@ struct SettingsUI: View {
                             self.taskViewModel.SetEndTrail()}
                                                    
                                                   }, secondaryButton: .cancel())
-                case 4:
-                    return Alert(title: Text("Signal Strength"),
-                                 message: Text(String(self.signal)),
-                                 dismissButton: .default(Text("OK")))
+               
                 default:
                     return Alert(title: Text("Updated Successfully !"),
                                      message: Text("\nThe Changes Will Take Effect With Future Assignments."),
@@ -291,6 +289,8 @@ struct SettingsUI: View {
             
             self.fromSelection=[dayBoundsSettings[0],dayBoundsSettings[1]]
             self.toSelection=[dayBoundsSettings[2],dayBoundsSettings[3]]
+            
+         
         }
         
         

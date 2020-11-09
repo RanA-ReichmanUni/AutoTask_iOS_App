@@ -111,6 +111,8 @@ class TaskViewModel : ObservableObject
     
     @Published var errorPurchase:Bool
     
+
+    
      init()
      {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -150,6 +152,7 @@ class TaskViewModel : ObservableObject
         failedRestoringSubscription=false
         returnedFromCall=false
         errorPurchase=false
+        
         
         date.day=0
         date.month=0
@@ -401,12 +404,16 @@ class TaskViewModel : ObservableObject
         
     }
     
-    func SetAccessTest()
+   /* func SetAccessTest()
     {
         self.hasFullAccess=true
-    }
+    }*/
+    
+
+    
     func CheckSubscription()
     {
+   
         Purchases.shared.restoreTransactions { (purchaserInfo, error) in
             if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
                // Unlock that great "pro" content
@@ -418,7 +425,7 @@ class TaskViewModel : ObservableObject
             else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                 self.hasFullAccess=false
                  UserDefaults.standard.set(false, forKey: "nonSuspicious")
-                UserDefaults.standard.set(25,forKey: "offlineClicks")
+                UserDefaults.standard.set(16,forKey: "offlineClicks")
             }
             
             if (purchaserInfo == nil){
@@ -426,7 +433,7 @@ class TaskViewModel : ObservableObject
                 let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
                 UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
                 
-                if(numberOfClicks+1 >= 24)
+                if(numberOfClicks+1 >= 15)
                 {
                     self.hasFullAccess=false
                     UserDefaults.standard.set(false, forKey: "nonSuspicious")
@@ -434,6 +441,7 @@ class TaskViewModel : ObservableObject
             }
             self.returnedFromCall=true
         }
+        
         
     }
     

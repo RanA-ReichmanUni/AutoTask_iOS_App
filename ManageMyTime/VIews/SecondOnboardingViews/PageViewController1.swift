@@ -71,10 +71,10 @@ struct PageViewController1: View {
                         UserDefaults.standard.set(true, forKey: "didLaunchBefore")
                         
                         //Check if the app installed before and cancel trail if it was
-                       if(!self.taskViewModel.checkIsAtInstalledBefore())
+                     /* if(!self.taskViewModel.checkIsAtInstalledBefore())
                         {
                             self.taskViewModel.setInstallIdToKeychain()
-                        }
+                        }*/
                         
                         self.finished=true
                         

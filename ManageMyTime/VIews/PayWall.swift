@@ -29,9 +29,13 @@ struct PayWall: View {
                 Spacer()
                 if(!self.press==true)
                 {
-                    Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\nPlease Chose A New Subscription Plan Below." : "AutoTask Requires A Subscription Plan.\n\nPlease Chose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                    
+                        
+                        Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\nPlease Chose a New Subscription Plan Below." : "AutoTask Requires a Subscription Plan.\n\nPlease Choose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                     
+                   
                     if(UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
-                    {Text("\n\n*If You Are Using The Device In Air Plain Mode, Please Connect Your Device To The Internet.").font(Font.custom("MarkerFelt-Wide", size: 20))}
+                    {Text("\n\n*If You Are Using The Device In Airplane Mode, Please Connect Your Device To The Internet.").font(Font.custom("MarkerFelt-Wide", size: 20))}
                     Spacer()
                     HStack{
                         Spacer()
@@ -39,8 +43,8 @@ struct PayWall: View {
                             self.taskViewModel.retrieveSubscriptionsInfo()
                         })
                            {
-                               
-                               Text("Chose A Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                               //width:240,height:70
+                            Text("Choose a Subscription Plan").frame(minWidth: 130, idealWidth: 240, maxWidth: 250, minHeight: 60 , idealHeight: 70, maxHeight: 80, alignment: .center).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
                                
                         }.padding().sheet(isPresented: self.$presentPayWall)
                         {
@@ -80,10 +84,26 @@ struct PayWall: View {
                             })
                             {
                                   
-                                Text("Restore Active Subscription").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color(.systemTeal)))
+                                Text("Restore Existing Subscription").frame(minWidth: 130, idealWidth: 240, maxWidth: 250, minHeight: 60 , idealHeight: 70, maxHeight: 80, alignment: .center).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color(.systemTeal)))
                                   
                             }.padding()
                                  Spacer()
+                        
+                        
+                      /*  Button(action:{
+                               self.taskViewModel.OverrideFullAccess()
+                               
+                               
+                           })
+                           {
+                                 
+                               Text("Testing Override Access").frame(minWidth: 130, idealWidth: 240, maxWidth: 250, minHeight: 60 , idealHeight: 70, maxHeight: 80, alignment: .center).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color(.systemTeal)))
+                                 
+                           }.padding()
+                                Spacer()*/
+                        
+                        
+                       
                         
                       
                     }
@@ -104,7 +124,7 @@ struct PayWall: View {
                                    })
                                       {
                                           
-                                          Text("Chose A Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                                          Text("Choose a Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
                                           
                                    }.padding().sheet(isPresented: self.$presentPayWall)
                                    {

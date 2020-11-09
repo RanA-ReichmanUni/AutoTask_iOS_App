@@ -818,7 +818,7 @@ class TaskModel : UIViewController
     {
 
         
-        let taskName = ["Algebra Ex.1","Infi Ex.2","Marketing Ex.4","Reading In Modern Physics"/*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King"*//*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"*/]
+        let taskName = ["Infi Exercise 4","Compilers Exercise 2","Corporte Finance Project","TCP-IP Project Assignment 3","Analog Electronics Ex.5","Introduction To Cyber Security Ex.4"/*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King"*//*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"*/]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -836,7 +836,7 @@ class TaskModel : UIViewController
         let userCalendar = Calendar.current // user calendar
         let someDateTime = userCalendar.date(from: dateComponents)
         
-        let colorArray = ["Green","Teal","Pink","Red","Orange","Blue","Indigo"].shuffled()
+        let colorArray = [Color(hex:"#007FFF"),Color(hex:"#A54DFF"),Color(hex:"#5B59BA"),Color(.systemTeal),Color(hex:"#007FFF"),Color(hex:"#0018F9")]//.shuffled()
        
       //  let difficultyValues = ["diffcult","average","easy"].shuffled()
         
@@ -881,7 +881,7 @@ class TaskModel : UIViewController
                
            //   createRestrictedSpace(name:"TextFill2",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Saturday",difficulty:"average")
          // createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Wednesday",difficulty:"average")
-          createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Monday",difficulty:"average")
+          //createRestrictedSpace(name:"Studies",color:Color.green.description,startTime: startTime4,endTime: endTime4,dayOfTheWeek: "Monday",difficulty:"average")
         for name in taskName
         {
             //Critical error in the notation example code, this is the same hour each time in the context that is being saved repeaditly ! , meaning that asstimatedWorkTime changes to the last tasks asstimatedWorkTime random value, create a new Object to fix it !
@@ -892,10 +892,10 @@ class TaskModel : UIViewController
             
             
             let asstimatedWorkTime=Hour(context: managedContext)
-                    asstimatedWorkTime.hour=Int.random(in: 1 ... 3)
-                    asstimatedWorkTime.minutes=Int.random(in: 0 ... 59)
+                    asstimatedWorkTime.hour=1
+                    asstimatedWorkTime.minutes=0
            do {
-            _=try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",difficulty:"average",color:colorArray[Int.random(in: 0 ... 6)])
+            _=try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",difficulty:"average",color:colorArray[taskName.firstIndex(of: name)!].description)
             let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
               if(numberOfTasks<8)
               {
