@@ -366,6 +366,14 @@ class RestrictedSpaceModel : UIViewController
                     
                     throw DatabaseError.someTaskHaveBeenMoved
                 }
+                else{
+                    for day in daysOfTheWeek
+                    {
+                        
+                        //Bound all relevent freeSpaces to the new restrictedSpace after we know there arn't any unsolved contradictions
+                        BoundFreeSpacesToRestrictedSpaces(restrictedSpaceDayOfTheWeek:day)
+                    }
+                }
             }
             catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
                 

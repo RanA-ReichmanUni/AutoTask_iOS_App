@@ -90,8 +90,8 @@ struct PayWall: View {
                                  Spacer()
                         
                         
-                      /*  Button(action:{
-                               self.taskViewModel.OverrideFullAccess()
+                       Button(action:{
+                               self.taskViewModel.SetOverrideFullAccess()
                                
                                
                            })
@@ -100,7 +100,7 @@ struct PayWall: View {
                                Text("Testing Override Access").frame(minWidth: 130, idealWidth: 240, maxWidth: 250, minHeight: 60 , idealHeight: 70, maxHeight: 80, alignment: .center).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color(.systemTeal)))
                                  
                            }.padding()
-                                Spacer()*/
+                                Spacer()
                         
                         
                        

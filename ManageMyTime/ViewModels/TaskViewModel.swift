@@ -111,7 +111,7 @@ class TaskViewModel : ObservableObject
     
     @Published var errorPurchase:Bool
     
-
+    var overrideFullAccess:Bool
     
      init()
      {
@@ -152,7 +152,7 @@ class TaskViewModel : ObservableObject
         failedRestoringSubscription=false
         returnedFromCall=false
         errorPurchase=false
-        
+        overrideFullAccess=false
         
         date.day=0
         date.month=0
@@ -174,7 +174,12 @@ class TaskViewModel : ObservableObject
         
     }
     
-
+    func SetOverrideFullAccess()
+    {
+        
+        self.overrideFullAccess=true
+        self.hasFullAccess=true
+    }
     func getPurchaserInfo()
     {
               
@@ -413,33 +418,35 @@ class TaskViewModel : ObservableObject
     
     func CheckSubscription()
     {
-   
-        Purchases.shared.restoreTransactions { (purchaserInfo, error) in
-            if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
-               // Unlock that great "pro" content
-               self.hasFullAccess=true
-                UserDefaults.standard.set(true, forKey: "nonSuspicious")
-                UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
-                UserDefaults.standard.set(0,forKey: "offlineClicks")
-             }
-            else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
-                self.hasFullAccess=false
-                 UserDefaults.standard.set(false, forKey: "nonSuspicious")
-                UserDefaults.standard.set(16,forKey: "offlineClicks")
-            }
-            
-            if (purchaserInfo == nil){
-                
-                let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
-                UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
-                
-                if(numberOfClicks+1 >= 15)
-                {
+        if(!self.overrideFullAccess)
+        {
+            Purchases.shared.restoreTransactions { (purchaserInfo, error) in
+                if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+                   // Unlock that great "pro" content
+                   self.hasFullAccess=true
+                    UserDefaults.standard.set(true, forKey: "nonSuspicious")
+                    UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                    UserDefaults.standard.set(0,forKey: "offlineClicks")
+                 }
+                else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                     self.hasFullAccess=false
-                    UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                     UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                    UserDefaults.standard.set(16,forKey: "offlineClicks")
                 }
+                
+                if (purchaserInfo == nil){
+                    
+                    let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
+                    UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
+                    
+                    if(numberOfClicks+1 >= 15)
+                    {
+                        self.hasFullAccess=false
+                        UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                    }
+                }
+                self.returnedFromCall=true
             }
-            self.returnedFromCall=true
         }
         
         
