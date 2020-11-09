@@ -2082,14 +2082,15 @@ class Core{
     
     
     func mergeFreeSpacesAndReturnId(createdFreeSpace:UUID) -> UUID
-       {
-          
+      {
+          let helper=HelperFuncs()
+           
           var dateComponents = DateComponents()
           dateComponents.year = Date().year
           dateComponents.month = Date().month+1
           dateComponents.day = Date().day
 
-
+            var latestFreeSpaceId=createdFreeSpace
           // Create date from components
           let userCalendar = Calendar.current // user calendar
           let dateTime = userCalendar.date(from: dateComponents)!
@@ -2098,22 +2099,33 @@ class Core{
           
           var freeSpacesToDelete=[UUID]()
            var createdFreeSpaceId=UUID()
-        
-        var newlyCreatedFreeSpaceId:UUID?
            
           var didCreateFreeSpace = false
            
-        
           for index in 0...sortedFreeSpaces.count-1
           {
           
+           print("to date: " + helper.dateToString(date: sortedFreeSpaces[index].date))
+           
                 print("General free space in the loop from "+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
+           
+           
+               if(sortedFreeSpaces[index].date.day==7 && sortedFreeSpaces[index].starting.hour==13&&sortedFreeSpaces[index].starting.minutes==38)
+               {
+                   print("here")
+                   print("space assosicated id: "+sortedFreeSpaces[index].associatedId!.description)
+                   print("space end time: "+helper.hourToString(hour: sortedFreeSpaces[index].ending))
+                    print("next space assosicated id: "+sortedFreeSpaces[index+1].associatedId!.description)
+                   print("next space date: "+helper.dateToString(date: sortedFreeSpaces[index+1].date))
+                   print("next space start time: "+helper.hourToString(hour: sortedFreeSpaces[index+1].starting))
+                  
+               }
            
                if(sortedFreeSpaces[index].id==createdFreeSpace)
               {
                
                
-               if(index > 0 && sortedFreeSpaces[index].date==sortedFreeSpaces[index-1].date && sortedFreeSpaces[index].starting == sortedFreeSpaces[index-1].ending && sortedFreeSpaces[index].associatedId!==sortedFreeSpaces[index-1].associatedId!)//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
+               if(index > 0 && sortedFreeSpaces[index].date==sortedFreeSpaces[index-1].date && sortedFreeSpaces[index].starting == sortedFreeSpaces[index-1].ending )//If it's indeed the same date and this are two sequntial free spaces, in which the second starts in the ending of the first right away
                   {
                       didCreateFreeSpace=true
                    
@@ -2122,9 +2134,7 @@ class Core{
                        print("Found mergeble free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index-1].ending.hour)+":"+String(sortedFreeSpaces[index-1].ending.minutes))
                        
                       createdFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
-                    
-                    newlyCreatedFreeSpaceId=createdFreeSpace
-                    
+                    latestFreeSpaceId=createdFreeSpace
                     print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index].ending.hour)+":"+String(sortedFreeSpaces[index].ending.minutes))
                        
                    print("freeSpace to delete is: " + createdFreeSpace.description )
@@ -2135,14 +2145,15 @@ class Core{
                    
                   }
                    
-               if(index+1 <= sortedFreeSpaces.count-1 && sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting && sortedFreeSpaces[index].associatedId!==sortedFreeSpaces[index+1].associatedId!)
+               if(index+1 <= sortedFreeSpaces.count-1 && sortedFreeSpaces[index].date==sortedFreeSpaces[index+1].date && sortedFreeSpaces[index].ending == sortedFreeSpaces[index+1].starting )
                   {
                       if(didCreateFreeSpace)
                       {
                        
                           print("Found mergeble free space from"+String(sortedFreeSpaces[index+1].starting.hour)+":"+String(sortedFreeSpaces[index+1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                            print("Free space will be merged with the latest freeSpace creted a second ago")
-                           newlyCreatedFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                           let newFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index-1].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index+1].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index-1].starting), fullyOccupiedDay: false)
+                        latestFreeSpaceId=newFreeSpaceId
                           print("Created merged free space from"+String(sortedFreeSpaces[index-1].starting.hour)+":"+String(sortedFreeSpaces[index-1].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                        
                            freeSpacesToDelete.append(createdFreeSpaceId)
@@ -2155,8 +2166,10 @@ class Core{
                            
                        }
                       else{
-                       newlyCreatedFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:sortedFreeSpaces[index].associatedId!)
-                       
+                       let newestFreeSpaceId=createFreeSpace(startTime: sortedFreeSpaces[index].starting, endTime: sortedFreeSpaces[index+1].ending, date: sortedFreeSpaces[index].date, duration: sortedFreeSpaces[index+1].ending.subtract(newHour: sortedFreeSpaces[index].starting), fullyOccupiedDay: false,orginalFreeSpaceAssociatedId:sortedFreeSpaces[index].associatedId!)
+                        
+                       latestFreeSpaceId=newestFreeSpaceId
+                        
                                  print("Created merged free space from"+String(sortedFreeSpaces[index].starting.hour)+":"+String(sortedFreeSpaces[index].starting.minutes)+" To "+String(sortedFreeSpaces[index+1].ending.hour)+":"+String(sortedFreeSpaces[index+1].ending.minutes))
                        }
                    
@@ -2181,10 +2194,7 @@ class Core{
               deleteFreeSpace(freeSpaceId: freeSpaceId)
           }
           
-          
-            //If nothting was merged return the orginal freeSpaceId
-            return newlyCreatedFreeSpaceId ?? createdFreeSpace
-
+          return latestFreeSpaceId
           
            
        }
