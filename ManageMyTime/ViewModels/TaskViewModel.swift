@@ -107,6 +107,10 @@ class TaskViewModel : ObservableObject
     
     @Published var failedRestoringSubscription:Bool
     
+    @Published var returnedFromCall:Bool
+    
+    @Published var errorPurchase:Bool
+    
      init()
      {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -144,6 +148,8 @@ class TaskViewModel : ObservableObject
         trailEnded=false
         restoredSubscription=false
         failedRestoringSubscription=false
+        returnedFromCall=false
+        errorPurchase=false
         
         date.day=0
         date.month=0
@@ -165,6 +171,38 @@ class TaskViewModel : ObservableObject
         
     }
     
+
+    func getPurchaserInfo()
+    {
+              
+        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+               // Unlock that great "pro" content
+               self.hasFullAccess=true
+                UserDefaults.standard.set(true, forKey: "nonSuspicious")
+                UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                UserDefaults.standard.set(0,forKey: "offlineClicks")
+             }
+            else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
+                self.hasFullAccess=false
+                 UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                UserDefaults.standard.set(31,forKey: "offlineClicks")
+            }
+            
+            if (purchaserInfo == nil){
+                
+              /*  let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
+                UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")*/
+                
+               /* if(numberOfClicks+1 >= 10)
+                {*/
+                    self.hasFullAccess=false
+                    UserDefaults.standard.set(false, forKey: "nonSuspicious")
+               /* }*/
+            }
+            self.returnedFromCall=true
+        }
+    }
     func UpdateTrailEndStatus()
     {
         self.trailEnded=UserDefaults.standard.bool(forKey: "trailEnded")
@@ -181,6 +219,14 @@ class TaskViewModel : ObservableObject
            // Save in keychain
            try passwordItem.savePassword(pass)
          } catch { print(error.localizedDescription) }
+    }
+    
+    func setEndSubscription()
+    {
+        self.hasFullAccess=false
+         UserDefaults.standard.set(false, forKey: "nonSuspicious")
+         UserDefaults.standard.set(31,forKey: "offlineClicks")
+        self.failedRestoringSubscription=true
     }
     
    func checkIsAtInstalledBefore(forUser user: String="atinalrsus") -> Bool  {
@@ -367,16 +413,26 @@ class TaskViewModel : ObservableObject
                self.hasFullAccess=true
                 UserDefaults.standard.set(true, forKey: "nonSuspicious")
                 UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                UserDefaults.standard.set(0,forKey: "offlineClicks")
              }
-            else{
+            else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                 self.hasFullAccess=false
                  UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                UserDefaults.standard.set(25,forKey: "offlineClicks")
             }
             
             if (purchaserInfo == nil){
-                self.hasFullAccess=false
-                UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                
+                let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
+                UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
+                
+                if(numberOfClicks+1 >= 24)
+                {
+                    self.hasFullAccess=false
+                    UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                }
             }
+            self.returnedFromCall=true
         }
         
     }
@@ -391,22 +447,36 @@ class TaskViewModel : ObservableObject
                self.hasFullAccess=true
                 UserDefaults.standard.set(true, forKey: "nonSuspicious")
                 UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                UserDefaults.standard.set(0,forKey: "offlineClicks")
                 self.SetEndTrail()
                 
                 self.restoredSubscription=true
                 
                 
              }
-            else{
+            else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                 self.hasFullAccess=false
                  UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                 UserDefaults.standard.set(31,forKey: "offlineClicks")
                 self.failedRestoringSubscription=true
             }
             
             if (purchaserInfo == nil){
-                self.hasFullAccess=false
-                UserDefaults.standard.set(false, forKey: "nonSuspicious")
+           
+                
+                
+                let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
+                UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
+                
+                if(numberOfClicks+1 >= 30)
+                {
+                    self.hasFullAccess=false
+                    UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                    
+                }
+                
                  self.failedRestoringSubscription=true
+                
             }
         }
         
@@ -425,7 +495,16 @@ class TaskViewModel : ObservableObject
                 // Unlock that great "pro" content
                 self.hasFullAccess=true
                  UserDefaults.standard.set(true, forKey: "nonSuspicious")
+                 UserDefaults.standard.set(0,forKey: "offlineClicks")
+                 UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                
               }
+                
+                if(!(error?.localizedDescription.isEmpty ?? true))
+                {
+                    self.errorPurchase=true
+                }
+                self.SubscriptionObjects=[]
             }
         }
         

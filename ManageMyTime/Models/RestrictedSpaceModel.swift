@@ -344,8 +344,7 @@ class RestrictedSpaceModel : UIViewController
                               print("Could not save. \(error), \(error.userInfo)")
                           }
                     
-                //Bound all relevent freeSpaces to the new restrictedSpace
-                BoundFreeSpacesToRestrictedSpaces(restrictedSpace:restrictedSpace)
+               
                     
                 }
             
@@ -358,13 +357,20 @@ class RestrictedSpaceModel : UIViewController
                 {
                     try RescheduleTasks(tasksToDelete: tasksToDelete, restrictedSpacesIds: restrictedSpacesIds,datesToRescheduleFreeSpaces: datesToRescheduleFreeSpaces)
                     
+                    for day in daysOfTheWeek
+                    {
+                        
+                        //Bound all relevent freeSpaces to the new restrictedSpace after we know there arn't any unsolved contradictions
+                        BoundFreeSpacesToRestrictedSpaces(restrictedSpaceDayOfTheWeek:day)
+                    }
+                    
                     throw DatabaseError.someTaskHaveBeenMoved
                 }
             }
             catch DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks{
                 
                 //Insert restricted spaces that was deleted in order to schedule the previous dates again
-                for day in daysOfTheWeek
+              /*  for day in daysOfTheWeek
                 {
                     let restrictedSpace = RestrictedSpace(context: managedContext)
                                  
@@ -388,7 +394,7 @@ class RestrictedSpaceModel : UIViewController
                     
                
            
-                }
+                }*/
                 
                 throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
             }
@@ -404,7 +410,7 @@ class RestrictedSpaceModel : UIViewController
            
     }
     
-    func BoundFreeSpacesToRestrictedSpaces(restrictedSpace:RestrictedSpace)
+    func BoundFreeSpacesToRestrictedSpaces(restrictedSpaceDayOfTheWeek:String)
     {//Handles bounding(deletion or change in length) of exsiting free spaces according to the new restrictedSpace set at a date
         
         let helper=HelperFuncs()
@@ -428,7 +434,7 @@ class RestrictedSpaceModel : UIViewController
                            
            let existingFreeSpaces = coreManagment.retriveAndSortFreeSpaces(startDate: currentDate)
            
-            let freeSpacesToBound =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpace.dayOfTheWeek.lowercased()})
+            let freeSpacesToBound =  existingFreeSpaces.all(where: {$0.date.dayOfWeek().lowercased()==restrictedSpaceDayOfTheWeek.lowercased()})
            
            for freeSpaceToBound in freeSpacesToBound
            {
@@ -485,13 +491,13 @@ class RestrictedSpaceModel : UIViewController
                               taskModel.deleteTask(taskId: id)
                           }
                         
-                          for id in restrictedSpacesIds{
+                         /* for id in restrictedSpacesIds{
                                    
                                   
                                DeleteRestrictedSpace(id: id)
                               
                               
-                           }//Deletes All Previous Shceduled Restricted Spaces
+                           }//Deletes All Previous Shceduled Restricted Spaces*/
                         
                         throw DatabaseError.newRestrictedSpaceContradictionCantRescheduleTasks
                     }

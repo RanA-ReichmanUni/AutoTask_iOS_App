@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PaymentRouter: View {
     @ObservedObject var taskViewModel:TaskViewModel
-    
+    var receiptAssessor:ReceiptAssessor
     var body: some View {
         VStack{
             if(!self.taskViewModel.trailEnded || UserDefaults.standard.bool(forKey: "nonSuspicious") || self.taskViewModel.hasFullAccess)
@@ -19,9 +19,11 @@ struct PaymentRouter: View {
             }
             else
             {
-                PayWall(taskViewModel:self.taskViewModel)
+                PayWall(taskViewModel:self.taskViewModel,receiptAssessor:receiptAssessor)
             }
         }.onAppear{//self.taskViewModel.CheckSubscription()
+                  //  self.taskViewModel.getPurchaserInfo()
+            //self.taskViewModel.TrailModeCheckSubscription()
                    self.taskViewModel.UpdateTrailEndStatus()
                   
         }

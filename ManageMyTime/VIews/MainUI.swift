@@ -43,7 +43,7 @@ struct MainUI: View {
                      }
                      else if(weeklyScheduleFlag)
                      {
-                        ScheduleViewRow(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
+                       // ScheduleViewRow(taskViewModel:self.taskViewModel).transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale)).padding(.bottom,10)
                      }
                    /*  else if(listFlag)
                      {

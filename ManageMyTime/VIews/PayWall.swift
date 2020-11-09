@@ -11,6 +11,12 @@ import SwiftUI
 struct PayWall: View {
     @ObservedObject var taskViewModel:TaskViewModel
     @State var presentPayWall=false
+    @State var showAlert=false
+    @State var alertType=3
+    @State var press=false
+    @State var firstTry=true
+    var receiptAssessor:ReceiptAssessor
+    
     var body: some View {
     
         
@@ -21,21 +27,94 @@ struct PayWall: View {
                 .resizable()
                     .aspectRatio(contentMode: .fit)
                 Spacer()
-                
-                Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\n\nPlease Chose A New One Below:" : "AutoTask Requires A Subscription Plan.\n\nPlease Chose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
-                Spacer()
-                Button(action:{self.presentPayWall=true})
-                   {
-                       
-                       Text("Chose A Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
-                       
-                }.padding().sheet(isPresented: self.$presentPayWall)
+                if(!self.press==true)
                 {
+                    Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\nPlease Chose A New Subscription Plan Below." : "AutoTask Requires A Subscription Plan.\n\nPlease Chose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                    if(UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
+                    {Text("\n\n*If You Are Using The Device In Air Plain Mode, Please Connect Your Device To The Internet.").font(Font.custom("MarkerFelt-Wide", size: 20))}
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        Button(action:{self.presentPayWall=true
+                            self.taskViewModel.retrieveSubscriptionsInfo()
+                        })
+                           {
+                               
+                               Text("Chose A Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                               
+                        }.padding().sheet(isPresented: self.$presentPayWall)
+                        {
+                            
+                            PayWallSubscriptions(taskViewModel: self.taskViewModel,press:self.$press,presentPayWall:self.$presentPayWall)
+                            
+                        }
+                        Spacer()
+                     
+                      
+                            Button(action:{
+                                //self.taskViewModel.DefaultRestoreSubscriptionValues()
+                                
+                               // self.taskViewModel.CheckSubscription()
+                                 self.taskViewModel.CheckSubscription()
+                                    self.showAlert=true
+                                    self.alertType=1
+                                    
+                                    if(self.taskViewModel.hasFullAccess)
+                                       {
+                                           self.showAlert=true
+                                           self.alertType=3
+                                           
+                                       }
+                              
+                                         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                            if(!self.taskViewModel.hasFullAccess&&self.taskViewModel.returnedFromCall)
+                                       {
+                                           
+                                           self.showAlert=true
+                                           self.alertType=4
+                                          
+                                       }
+                                            self.taskViewModel.returnedFromCall=false
+                                }
+                                
+                            })
+                            {
+                                  
+                                Text("Restore Active Subscription").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color(.systemTeal)))
+                                  
+                            }.padding()
+                                 Spacer()
+                        
+                      
+                    }
+                }
+                else{
                     
-                    PayWallSubscriptions(taskViewModel: self.taskViewModel).onAppear{self.taskViewModel.retrieveSubscriptionsInfo()}
+                    Text(!self.taskViewModel.errorPurchase ? "Precessing, please wait for the window prompt..." : "It Seems Like Something Went Wrong, Please Try Again:").foregroundColor(Color.blue).font(Font.custom("MarkerFelt-Wide", size: 26)).bold()//.onAppear{ DispatchQueue.main.asyncAfter(deadline: .now() + 6) {withAnimation(.ripple2()){ self.firstTry=false}} }
+                     Spacer()
+                    
+                            
+                                Button(action:{
+                                    self.taskViewModel.errorPurchase=false
+                                    self.firstTry=true
+                                    self.press=false
+                                    self.presentPayWall=true
+                                    
+                                       self.taskViewModel.retrieveSubscriptionsInfo()
+                                   })
+                                      {
+                                          
+                                          Text("Chose A Subscription Plan").frame(width:240,height:70).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                                          
+                                   }.padding().sheet(isPresented: self.$presentPayWall)
+                                   {
+                                       
+                                       PayWallSubscriptions(taskViewModel: self.taskViewModel,press:self.$press,presentPayWall:self.$presentPayWall)
+                                       
+                                }.isHidden(!self.taskViewModel.errorPurchase)
+                        
                     
                 }
-                
                 
                 /* Button(action:{self.taskViewModel.SetAccessTest()})
                    {
@@ -46,13 +125,34 @@ struct PayWall: View {
                 
                 
                 
-            }
+            }//.disabled(self.press)
             
             
             
             
             
-        }
+            }.alert(isPresented: self.$showAlert) {
+        
+               switch self.alertType{
+                   case 1:
+                   return Alert(title: Text("Checking"),
+                                    message: Text("\nPlease Wait..."),
+                                    dismissButton: .default(Text("OK")))
+                   case 3:
+                   return Alert(title: Text("Subscription Restored Successfully"),
+                                    message: Text("\nAuto Task Is Ready For Full Functional Use !"),
+                                    dismissButton: .default(Text("OK")))
+                   case 4:
+                   return Alert(title: Text("Couldn't Find An Active Subscription"),
+                                    message: Text("\nCouldn't find any active subscription related to your Apple ID."),
+                                    dismissButton: .default(Text("OK")))
+                   default:
+                       return Alert(title: Text("Error"),
+                        message: Text("Error"),
+                       dismissButton: .default(Text("OK")))
+                }
+           
+           }
     }
 }
 

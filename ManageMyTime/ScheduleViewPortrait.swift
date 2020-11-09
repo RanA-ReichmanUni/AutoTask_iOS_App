@@ -63,7 +63,7 @@ struct ScheduleViewPortrait: View {
                             
                         
                            
-                            WeeklyTasksPotrait(timeChar:String(hour),hourTasks: weekByHour).frame(width: geometry.size.width/9, height:  geometry.size.height/15)
+                            //WeeklyTasksPotrait(timeChar:String(hour),hourTasks: weekByHour).frame(width: geometry.size.width/9, height:  geometry.size.height/15)
                             Divider().foregroundColor(Color.red).padding(EdgeInsets(top: 2, leading: 5, bottom: 1, trailing: 1))
                             
                         }

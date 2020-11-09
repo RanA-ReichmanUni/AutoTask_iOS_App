@@ -22,6 +22,8 @@ struct ScheduleViewRow: View {
     var hoursRange = 7...24
     @State var show=false
     @State var key=false
+    @Binding var rangeOfHours:[Int]
+    
     var body: some View {
         UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
                   return
@@ -49,7 +51,7 @@ struct ScheduleViewRow: View {
         
     
      
-                List(self.taskViewModel.hoursRange,id:\.self){
+                List(self.rangeOfHours,id:\.self){
                     hour in
             
                if(hour > 9)
@@ -127,8 +129,50 @@ struct ScheduleViewRow: View {
         
 
 
+            }.onAppear{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    
+                    withAnimation(.easeInOut(duration: 0.1))
+                    {
+                for index in 6...10
+                       {
+                
+                            
+                           self.rangeOfHours.append(index)
+                            
+                              
+                        }
+                        
+                    }
+                    
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    for index in 11...15
+                           {
+                    
+                                
+                               self.rangeOfHours.append(index)
+                                
+                                  
+                            }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    for index in 15...24
+                                          {
+                                   
+                                               
+                                              self.rangeOfHours.append(index)
+                                               
+                                                 
+                                           }
+                                           
+                                       }
+                    }
+                            
+                        
+                }
             }
         }.onDisappear{
+            self.rangeOfHours=[]
          withAnimation(.ripple2())
                                          {
          self.taskViewModel.hoursRange=[]

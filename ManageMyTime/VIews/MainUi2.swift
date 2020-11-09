@@ -26,6 +26,7 @@ struct MainUI2: View {
     
     @ObservedObject var taskViewModel = TaskViewModel()
     @Environment(\.colorScheme) var colorScheme
+    @State var rangeOfHours=[Int]()
     func setAddTaskFlag()
     {
         self.addTaskFlag=true
@@ -97,37 +98,7 @@ struct MainUI2: View {
                 else if(self.weeklyScheduleFlag)
                      {
                         Rectangle().isHidden(true).frame(height:36)
-                        ScheduleViewRow(taskViewModel:self.taskViewModel).onAppear{self.taskViewModel.hoursRange=[]
-                                     
-                                var timeFactor=0.1
-                                      var tripleTick=0
-                                      for index in 6...24
-                                   {
-                            
-                                         DispatchQueue.main.asyncAfter(deadline: .now() + timeFactor) {
-                                       self.taskViewModel.hoursRange.append(index)
-                                        
-                                          
-                                  }
-                                       tripleTick+=1
-                                      
-                                     
-                                      
-                                      if(tripleTick==6)
-                                      {
-                                          
-                                          timeFactor+=0.1
-                                           tripleTick=0
-                                      }
-                                      
-                                    
-                                     
-                                      
-                                           
-                                       
-                                   
-                                  // self.taskViewModel.hoursRange=[7...24]
-                                       }}
+                        ScheduleViewRow(taskViewModel:self.taskViewModel,rangeOfHours: self.$rangeOfHours)
                         
                      }
                  else if(self.settingsFlag)
@@ -161,18 +132,20 @@ struct MainUI2: View {
                
                 Button(action: {
                    
-                    withAnimation(.easeInOut(duration: 0.1)){
-                             
+                  
+                             self.rangeOfHours=[]
                              self.settingsFlag=false
                              self.addTaskFlag=false
                              self.dailyViewFlag=false
                              self.weeklyScheduleFlag=false
                              self.listFlag=true
                              self.toggleActive=false
+                        self.taskViewModel.CheckSubscription()
+                       // self.taskViewModel.getPurchaserInfo()
                        // self.taskViewModel.retrieveSubscriptionsInfo()
                          self.taskViewModel.hoursRange=[]
-                        
-                         }
+                        //self.rangeOfHours=[]
+                         
             
                          
                      }) {
@@ -206,7 +179,8 @@ struct MainUI2: View {
                 
                  //Divider().frame(maxHeight: 75)
                     Button(action: {
-                       
+                        withAnimation(.easeInOut(duration: 0.2)){
+                        
                              self.weeklyScheduleFlag=true
                              self.settingsFlag=false
                              self.addTaskFlag=false
@@ -220,7 +194,7 @@ struct MainUI2: View {
                         self.taskViewModel.retrieveAllTasks()
                         self.taskViewModel.retrieveAllTasksByHour()
                         
-                        
+                        }
                       
                     }) {
                             VStack{
@@ -242,6 +216,7 @@ struct MainUI2: View {
                             self.weeklyScheduleFlag=false
                             self.listFlag=false
                             self.toggleActive=true
+                        
                        //self.taskViewModel.hoursRange=[]
                     }
                         
@@ -268,6 +243,7 @@ struct MainUI2: View {
                             self.listFlag=false
                             self.toggleActive=false
                          self.taskViewModel.hoursRange=[]
+                      //  self.rangeOfHours=[]
                         }
                     }) {
                             VStack{

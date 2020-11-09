@@ -26,10 +26,10 @@ struct TempNavigator: View {
             
       Spacer()
                 
-            NavigationLink(destination:ScheduleViewRow(taskViewModel:self.taskViewModel)){
+           /* NavigationLink(destination:ScheduleViewRow(taskViewModel:self.taskViewModel)){
                     
                     Text("Weekly Schedule")
-                }
+                }*/
             
                /* NavigationLink(destination:DailyView()){
                             

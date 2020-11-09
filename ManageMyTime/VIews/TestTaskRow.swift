@@ -40,10 +40,7 @@ struct TestTaskRow: View {
 
        /* if(self.show)
           {*/
-        Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor.opacity(self.colorScheme == .dark ? Double(self.opacity==0.2 ? self.opacity*0.5 : self.opacity) : Double(self.opacity))).overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(self.borderColor,style: StrokeStyle(lineWidth: 1, dash: [self.dashCount]))
-                )).foregroundColor(.white).onAppear{self.borderColor=self.fillColor}.onTapGesture{
+        Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor.opacity(self.colorScheme == .dark ? Double(self.opacity==0.2 ? self.opacity*0.5 : self.opacity) : Double(self.opacity)))).foregroundColor(.white).onTapGesture{
                    
                         if(self.taskId != nil && !self.isRepeatedActivity)
                         {
@@ -85,17 +82,11 @@ struct TestTaskRow: View {
                         }
                         
         
-                .frame( maxWidth: .infinity, maxHeight: .infinity)
-            
-        
-            Spacer()
-                    
-                Spacer()
-            Spacer()
+       
           
             
                 
-    }.animation(.easeInOut(duration: 0.5))
+    }//.animation(.easeInOut(duration: 0.5))
         
     }
 }

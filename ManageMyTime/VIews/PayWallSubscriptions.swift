@@ -13,6 +13,10 @@ struct PayWallSubscriptions: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var alternativeText=false
     @State var showAlert=false
+    
+    @Binding var press:Bool
+    @Binding var presentPayWall:Bool
+    
     var body: some View {
         VStack{
             
@@ -44,6 +48,8 @@ struct PayWallSubscriptions: View {
                         HStack{
                             Spacer()
                             Button(action:{
+                                self.press=true
+                            
                                 self.alternativeText=true
                                 self.taskViewModel.MakeAPurchase(package: subscription.packageObject)
                                 
@@ -51,6 +57,8 @@ struct PayWallSubscriptions: View {
                                 {
                                     self.mode.wrappedValue.dismiss()
                                 }
+                                
+                                self.presentPayWall=false
                                 
                                 
                             })
@@ -74,7 +82,7 @@ struct PayWallSubscriptions: View {
             Spacer()
             
       
-        }.background(Image("robotHand") .resizable()
+            }.background(Image("robotHand") .resizable()
                        
                                  
                                       .aspectRatio(contentMode: .fill)).alert(isPresented: self.$showAlert){

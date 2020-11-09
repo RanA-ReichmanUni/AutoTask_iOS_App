@@ -12,7 +12,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-   
+    static let taskViewModel = TaskViewModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -23,9 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         
-       let taskViewModel = TaskViewModel()
-        taskViewModel.retrieveAllTasks()
-        taskViewModel.retrieveSubscriptionsInfo()
+       
+        SceneDelegate.taskViewModel.retrieveAllTasks()
+        SceneDelegate.taskViewModel.retrieveSubscriptionsInfo()
+        
+        let receiptAssessor=ReceiptAssessor(taskViewModel: SceneDelegate.taskViewModel)
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
        
@@ -37,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        // let pageViewController=PageViewController1()
        //let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
        // let payWall = PayWall(taskViewModel:taskViewModel)
-        let paymentRouter=PaymentRouter(taskViewModel:taskViewModel)
+        let paymentRouter=PaymentRouter(taskViewModel: SceneDelegate.taskViewModel,receiptAssessor:receiptAssessor)
         //let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter(hasFullAccess: taskViewModel.hasFullAccess))
         
         // Use a UIHostingController as window root view controller.
