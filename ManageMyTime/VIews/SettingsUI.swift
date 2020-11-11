@@ -141,7 +141,7 @@ struct SettingsUI: View {
                 
        
     
-                    if(!self.taskViewModel.hasFullAccess)
+                if(!self.taskViewModel.trailEnded)
                     {
                         HStack{
                               
