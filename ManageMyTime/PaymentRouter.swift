@@ -21,7 +21,7 @@ struct PaymentRouter: View {
             {
                 PayWall(taskViewModel:self.taskViewModel,receiptAssessor:receiptAssessor)
             }
-        }.onAppear{//self.taskViewModel.CheckSubscription()
+        }.onAppear{self.taskViewModel.CheckSubscription()
                   //  self.taskViewModel.getPurchaserInfo()
             //self.taskViewModel.TrailModeCheckSubscription()
                    self.taskViewModel.UpdateTrailEndStatus()

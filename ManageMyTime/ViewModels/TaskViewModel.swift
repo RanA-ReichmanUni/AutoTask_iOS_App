@@ -364,9 +364,16 @@ class TaskViewModel : ObservableObject
         
         let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
                   
-        if(numberOfTasks>=6 && !self.hasFullAccess)
+        if(numberOfTasks>=10 && !self.hasFullAccess)
           {
+            
+            if(!UserDefaults.standard.bool(forKey: "reachedTrailAlert"))
+            {
+              UserDefaults.standard.set(true, forKey: "reachedTrailAlert")
+            }
+            
               throw PaymentError.TrailEndReached
+            
           }
         
         do{
@@ -375,7 +382,7 @@ class TaskViewModel : ObservableObject
   
             try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
            
-            if(numberOfTasks<8)
+            if(numberOfTasks<12)
             {
                 UserDefaults.standard.set(numberOfTasks+1, forKey: "numberOfTasks")
             }
@@ -418,6 +425,19 @@ class TaskViewModel : ObservableObject
     
     func CheckSubscription()
     {
+        //Gives grace time for using the app without autoschedules for 20 clicks for main stack
+        if(UserDefaults.standard.integer(forKey: "numberOfEndTrailClicks") >= 5 && !self.hasFullAccess)
+          {
+              self.SetEndTrail()
+          }
+          
+          
+        if(UserDefaults.standard.bool(forKey: "reachedTrailAlert") && !self.hasFullAccess)
+          {
+              let numberOfEndTrailClicks=UserDefaults.standard.integer(forKey: "numberOfEndTrailClicks")
+              UserDefaults.standard.set(numberOfEndTrailClicks+1,forKey: "numberOfEndTrailClicks")
+          }
+        
         if(!self.overrideFullAccess)
         {
             Purchases.shared.restoreTransactions { (purchaserInfo, error) in
@@ -432,6 +452,7 @@ class TaskViewModel : ObservableObject
                     self.hasFullAccess=false
                      UserDefaults.standard.set(false, forKey: "nonSuspicious")
                     UserDefaults.standard.set(16,forKey: "offlineClicks")
+
                 }
                 
                 if (purchaserInfo == nil){
