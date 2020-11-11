@@ -364,7 +364,7 @@ class TaskViewModel : ObservableObject
         
         let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
                   
-        if(numberOfTasks>=10 && !self.hasFullAccess)
+        if(numberOfTasks>=7 && !self.hasFullAccess)
           {
             
             if(!UserDefaults.standard.bool(forKey: "reachedTrailAlert"))
@@ -382,7 +382,7 @@ class TaskViewModel : ObservableObject
   
             try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
            
-            if(numberOfTasks<12)
+            if(numberOfTasks<9)
             {
                 UserDefaults.standard.set(numberOfTasks+1, forKey: "numberOfTasks")
             }
