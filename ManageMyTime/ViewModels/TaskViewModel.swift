@@ -364,7 +364,7 @@ class TaskViewModel : ObservableObject
         
         let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
                   
-          if(numberOfTasks>=6)
+        if(numberOfTasks>=6 && !self.hasFullAccess)
           {
               throw PaymentError.TrailEndReached
           }

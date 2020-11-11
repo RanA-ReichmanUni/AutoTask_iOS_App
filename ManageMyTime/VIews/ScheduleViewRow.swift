@@ -156,7 +156,7 @@ struct ScheduleViewRow: View {
                             }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    for index in 15...24
+                    for index in 16...24
                                           {
                                    
                                                

@@ -220,6 +220,7 @@ struct AddTask: View {
                        //TextField("Due Date", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                     
                     Section(header: HStack {
+                        
                                         Image(systemName:"pencil.and.ellipsis.rectangle")
                                         Text("Additional Info").font(Font.custom("MarkerFelt-Wide", size: 16))
                                     }) {
