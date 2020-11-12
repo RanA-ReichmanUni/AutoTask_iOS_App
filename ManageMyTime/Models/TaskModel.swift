@@ -1312,10 +1312,15 @@ class TaskModel : UIViewController
             //We need to create a context from this container
             let managedContext = appDelegate.persistentContainer.viewContext
             
-            let startOfTheWeek=CustomDate(context: managedContext)
+           /* let startOfTheWeek=CustomDate(context: managedContext)
                 startOfTheWeek.day=Date().startOfWeek.day
                 startOfTheWeek.month=Date().startOfWeek.month
-                startOfTheWeek.year=Date().startOfWeek.year
+                startOfTheWeek.year=Date().startOfWeek.year*/
+        
+            let today=CustomDate(context: managedContext)
+            today.day=Date().day
+            today.month=Date().month
+            today.year=Date().year
         
             //Prepare the request of type NSFetchRequest  for the entity
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
@@ -1337,7 +1342,7 @@ class TaskModel : UIViewController
                             print("Start Time ",data.startTime!.hour,":",data.startTime!.minutes)
                             print("End Time ",data.endTime!.hour,":",data.endTime!.minutes)
                     }*/
-                    if(data.date >=  startOfTheWeek)
+                    if(data.date >=  today)
                     {
                         allTasks.append(data)
                     }

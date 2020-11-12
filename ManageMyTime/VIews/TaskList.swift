@@ -23,7 +23,7 @@ struct TaskList: View {
     @State private var offset: CGFloat = 0
      @State private var padding: CGFloat = 0
     var helper = HelperFuncs()
-    var dayNames = ["Week Tasks "," Sunday "," Monday "," Tuesday "," Wednesday "," Thursday "," Friday "," Saturday "]
+    var dayNames = [" Active Tasks "," Sunday "," Monday "," Tuesday "," Wednesday "," Thursday "," Friday "," Saturday "]
     @State var show:Bool=false
     @State var dayIndexSelector:Int
     var geometry:GeometryProxy
