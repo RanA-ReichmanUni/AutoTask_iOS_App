@@ -12,15 +12,16 @@ struct PageViewController1: View {
     @ObservedObject var taskViewModel:TaskViewModel
     @State var currentPage=0
     @State var pages=[
-                      IntroPage(imageName:"robotHand",title:"Here To Help",description:"RoboTask is here to help you relieve the heavy stress from your student shoulders"),
-                      IntroPage(imageName:"sitting",title:"Add And Forget",description:"Use RoboTask to auto plan your many courses tasks inside your complicated schedule"),
-                      IntroPage(imageName:"sitting",title:"Planning Your Tasks According To Your Own Schedule",description:"Before using auto schedule, insert your regular personal activties tasks, colleague classes, personal actvities and more... \nRoboTask will plan your new tasks according to your schedule"),
-                      IntroPage(imageName:"sitting",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs"),
-                      IntroPage(imageName:"robotHand",title:"Free To Experience",description:"Try Auto Task For Free Without A Subscription Comitment, And See How It Improves Your Work Experience. \nOnce You Reached The Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.")
+        IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil),
+                      IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto plan your many tasks inside your complicated schedule", privacyLinkAttached: nil),
+                      IntroPage(imageName:"ownSchedule",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as:colleague classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
+                      IntroPage(imageName:"options3",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
+                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without A Subscription Comitment, And See How It Improves Your Work Experience. \nOnce You Reached The Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")
     
     ]
     @State var buttonControl=false
     @State var finished=false
+    @State var showPrivacyAgreement=false
     
     var body: some View {
         
@@ -68,15 +69,10 @@ struct PageViewController1: View {
                    withAnimation (.easeInOut(duration: 1.0)) {
                        if(self.currentPage == self.pages.count-1)
                        {
-                        UserDefaults.standard.set(true, forKey: "didLaunchBefore")
                         
-                        //Check if the app installed before and cancel trail if it was
-                      if(!self.taskViewModel.checkIsAtInstalledBefore())
-                        {
-                            self.taskViewModel.setInstallIdToKeychain()
-                        }
                         
-                        self.finished=true
+                        self.showPrivacyAgreement=true
+                        //self.finished=true
                         
                        }
                        else{
@@ -111,6 +107,24 @@ struct PageViewController1: View {
             
             MainUI2(taskViewModel:self.taskViewModel)
         }
+       }.alert(isPresented:self.$showPrivacyAgreement)
+       {
+        
+        return Alert(title: Text("Privacy Agreement"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application privacy policy (click 'Back' to read the privacy policy located in the previous view)"), primaryButton: .default(Text("I Agree")) {
+                                                                                                     
+                                 withAnimation(.easeInOut){
+                                    UserDefaults.standard.set(true, forKey: "didLaunchBefore")
+                                      
+                                      //Check if the app installed before and cancel trail if it was
+                                    if(!self.taskViewModel.checkIsAtInstalledBefore())
+                                      {
+                                          self.taskViewModel.setInstallIdToKeychain()
+                                      }
+                                    self.finished=true}
+                                                            
+            }, secondaryButton: .cancel(Text("Back")))
+       
+     
         }
     }
 }

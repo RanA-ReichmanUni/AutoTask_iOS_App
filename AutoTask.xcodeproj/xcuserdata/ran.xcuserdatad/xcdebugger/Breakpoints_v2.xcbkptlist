@@ -136,7 +136,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1C3834D3-6592-403A-899D-2C43DCB00ADF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
@@ -148,34 +148,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "1C3834D3-6592-403A-899D-2C43DCB00ADF - fd27c7135a4ab388"
+                  uuid = "1C3834D3-6592-403A-899D-2C43DCB00ADF - c4f5f9998a7a1899"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "default argument 0 of AutoTask.TaskViewModel.checkIsAtInstalledBefore(forUser: Swift.String) -&gt; Swift.Bool"
-                  moduleName = "AutoTask"
+                  symbolName = "default argument 0 of Auto_Task.TaskViewModel.checkIsAtInstalledBefore(forUser: Swift.String) -&gt; Swift.Bool"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "240"
                   endingLineNumber = "240"
-                  offsetFromSymbolStart = "4">
+                  offsetFromSymbolStart = "8">
                </Location>
                <Location
-                  uuid = "1C3834D3-6592-403A-899D-2C43DCB00ADF - 9b1cb79dd83983a9"
+                  uuid = "1C3834D3-6592-403A-899D-2C43DCB00ADF - d755a713315c7da8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AutoTask.TaskViewModel.checkIsAtInstalledBefore(forUser: Swift.String) -&gt; Swift.Bool"
-                  moduleName = "AutoTask"
+                  symbolName = "Auto_Task.TaskViewModel.checkIsAtInstalledBefore(forUser: Swift.String) -&gt; Swift.Bool"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "243"
                   endingLineNumber = "243"
-                  offsetFromSymbolStart = "97">
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -196,49 +196,49 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "F7346EBA-F0F0-4F6E-8690-AAC8ECE31660 - 5577d3f3abb96813"
+                  uuid = "F7346EBA-F0F0-4F6E-8690-AAC8ECE31660 - f9fbe91e6345a66f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "default argument 0 of AutoTask.TaskViewModel.setInstallIdToKeychain(login: Swift.String, pass: Swift.String) -&gt; ()"
-                  moduleName = "AutoTask"
+                  symbolName = "default argument 0 of Auto_Task.TaskViewModel.setInstallIdToKeychain(login: Swift.String, pass: Swift.String) -&gt; ()"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "219"
                   endingLineNumber = "219"
-                  offsetFromSymbolStart = "4">
+                  offsetFromSymbolStart = "8">
                </Location>
                <Location
-                  uuid = "F7346EBA-F0F0-4F6E-8690-AAC8ECE31660 - 30f40bef3879de12"
+                  uuid = "F7346EBA-F0F0-4F6E-8690-AAC8ECE31660 - 793b22288b08d46c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "default argument 1 of AutoTask.TaskViewModel.setInstallIdToKeychain(login: Swift.String, pass: Swift.String) -&gt; ()"
-                  moduleName = "AutoTask"
+                  symbolName = "default argument 1 of Auto_Task.TaskViewModel.setInstallIdToKeychain(login: Swift.String, pass: Swift.String) -&gt; ()"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "219"
                   endingLineNumber = "219"
-                  offsetFromSymbolStart = "4">
+                  offsetFromSymbolStart = "8">
                </Location>
                <Location
-                  uuid = "F7346EBA-F0F0-4F6E-8690-AAC8ECE31660 - 93cf7a3bb374d2f8"
+                  uuid = "F7346EBA-F0F0-4F6E-8690-AAC8ECE31660 - f29cdb5d0bbe3479"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AutoTask.TaskViewModel.setInstallIdToKeychain(login: Swift.String, pass: Swift.String) -&gt; ()"
-                  moduleName = "AutoTask"
+                  symbolName = "Auto_Task.TaskViewModel.setInstallIdToKeychain(login: Swift.String, pass: Swift.String) -&gt; ()"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "222"
                   endingLineNumber = "222"
-                  offsetFromSymbolStart = "110">
+                  offsetFromSymbolStart = "96">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -275,34 +275,34 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "61960E2F-F4CB-4C0F-B1C5-EA532E8664B4 - fdd1f11c39b3ce2a"
+                  uuid = "61960E2F-F4CB-4C0F-B1C5-EA532E8664B4 - 1fa252556532e52b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AutoTask.TaskViewModel.TrailModeCheckSubscription() -&gt; ()"
-                  moduleName = "AutoTask"
+                  symbolName = "Auto_Task.TaskViewModel.TrailModeCheckSubscription() -&gt; ()"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "459"
-                  endingLineNumber = "459"
-                  offsetFromSymbolStart = "20">
+                  startingLineNumber = "480"
+                  endingLineNumber = "480"
+                  offsetFromSymbolStart = "64">
                </Location>
                <Location
-                  uuid = "61960E2F-F4CB-4C0F-B1C5-EA532E8664B4 - e14a7b90054f971e"
+                  uuid = "61960E2F-F4CB-4C0F-B1C5-EA532E8664B4 - 3a0c1560dbee977c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.RCPurchaserInfo&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in AutoTask.TaskViewModel.TrailModeCheckSubscription() -&gt; ()"
-                  moduleName = "AutoTask"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.RCPurchaserInfo&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Auto_Task.TaskViewModel.TrailModeCheckSubscription() -&gt; ()"
+                  moduleName = "Auto Task"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "460"
-                  endingLineNumber = "460"
-                  offsetFromSymbolStart = "154">
+                  startingLineNumber = "481"
+                  endingLineNumber = "481"
+                  offsetFromSymbolStart = "140">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -401,6 +401,86 @@
             endingLineNumber = "1480"
             landmarkName = "retrieveAllDayTasks(hour:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0CB8AF5-1F91-4D72-AB5B-EC5382AC7A63"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/VIews/SecondOnboardingViews/PageViewController1.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E96E031E-207F-4937-B95D-39F5AB148C5E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/VIews/SecondOnboardingViews/PageViewController1.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73A87361-74B9-41FF-A476-8374A7B55ED1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/VIews/SecondOnboardingViews/PageViewController1.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "73A87361-74B9-41FF-A476-8374A7B55ED1 - b4656d6c4027c67"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.Alert in Auto_Task.PageViewController1.body.getter : some"
+                  moduleName = "Auto Task"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/VIews/SecondOnboardingViews/PageViewController1.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "73A87361-74B9-41FF-A476-8374A7B55ED1 - 5a436c487ad0a0e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.Alert in Auto_Task.PageViewController1.body.getter : some"
+                  moduleName = "Auto Task"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/VIews/SecondOnboardingViews/PageViewController1.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

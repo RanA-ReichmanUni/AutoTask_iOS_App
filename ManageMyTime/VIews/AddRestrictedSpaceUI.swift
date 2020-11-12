@@ -106,11 +106,11 @@ struct AddRestrictedSpaceUI: View {
               
                                                    
                                                        
-                    Section(header:   HStack {
+                    Section(/*header:   HStack {
                                         Image(systemName: "rays").foregroundColor(.green)
                         Text("Repeated Activity").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(.blue)
                         
-                    }) {
+                    }*/) {
                         
                         TextField("Activity Name", text: self.$taskName).font(Font.custom("MarkerFelt-Wide", size: 18))
                     }.navigationBarTitle("Add Personal Repeated Activity",displayMode: .inline)

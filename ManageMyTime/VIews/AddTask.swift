@@ -91,7 +91,7 @@ struct AddTask: View {
                 Form {
                     Section(header:   HStack {
                                         Image(systemName: "rays").foregroundColor(.green)
-                        Text("New Task").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(.blue)
+                        Text("Auto Schedule").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(.blue)
                         
                     }) {
                         

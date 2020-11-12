@@ -12,6 +12,7 @@ struct IntroPage {
     let imageName: String
     let title: String
     let description: String
+    let privacyLinkAttached:String?
 }
 
 struct IntroPageView: View {
@@ -25,13 +26,31 @@ struct IntroPageView: View {
             Spacer()
             Group {
                 HStack {
-                    Text(self.page.title)
+                    Text(self.page.title).font(.system(size: 30))
                         .font(.title)
                         .foregroundColor(.blue)
                     Spacer()
                 }
                 HStack {
-                    Text(self.page.description)
+                    VStack{
+                    Text(self.page.description).font(.system(size: 18))
+                       
+                    if(self.page.privacyLinkAttached != nil)
+                    {
+                        VStack{
+                            
+                       
+                                Text("By using the application you indicate that you agree to the application ").font(.system(size: 10))
+                                Button(action:{UIApplication.shared.open(URL(string: self.page.privacyLinkAttached!)!)})
+                                {
+                                    Text("privacy policy").font(.system(size: 10))
+                                    
+                                }
+                            
+                            
+                        }
+                    }
+                    }
                     Spacer()
                 }
             }
