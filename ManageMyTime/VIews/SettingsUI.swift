@@ -32,7 +32,7 @@ struct SettingsUI: View {
    @State var fromSelection: [String] = [7, 0, 0].map { "\($0)" }
    @State var toSelection: [String] = [22, 0, 0].map { "\($0)" }
    @State var alertType=1
-    
+ 
   
    
     private func SetSettings() {
@@ -129,14 +129,14 @@ struct SettingsUI: View {
                                     }
                             }
                                         
-                        HStack{
+                       /* HStack{
                             
                             Button(action: { try? self.taskViewModel.autoFillTesting()
                                        self.taskViewModel.retrieveAllTasks()
                                    }) {
                                            Text("Click to Auto Fill")
                                            }
-                        }
+                        }*/
     
                 
        
@@ -190,23 +190,12 @@ struct SettingsUI: View {
     
                       
                                                        
-                               Button(action: {
-                                    self.taskViewModel.setInstallIdToKeychain()
-                                
-                                   }) {
-                                           Text("Save Install Data")
-                                   }
+                                Button("Privacy Policy") {
+                                   UIApplication.shared.open(URL(string: "https://auto-task-automatic.flycricket.io/privacy.html")!)
+                               }
+
                            
     
-                        HStack{
-                                                       
-                               Button(action: {
-                                    self.taskViewModel.checkIsAtInstalledBefore()
-                                
-                                   }) {
-                                           Text("Get Install Data")
-                                   }
-                           }
     
                         
     
@@ -226,6 +215,7 @@ struct SettingsUI: View {
                         
                     
   }.navigationBarTitle(Text("Settings"),displayMode: .inline)
+    
         
                 }.alert(isPresented: self.$showAlert) {
          
