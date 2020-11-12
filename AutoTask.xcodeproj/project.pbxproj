@@ -231,7 +231,7 @@
 		2563B3B5253CA20900306FB2 /* PageViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController1.swift; sourceTree = "<group>"; };
 		2564A73424D728EE00B3C2BA /* StressDailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressDailyView.swift; sourceTree = "<group>"; };
 		2565CC6424AF7A070006BF97 /* TaskSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSchedule.swift; sourceTree = "<group>"; };
-		25680711249FF1FC0096AB89 /* AutoTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25680711249FF1FC0096AB89 /* Auto Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Auto Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25680714249FF1FC0096AB89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25680716249FF1FC0096AB89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2568071B249FF1FC0096AB89 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -496,7 +496,7 @@
 		25680712249FF1FC0096AB89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				25680711249FF1FC0096AB89 /* AutoTask.app */,
+				25680711249FF1FC0096AB89 /* Auto Task.app */,
 				2568072A249FF1FF0096AB89 /* AutoTaskTests.xctest */,
 				251F916524BCB80F005B0498 /* AutoTaskTests2.xctest */,
 			);
@@ -662,7 +662,7 @@
 				259C4E9E2552DA060037D576 /* Purchases */,
 			);
 			productName = ManageMyTime;
-			productReference = 25680711249FF1FC0096AB89 /* AutoTask.app */;
+			productReference = 25680711249FF1FC0096AB89 /* Auto Task.app */;
 			productType = "com.apple.product-type.application";
 		};
 		25680729249FF1FF0096AB89 /* AutoTaskTests */ = {
@@ -1117,7 +1117,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.RanAmir.AutoTask;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Auto Task";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1139,7 +1139,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.RanAmir.AutoTask;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Auto Task";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
