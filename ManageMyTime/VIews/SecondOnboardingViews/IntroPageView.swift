@@ -23,7 +23,9 @@ struct IntroPageView: View {
             Image(self.page.imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+            
             Spacer()
+            
             Group {
                 HStack {
                     Text(self.page.title).font(.system(size: 30))
@@ -38,9 +40,9 @@ struct IntroPageView: View {
                     if(self.page.privacyLinkAttached != nil)
                     {
                         VStack{
-                            
+                                //Spacer()
                        
-                                Text("By using the application you indicate that you agree to the application ").font(.system(size: 10))
+                                Text("By using the application you indicate that you read and agree to the ").font(.system(size: 10))
                                 Button(action:{UIApplication.shared.open(URL(string: self.page.privacyLinkAttached!)!)})
                                 {
                                     Text("privacy policy").font(.system(size: 10))
@@ -48,10 +50,13 @@ struct IntroPageView: View {
                                 }
                             
                             
-                        }
+                        }.padding(.top,20)
                     }
                     }
-                    Spacer()
+                    if(self.page.privacyLinkAttached == nil)
+                    {
+                        Spacer()
+                    }
                 }
             }
             .padding()

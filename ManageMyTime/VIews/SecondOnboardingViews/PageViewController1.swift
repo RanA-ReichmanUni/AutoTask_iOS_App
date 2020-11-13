@@ -13,10 +13,10 @@ struct PageViewController1: View {
     @State var currentPage=0
     @State var pages=[
         IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil),
-                      IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto plan your many tasks inside your complicated schedule", privacyLinkAttached: nil),
-                      IntroPage(imageName:"ownSchedule",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as:colleague classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
-                      IntroPage(imageName:"options3",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
-                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without A Subscription Comitment, And See How It Improves Your Work Experience. \nOnce You Reached The Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")
+                      IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil),
+                      IntroPage(imageName:"repeatedActivities",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
+                      IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
+                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")
     
     ]
     @State var buttonControl=false
@@ -110,16 +110,16 @@ struct PageViewController1: View {
        }.alert(isPresented:self.$showPrivacyAgreement)
        {
         
-        return Alert(title: Text("Privacy Agreement"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application privacy policy (click 'Back' to read the privacy policy located in the previous view)"), primaryButton: .default(Text("I Agree")) {
+        return Alert(title: Text("Privacy Policy Agreement"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application privacy policy linked in the previous view (click 'Back' to read the privacy policy linked in the previous view)"), primaryButton: .default(Text("I Agree")) {
                                                                                                      
                                  withAnimation(.easeInOut){
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")
                                       
                                       //Check if the app installed before and cancel trail if it was
-                                    if(!self.taskViewModel.checkIsAtInstalledBefore())
+                                   /* if(!self.taskViewModel.checkIsAtInstalledBefore())
                                       {
                                           self.taskViewModel.setInstallIdToKeychain()
-                                      }
+                                      }*/
                                     self.finished=true}
                                                             
             }, secondaryButton: .cancel(Text("Back")))
