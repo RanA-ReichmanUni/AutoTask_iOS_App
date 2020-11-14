@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "25680710249FF1FC0096AB89"
-               BuildableName = "AutoTask.app"
+               BuildableName = "Auto Task.app"
                BlueprintName = "AutoTask"
                ReferencedContainer = "container:AutoTask.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25680710249FF1FC0096AB89"
-            BuildableName = "AutoTask.app"
+            BuildableName = "Auto Task.app"
             BlueprintName = "AutoTask"
             ReferencedContainer = "container:AutoTask.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25680710249FF1FC0096AB89"
-            BuildableName = "AutoTask.app"
+            BuildableName = "Auto Task.app"
             BlueprintName = "AutoTask"
             ReferencedContainer = "container:AutoTask.xcodeproj">
          </BuildableReference>
