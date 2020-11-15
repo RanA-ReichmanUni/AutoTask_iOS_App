@@ -146,7 +146,7 @@ class TaskViewModel : ObservableObject
         AvailableSubscriptions=[Subscription]()
         SubscriptionTitles=[String]()
         SubscriptionObjects=[SubscriptionObj]()
-        hasFullAccess=false
+        hasFullAccess=UserDefaults.standard.bool(forKey: "nonSuspicious")
         trailEnded=false
         restoredSubscription=false
         failedRestoringSubscription=false
@@ -438,8 +438,7 @@ class TaskViewModel : ObservableObject
               UserDefaults.standard.set(numberOfEndTrailClicks+1,forKey: "numberOfEndTrailClicks")
           }
         
-        if(!self.overrideFullAccess)
-        {
+       
             Purchases.shared.restoreTransactions { (purchaserInfo, error) in
                 if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
                    // Unlock that great "pro" content
@@ -457,18 +456,28 @@ class TaskViewModel : ObservableObject
                 
                 if (purchaserInfo == nil){
                     
-                    let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
-                    UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
-                    
-                    if(numberOfClicks+1 >= 15)
+                    if(UserDefaults.standard.bool(forKey: "nonSuspicious"))
                     {
+                        let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
+                        UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
+                        
+                        if(numberOfClicks+1 >= 15)
+                        {
+                            self.hasFullAccess=false
+                            UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                        }
+                    }
+                        
+                    else{
                         self.hasFullAccess=false
                         UserDefaults.standard.set(false, forKey: "nonSuspicious")
                     }
+                    
                 }
+                
                 self.returnedFromCall=true
             }
-        }
+        
         
         
     }
