@@ -163,7 +163,7 @@ struct PayWall: View {
                                     message: Text("\nAuto Task Is Ready For Full Functional Use !"),
                                     dismissButton: .default(Text("OK")))
                    case 4:
-                   return Alert(title: Text("Couldn't Find An Active Subscription"),
+                   return Alert(title: Text("Couldn't Find an Active Subscription"),
                                     message: Text("\nCouldn't find any active subscription related to your Apple ID."),
                                     dismissButton: .default(Text("OK")))
                    default:

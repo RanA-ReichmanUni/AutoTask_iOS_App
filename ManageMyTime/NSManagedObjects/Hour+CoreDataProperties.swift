@@ -119,14 +119,21 @@ extension Hour {
     
     func subtract(newHour:Hour) -> Hour
     {
-       // print(String(newHour.hour)+":"+String(newHour.minutes))
-       // print(String(self.hour)+":"+String(self.minutes))
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let theZeroHour = Hour(context: managedContext)
+            theZeroHour.hour=0
+            theZeroHour.minutes=0
+
+        
         guard newHour.hour>=0 && newHour.minutes>=0 else {
-            return Hour()
+            return theZeroHour
         }
         
         guard self.hour > newHour.hour || (newHour.hour==self.hour && self.minutes>=newHour.minutes) else {
-                  return Hour()
+                  return theZeroHour
               }
               
         
@@ -148,9 +155,7 @@ extension Hour {
         
         returnedHour=returnedHour-newHour.hour
         
-          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return Hour() }
 
-             let managedContext = appDelegate.persistentContainer.viewContext
         
         
         let newHourlyTime = Hour(context: managedContext)

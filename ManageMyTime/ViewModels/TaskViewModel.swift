@@ -648,7 +648,7 @@ class TaskViewModel : ObservableObject
                         title="Introductory Price - \n"
                                               
                        self.SubscriptionTitles.append(title + "\nFirst Year" + " At " + price.description+" "+currencySymbol)
-                      self.SubscriptionObjects.append(SubscriptionObj(text: title + "\nAnnual Subscription For A Year" + " At " + price.description+" "+currencySymbol, packageObject: package))
+                      self.SubscriptionObjects.append(SubscriptionObj(text: title + "\nAnnual Subscription For Entire Year" + " At " + price.description+" "+currencySymbol, packageObject: package))
                         
                     }
                     else{
