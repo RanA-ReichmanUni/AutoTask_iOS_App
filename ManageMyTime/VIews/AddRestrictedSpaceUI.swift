@@ -106,11 +106,11 @@ struct AddRestrictedSpaceUI: View {
               
                                                    
                                                        
-                    Section(/*header:   HStack {
+                    Section(header:   HStack {
                                         Image(systemName: "rays").foregroundColor(.green)
                         Text("Repeated Activity").font(Font.custom("MarkerFelt-Wide", size: 18)).foregroundColor(.blue)
                         
-                    }*/) {
+                    }) {
                         
                         TextField("Activity Name", text: self.$taskName).font(Font.custom("MarkerFelt-Wide", size: 18))
                     }.navigationBarTitle("Add Personal Repeated Activity",displayMode: .inline)
@@ -297,7 +297,7 @@ struct AddRestrictedSpaceUI: View {
                             
                             
                               return Alert(title: Text("Repeated Activity Conflict"),
-                                           message: Text("\nThere is at least one repeated activity that has already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window"),
+                                           message: Text("\nThere is at least one repeated activity that has already been scheduled for the slected" + (self.selected.count > 1 ? " days " : " day ") + "and time window (or part of the time window)"),
                                                                dismissButton: .default(Text("OK")))
                             case 3:
                                 return Alert(title: Text("Attention ! \nScheduled Tasks Conflict"),

@@ -265,12 +265,37 @@ class TaskViewModel : ObservableObject
           {
             Purchases.shared.purchaserInfo { (purchaserInfo, error) in
                 
-          
                 
+            
             if let serverDate = purchaserInfo?.requestDate
             {
+              
+                if let storedServerDate = UserDefaults.standard.object(forKey: "latestServerDate") as? Date
+                {
+                    if(storedServerDate==serverDate)
+                    {
+                        let numberOfOldServerDateClicks=UserDefaults.standard.integer(forKey: "numberOfOldServerDateClicks")
+                        
+                        if (numberOfOldServerDateClicks >= 100)
+                        {
+                            self.CheckSubscription()
+                            UserDefaults.standard.set(0,forKey: "numberOfOldServerDateClicks")
+                        }
+                        else{
+                            UserDefaults.standard.set(numberOfOldServerDateClicks+1,forKey: "numberOfOldServerDateClicks")
+                        }
+                        
+                    }
+                    else{
+                        UserDefaults.standard.set(0,forKey: "numberOfOldServerDateClicks")
+                    }
+                }
+              
+                UserDefaults.standard.set(serverDate,forKey: "latestServerDate")
+               
                 if let latestConfirmedDate = UserDefaults.standard.object(forKey: "latestConfirmedDate") as? Date
                 {
+                    //Case the serverDate is more recent, or in case the user manually changed the date to the past and is now after subscription restore, in case the serverDate is not in the same day as the device current date
                     if(!Calendar.current.isDateInToday(serverDate) || serverDate > latestConfirmedDate)
                     {
                         UserDefaults.standard.set(serverDate, forKey: "latestConfirmedDate")
@@ -338,6 +363,8 @@ class TaskViewModel : ObservableObject
             UserDefaults.standard.set(false, forKey: "nonSuspicious")
         }
     }
+    
+    
     func UpdateTrailEndStatus()
     {
         self.trailEnded=UserDefaults.standard.bool(forKey: "trailEnded")
@@ -613,6 +640,11 @@ class TaskViewModel : ObservableObject
                         UserDefaults.standard.set(false, forKey: "nonSuspicious")
                     }*/
                     
+                }
+                
+                if let serverDate = purchaserInfo?.requestDate
+                {
+                    UserDefaults.standard.set(serverDate, forKey: "latestConfirmedDate")
                 }
                 
                 self.returnedFromCall=true
