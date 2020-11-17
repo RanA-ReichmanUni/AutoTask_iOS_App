@@ -30,8 +30,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
+            startingLineNumber = "652"
+            endingLineNumber = "652"
             landmarkName = "TrailModeCheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
             landmarkName = "CheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "588"
+            endingLineNumber = "588"
             landmarkName = "CheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "CheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "606"
+            endingLineNumber = "606"
             landmarkName = "CheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
             landmarkName = "checkIsAtInstalledBefore(forUser:)"
             landmarkType = "7">
             <Locations>
@@ -190,8 +190,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "setInstallIdToKeychain(login:pass:)"
             landmarkType = "7">
             <Locations>
@@ -206,8 +206,8 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "288"
-                  endingLineNumber = "288"
+                  startingLineNumber = "349"
+                  endingLineNumber = "349"
                   offsetFromSymbolStart = "8">
                </Location>
                <Location
@@ -221,8 +221,8 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "288"
-                  endingLineNumber = "288"
+                  startingLineNumber = "349"
+                  endingLineNumber = "349"
                   offsetFromSymbolStart = "8">
                </Location>
                <Location
@@ -236,8 +236,8 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "291"
-                  endingLineNumber = "291"
+                  startingLineNumber = "352"
+                  endingLineNumber = "352"
                   offsetFromSymbolStart = "96">
                </Location>
             </Locations>
@@ -253,8 +253,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "checkIsAtInstalledBefore(forUser:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -269,8 +269,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "570"
-            endingLineNumber = "570"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
             landmarkName = "TrailModeCheckSubscription()"
             landmarkType = "7">
             <Locations>
@@ -285,8 +285,8 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "570"
-                  endingLineNumber = "570"
+                  startingLineNumber = "632"
+                  endingLineNumber = "632"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
@@ -300,8 +300,8 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "571"
-                  endingLineNumber = "571"
+                  startingLineNumber = "633"
+                  endingLineNumber = "633"
                   offsetFromSymbolStart = "140">
                </Location>
             </Locations>
@@ -317,8 +317,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
+            startingLineNumber = "641"
+            endingLineNumber = "641"
             landmarkName = "TrailModeCheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -333,8 +333,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "649"
+            endingLineNumber = "649"
             landmarkName = "TrailModeCheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -493,8 +493,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "557"
+            endingLineNumber = "557"
             landmarkName = "CheckSubscription()"
             landmarkType = "7">
          </BreakpointContent>
@@ -509,8 +509,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "SetOnceTimeObserver()"
             landmarkType = "7">
          </BreakpointContent>
@@ -525,8 +525,8 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "getPurchaserInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -535,14 +535,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "80066211-D165-4179-B070-41C0AFD634BE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "getPurchaserInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -551,14 +551,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4F3211BF-B09E-4E12-9855-0379BE9CA3FF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "DateValidation()"
             landmarkType = "7">
          </BreakpointContent>
@@ -567,14 +567,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E04E8B5D-52BC-4687-99D2-86CCA630E104"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "getPurchaserInfo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -583,20 +583,20 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5EE0AD10-9E49-4003-85B4-3246E77E9E7A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "getPurchaserInfo()"
             landmarkType = "7">
             <Locations>
                <Location
                   uuid = "5EE0AD10-9E49-4003-85B4-3246E77E9E7A - 4213a10ea1c15d26"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Auto_Task.TaskViewModel.getPurchaserInfo() -&gt; ()"
@@ -605,13 +605,13 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
+                  startingLineNumber = "239"
+                  endingLineNumber = "239"
                   offsetFromSymbolStart = "236">
                </Location>
                <Location
                   uuid = "5EE0AD10-9E49-4003-85B4-3246E77E9E7A - d69819bb9e27f600"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Optional&lt;__C.RCPurchaserInfo&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Auto_Task.TaskViewModel.getPurchaserInfo() -&gt; ()"
@@ -620,9 +620,9 @@
                   urlString = "file:///Users/ran/Documents/ManageMyTime/ManageMyTime/ViewModels/TaskViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "228"
-                  endingLineNumber = "228"
-                  offsetFromSymbolStart = "756">
+                  startingLineNumber = "242"
+                  endingLineNumber = "242"
+                  offsetFromSymbolStart = "788">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -637,9 +637,185 @@
             filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "450"
-            endingLineNumber = "450"
+            startingLineNumber = "511"
+            endingLineNumber = "511"
             landmarkName = "createTask(taskName:importance:workTimeHours:workTimeMinutes:dueDate:notes:color:difficultyIndex:notificationIndex:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9374EE1F-1C0A-488F-BC60-598FB05E4F0D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "getPurchaserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A8300FF-7067-4E1B-BCEA-327F1F6E3E0F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "getPurchaserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77569C55-BADA-4866-83A8-1A00C6B10F42"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
+            landmarkName = "CheckSubscription()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC8AD56B-9716-45B0-901F-028F2781001B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "getPurchaserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E4971724-805E-47AD-9EC9-223E158337AE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "DateInforcer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9B2767CE-F238-44F9-A6CC-7A1697302E91"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "DateInforcer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4AB4CBCC-8DA7-439A-B586-360CF227705B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "DateInforcer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C911A34B-DB30-474F-941B-30EF80F6FA56"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "getPurchaserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1A228F6-E2D9-4F26-B976-CCB5867295EB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "DateInforcer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9789FED1-89AB-4858-8459-5CE882B01483"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "getPurchaserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "686ABD8F-92BA-4289-8BBB-FA663FDAF7DD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ManageMyTime/ViewModels/TaskViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
+            landmarkName = "getPurchaserInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

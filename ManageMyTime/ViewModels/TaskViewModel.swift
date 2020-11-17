@@ -184,23 +184,58 @@ class TaskViewModel : ObservableObject
     func DateValidation()
     {
         
-        var dateComponents = DateComponents()
+      
+        let expirationDate = UserDefaults.standard.object(forKey: "latestExpirationDate") as? Date
         
-               dateComponents.year = UserDefaults.standard.integer(forKey: "latestExpirationDateYear")
-               dateComponents.month = UserDefaults.standard.integer(forKey: "latestExpirationDateMonth")
-               dateComponents.day = UserDefaults.standard.integer(forKey: "latestExpirationDateDay")
-               dateComponents.hour=UserDefaults.standard.integer(forKey: "latestExpirationDateHour")
-               dateComponents.minute=UserDefaults.standard.integer(forKey: "latestExpirationDateMinutes")
-
-               // Create date from components
-               let userCalendar = Calendar.current // user calendar
-               let expirationDate = userCalendar.date(from: dateComponents)!
-        print(expirationDate.hour.description)
         
-                if(Date() >= expirationDate)
+        print(expirationDate?.hour.description)
+        
+            if((expirationDate) != nil)
+            {
+                if(Date() >= expirationDate!)
                 {
                     CheckSubscription()
                 }
+            }
+    }
+    
+    func DateInforcer()
+    {
+        
+        
+   
+        if let latestConfirmedDate = UserDefaults.standard.object(forKey: "latestConfirmedDate") as? Date
+        {
+            
+            
+            let dateString = DateFormatter.localizedString(
+                from: latestConfirmedDate,
+            dateStyle: .medium,
+            timeStyle: .medium)
+            
+            let date = DateFormatter.localizedString(
+                from: Date(),
+            dateStyle: .medium,
+            timeStyle: .medium)
+            
+            print(latestConfirmedDate.description)
+            print(Date().description)
+            if(Date() > latestConfirmedDate)
+            {
+                let date=Date()
+                UserDefaults.standard.set(date,forKey: "latestConfirmedDate")
+                UserDefaults.standard.set(0, forKey: "instancesOfTheSameDate")
+            }
+            
+            if(Date() < latestConfirmedDate)
+            {
+                CheckSubscription()
+                
+            }
+          
+        }
+        
+        
     }
     
     @objc func NotifiedWhenTimeChanged()
@@ -219,12 +254,38 @@ class TaskViewModel : ObservableObject
     
     func getPurchaserInfo()
     {
+          let numberOfPurchaserClicks=UserDefaults.standard.integer(forKey: "numberOfPurchaserClicks")
+        
+          if(numberOfPurchaserClicks >= 360)
+          {
+            CheckSubscription()
+            UserDefaults.standard.set(0,forKey: "numberOfPurchaserClicks")
+          }
+          else{
+             UserDefaults.standard.set(numberOfPurchaserClicks+1,forKey: "numberOfPurchaserClicks")
+          }
+        
           if(!UserDefaults.standard.bool(forKey: "isLockedByServer"))
           {
-                Purchases.shared.purchaserInfo { (purchaserInfo, error) in
-            
-            
-            
+            Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+                
+          
+                
+            if let serverDate = purchaserInfo?.requestDate
+            {
+                if let latestConfirmedDate = UserDefaults.standard.object(forKey: "latestConfirmedDate") as? Date
+                {
+                    if(!Calendar.current.isDateInToday(serverDate) || serverDate > latestConfirmedDate)
+                    {
+                        UserDefaults.standard.set(serverDate, forKey: "latestConfirmedDate")
+                    }
+                }
+                else{
+                    UserDefaults.standard.set(serverDate, forKey: "latestConfirmedDate")
+                }
+            }
+                
+                
             let expirationDate=purchaserInfo?.expirationDate(forEntitlement: "Full Access")
             
             if(expirationDate != nil)
@@ -234,17 +295,17 @@ class TaskViewModel : ObservableObject
                 print(expirationDate!.year.description)
                 print(expirationDate!.hour.description)
                 print(expirationDate!.minutes.description)
-                UserDefaults.standard.set(expirationDate!.day, forKey: "latestExpirationDateDay")
-                UserDefaults.standard.set(expirationDate!.month, forKey: "latestExpirationDateMonth")
-                UserDefaults.standard.set(expirationDate!.year, forKey: "latestExpirationDateYear")
-                UserDefaults.standard.set(expirationDate!.hour, forKey: "latestExpirationDateHour")
-                UserDefaults.standard.set(expirationDate!.minutes, forKey: "latestExpirationDateMinutes")
+                
+                UserDefaults.standard.set(expirationDate!, forKey: "latestExpirationDate")
+               
                 
                 
             }
             
+            //Validate the last expirationDate in case the user is offline
             self.DateValidation()
-            
+            self.DateInforcer()
+                
           
                 if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
                    // Unlock that great "pro" content
@@ -513,6 +574,7 @@ class TaskViewModel : ObservableObject
                 if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
                     
                     UserDefaults.standard.set(false,forKey: "isLockedByServer")
+                    UserDefaults.standard.set(0, forKey: "instancesOfTheSameDate")
                    // Unlock that great "pro" content
                    self.hasFullAccess=true
                     UserDefaults.standard.set(true, forKey: "nonSuspicious")
