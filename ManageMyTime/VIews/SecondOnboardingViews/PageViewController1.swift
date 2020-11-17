@@ -110,11 +110,11 @@ struct PageViewController1: View {
        }.alert(isPresented:self.$showPrivacyAgreement)
        {
         
-        return Alert(title: Text("Privacy Policy Agreement"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application privacy policy linked in the previous view (click 'Back' to read the privacy policy linked in the previous view)"), primaryButton: .default(Text("I Agree")) {
+        return Alert(title: Text("Privacy Policy Agreement"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application privacy policy linked in the previous view. /n/nclick 'Back' to read the privacy policy linked in the previous view."), primaryButton: .default(Text("I Agree")) {
                                                                                                      
                                  withAnimation(.easeInOut){
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")
-                                      
+                                    UserDefaults.standard.set(true, forKey: "userAgreedToPrivacyPolicy")
                                       //Check if the app installed before and cancel trail if it was
                                     if(!self.taskViewModel.checkIsAtInstalledBefore())
                                       {

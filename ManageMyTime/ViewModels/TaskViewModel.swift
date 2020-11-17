@@ -183,16 +183,12 @@ class TaskViewModel : ObservableObject
     
     func DateValidation()
     {
-        
-      
-        let expirationDate = UserDefaults.standard.object(forKey: "latestExpirationDate") as? Date
-        
-        
-        print(expirationDate?.hour.description)
-        
-            if((expirationDate) != nil)
+
+            if let expirationDate = UserDefaults.standard.object(forKey: "latestExpirationDate") as? Date
             {
-                if(Date() >= expirationDate!)
+                print(expirationDate.hour.description)
+                
+                if(Date() >= expirationDate)
                 {
                     CheckSubscription()
                 }
@@ -304,6 +300,7 @@ class TaskViewModel : ObservableObject
             
             //Validate the last expirationDate in case the user is offline
             self.DateValidation()
+            //Validate local date authenticity
             self.DateInforcer()
                 
           
