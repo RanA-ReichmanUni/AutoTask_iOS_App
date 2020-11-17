@@ -180,35 +180,104 @@ class TaskViewModel : ObservableObject
         self.overrideFullAccess=true
         self.hasFullAccess=true
     }
+    
+    func DateValidation()
+    {
+        
+        var dateComponents = DateComponents()
+        
+               dateComponents.year = UserDefaults.standard.integer(forKey: "latestExpirationDateYear")
+               dateComponents.month = UserDefaults.standard.integer(forKey: "latestExpirationDateMonth")
+               dateComponents.day = UserDefaults.standard.integer(forKey: "latestExpirationDateDay")
+               dateComponents.hour=UserDefaults.standard.integer(forKey: "latestExpirationDateHour")
+               dateComponents.minute=UserDefaults.standard.integer(forKey: "latestExpirationDateMinutes")
+
+               // Create date from components
+               let userCalendar = Calendar.current // user calendar
+               let expirationDate = userCalendar.date(from: dateComponents)!
+        print(expirationDate.hour.description)
+        
+                if(Date() >= expirationDate)
+                {
+                    CheckSubscription()
+                }
+    }
+    
+    @objc func NotifiedWhenTimeChanged()
+    {
+        CheckSubscription()
+        
+    }
+    
+    func SetOnceTimeObserver()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(NotifiedWhenTimeChanged), name: NSNotification.Name.NSSystemClockDidChange, object: nil)
+        
+        
+        
+    }
+    
     func getPurchaserInfo()
     {
-              
-        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
-            if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
-               // Unlock that great "pro" content
-               self.hasFullAccess=true
-                UserDefaults.standard.set(true, forKey: "nonSuspicious")
-                UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
-                UserDefaults.standard.set(0,forKey: "offlineClicks")
-             }
-            else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
-                self.hasFullAccess=false
-                 UserDefaults.standard.set(false, forKey: "nonSuspicious")
-                UserDefaults.standard.set(31,forKey: "offlineClicks")
+          if(!UserDefaults.standard.bool(forKey: "isLockedByServer"))
+          {
+                Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            
+            
+            
+            let expirationDate=purchaserInfo?.expirationDate(forEntitlement: "Full Access")
+            
+            if(expirationDate != nil)
+            {
+                print(expirationDate!.day.description)
+                print(expirationDate!.month.description)
+                print(expirationDate!.year.description)
+                print(expirationDate!.hour.description)
+                print(expirationDate!.minutes.description)
+                UserDefaults.standard.set(expirationDate!.day, forKey: "latestExpirationDateDay")
+                UserDefaults.standard.set(expirationDate!.month, forKey: "latestExpirationDateMonth")
+                UserDefaults.standard.set(expirationDate!.year, forKey: "latestExpirationDateYear")
+                UserDefaults.standard.set(expirationDate!.hour, forKey: "latestExpirationDateHour")
+                UserDefaults.standard.set(expirationDate!.minutes, forKey: "latestExpirationDateMinutes")
+                
+                
             }
             
-            if (purchaserInfo == nil){
-                
-              /*  let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
-                UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")*/
-                
-               /* if(numberOfClicks+1 >= 10)
-                {*/
+            self.DateValidation()
+            
+          
+                if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+                   // Unlock that great "pro" content
+                   self.hasFullAccess=true
+                    UserDefaults.standard.set(true, forKey: "nonSuspicious")
+                    UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
+                    UserDefaults.standard.set(0,forKey: "offlineClicks")
+                 }
+                else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                     self.hasFullAccess=false
-                    UserDefaults.standard.set(false, forKey: "nonSuspicious")
-               /* }*/
-            }
+                     UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                    UserDefaults.standard.set(31,forKey: "offlineClicks")
+                }
+                
+                if (purchaserInfo == nil){
+                    
+                  /*  let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
+                    UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")*/
+                    
+                   /* if(numberOfClicks+1 >= 10)
+                    {*/
+                        self.hasFullAccess=false
+                        UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                   /* }*/
+                }
+            
+            
             self.returnedFromCall=true
+        }
+          }
+          else{
+            self.hasFullAccess=false
+            UserDefaults.standard.set(false, forKey: "nonSuspicious")
         }
     }
     func UpdateTrailEndStatus()
@@ -378,7 +447,8 @@ class TaskViewModel : ObservableObject
         
         do{
             
-          
+             getPurchaserInfo()
+            
   
             try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
            
@@ -441,22 +511,33 @@ class TaskViewModel : ObservableObject
        
             Purchases.shared.restoreTransactions { (purchaserInfo, error) in
                 if purchaserInfo?.entitlements["Full Access"]?.isActive == true {
+                    
+                    UserDefaults.standard.set(false,forKey: "isLockedByServer")
                    // Unlock that great "pro" content
                    self.hasFullAccess=true
                     UserDefaults.standard.set(true, forKey: "nonSuspicious")
                     UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
                     UserDefaults.standard.set(0,forKey: "offlineClicks")
+                    
                  }
                 else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
+                    
+                    UserDefaults.standard.set(true,forKey: "isLockedByServer")
                     self.hasFullAccess=false
                      UserDefaults.standard.set(false, forKey: "nonSuspicious")
                     UserDefaults.standard.set(16,forKey: "offlineClicks")
+                    
 
                 }
                 
                 if (purchaserInfo == nil){
                     
-                    if(UserDefaults.standard.bool(forKey: "nonSuspicious"))
+                    UserDefaults.standard.set(true,forKey: "isLockedByServer")
+                    self.hasFullAccess=false
+                    UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                    
+                    
+                  /*  if(UserDefaults.standard.bool(forKey: "nonSuspicious"))
                     {
                         let numberOfClicks=UserDefaults.standard.integer(forKey: "offlineClicks")
                         UserDefaults.standard.set(numberOfClicks+1,forKey: "offlineClicks")
@@ -471,7 +552,7 @@ class TaskViewModel : ObservableObject
                     else{
                         self.hasFullAccess=false
                         UserDefaults.standard.set(false, forKey: "nonSuspicious")
-                    }
+                    }*/
                     
                 }
                 
@@ -542,7 +623,7 @@ class TaskViewModel : ObservableObject
                  UserDefaults.standard.set(true, forKey: "nonSuspicious")
                  UserDefaults.standard.set(0,forKey: "offlineClicks")
                  UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
-                
+                 UserDefaults.standard.set(false,forKey: "isLockedByServer")
               }
                 
                 if(!(error?.localizedDescription.isEmpty ?? true))

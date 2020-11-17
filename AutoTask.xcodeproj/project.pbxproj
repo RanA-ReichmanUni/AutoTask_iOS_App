@@ -96,6 +96,7 @@
 		2585BC562506828C00EED2EB /* SpaceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585BC552506828C00EED2EB /* SpaceSection.swift */; };
 		2585C76724F1EE9A00539FDD /* BottomMainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */; };
 		2587D96024B7A89E00A3AFF9 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */; };
+		258B44282563054900514D70 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258B44272563054900514D70 /* CustomAlertView.swift */; };
 		258F08CD24AEB05E0057B35D /* WeeklyTasksRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */; };
 		258F08CF24AEB63D0057B35D /* WeeklyScheduleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */; };
 		2591C8CD2518615900C39269 /* DayTaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2591C8CC2518615900C39269 /* DayTaskList.swift */; };
@@ -265,6 +266,7 @@
 		2585BC552506828C00EED2EB /* SpaceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSection.swift; sourceTree = "<group>"; };
 		2585C76624F1EE9A00539FDD /* BottomMainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMainMenu.swift; sourceTree = "<group>"; };
 		2587D95F24B7A89E00A3AFF9 /* CustomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
+		258B44272563054900514D70 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		258F08CC24AEB05E0057B35D /* WeeklyTasksRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTasksRow.swift; sourceTree = "<group>"; };
 		258F08CE24AEB63D0057B35D /* WeeklyScheduleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleBar.swift; sourceTree = "<group>"; };
 		2591C8CC2518615900C39269 /* DayTaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTaskList.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				259C4EA22552E3CB0037D576 /* PayWallSubscriptions.swift */,
+				258B44272563054900514D70 /* CustomAlertView.swift */,
 				2597C722255418AB00634A42 /* PayWall.swift */,
 				2563B3B2253CA1A800306FB2 /* SecondOnboardingViews */,
 				2563B3B1253C964800306FB2 /* OnboardingViews */,
@@ -798,6 +801,7 @@
 				25D920B024CF985900A852BF /* TaskUnitPotrait.swift in Sources */,
 				2592C8B62513FEBC00E36E3A /* PriorityPerDate.swift in Sources */,
 				2535D71D24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld in Sources */,
+				258B44282563054900514D70 /* CustomAlertView.swift in Sources */,
 				25419FC224C79E3F004063A4 /* DayFreeSpace+CoreDataClass.swift in Sources */,
 				25EE9F4F24EC1BD4002A2E5A /* RestrictedSpaceUI.swift in Sources */,
 				25B7603124A288D100C37C69 /* NewTaskText.swift in Sources */,

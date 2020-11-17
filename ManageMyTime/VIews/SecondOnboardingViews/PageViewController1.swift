@@ -120,6 +120,7 @@ struct PageViewController1: View {
                                       {
                                           self.taskViewModel.setInstallIdToKeychain()
                                       }
+                                    self.taskViewModel.SetOnceTimeObserver()
                                     self.finished=true}
                                                             
             }, secondaryButton: .cancel(Text("Back")))

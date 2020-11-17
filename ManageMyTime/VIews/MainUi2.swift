@@ -140,8 +140,8 @@ struct MainUI2: View {
                              self.weeklyScheduleFlag=false
                              self.listFlag=true
                              self.toggleActive=false
-                        self.taskViewModel.CheckSubscription()
-                       // self.taskViewModel.getPurchaserInfo()
+                        //self.taskViewModel.CheckSubscription()
+                        self.taskViewModel.getPurchaserInfo()
                        // self.taskViewModel.retrieveSubscriptionsInfo()
                          self.taskViewModel.hoursRange=[]
                         //self.rangeOfHours=[]
