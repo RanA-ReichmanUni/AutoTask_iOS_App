@@ -64,7 +64,7 @@ struct PayWallSubscriptions: View {
                             })
                             {
                                 
-                                Text(self.alternativeText == true ? "Processing, Please Wait..." : subscription.text).frame(width:280,height:140).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
+                                Text(self.alternativeText == true ? "Processing, Please Wait..." : subscription.text).frame(width:280,height:180).foregroundColor(Color.white).background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
                                 
                             }.padding()
                               Spacer()

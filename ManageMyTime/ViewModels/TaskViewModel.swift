@@ -817,16 +817,16 @@ class TaskViewModel : ObservableObject
                     else if(product.productIdentifier=="at_3_1y")
                     {
                         
-                        title="Introductory Price - \n"
+                        title="Introductory Price: \n"
                                               
                        self.SubscriptionTitles.append(title + "\nFirst Year" + " At " + price.description+" "+currencySymbol)
-                      self.SubscriptionObjects.append(SubscriptionObj(text: title + "\nAnnual Subscription For Entire Year" + " At " + price.description+" "+currencySymbol, packageObject: package))
+                      self.SubscriptionObjects.append(SubscriptionObj(text: "Annual Subscription Of Unlimited Access, Auto Schedules, and Full App Featuers - For Entire Year." + "\n\n" + title + "Just " + price.description+" "+currencySymbol, packageObject: package))
                         
                     }
                     else{
                         self.SubscriptionTitles.append(title + " " + duration + " " + price.description+" "+currencySymbol)
                         
-                        self.SubscriptionObjects.append(SubscriptionObj(text: title + " " + duration + " " + price.description+" "+currencySymbol, packageObject: package))
+                        self.SubscriptionObjects.append(SubscriptionObj(text: title + "Of Unlimited Access, Auto Schedules, and Full App Featuers" + " For" + duration + " At" + price.description+" "+currencySymbol, packageObject: package))
                     }
                 }
             }
