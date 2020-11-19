@@ -22,7 +22,7 @@ struct MainUI2: View {
     var tempNotficationInit=["None"]
     let defaultColor=Color(.blue)
     let choosenColor=Color(hex:"#00FFF5")
-  
+
     
     @ObservedObject var taskViewModel = TaskViewModel()
     @Environment(\.colorScheme) var colorScheme
@@ -37,6 +37,18 @@ struct MainUI2: View {
         self.listFlag=false
         self.toggleActive=false
     
+    }
+    
+    func isIOS13VariationsChecker() -> Bool
+    {
+        if #available(iOS 14, *) {
+            // use UICollectionViewCompositionalLayout
+            return false
+        } else {
+            // show sad face emoji
+            return true
+        }
+        
     }
 
     var body: some View {
@@ -92,7 +104,13 @@ struct MainUI2: View {
                      else if(self.dailyViewFlag)
                      {
                         Rectangle().isHidden(true).frame(height:40)
-                        DailyView()
+                        if(isIOS13VariationsChecker())
+                        {
+                            DailyViewIOS13()
+                        }
+                        else{
+                            DailyView()
+                        }
                         
                      }
                 else if(self.weeklyScheduleFlag)
@@ -114,6 +132,7 @@ struct MainUI2: View {
                         TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
                     }
             }
+                
                 
                 Rectangle()
                     .fill(Color.gray)
@@ -256,7 +275,7 @@ struct MainUI2: View {
                 }.background(Rectangle().fill((Color.white.opacity(0)))).padding(.top,12)
                                
                     
-            }
+            }.padding(.bottom,self.isIOS13VariationsChecker()  ? 4 : 10)
                 
 
               //Divider()

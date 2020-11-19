@@ -1,36 +1,46 @@
 //
 //  IntroPageView.swift
-//  AutoTask
+//  ManageMyTime
 //
-//  Created by רן א on 19/11/2020.
+//  Created by רן א on 18/10/2020.
 //  Copyright © 2020 IMPACT. All rights reserved.
 //
 
 import SwiftUI
 
+struct IntroPage {
+    let imageName: String
+    let title: String
+    let description: String
+    let privacyLinkAttached:String?
+}
 
-struct IntroPageView: View {
+struct IntroPageViewiOS13: View {
     let page: IntroPage
     var body: some View {
+        GeometryReader{geometry in
         VStack {
             Spacer()
+            
             Image(self.page.imageName)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fit).frame(height:geometry.size.height*0.6)
             
-            Spacer()
+          
             
             Group {
                 HStack {
-                    Text(self.page.title).font(.system(size: 30))
+                   
+                    Text(self.page.title).font(.system(size: 24))
                         .font(.title)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.blue).frame(height:geometry.size.height*0.15).padding(.leading,10)
                     Spacer()
                 }
+                
                 HStack {
                     VStack{
-                    Text(self.page.description).font(.system(size: 18))
-                       
+                        Text(self.page.description).font(.system(size: 18)).frame(width:geometry.size.width*0.9,height:geometry.size.height*0.2)
+                       Spacer()
                     if(self.page.privacyLinkAttached != nil)
                     {
                         VStack{
@@ -44,7 +54,7 @@ struct IntroPageView: View {
                                 }
                             
                             
-                        }.padding(.top,20)
+                        }
                     }
                     }
                     if(self.page.privacyLinkAttached == nil)
@@ -53,7 +63,8 @@ struct IntroPageView: View {
                     }
                 }
             }
-            .padding()
+           
+        }
         }
     }
 }

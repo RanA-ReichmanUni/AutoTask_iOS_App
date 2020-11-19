@@ -23,6 +23,17 @@ struct MultiPicker: View  {
     let stringValue2 : String
     let stringValue3 : String
 
+    func isIOS13VariationsChecker() -> Bool
+    {
+        if #available(iOS 14, *) {
+            // use UICollectionViewCompositionalLayout
+            return false
+        } else {
+            // show sad face emoji
+            return true
+        }
+        
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -43,7 +54,7 @@ struct MultiPicker: View  {
                                 }
                             }
                             .pickerStyle(WheelPickerStyle())
-                            .frame(width: geometry.size.width / 3, height: geometry.size.height)
+                            .frame(width: geometry.size.width / (self.isIOS13VariationsChecker() ? 3 : 2), height: geometry.size.height)
                             .clipped()
                         }
                     }

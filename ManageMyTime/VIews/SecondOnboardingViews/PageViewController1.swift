@@ -16,12 +16,39 @@ struct PageViewController1: View {
                       IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil),
                       IntroPage(imageName:"repeatedActivities",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
                       IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
-                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")
+                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")]
     
-    ]
     @State var buttonControl=false
     @State var finished=false
     @State var showPrivacyAgreement=false
+    @State var isVersion13=false
+    
+    func setDescriptionTextByVersion()
+    {
+        if #available(iOS 13.3, *) {
+            // use UICollectionViewCompositionalLayout
+        } else {
+            // show sad face emoji
+            
+            self.pages=[
+                IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil),
+                              IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil),
+                              IntroPage(imageName:"repeatedActivities",title:"In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
+                              IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
+                              IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")]
+        }
+    }
+    
+    func isVersion13Checker() -> Bool
+    {
+        if #available(iOS 13.3, *) {
+            // use UICollectionViewCompositionalLayout
+            return false
+        }
+        else{
+            return true
+        }
+    }
     
     var body: some View {
         
@@ -39,10 +66,17 @@ struct PageViewController1: View {
                         IntroPageView(page: self.pages[index])
                     }
                 }*/
-            IntroPageView(page: self.pages[self.currentPage])
+            if(self.isVersion13Checker())
+            {
+                IntroPageViewiOS13(page: self.pages[self.currentPage])
+                    .transition(AnyTransition.pageTransition)
+                        .id(self.currentPage).frame(width:geometry.size.width)
+            }
+            else{
+                IntroPageView(page: self.pages[self.currentPage])
             .transition(AnyTransition.pageTransition)
-            .id(self.currentPage)
-            
+                .id(self.currentPage)
+            }
             HStack {
                 PageControl(numberOfPages: self.pages.count, currentPageIndex: self.$currentPage)
                                
@@ -116,17 +150,17 @@ struct PageViewController1: View {
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")
                                     UserDefaults.standard.set(true, forKey: "userAgreedToPrivacyPolicy")
                                       //Check if the app installed before and cancel trail if it was
-                                   if(!self.taskViewModel.checkIsAtInstalledBefore())
+                                  /* if(!self.taskViewModel.checkIsAtInstalledBefore())
                                       {
                                           self.taskViewModel.setInstallIdToKeychain()
-                                      }
+                                      }*/
                                     self.taskViewModel.SetOnceTimeObserver()
                                     self.finished=true}
                                                             
             }, secondaryButton: .cancel(Text("Back")))
        
      
-        }
+       }.onAppear{self.setDescriptionTextByVersion()}
     }
 }
 

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DailyView: View {
+struct DailyViewIOS13: View {
     
     
     var timeChar = "25"
@@ -45,12 +45,12 @@ struct DailyView: View {
                 if(hour > 9)
                 {
                 
-                    BigChar(hour:String(hour))
-                    
+                    BigCharIOS13(hour:String(hour))
+                    .padding(.leading,-160)
                 }
                 else{
                     
-                    BigChar(hour:"0"+String(hour))
+                    BigCharIOS13(hour:"0"+String(hour)).padding(.leading,-160)
                 }
                
                 ForEach(self.taskViewModel.retrieveAllDayTasks(hour:hour))
@@ -67,7 +67,7 @@ struct DailyView: View {
                                 
                     
                            
-                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour)//.frame( alignment: .bottom).frame(width:geometry.size.width)//.padding(.trailing,geometry.size.width)
+                                WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame( alignment: .bottom).frame(width:geometry.size.width*1.5).padding(.trailing,geometry.size.width/1.3)
                                 
                                 
                             }

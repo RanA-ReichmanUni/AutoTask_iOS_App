@@ -16,14 +16,14 @@ struct BigChar: View {
                 if(Int(self.hour)==Date().hour)
                 {
                     
-                    DailyListTextHourSelector(hour: self.hour, geometryWidth: geometry.size.width+50, geometryHeight: geometry.size.height)
+                    DailyListTextHourSelector(hour: self.hour, geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
                     /*Text(hour).background(RoundedRectangle(cornerRadius: 6).fill(Color.red)).foregroundColor(.white)
                     
                      
                      Divider().padding(EdgeInsets(top: 5, leading: 1, bottom:0, trailing: 5))*/
                 }
                 else{
-                             DailyListTextHourSelector(hour: self.hour, geometryWidth: geometry.size.width+50, geometryHeight: geometry.size.height)
+                             DailyListTextHourSelector(hour: self.hour, geometryWidth: geometry.size.width, geometryHeight: geometry.size.height)
                    /* Text(hour)
                                    
                                     

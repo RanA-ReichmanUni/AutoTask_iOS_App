@@ -15,12 +15,26 @@ struct DailyListTextHourSelector: View {
     var hour:String
     var geometryWidth:CGFloat
     var geometryHeight:CGFloat
+    @State var geometryWidthFactor:CGFloat=8
     
+    func geometryReaderVersionCorrector()
+    {
+        
+        if #available(iOS 14, *) {
+            // use UICollectionViewCompositionalLayout
+        } else {
+            // show sad face emoji
+            self.geometryWidthFactor=18
+            
+        }
+        
+        
+    }
     var body: some View {
           HStack {
              if self.horizontalSizeClass == .compact {
                 
-                    Text(String(hour)).frame(width: geometryWidth/18, height:  geometryHeight/30)
+                    Text(String(hour)).frame(width: geometryWidth/geometryWidthFactor, height:  geometryHeight/30)
                      
                                   Divider()
                 
