@@ -93,7 +93,14 @@ struct MainUI2: View {
                      if(self.listFlag)
                      {
                         Rectangle().isHidden(true).frame(height:40)
-                        TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
+                        //TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
+                        if(isIOS13VariationsChecker())
+                        {
+                            TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,animationType:(self.taskViewModel.GetAnimationStyleSettings()))
+                        }
+                        else{
+                            TaskListIOS14(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,animationType:(self.taskViewModel.GetAnimationStyleSettings()))
+                        }
                      }
                      else if (self.addTaskFlag)
                      {

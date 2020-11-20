@@ -12,6 +12,8 @@
 		25032BBD25671B0900545BDF /* IntroPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25032BBC25671B0900545BDF /* IntroPageView.swift */; };
 		25032BC525671D4E00545BDF /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25032BC425671D4E00545BDF /* DailyView.swift */; };
 		25032BCD25671DB000545BDF /* BigChar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25032BCC25671DB000545BDF /* BigChar.swift */; };
+		25032BDB25673B6F00545BDF /* CardTaskRowIOS14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25032BDA25673B6E00545BDF /* CardTaskRowIOS14.swift */; };
+		25032BE025673C4F00545BDF /* TaskListIOS14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25032BDF25673C4F00545BDF /* TaskListIOS14.swift */; };
 		25091FD724B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25091FD524B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift */; };
 		25091FD824B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25091FD624B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift */; };
 		250F5AFB24AA32DF00ABCDA4 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */; };
@@ -179,6 +181,8 @@
 		25032BBC25671B0900545BDF /* IntroPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPageView.swift; sourceTree = "<group>"; };
 		25032BC425671D4E00545BDF /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		25032BCC25671DB000545BDF /* BigChar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigChar.swift; sourceTree = "<group>"; };
+		25032BDA25673B6E00545BDF /* CardTaskRowIOS14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTaskRowIOS14.swift; sourceTree = "<group>"; };
+		25032BDF25673C4F00545BDF /* TaskListIOS14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListIOS14.swift; sourceTree = "<group>"; };
 		25091FD524B62DE000532136 /* OccuipiedSpace+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OccuipiedSpace+CoreDataClass.swift"; sourceTree = "<group>"; };
 		25091FD624B62DE000532136 /* OccuipiedSpace+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OccuipiedSpace+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		250F5AFA24AA32DF00ABCDA4 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
@@ -444,11 +448,13 @@
 				25FAFE2724AE2BBB001E4820 /* TestTaskRow.swift */,
 				25A77A6624DAA81300667165 /* DetailedTaskWithObj.swift */,
 				250F5AFF24AA3C6800ABCDA4 /* TaskList.swift */,
+				25032BDF25673C4F00545BDF /* TaskListIOS14.swift */,
 				25407E702523BF9000ACE135 /* TaskListFastAnimation.swift */,
 				25407E722523BFBD00ACE135 /* TaskListSpringAnimation.swift */,
 				2591C8CC2518615900C39269 /* DayTaskList.swift */,
 				253FF2F025192C90002B024C /* SeparatedTaskList.swift */,
 				25105F9324E14A940066758B /* CardTaskRow.swift */,
+				25032BDA25673B6E00545BDF /* CardTaskRowIOS14.swift */,
 				25CAAE5D252F5A0E00C4891F /* RestrictedSpaceVerticalCard.swift */,
 				25A248E324AA861000E74F51 /* DetailedTask.swift */,
 				25105F9524E1AB540066758B /* DetailedTaskUI.swift */,
@@ -849,6 +855,7 @@
 				253C7DFC24DAE8300063952B /* EmptyCell.swift in Sources */,
 				252EB24E255593FE00BB6385 /* KeychainPasswordItem.swift in Sources */,
 				251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */,
+				25032BE025673C4F00545BDF /* TaskListIOS14.swift in Sources */,
 				255BA0C0251FCA2F00207331 /* UpdateTask.swift in Sources */,
 				25FFDC69253487400093A9D1 /* SettingsEntity+CoreDataProperties.swift in Sources */,
 				2597C723255418AB00634A42 /* PayWall.swift in Sources */,
@@ -868,6 +875,7 @@
 				259C4EA32552E3CB0037D576 /* PayWallSubscriptions.swift in Sources */,
 				25BB43F82513FAEC00AD2957 /* Task+CoreDataClass.swift in Sources */,
 				256E883C24ED74AF00293706 /* RestrictedSpaceViewModel.swift in Sources */,
+				25032BDB25673B6F00545BDF /* CardTaskRowIOS14.swift in Sources */,
 				25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */,
 				25D920AC24CF97D700A852BF /* ScheduleViewPortrait.swift in Sources */,
 				25D920B624CFA37800A852BF /* WeeklyRegular.swift in Sources */,
