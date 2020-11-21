@@ -46,7 +46,7 @@ struct DayBoundsView: View {
                         Text("Day Starts At: ").font(Font.custom("MarkerFelt-Wide", size: 16))
                         Spacer()
                     }) {
-                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill((self.colorScheme == .dark ? Color(hex:"#303030") : Color(hex:"#f9f9f9")).opacity(0.9)))
+                        MultiPicker(data: self.data, selection: self.$fromSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 250).padding().background(RoundedRectangle(cornerRadius: 20).fill((self.colorScheme == .dark ? Color(hex:"#303030") : Color(hex:"#f9f9f9")).opacity(0.9)))
                 }.padding()
                                            
                 
@@ -55,7 +55,7 @@ struct DayBoundsView: View {
                          Text("Day Ends In: ").font(Font.custom("MarkerFelt-Wide", size: 16))
                         Spacer()
                      }) {
-                        MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 110).padding().background(RoundedRectangle(cornerRadius: 20).fill((self.colorScheme == .dark ?  Color(hex:"#303030") : Color(hex:"#f9f9f9")).opacity(0.9)))
+                        MultiPicker(data: self.data, selection: self.$toSelection,stringValue1: "Hours",stringValue2:"                        Minutes",stringValue3:"").frame(height: 250).padding().background(RoundedRectangle(cornerRadius: 20).fill((self.colorScheme == .dark ?  Color(hex:"#303030") : Color(hex:"#f9f9f9")).opacity(0.9)))
                }.padding()
          
             

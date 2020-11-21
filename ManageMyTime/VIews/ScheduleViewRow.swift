@@ -19,7 +19,7 @@ struct ScheduleViewRow: View {
     //var columns : [String]
     
     @ObservedObject var taskViewModel:TaskViewModel
-    var hoursRange = 7...24
+    var hoursRange = 6...24
     @State var show=false
     @State var key=false
     @Binding var rangeOfHours:[Int]
@@ -51,7 +51,7 @@ struct ScheduleViewRow: View {
         
     
      
-                List(self.rangeOfHours,id:\.self){
+                List(self.hoursRange,id:\.self){
                     hour in
             
                if(hour > 9)
@@ -76,16 +76,11 @@ struct ScheduleViewRow: View {
                     {
                         weekByHour in
        
-                        VStack{
-                           /* if(self.taskViewModel.retrieveAllTasksByHour(hour:hour).count > 4)
-                            {
-                            Text(String(self.taskViewModel.retrieveAllTasksByHour(hour:hour)[4].isEmptySlot))
-                            }*/
-                           // Text(geometry.size.width.description)
-                                
-                                ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry).listRowBackground(Color.green)
+                 
                            
-                        }
+                                ScehduleSelector(hour:String(hour),weekByHour: weekByHour,geometry:geometry).listRowBackground(Color.green)
+                            
+                        
                           //  WeeklyTasksRow(timeChar:String(hour),hourTasks: weekByHour).frame(height:  geometry.size.height*0.098)
                             
                           //  Divider()
@@ -134,7 +129,7 @@ struct ScheduleViewRow: View {
                     
                     withAnimation(.easeInOut(duration: 0.1))
                     {
-                for index in 6...10
+                for index in 6...24
                        {
                 
                             
@@ -144,29 +139,8 @@ struct ScheduleViewRow: View {
                         }
                         
                     }
+                 
                     
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    for index in 11...15
-                           {
-                    
-                                
-                               self.rangeOfHours.append(index)
-                                
-                                  
-                            }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    for index in 16...24
-                                          {
-                                   
-                                               
-                                              self.rangeOfHours.append(index)
-                                               
-                                                 
-                                           }
-                                           
-                                       }
-                    }
                             
                         
                 }
@@ -178,7 +152,7 @@ struct ScheduleViewRow: View {
          self.taskViewModel.hoursRange=[]
          }
             
-        }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#f9f9f9").opacity(0.1)).onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule").foregroundColor(Color.blue)).animation(.easeInOut(duration: 0.5))
+        }.background(self.colorScheme == .dark ? Color.black : Color(hex:"#f9f9f9").opacity(0.1)).onDisappear{self.taskViewModel.retrieveAllTasks()}  .navigationBarTitle(Text("Weekly Schedule")).animation(.easeInOut(duration: 0.5))
     }
 }
 
