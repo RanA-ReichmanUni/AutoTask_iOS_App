@@ -36,12 +36,22 @@ struct IntroPageView: View {
                         VStack{
                                 //Spacer()
                        
+                           
                                 Text("By using the application you indicate that you read and agree to the ").font(.system(size: 10))
+                            HStack{
                                 Button(action:{UIApplication.shared.open(URL(string: self.page.privacyLinkAttached!)!)})
                                 {
-                                    Text("privacy policy").font(.system(size: 10))
+                                    Text("Privacy Policy").font(.system(size: 10))
                                     
                                 }
+                               Text(" and ").font(.system(size: 10))
+                                    Button(action:{UIApplication.shared.open(URL(string: self.page.agreementLinkAttached!)!)})
+                                    {
+                                        Text("Application Terms").font(.system(size: 10))
+                                        
+                                    }
+                                
+                            }
                             
                             
                         }.padding(.top,20)

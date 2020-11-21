@@ -23,7 +23,17 @@ struct ScheduleViewRow: View {
     @State var show=false
     @State var key=false
     @Binding var rangeOfHours:[Int]
-    
+    func isIOS13VariationsChecker() -> Bool
+    {
+        if #available(iOS 14, *) {
+            // use UICollectionViewCompositionalLayout
+            return false
+        } else {
+            // show sad face emoji
+            return true
+        }
+        
+    }
     var body: some View {
         UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
                   return
@@ -51,7 +61,7 @@ struct ScheduleViewRow: View {
         
     
      
-                List(self.hoursRange,id:\.self){
+                List(self.rangeOfHours,id:\.self){
                     hour in
             
                if(hour > 9)
@@ -125,24 +135,73 @@ struct ScheduleViewRow: View {
 
 
             }.onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    
-                    withAnimation(.easeInOut(duration: 0.1))
-                    {
-                for index in 6...24
-                       {
                 
-                            
-                           self.rangeOfHours.append(index)
-                            
-                              
-                        }
-                        
-                    }
-                 
+                if(isIOS13VariationsChecker())
+                {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                       
+                           withAnimation(.easeInOut(duration: 0.1))
+                           {
+                       for index in 6...10
+                              {
+                       
+                                   
+                                  self.rangeOfHours.append(index)
+                                   
+                                     
+                               }
+                               
+                           }
+                           
+                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                           for index in 11...15
+                                  {
+                           
+                                       
+                                      self.rangeOfHours.append(index)
+                                       
+                                         
+                                   }
+                           
+                           DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                           for index in 16...24
+                                                 {
+                                          
+                                                      
+                                                     self.rangeOfHours.append(index)
+                                                      
+                                                        
+                                                  }
+                                                  
+                                              }
+                       }
+                               
+                           
+                   }
+                   
                     
-                            
+                    
+                }
+                else{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         
+                        withAnimation(.easeInOut(duration: 0.1))
+                        {
+                    for index in 6...24
+                           {
+                    
+                                
+                               self.rangeOfHours.append(index)
+                                
+                                  
+                            }
+                            
+                        }
+                     
+                        
+                                
+                            
+                    }
                 }
             }
         }.onDisappear{

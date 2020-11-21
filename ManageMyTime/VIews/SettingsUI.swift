@@ -191,8 +191,13 @@ struct SettingsUI: View {
                       
                                                        
                                 Button("Privacy Policy") {
-                                   UIApplication.shared.open(URL(string: "https://auto-task-automatic.flycricket.io/privacy.html")!)
+                                   UIApplication.shared.open(URL(string: "http://auto-task-automatic.flycricket.io/privacy.html")!)
                                }
+    
+                              Button("Application Terms") {
+                                        UIApplication.shared.open(URL(string: "http://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                                }
+
 
                            
     

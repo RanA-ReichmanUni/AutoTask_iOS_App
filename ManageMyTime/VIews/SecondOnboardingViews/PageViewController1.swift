@@ -12,11 +12,11 @@ struct PageViewController1: View {
     @ObservedObject var taskViewModel:TaskViewModel
     @State var currentPage=0
     @State var pages=[
-        IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil),
-                      IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil),
-                      IntroPage(imageName:"repeatedActivities",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
-                      IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
-                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")]
+                      IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil, agreementLinkAttached:nil),
+                      IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil, agreementLinkAttached:nil),
+                      IntroPage(imageName:"repeatedActivities",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil, agreementLinkAttached:nil),
+                      IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil, agreementLinkAttached:nil),
+                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"http://auto-task-automatic.flycricket.io/privacy.html", agreementLinkAttached: "http://www.apple.com/legal/internet-services/itunes/dev/stdeula/")]
     
     @State var buttonControl=false
     @State var finished=false
@@ -31,11 +31,11 @@ struct PageViewController1: View {
             // show sad face emoji
             
             self.pages=[
-                IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil),
-                              IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil),
-                              IntroPage(imageName:"repeatedActivities",title:"In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil),
-                              IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil),
-                              IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"https://auto-task-automatic.flycricket.io/privacy.html")]
+                              IntroPage(imageName:"robotHand",title:"Here To Help",description:"Auto Task is here to help you relieve the heavy stress from your student shoulders", privacyLinkAttached: nil, agreementLinkAttached: nil),
+                              IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil, agreementLinkAttached: nil),
+                              IntroPage(imageName:"repeatedActivities",title:"In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil, agreementLinkAttached: nil),
+                              IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil, agreementLinkAttached: nil),
+                              IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"http://auto-task-automatic.flycricket.io/privacy.html", agreementLinkAttached: "http://www.apple.com/legal/internet-services/itunes/dev/stdeula/")]
         }
     }
     
@@ -144,11 +144,11 @@ struct PageViewController1: View {
        }.alert(isPresented:self.$showPrivacyAgreement)
        {
         
-        return Alert(title: Text("Privacy Policy Agreement"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application privacy policy linked in the previous view. /n/nclick 'Back' to read the privacy policy linked in the previous view."), primaryButton: .default(Text("I Agree")) {
+        return Alert(title: Text("Application Agreements"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application Privacy Policy and Application Terms linked in the previous view. \n\n click 'Back' to read the Agreements linked in the previous view."), primaryButton: .default(Text("I Agree")) {
                                                                                                      
                                  withAnimation(.easeInOut){
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")
-                                    UserDefaults.standard.set(true, forKey: "userAgreedToPrivacyPolicy")
+                                    UserDefaults.standard.set(true, forKey: "userAgreedToPolicies")
                                       //Check if the app installed before and cancel trail if it was
                                    if(!self.taskViewModel.checkIsAtInstalledBefore())
                                       {
