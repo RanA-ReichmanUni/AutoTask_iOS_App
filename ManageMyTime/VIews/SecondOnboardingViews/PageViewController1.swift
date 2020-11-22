@@ -16,7 +16,7 @@ struct PageViewController1: View {
                       IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil, agreementLinkAttached:nil),
                       IntroPage(imageName:"repeatedActivities",title:"Planning Your Tasks In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work, personal actvities and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil, agreementLinkAttached:nil),
                       IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil, agreementLinkAttached:nil),
-                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"http://auto-task-automatic.flycricket.io/privacy.html", agreementLinkAttached: "http://www.apple.com/legal/internet-services/itunes/dev/stdeula/")]
+                      IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment and See How It Improve Your Work Experience. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"http://auto-task-automatic.flycricket.io/privacy.html", agreementLinkAttached: "http://auto-task-automatic.flycricket.io/terms.html")]
     
     @State var buttonControl=false
     @State var finished=false
@@ -35,7 +35,7 @@ struct PageViewController1: View {
                               IntroPage(imageName:"scheduleAddAndForget",title:"Add And Forget",description:"Use Auto Task to auto schedule your tasks inside your complicated schedule", privacyLinkAttached: nil, agreementLinkAttached: nil),
                               IntroPage(imageName:"repeatedActivities",title:"In Accordance With Your Own Schedule",description:"Before using auto schedule, insert your repeated activities such as: college classes, work and more... \nAuto Task will plan your new tasks in accordance with your fixed schedule", privacyLinkAttached: nil, agreementLinkAttached: nil),
                               IntroPage(imageName:"options31",title:"The Controlls Are In Your Hands",description:"Chose from multiple avilable intelligent algortihms designed for your needs", privacyLinkAttached: nil, agreementLinkAttached: nil),
-                              IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"http://auto-task-automatic.flycricket.io/privacy.html", agreementLinkAttached: "http://www.apple.com/legal/internet-services/itunes/dev/stdeula/")]
+                              IntroPage(imageName:"easy2",title:"Experience The Easier Way",description:"Try Auto Task For Free Without a Subscription Comitment. \nOnce You Reached the Limit Of Use, We Will Let You Know About Auto Task Fair Subscription Plans.",privacyLinkAttached:"http://auto-task-automatic.flycricket.io/privacy.html", agreementLinkAttached: "http://auto-task-automatic.flycricket.io/terms.html")]
         }
     }
     
@@ -144,7 +144,7 @@ struct PageViewController1: View {
        }.alert(isPresented:self.$showPrivacyAgreement)
        {
         
-        return Alert(title: Text("Application Agreements"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application Privacy Policy and Application Terms linked in the previous view. \n\n click 'Back' to read the Agreements linked in the previous view."), primaryButton: .default(Text("I Agree")) {
+        return Alert(title: Text("Application Agreements"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application 'Privacy Policy' agreement, as well as the 'Application Terms and Conditions' agreement, linked in the previous view. \n\n click 'Back' to read the Agreements linked in the previous view."), primaryButton: .default(Text("I Agree")) {
                                                                                                      
                                  withAnimation(.easeInOut){
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")

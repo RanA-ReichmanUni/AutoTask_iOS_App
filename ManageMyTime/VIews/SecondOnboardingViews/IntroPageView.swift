@@ -47,7 +47,7 @@ struct IntroPageView: View {
                                Text(" and ").font(.system(size: 10))
                                     Button(action:{UIApplication.shared.open(URL(string: self.page.agreementLinkAttached!)!)})
                                     {
-                                        Text("Application Terms").font(.system(size: 10))
+                                        Text("Application Terms and Conditions").font(.system(size: 10))
                                         
                                     }
                                 
