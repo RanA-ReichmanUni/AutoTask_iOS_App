@@ -254,7 +254,35 @@ struct AddTask: View {
                                  self.alertType=2
                             }
                             else{
-                                    
+                                if(self.selectedNotificationIndex == 0)
+                                {
+
+                                        do{
+                                            try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex,notificationIndex:self.selectedNotificationIndex)
+                                              
+                                                  self.taskViewModel.UpdateAllTasks()
+                                                  self.addTaskFlag=false
+                                                  self.listFlag=true
+                                          
+                                                  self.mode.wrappedValue.dismiss()
+                                 
+                                          }
+                                          catch DatabaseError.taskCanNotBeScheduledInDue {
+                                                self.isError = true
+                                                self.alertType=1
+                                              
+                                          }
+                                          catch PaymentError.TrailEndReached{
+                                                self.isError = true
+                                                self.alertType=4
+                                           }
+                                           catch {
+                                                self.isError = true
+                                                self.alertType=1
+                                           }
+                            
+                                }
+                                else{
                                         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                                                 self.permissionAqcuired=success
                                             DispatchQueue.main.async {
@@ -294,7 +322,8 @@ struct AddTask: View {
                                           
                                         }
                             
-                                }
+                                        }
+                                    }
                               
                                   
                                                                 
@@ -314,7 +343,7 @@ struct AddTask: View {
                             switch self.alertType{
                             case 1:
                               return Alert(title: Text("Task Can't Be Scheduled"),
-                                     message: Text("\nThere is not enough room in your schedule for the new task with this chosen Due Date.\n\nTry making some room or change the Due Date."),
+                                     message: Text("\nThere is not enough room in your schedule for the new task with the chosen Due Date.\n\nTry making some room or change the Due Date."),
                                      dismissButton: .default(Text("OK")))
                             case 2:
                                 return    Alert(title: Text("Missing Required Fields"),
@@ -322,7 +351,7 @@ struct AddTask: View {
                                           dismissButton: .default(Text("OK")))
                             case 3:
                                 
-                                 return Alert(title: Text("Missing Required Premissions"), message: Text("Manage My Time Needs A premission To Present Notifications In Order For It to Update You on Upcoming Assigments"), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
+                                 return Alert(title: Text("Missing Required Premissions"), message: Text("Auto Task require premission in order to present you with notifications and send you updates you on upcoming assigments."), primaryButton: .destructive(Text("Ok, Send Me To Notification Settings")) {
                                                                             
                                               UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                                             
