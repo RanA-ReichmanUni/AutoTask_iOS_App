@@ -335,6 +335,7 @@ class TaskViewModel : ObservableObject
                     UserDefaults.standard.set(true, forKey: "nonSuspicious")
                     UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
                     UserDefaults.standard.set(0,forKey: "offlineClicks")
+                    self.SetEndTrail()
                  }
                 else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                     self.hasFullAccess=false
@@ -604,6 +605,7 @@ class TaskViewModel : ObservableObject
                     UserDefaults.standard.set(true, forKey: "nonSuspicious")
                     UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
                     UserDefaults.standard.set(0,forKey: "offlineClicks")
+                    self.SetEndTrail()
                     
                  }
                 else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
