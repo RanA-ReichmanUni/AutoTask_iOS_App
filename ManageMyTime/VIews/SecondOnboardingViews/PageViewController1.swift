@@ -154,6 +154,7 @@ struct PageViewController1: View {
                                       {
                                           self.taskViewModel.setInstallIdToKeychain()
                                       }
+                                    self.taskViewModel.CheckSubscription()
                                     self.taskViewModel.SetOnceTimeObserver()
                                     self.finished=true}
                                                             
