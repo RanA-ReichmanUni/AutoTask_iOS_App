@@ -818,7 +818,7 @@ class TaskModel : UIViewController
     {
 
         
-        let taskName = ["Infi Exercise 4","Compilers Exercise 2","Corporte Finance Project","TCP-IP Project Assignment 3","Analog Electronics Ex.5","Introduction To Cyber Security Ex.4"/*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King"*//*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"*/]
+        let taskName = ["Infi Exercise 4","Compilers Exercise 2","Corporte Finance Project","TCP-IP Project Assignment 3"/*,"Analog Electronics Ex.5","Introduction To Cyber Security Ex.4","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King"*//*,"Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger","Algebra","Infi","Some nice Task!","Task King","Hello","Task Kinger"*/]
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
 
@@ -893,7 +893,7 @@ class TaskModel : UIViewController
             
             let asstimatedWorkTime=Hour(context: managedContext)
                     asstimatedWorkTime.hour=1
-                    asstimatedWorkTime.minutes=0
+                    asstimatedWorkTime.minutes=30
            do {
             _=try coreManagment.ScheduleTask(taskName: name, importance: "Very High", asstimatedWorkTime: asstimatedWorkTime, dueDate: someDateTime!, notes: "Hi",difficulty:"average",color:colorArray[taskName.firstIndex(of: name)!].description)
             let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")

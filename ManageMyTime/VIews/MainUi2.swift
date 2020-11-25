@@ -166,6 +166,19 @@ struct MainUI2: View {
                              self.weeklyScheduleFlag=false
                              self.listFlag=true
                              self.toggleActive=false
+                        if(UserDefaults.standard.bool(forKey: "reachedTrailAlert"))
+                        {
+                            let numberOfTrailClicks=UserDefaults.standard.integer(forKey: "numTrailClicks")
+                            if(numberOfTrailClicks>5)
+                            {
+                                self.taskViewModel.SetEndTrail()
+                                
+                            }
+                            else{
+                                UserDefaults.standard.set(numberOfTrailClicks+1,forKey: "numTrailClicks")
+                            }
+                            
+                        }
                         //self.taskViewModel.CheckSubscription()
                         self.taskViewModel.getPurchaserInfo()
                        // self.taskViewModel.retrieveSubscriptionsInfo()
