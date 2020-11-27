@@ -31,13 +31,14 @@ struct PayWall: View {
                 {
                     
                         
-                        Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\nPlease Chose a New Subscription Plan Below." : "AutoTask Requires a Subscription Plan.\n\nPlease Choose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
+                        Text(UserDefaults.standard.bool(forKey: "hasBeenSubscribed") ? "Your Subscription Has been Expired/Canceled.\nPlease Choose a New Subscription Plan Below." : "Auto Task Requires a Subscription Plan.\n\nChoose One Below:").font(Font.custom("MarkerFelt-Wide", size: 26)).bold()
                      
                    
                     if(UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
                     {Text("\n\n*If You Are Using The Device In Airplane Mode, Please Connect Your Device To The Internet.").font(Font.custom("MarkerFelt-Wide", size: 20))}
                     Spacer()
-                    HStack{
+                    VStack{
+                        HStack{
                         Spacer()
                         Button(action:{self.presentPayWall=true
                             self.taskViewModel.retrieveSubscriptionsInfo()
@@ -107,10 +108,32 @@ struct PayWall: View {
                         
                       
                     }
+                        
+                        HStack{
+                            Spacer()
+                            Button(action:
+                                    {
+                                        if(self.taskViewModel.reachedTrailLimit)
+                                        {
+                                            self.showAlert=true
+                                            self.alertType=5
+                                        }
+                                        else{
+                                            withAnimation(.easeInOut(duration: 0.6)){
+                                                self.taskViewModel.SetExpiredTrailAgain()
+                                            }
+                                        }
+                                    })
+                            {
+                                Text("X").font(.system(size: 20)).foregroundColor(Color.black)
+                            }
+                            Spacer()
+                        }
+                    }
                 }
                 else{
                     
-                    Text(!self.taskViewModel.errorPurchase ? "Precessing, please wait for the window prompt..." : "It Seems Like Something Went Wrong, Please Try Again:").foregroundColor(Color.blue).font(Font.custom("MarkerFelt-Wide", size: 26)).bold()//.onAppear{ DispatchQueue.main.asyncAfter(deadline: .now() + 6) {withAnimation(.ripple2()){ self.firstTry=false}} }
+                    Text(!self.taskViewModel.errorPurchase ? "Processing, please wait for the window prompt..." : "It Seems Like Something Went Wrong, Please Try Again:").foregroundColor(Color.blue).font(Font.custom("MarkerFelt-Wide", size: 26)).bold()//.onAppear{ DispatchQueue.main.asyncAfter(deadline: .now() + 6) {withAnimation(.ripple2()){ self.firstTry=false}} }
                      Spacer()
                     
                             
@@ -166,6 +189,17 @@ struct PayWall: View {
                    return Alert(title: Text("Couldn't Find an Active Subscription"),
                                     message: Text("\nCouldn't find any active subscription related to your Apple ID."),
                                     dismissButton: .default(Text("OK")))
+                   case 5:
+                   return Alert(title: Text("Are You Sure ?"),
+                                    message: Text("\nIn expired trail mode you can not use Auto Task's Auto Schedule, but only view your existing assignments\n\n In order to use Auto Task with full functionality, please choose a subscription plan."),
+                                    primaryButton: .default(Text("Subscribe to Auto Task")){self.presentPayWall=true}, secondaryButton: .default(Text("Return to Expired Trail Mode")){
+                                        withAnimation(.easeInOut(duration: 0.6)){
+                                            self.taskViewModel.SetExpiredTrailAgain()
+                                            self.showAlert=false
+                                        }
+                                        
+                                    })
+                    
                    default:
                        return Alert(title: Text("Error"),
                         message: Text("Error"),

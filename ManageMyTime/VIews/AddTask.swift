@@ -253,6 +253,11 @@ struct AddTask: View {
                                  self.isError=true
                                  self.alertType=2
                             }
+                            else if(UserDefaults.standard.bool(forKey: "reachedTrailAlert") && !self.taskViewModel.hasFullAccess && !UserDefaults.standard.bool(forKey: "nonSuspicious"))
+                            {
+                                self.isError = true
+                                self.alertType=4
+                            }
                             else{
                                 if(self.selectedNotificationIndex == 0)
                                 {
@@ -374,19 +379,42 @@ struct AddTask: View {
                                         
                                       
                                    
-                                  }, secondaryButton: .cancel())
+                                  }, secondaryButton: .cancel(Text("Continue With Notifications Disabled")){  do{
+                                    
+                                    try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex,notificationIndex:0)
+                                      
+                                          self.taskViewModel.UpdateAllTasks()
+                                          self.addTaskFlag=false
+                                          self.listFlag=true
+                                  
+                                          self.mode.wrappedValue.dismiss()
+                         
+                                  }
+                                  catch DatabaseError.taskCanNotBeScheduledInDue {
+                                        self.isError = true
+                                        self.alertType=1
+                                      
+                                  }
+                                  catch PaymentError.TrailEndReached{
+                                        self.isError = true
+                                        self.alertType=4
+                                   }
+                                   catch {
+                                        self.isError = true
+                                        self.alertType=1
+                                   }})
                             case 4:
                                 
                                 return Alert(title: Text("Trail Limit Reached"), message: Text("Auto Task Lets New Users To Try The App Services With Up To 4 Auto Schedules Of Different Tasks.\n In Order To Keep The Stressful Student Life At Check And Keep Using The App, Please Check Out Auto Task Fair Subscription Plans."), primaryButton: .destructive(Text("Subscribe")) {
                                                                           
                                        
-                                        self.taskViewModel.SetEndTrail()
+                                    withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
                                  
                                 }, secondaryButton: .cancel())
                                 
                             case 5:
                                 
-                                 return Alert(title: Text("Notification Permissions"), message: Text("Auto Task requires notification premissions in order to present you with notifications and send you updates on your upcoming assigments.\n\n If you don't want to use notifications, you can set the notification selector to 'None'"), primaryButton: .destructive(Text("Ok, Prompt The Permission Approval Window")) {
+                                 return Alert(title: Text("Notification Permissions"), message: Text("Auto Task requires notification permissions in order to present you with notifications and send you updates on your upcoming assigments."), primaryButton: .destructive(Text("Ok")) {
                                                                             
                                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                                             self.permissionAqcuired=success
@@ -433,7 +461,30 @@ struct AddTask: View {
                                         
                                       
                                    
-                                  }, secondaryButton: .cancel())
+                                 }, secondaryButton: .cancel(Text("Continue With Notifications Disabled")){  do{
+                                    
+                                    try  self.taskViewModel.createTask(taskName: self.taskName, importance: self.importanceValues[self.selectedImportanceIndex], workTimeHours: self.selection[0],workTimeMinutes: self.selection[1], dueDate: self.selectedDate, notes: self.notes,color:self.selectedColorIndex,difficultyIndex: self.selectedDifficultyIndex,notificationIndex:0)
+                                      
+                                          self.taskViewModel.UpdateAllTasks()
+                                          self.addTaskFlag=false
+                                          self.listFlag=true
+                                  
+                                          self.mode.wrappedValue.dismiss()
+                         
+                                  }
+                                  catch DatabaseError.taskCanNotBeScheduledInDue {
+                                        self.isError = true
+                                        self.alertType=1
+                                      
+                                  }
+                                  catch PaymentError.TrailEndReached{
+                                        self.isError = true
+                                        self.alertType=4
+                                   }
+                                   catch {
+                                        self.isError = true
+                                        self.alertType=1
+                                   }})
                             default:
                               return Alert(title: Text("Task can not be scheduled"),
                                                                message: Text("\nThere is not enough room in your schedule for the new task in this due.\n\nTry making some room or change the due date."),

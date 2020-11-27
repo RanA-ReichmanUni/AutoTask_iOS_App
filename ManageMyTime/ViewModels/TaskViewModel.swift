@@ -111,6 +111,9 @@ class TaskViewModel : ObservableObject
     
     @Published var errorPurchase:Bool
     
+    @Published var subscriptionEnded:Bool
+    @Published var reachedTrailLimit:Bool
+    
     var overrideFullAccess:Bool
     
      init()
@@ -147,6 +150,8 @@ class TaskViewModel : ObservableObject
         SubscriptionTitles=[String]()
         SubscriptionObjects=[SubscriptionObj]()
         hasFullAccess=UserDefaults.standard.bool(forKey: "nonSuspicious")
+        subscriptionEnded=UserDefaults.standard.bool(forKey: "endOfSubscription")
+        reachedTrailLimit=UserDefaults.standard.bool(forKey: "reachedTrailAlert")
         trailEnded=false
         restoredSubscription=false
         failedRestoringSubscription=false
@@ -169,10 +174,33 @@ class TaskViewModel : ObservableObject
     }
     func SetEndTrail()
     {
+        /*UserDefaults.standard.set(1000,forKey: "numberOfTasks")
+        UserDefaults.standard.set(true, forKey: "reachedTrailAlert")*/
         UserDefaults.standard.set(true,forKey: "trailEnded")
         self.trailEnded=true
         
     }
+    
+    func TerminateTrail()
+    {
+        UserDefaults.standard.set(1000,forKey: "numberOfTasks")
+        UserDefaults.standard.set(true, forKey: "reachedTrailAlert")
+        UserDefaults.standard.set(true,forKey: "trailEnded")
+        self.reachedTrailLimit=true
+        self.trailEnded=true
+        
+    }
+    
+    func SetExpiredTrailAgain()
+    {
+        /*UserDefaults.standard.set(1000,forKey: "numberOfTasks")
+        UserDefaults.standard.set(true, forKey: "reachedTrailAlert")*/
+        UserDefaults.standard.set(false,forKey: "trailEnded")
+        self.trailEnded=false
+        
+    }
+
+    
     
     func SetOverrideFullAccess()
     {
@@ -246,6 +274,23 @@ class TaskViewModel : ObservableObject
         
         
         
+    }
+    
+    func CheckEndSubscription()
+    {
+        
+        if(UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
+        {
+            UserDefaults.standard.set(true, forKey: "endOfSubscription")
+            self.subscriptionEnded=true
+        }
+        
+    }
+    
+    func RestoreSubscriptionValidStatus()
+    {
+        UserDefaults.standard.set(false, forKey: "endOfSubscription")
+        self.subscriptionEnded=false
     }
     
     func getPurchaserInfo()
@@ -335,12 +380,14 @@ class TaskViewModel : ObservableObject
                     UserDefaults.standard.set(true, forKey: "nonSuspicious")
                     UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
                     UserDefaults.standard.set(0,forKey: "offlineClicks")
-                    self.SetEndTrail()
+                    self.RestoreSubscriptionValidStatus()
+                    self.TerminateTrail()
                  }
                 else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
                     self.hasFullAccess=false
                      UserDefaults.standard.set(false, forKey: "nonSuspicious")
                     UserDefaults.standard.set(31,forKey: "offlineClicks")
+                    self.CheckEndSubscription()
                 }
                 
                 if (purchaserInfo == nil){
@@ -352,6 +399,7 @@ class TaskViewModel : ObservableObject
                     {*/
                         self.hasFullAccess=false
                         UserDefaults.standard.set(false, forKey: "nonSuspicious")
+                    self.CheckEndSubscription()
                    /* }*/
                 }
             
@@ -362,6 +410,7 @@ class TaskViewModel : ObservableObject
           else{
             self.hasFullAccess=false
             UserDefaults.standard.set(false, forKey: "nonSuspicious")
+            self.CheckEndSubscription()
         }
     }
     
@@ -404,7 +453,7 @@ class TaskViewModel : ObservableObject
            
             if(pass=="insalrdtr")
             {
-                SetEndTrail()
+                TerminateTrail()
                 return true
             }
             else{
@@ -522,10 +571,17 @@ class TaskViewModel : ObservableObject
         if(numberOfTasks>=4 && !self.hasFullAccess)
           {
             
+            /*if(!UserDefaults.standard.bool(forKey: "reachedTrailAlert"))
+            {
+                self.SetEndTrail()
+                UserDefaults.standard.set(true,forKey: "reachedTrailAlert")
+                self.reachedTrailLimit=true
+            }*/
             if(!UserDefaults.standard.bool(forKey: "reachedTrailAlert"))
             {
               UserDefaults.standard.set(true, forKey: "reachedTrailAlert")
             }
+            self.reachedTrailLimit=true
             
               throw PaymentError.TrailEndReached
             
@@ -584,7 +640,7 @@ class TaskViewModel : ObservableObject
         //Gives grace time for using the app without autoschedules for 20 clicks for main stack
         if(UserDefaults.standard.integer(forKey: "numberOfEndTrailClicks") >= 5 && !self.hasFullAccess)
           {
-              self.SetEndTrail()
+              self.TerminateTrail()
           }
           
           
@@ -605,7 +661,8 @@ class TaskViewModel : ObservableObject
                     UserDefaults.standard.set(true, forKey: "nonSuspicious")
                     UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
                     UserDefaults.standard.set(0,forKey: "offlineClicks")
-                    self.SetEndTrail()
+                    self.RestoreSubscriptionValidStatus()
+                    self.TerminateTrail()
                     
                  }
                 else if purchaserInfo?.entitlements["Full Access"]?.isActive == false{
@@ -614,7 +671,7 @@ class TaskViewModel : ObservableObject
                     self.hasFullAccess=false
                      UserDefaults.standard.set(false, forKey: "nonSuspicious")
                     UserDefaults.standard.set(16,forKey: "offlineClicks")
-                    
+                    self.CheckEndSubscription()
 
                 }
                 
@@ -623,7 +680,7 @@ class TaskViewModel : ObservableObject
                     UserDefaults.standard.set(true,forKey: "isLockedByServer")
                     self.hasFullAccess=false
                     UserDefaults.standard.set(false, forKey: "nonSuspicious")
-                    
+                    self.CheckEndSubscription()
                     
                   /*  if(UserDefaults.standard.bool(forKey: "nonSuspicious"))
                     {
@@ -717,6 +774,8 @@ class TaskViewModel : ObservableObject
                  UserDefaults.standard.set(0,forKey: "offlineClicks")
                  UserDefaults.standard.set(true, forKey: "hasBeenSubscribed")
                  UserDefaults.standard.set(false,forKey: "isLockedByServer")
+                 self.RestoreSubscriptionValidStatus()
+                 self.SetEndTrail()
               }
                 
                 if(!(error?.localizedDescription.isEmpty ?? true))

@@ -176,10 +176,13 @@ struct SettingsUI: View {
                                 Button(action: {
                                  
                                   
-                                 
+                                    withAnimation(.easeInOut){
+                                        self.taskViewModel.SetEndTrail()}
+                                                               
+                                                              
                                
-                                      self.showAlert=true
-                                      self.alertType=5
+                                      /*self.showAlert=true
+                                      self.alertType=5*/
                                  
                                     }) {
                                             Text("Purchase")
