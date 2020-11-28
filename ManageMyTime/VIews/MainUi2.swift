@@ -97,7 +97,7 @@ struct MainUI2: View {
                         if(self.taskViewModel.subscriptionEnded)
                         {
                             Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                  //self.color,.purple,.purple,.purple
                                     startPoint: .topLeading,
                                   endPoint:.bottomTrailing
@@ -109,7 +109,7 @@ struct MainUI2: View {
                         {
                     
                                 Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                      //self.color,.purple,.purple,.purple
                                         startPoint: .topLeading,
                                       endPoint:.bottomTrailing
@@ -138,7 +138,7 @@ struct MainUI2: View {
                         if(self.taskViewModel.subscriptionEnded)
                         {
                             Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                  //self.color,.purple,.purple,.purple
                                     startPoint: .topLeading,
                                   endPoint:.bottomTrailing
@@ -152,7 +152,7 @@ struct MainUI2: View {
                             
                             
                                 Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                      //self.color,.purple,.purple,.purple
                                         startPoint: .topLeading,
                                       endPoint:.bottomTrailing
@@ -176,7 +176,7 @@ struct MainUI2: View {
                         if(self.taskViewModel.subscriptionEnded)
                         {
                             Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                  //self.color,.purple,.purple,.purple
                                     startPoint: .topLeading,
                                   endPoint:.bottomTrailing
@@ -189,7 +189,7 @@ struct MainUI2: View {
                             
                            
                                 Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                      //self.color,.purple,.purple,.purple
                                         startPoint: .topLeading,
                                       endPoint:.bottomTrailing
@@ -212,7 +212,7 @@ struct MainUI2: View {
                     if(self.taskViewModel.subscriptionEnded)
                         {
                             Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                  //self.color,.purple,.purple,.purple
                                     startPoint: .topLeading,
                                   endPoint:.bottomTrailing
@@ -225,7 +225,7 @@ struct MainUI2: View {
                            
                           
                                 Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.blue,Color.blue]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
+                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
                                      //self.color,.purple,.purple,.purple
                                         startPoint: .topLeading,
                                       endPoint:.bottomTrailing

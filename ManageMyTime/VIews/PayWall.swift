@@ -192,7 +192,7 @@ struct PayWall: View {
                    case 5:
                    return Alert(title: Text("Are You Sure ?"),
                                     message: Text("\nIn expired trail mode you can not use Auto Task's Auto Schedule, but only view your existing assignments\n\n In order to use Auto Task with full functionality, please choose a subscription plan."),
-                                    primaryButton: .default(Text("Subscribe to Auto Task")){self.presentPayWall=true}, secondaryButton: .default(Text("Return to Expired Trail Mode")){
+                                    primaryButton: .default(Text("Join Auto Task !")){self.presentPayWall=true}, secondaryButton: .default(Text("Return to Expired Trail Mode") ){
                                         withAnimation(.easeInOut(duration: 0.6)){
                                             self.taskViewModel.SetExpiredTrailAgain()
                                             self.showAlert=false

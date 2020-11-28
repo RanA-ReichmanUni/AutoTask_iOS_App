@@ -567,8 +567,10 @@ class TaskViewModel : ObservableObject
         }
         
         let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
-                  
-        if(numberOfTasks>=4 && !self.hasFullAccess)
+        
+        let trailExpr=UserDefaults.standard.object(forKey: "endTrail") as? Date
+        
+        if((numberOfTasks>=4 || (Date().day==trailExpr?.day && Date().month==trailExpr?.month && Date().year==trailExpr?.year)) && !self.hasFullAccess)
           {
             
             /*if(!UserDefaults.standard.bool(forKey: "reachedTrailAlert"))
