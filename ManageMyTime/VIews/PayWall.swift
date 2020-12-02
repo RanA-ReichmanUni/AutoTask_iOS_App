@@ -41,7 +41,7 @@ struct PayWall: View {
                         HStack{
                         Spacer()
                         Button(action:{self.presentPayWall=true
-                            self.taskViewModel.retrieveSubscriptionsInfo()
+                            //self.taskViewModel.retrieveSubscriptionsInfo()
                         })
                            {
                                //width:240,height:70
@@ -60,7 +60,7 @@ struct PayWall: View {
                                 //self.taskViewModel.DefaultRestoreSubscriptionValues()
                                 
                                // self.taskViewModel.CheckSubscription()
-                                 self.taskViewModel.CheckSubscription()
+                                // self.taskViewModel.CheckSubscription()
                                     self.showAlert=true
                                     self.alertType=1
                                     
@@ -143,7 +143,7 @@ struct PayWall: View {
                                     self.press=false
                                     self.presentPayWall=true
                                     
-                                       self.taskViewModel.retrieveSubscriptionsInfo()
+                                      // self.taskViewModel.retrieveSubscriptionsInfo()
                                    })
                                       {
                                           

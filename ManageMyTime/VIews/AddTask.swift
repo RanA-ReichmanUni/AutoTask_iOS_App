@@ -253,11 +253,7 @@ struct AddTask: View {
                                  self.isError=true
                                  self.alertType=2
                             }
-                            else if(UserDefaults.standard.bool(forKey: "reachedTrailAlert") && !self.taskViewModel.hasFullAccess && !UserDefaults.standard.bool(forKey: "nonSuspicious"))
-                            {
-                                self.isError = true
-                                self.alertType=4
-                            }
+                       
                             else{
                                 if(self.selectedNotificationIndex == 0)
                                 {

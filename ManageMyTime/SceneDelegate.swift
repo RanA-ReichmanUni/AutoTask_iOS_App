@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
        
         SceneDelegate.taskViewModel.retrieveAllTasks()
-        SceneDelegate.taskViewModel.retrieveSubscriptionsInfo()
+        //SceneDelegate.taskViewModel.retrieveSubscriptionsInfo()
         
         let receiptAssessor=ReceiptAssessor(taskViewModel: SceneDelegate.taskViewModel)
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.

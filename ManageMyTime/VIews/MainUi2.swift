@@ -94,30 +94,8 @@ struct MainUI2: View {
                      {
                         Rectangle().isHidden(true).frame(height:40)
                         //TaskListSelector(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)
-                        if(self.taskViewModel.subscriptionEnded)
-                        {
-                            Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                 //self.color,.purple,.purple,.purple
-                                    startPoint: .topLeading,
-                                  endPoint:.bottomTrailing
-                                           )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                            }
-                        }
-                        else if(self.taskViewModel.reachedTrailLimit && !UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
-                        {
+                     
                     
-                                Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                     //self.color,.purple,.purple,.purple
-                                        startPoint: .topLeading,
-                                      endPoint:.bottomTrailing
-                                               )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                    withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                                }
-                          
-                        }
                         if(isIOS13VariationsChecker())
                         {
                             TaskList(taskViewModel:self.taskViewModel,dayIndexSelector: self.taskViewModel.latestDayChoiseIndex,geometry:geometry,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag,animationType:(self.taskViewModel.GetAnimationStyleSettings()))
@@ -135,32 +113,7 @@ struct MainUI2: View {
                      else if(self.dailyViewFlag)
                      {
                         Rectangle().isHidden(true).frame(height:40)
-                        if(self.taskViewModel.subscriptionEnded)
-                        {
-                            Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                 //self.color,.purple,.purple,.purple
-                                    startPoint: .topLeading,
-                                  endPoint:.bottomTrailing
-                                           )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                            }
-                        }
-                        
-                        else if(self.taskViewModel.reachedTrailLimit && !UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
-                        {
-                            
-                            
-                                Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                     //self.color,.purple,.purple,.purple
-                                        startPoint: .topLeading,
-                                      endPoint:.bottomTrailing
-                                               )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                    withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                                }
-                            
-                        }
+                       
                         if(isIOS13VariationsChecker())
                         {
                             DailyViewIOS13()
@@ -173,31 +126,7 @@ struct MainUI2: View {
                 else if(self.weeklyScheduleFlag)
                      {
                         Rectangle().isHidden(true).frame(height:36)
-                        if(self.taskViewModel.subscriptionEnded)
-                        {
-                            Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                 //self.color,.purple,.purple,.purple
-                                    startPoint: .topLeading,
-                                  endPoint:.bottomTrailing
-                                           )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                            }
-                        }
-                        else if(self.taskViewModel.reachedTrailLimit && !UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
-                        {
-                            
-                           
-                                Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                     //self.color,.purple,.purple,.purple
-                                        startPoint: .topLeading,
-                                      endPoint:.bottomTrailing
-                                               )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                    withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                                }
-                            
-                        }
+                       
                     
                         ScheduleViewRow(taskViewModel:self.taskViewModel,rangeOfHours: self.$rangeOfHours)
                         
@@ -209,31 +138,7 @@ struct MainUI2: View {
                        // AddRestrictedSpace().transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                         Rectangle().isHidden(true).frame(height:44)
                     
-                    if(self.taskViewModel.subscriptionEnded)
-                        {
-                            Text("*Subscription Expired/Undetected,View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                 //self.color,.purple,.purple,.purple
-                                    startPoint: .topLeading,
-                                  endPoint:.bottomTrailing
-                                           )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                            }
-                        }
-                        else if(self.taskViewModel.reachedTrailLimit && !UserDefaults.standard.bool(forKey: "hasBeenSubscribed"))
-                        {
-                           
-                          
-                                Text("*Trail Expired, Click To View Options").foregroundColor(Color.white).background(Rectangle().fill(LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray,Color.gray,Color.gray,Color.gray,Color.green,Color.green]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                                     //self.color,.purple,.purple,.purple
-                                        startPoint: .topLeading,
-                                      endPoint:.bottomTrailing
-                                               )).frame(width:geometry.size.width)).frame(width:geometry.size.width).onTapGesture {
-                                    withAnimation(.easeInOut(duration: 0.6)){self.taskViewModel.SetEndTrail()}
-                                }
-                            
-                        }
+                    
                         SettingsUI(selectedDensityIndex:self.taskViewModel.getSettingsValues()[0],selectedSchedulingAlgorithmIndex:self.taskViewModel.getSettingsValues()[1],taskViewModel:self.taskViewModel,addTaskFlag:self.$addTaskFlag,listFlag:self.$listFlag)//.transition(.asymmetric(insertion: AnyTransition.opacity.combined(with: .slide), removal: .scale))
                     }
                      else{
@@ -276,7 +181,7 @@ struct MainUI2: View {
                              self.toggleActive=false
                     
                         //self.taskViewModel.CheckSubscription()
-                        self.taskViewModel.getPurchaserInfo()
+                        //self.taskViewModel.getPurchaserInfo()
                        // self.taskViewModel.retrieveSubscriptionsInfo()
                          self.taskViewModel.hoursRange=[]
                         //self.rangeOfHours=[]

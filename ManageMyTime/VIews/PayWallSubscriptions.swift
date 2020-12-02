@@ -51,7 +51,7 @@ struct PayWallSubscriptions: View {
                                 self.press=true
                             
                                 self.alternativeText=true
-                                self.taskViewModel.MakeAPurchase(package: subscription.packageObject)
+                                //self.taskViewModel.MakeAPurchase(package: subscription.packageObject)
                                 
                                 if(self.taskViewModel.hasFullAccess)
                                 {

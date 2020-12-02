@@ -150,15 +150,15 @@ struct PageViewController1: View {
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")
                                     UserDefaults.standard.set(true, forKey: "userAgreedToPolicies")
                                       //Check if the app installed before and cancel trail if it was
-                                    if(!self.taskViewModel.checkIsAtInstalledBefore())
+                                    /*if(!self.taskViewModel.checkIsAtInstalledBefore())
                                       {
                                           self.taskViewModel.setInstallIdToKeychain()
-                                      }
+                                      }*/
                                     
-                                    UserDefaults.standard.set(Calendar.current.date(byAdding: .day, value: 10, to: Date()),forKey: "endTrail")
+                                   // UserDefaults.standard.set(Calendar.current.date(byAdding: .day, value: 10, to: Date()),forKey: "endTrail")
                                     
-                                    self.taskViewModel.CheckSubscription()
-                                    self.taskViewModel.SetOnceTimeObserver()
+                                    //self.taskViewModel.CheckSubscription()
+                                    //self.taskViewModel.SetOnceTimeObserver()
                                     self.finished=true}
                                                             
             }, secondaryButton: .cancel(Text("Back")))

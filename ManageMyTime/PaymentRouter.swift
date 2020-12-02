@@ -13,16 +13,11 @@ struct PaymentRouter: View {
     var receiptAssessor:ReceiptAssessor
     var body: some View {
         VStack{
-            if(!self.taskViewModel.trailEnded || UserDefaults.standard.bool(forKey: "nonSuspicious") || self.taskViewModel.hasFullAccess)
-            {
+          
                 MainViewRouter(taskViewModel:self.taskViewModel).environmentObject(ViewRouter())
-            }
-            else
-            {
-                PayWall(taskViewModel:self.taskViewModel,receiptAssessor:receiptAssessor)
-            }
+          
         }.onAppear{//self.taskViewModel.CheckSubscription()
-                    self.taskViewModel.getPurchaserInfo()
+                    //self.taskViewModel.getPurchaserInfo()
             //self.taskViewModel.TrailModeCheckSubscription()
                    self.taskViewModel.UpdateTrailEndStatus()
                   

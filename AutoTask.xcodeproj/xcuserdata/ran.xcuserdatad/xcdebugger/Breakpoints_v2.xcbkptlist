@@ -154,8 +154,8 @@
             filePath = "ManageMyTime/VIews/AddTask.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -330,8 +330,8 @@
             filePath = "ManageMyTime/VIews/MainUi2.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -346,8 +346,8 @@
             filePath = "ManageMyTime/VIews/AddTask.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -362,8 +362,8 @@
             filePath = "ManageMyTime/VIews/AddTask.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -430,38 +430,6 @@
             endingLineNumber = "588"
             landmarkName = "createTask(taskName:importance:workTimeHours:workTimeMinutes:dueDate:notes:color:difficultyIndex:notificationIndex:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "33496609-ED6D-452A-AE37-B3553EC70D08"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ManageMyTime/VIews/AddTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D9C1F1B2-A7EB-466C-B3DF-C3D28C738C4F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ManageMyTime/VIews/AddTask.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
-            landmarkName = "body"
-            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

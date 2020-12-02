@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 import SwiftUI
-import Purchases
+//import Purchases
 
 enum UUIDError: Error {
       case notConfirmedToUUID
@@ -209,7 +209,7 @@ class TaskViewModel : ObservableObject
         self.hasFullAccess=true
     }
     
-    func DateValidation()
+   /* func DateValidation()
     {
 
             if let expirationDate = UserDefaults.standard.object(forKey: "latestExpirationDate") as? Date
@@ -260,21 +260,21 @@ class TaskViewModel : ObservableObject
         }
         
         
-    }
+    }*/
     
-    @objc func NotifiedWhenTimeChanged()
+  /*  @objc func NotifiedWhenTimeChanged()
     {
         CheckSubscription()
         
-    }
+    }*/
     
-    func SetOnceTimeObserver()
+   /* func SetOnceTimeObserver()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(NotifiedWhenTimeChanged), name: NSNotification.Name.NSSystemClockDidChange, object: nil)
         
         
         
-    }
+    }*/
     
     func CheckEndSubscription()
     {
@@ -293,7 +293,7 @@ class TaskViewModel : ObservableObject
         self.subscriptionEnded=false
     }
     
-    func getPurchaserInfo()
+   /* func getPurchaserInfo()
     {
           let numberOfPurchaserClicks=UserDefaults.standard.integer(forKey: "numberOfPurchaserClicks")
         
@@ -412,7 +412,7 @@ class TaskViewModel : ObservableObject
             UserDefaults.standard.set(false, forKey: "nonSuspicious")
             self.CheckEndSubscription()
         }
-    }
+    }*/
     
     
     func UpdateTrailEndStatus()
@@ -566,7 +566,7 @@ class TaskViewModel : ObservableObject
             notificationPick=notificationIndex-1
         }
         
-        let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
+       /* let numberOfTasks=UserDefaults.standard.integer(forKey: "numberOfTasks")
         
         let trailExpr=UserDefaults.standard.object(forKey: "endTrail") as? Date
         
@@ -587,19 +587,19 @@ class TaskViewModel : ObservableObject
             
               throw PaymentError.TrailEndReached
             
-          }
+          }*/
         
         do{
             
-             getPurchaserInfo()
+            // getPurchaserInfo()
             
   
             try taskModel.createData(taskName: taskName,importance: importance,asstimatedWorkTime: workTime,dueDate: dueDate,notes: notes,color:color,difficulty:difficultyPick,notificationFactor:notificationPick)
            
-            if(numberOfTasks<6)
+            /*if(numberOfTasks<6)
             {
                 UserDefaults.standard.set(numberOfTasks+1, forKey: "numberOfTasks")
-            }
+            }*/
         }
      
         catch{
@@ -637,7 +637,7 @@ class TaskViewModel : ObservableObject
     
 
     
-    func CheckSubscription()
+  /*  func CheckSubscription()
     {
         //Gives grace time for using the app without autoschedules for 20 clicks for main stack
         if(UserDefaults.standard.integer(forKey: "numberOfEndTrailClicks") >= 5 && !self.hasFullAccess)
@@ -713,9 +713,9 @@ class TaskViewModel : ObservableObject
         
         
         
-    }
+    }*/
     
-    func TrailModeCheckSubscription()
+   /* func TrailModeCheckSubscription()
     {
         
         
@@ -760,10 +760,10 @@ class TaskViewModel : ObservableObject
         
        
         
-    }
+    }*/
     
     
-    func MakeAPurchase(package:Purchases.Package)
+   /* func MakeAPurchase(package:Purchases.Package)
     {
         if Purchases.canMakePayments() {
             // User is authorized to make payments
@@ -790,13 +790,13 @@ class TaskViewModel : ObservableObject
         
         
         
-    }
+    }*/
     
     
    
     
     
-    func retrieveSubscriptionsInfo()
+    /*func retrieveSubscriptionsInfo()
     {
         
         Purchases.shared.offerings { (offerings, error) in
@@ -898,7 +898,7 @@ class TaskViewModel : ObservableObject
         
         
         
-    }
+    }*/
     
   func autoFillTesting() throws
   {

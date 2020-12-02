@@ -141,14 +141,14 @@ struct SettingsUI: View {
                 
        
     
-                if(!self.taskViewModel.trailEnded)
+               /* if(!self.taskViewModel.trailEnded)
                     {
                         HStack{
                               
                               Button(action: {
                                 //self.taskViewModel.DefaultRestoreSubscriptionValues()
                               
-                                self.taskViewModel.TrailModeCheckSubscription()
+                               // self.taskViewModel.TrailModeCheckSubscription()
                                 
                                 if(self.taskViewModel.restoredSubscription)
                                 {
@@ -188,7 +188,7 @@ struct SettingsUI: View {
                                             Text("Purchase")
                                     }
                             }
-                      }
+                      }*/
     
     
                       
