@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PaymentRouter: View {
     @ObservedObject var taskViewModel:TaskViewModel
-    var receiptAssessor:ReceiptAssessor
+    //var receiptAssessor:ReceiptAssessor
     var body: some View {
         VStack{
           

@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         SceneDelegate.taskViewModel.retrieveAllTasks()
         //SceneDelegate.taskViewModel.retrieveSubscriptionsInfo()
         
-        let receiptAssessor=ReceiptAssessor(taskViewModel: SceneDelegate.taskViewModel)
+       // let receiptAssessor=ReceiptAssessor(taskViewModel: SceneDelegate.taskViewModel)
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
        
@@ -39,13 +39,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        // let pageViewController=PageViewController1()
        //let mainUI2 = MainUI2(taskViewModel:taskViewModel).environment(\.managedObjectContext, context)
        // let payWall = PayWall(taskViewModel:taskViewModel)
-        let paymentRouter=PaymentRouter(taskViewModel: SceneDelegate.taskViewModel,receiptAssessor:receiptAssessor)
-        //let mainViewRouter = MainViewRouter(taskViewModel:taskViewModel).environmentObject(ViewRouter(hasFullAccess: taskViewModel.hasFullAccess))
+        //let paymentRouter=PaymentRouter(taskViewModel: SceneDelegate.taskViewModel)
+        let mainViewRouter = MainViewRouter(taskViewModel:SceneDelegate.taskViewModel).environmentObject(ViewRouter())
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: paymentRouter)
+            window.rootViewController = UIHostingController(rootView: mainViewRouter)
             self.window = window
             window.makeKeyAndVisible()
         }

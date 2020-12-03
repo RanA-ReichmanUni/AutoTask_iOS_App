@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PayWallSubscriptions: View {
+/*struct PayWallSubscriptions: View {
     @ObservedObject var taskViewModel:TaskViewModel
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var alternativeText=false
@@ -17,7 +17,7 @@ struct PayWallSubscriptions: View {
     @Binding var press:Bool
     @Binding var presentPayWall:Bool
     
-    var body: some View {
+   var body: some View {
         VStack{
             
                 
@@ -103,3 +103,4 @@ struct PayWallSubscriptions: View {
         PayWall()
     }
 }*/
+ */

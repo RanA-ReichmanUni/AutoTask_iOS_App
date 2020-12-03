@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Purchases
+//import Purchases
 
 
 struct ReceiptAssessor
@@ -22,7 +22,7 @@ struct ReceiptAssessor
         
     }
     
-    func TrailModeCheckSubscription() 
+    /*func TrailModeCheckSubscription()
     {
       var restoredSubscription=false
            
@@ -83,7 +83,7 @@ struct ReceiptAssessor
         }
         
         
-    }
+    }*/
     
     
 }

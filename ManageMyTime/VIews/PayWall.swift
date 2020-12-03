@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PayWall: View {
+/*struct PayWall: View {
     @ObservedObject var taskViewModel:TaskViewModel
     @State var presentPayWall=false
     @State var showAlert=false
@@ -208,7 +208,7 @@ struct PayWall: View {
            
            }
     }
-}
+}*/
 
 /*struct PayWall_Previews: PreviewProvider {
     static var previews: some View {

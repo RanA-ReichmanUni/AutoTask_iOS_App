@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import Purchases
+//import Purchases
 
 struct SubscriptionObj {
     
    
-    var text:String
+    /*var text:String
     var packageObject:Purchases.Package
     var id:UUID
     
@@ -22,6 +22,6 @@ struct SubscriptionObj {
         self.text=text
         self.packageObject=packageObject
       
-    }
+    }*/
     
 }
