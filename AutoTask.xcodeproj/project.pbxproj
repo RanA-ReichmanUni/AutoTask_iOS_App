@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -111,7 +111,6 @@
 		2597C723255418AB00634A42 /* PayWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597C722255418AB00634A42 /* PayWall.swift */; };
 		2597C725255423AA00634A42 /* SubscriptionObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597C724255423AA00634A42 /* SubscriptionObj.swift */; };
 		2597C727255431BF00634A42 /* PaymentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597C726255431BF00634A42 /* PaymentRouter.swift */; };
-		259C4E9F2552DA060037D576 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = 259C4E9E2552DA060037D576 /* Purchases */; };
 		259C4EA12552E1DF0037D576 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA02552E1DF0037D576 /* Subscription.swift */; };
 		259C4EA32552E3CB0037D576 /* PayWallSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C4EA22552E3CB0037D576 /* PayWallSubscriptions.swift */; };
 		25A248E424AA861000E74F51 /* DetailedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A248E324AA861000E74F51 /* DetailedTask.swift */; };
@@ -345,7 +344,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				25839C642551E18200A16D46 /* StoreKit.framework in Frameworks */,
-				259C4E9F2552DA060037D576 /* Purchases in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +672,6 @@
 			);
 			name = AutoTask;
 			packageProductDependencies = (
-				259C4E9E2552DA060037D576 /* Purchases */,
 			);
 			productName = ManageMyTime;
 			productReference = 25680711249FF1FC0096AB89 /* Auto Task.app */;
@@ -731,7 +728,6 @@
 			);
 			mainGroup = 25680708249FF1FC0096AB89;
 			packageReferences = (
-				259C4E9D2552DA060037D576 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 25680712249FF1FC0096AB89 /* Products */;
 			projectDirPath = "";
@@ -1258,25 +1254,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		259C4E9D2552DA060037D576 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.7.5;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		259C4E9E2552DA060037D576 /* Purchases */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 259C4E9D2552DA060037D576 /* XCRemoteSwiftPackageReference "purchases-ios" */;
-			productName = Purchases;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */ = {
