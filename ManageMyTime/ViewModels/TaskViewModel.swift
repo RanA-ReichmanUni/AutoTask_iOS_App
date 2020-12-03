@@ -1345,7 +1345,7 @@ class TaskViewModel : ObservableObject
         case 1:
             self.latestDayChoiseIndex=1
             let dayName=DaysOfTheWeek.Sunday.rawValue.lowercased()
-             var tasks=taskModel.retrieveAllTasks()
+             var tasks=taskModel.retrieveAllTasksFromWeekStart()
                  
                  tasks.sort {
                                 ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
@@ -1369,7 +1369,7 @@ class TaskViewModel : ObservableObject
         case 2:
             self.latestDayChoiseIndex=2
             let dayName=DaysOfTheWeek.Monday.rawValue.lowercased()
-             var tasks=taskModel.retrieveAllTasks()
+             var tasks=taskModel.retrieveAllTasksFromWeekStart()
                  
                  tasks.sort {
                                 ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
@@ -1391,7 +1391,7 @@ class TaskViewModel : ObservableObject
         case 3:
             self.latestDayChoiseIndex=3
             let dayName=DaysOfTheWeek.Tuesday.rawValue.lowercased()
-             var tasks=taskModel.retrieveAllTasks()
+             var tasks=taskModel.retrieveAllTasksFromWeekStart()
                  
                  tasks.sort {
                                 ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
@@ -1413,7 +1413,7 @@ class TaskViewModel : ObservableObject
         case 4:
             self.latestDayChoiseIndex=4
             let dayName=DaysOfTheWeek.Wednesday.rawValue.lowercased()
-             var tasks=taskModel.retrieveAllTasks()
+             var tasks=taskModel.retrieveAllTasksFromWeekStart()
                  
                  tasks.sort {
                                 ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
@@ -1425,6 +1425,7 @@ class TaskViewModel : ObservableObject
                 endOfWeek.day=Date().endOfWeek.day
             var matchingTasks = [Task]()
             for task in tasks{
+              
                 if (task.date.dayOfWeek().lowercased()==dayName && task.date <= endOfWeek )
                 {
                     matchingTasks.append(task)
@@ -1435,7 +1436,7 @@ class TaskViewModel : ObservableObject
         case 5:
             self.latestDayChoiseIndex=5
             let dayName=DaysOfTheWeek.Thursday.rawValue.lowercased()
-             var tasks=taskModel.retrieveAllTasks()
+             var tasks=taskModel.retrieveAllTasksFromWeekStart()
                  
                  tasks.sort {
                                 ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
@@ -1457,7 +1458,7 @@ class TaskViewModel : ObservableObject
         case 6:
             self.latestDayChoiseIndex=6
             let dayName=DaysOfTheWeek.Friday.rawValue.lowercased()
-             var tasks=taskModel.retrieveAllTasks()
+             var tasks=taskModel.retrieveAllTasksFromWeekStart()
                  
                  tasks.sort {
                                 ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <
@@ -1479,7 +1480,7 @@ class TaskViewModel : ObservableObject
         case 7:
             self.latestDayChoiseIndex=7
             let dayName=DaysOfTheWeek.Saturday.rawValue.lowercased()
-               var tasks=taskModel.retrieveAllTasks()
+               var tasks=taskModel.retrieveAllTasksFromWeekStart()
                    
                    tasks.sort {
                                   ($0.date.year, $0.date.month, $0.date.day,$0.startTime!.hour,$0.startTime!.minutes) <

@@ -1364,6 +1364,69 @@ class TaskModel : UIViewController
         return allTasks
         }
     
+    func retrieveAllTasksFromWeekStart() -> [Task] {
+           var allTasks=[Task]()
+            //As we know that container is set up in the AppDelegates so we need to refer that container.
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return allTasks }
+            
+            //We need to create a context from this container
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+           /* let startOfTheWeek=CustomDate(context: managedContext)
+                startOfTheWeek.day=Date().startOfWeek.day
+                startOfTheWeek.month=Date().startOfWeek.month
+                startOfTheWeek.year=Date().startOfWeek.year*/
+        
+            let today=CustomDate(context: managedContext)
+            today.day=Date().day
+            today.month=Date().month
+            today.year=Date().year
+        
+            let startOfTheWeek=CustomDate(context: managedContext)
+                startOfTheWeek.day=Date().startOfWeek.day
+                startOfTheWeek.month=Date().startOfWeek.month
+                startOfTheWeek.year=Date().startOfWeek.year
+            //Prepare the request of type NSFetchRequest  for the entity
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+             fetchRequest.predicate = NSPredicate(format: "isTaskBreakWindow = %@",argumentArray: [false])
+    //        fetchRequest.fetchLimit = 1
+    //        fetchRequest.predicate = NSPredicate(format: "username = %@", "Ankur")
+    //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+    //
+            do {
+                
+                let result = try managedContext.fetch(fetchRequest)
+                for data in result as! [Task] {
+                        
+                    /*if(data.taskName=="Task King")
+                    {
+                            print("Task Status: ")
+                            print(data.taskName)
+                            print("Duration ",data.asstimatedWorkTime.hour,":",data.asstimatedWorkTime.minutes)
+                            print("Start Time ",data.startTime!.hour,":",data.startTime!.minutes)
+                            print("End Time ",data.endTime!.hour,":",data.endTime!.minutes)
+                    }*/
+                    if(data.date >=  startOfTheWeek)
+                    {
+                        allTasks.append(data)
+                    }
+                    /*    print(data.taskName)
+                    print(data.asstimatedWorkTime.hour,":",data.asstimatedWorkTime.minutes)
+                    print(data.startTime!.hour,":",data.startTime!.minutes)
+                    print(data.endTime!.hour,":",data.endTime!.minutes)*/
+                    
+                    /*print("Name:",data.value(forKey: "taskName") as! String," Importance:",data.value(forKey: "importance") as! String," Id:",data.value(forKey: "id") as! UUID )*/
+               
+                }
+                print("Retrived all tasks !")
+                
+            } catch {
+                
+                print("Failed")
+            }
+        
+        return allTasks
+        }
     func retrieveAllTasksAndBreakWindows() -> [Task] {
            var allTasks=[Task]()
             //As we know that container is set up in the AppDelegates so we need to refer that container.
