@@ -1124,7 +1124,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ManageMyTime/Preview Content\"";
 				DEVELOPMENT_TEAM = 36RVW45G38;
 				ENABLE_PREVIEWS = YES;
@@ -1133,7 +1133,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RanAmir.AutoTask;
 				PRODUCT_NAME = "Auto Task";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1148,7 +1148,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ManageMyTime/Preview Content\"";
 				DEVELOPMENT_TEAM = 36RVW45G38;
 				ENABLE_PREVIEWS = YES;
@@ -1157,7 +1157,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RanAmir.AutoTask;
 				PRODUCT_NAME = "Auto Task";
 				PROVISIONING_PROFILE_SPECIFIER = "";
