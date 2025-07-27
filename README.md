@@ -5,8 +5,7 @@ It supports various scheduling strategies, and uses persistent storage via Core 
 
 
 
-**Click on the Image To See the App Demo on Youtube**
+**Click on the Image To See an App Demo on Youtube**
 
-<a href="https://www.youtube.com/watch?v=wuhXtkIyTuE" target="_blank">
-  <img src="https://i.ibb.co/3YdX50yg/2025-07-27-035358.png" alt="Watch the video" width="600">
-</a>
+[![Watch the video](https://i.ibb.co/3YdX50yg/2025-07-27-035358.png)](https://www.youtube.com/watch?v=wuhXtkIyTuE)
+
