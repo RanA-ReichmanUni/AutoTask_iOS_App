@@ -3,4 +3,10 @@ related stress. Just work, and forget about deadlines.
 Built using SwiftUI with an MVVM architecture the app features a clean separation between UI, logic, and data layers. 
 It supports various scheduling strategies, and uses persistent storage via Core Data.
 
-[![Watch the video](https://img.youtube.com/vi/wuhXtkIyTuE/0.jpg)](https://www.youtube.com/watch?v=wuhXtkIyTuE)
+
+
+**Click on the Image To See the App Demo on Youtube**
+
+<a href="https://www.youtube.com/watch?v=wuhXtkIyTuE" target="_blank">
+  <img src="https://i.ibb.co/3YdX50yg/2025-07-27-035358.png" alt="Watch the video" width="600">
+</a>
