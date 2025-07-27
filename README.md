@@ -2,3 +2,5 @@ AutoTask as an iOS app designed to automate busy idividuals/students schedules a
 related stress. Just work, and forget about deadlines. 
 Built using SwiftUI with an MVVM architecture the app features a clean separation between UI, logic, and data layers. 
 It supports various scheduling strategies, and uses persistent storage via Core Data.
+
+[![Watch the video](https://img.youtube.com/vi/wuhXtkIyTuE/0.jpg)](https://www.youtube.com/watch?v=wuhXtkIyTuE)
