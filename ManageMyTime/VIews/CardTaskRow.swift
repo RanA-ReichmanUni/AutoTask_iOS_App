@@ -23,7 +23,7 @@ struct CardTaskRow: View {
     var endTimeMinutes:Int
     var scheduledDate: String
     var color: Color
-    @Binding var offset:CGFloat
+    @State private var offset: CGFloat = 0
     var date:CustomDate
     var notes:String
     var id:UUID
@@ -399,7 +399,11 @@ struct CardTaskRow: View {
             withAnimation(.easeIn(duration: 0.5)) { self.padding = 100 }
         }
           */
-        
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.25)) {
+                self.offset = 18
+            }
+        }
     }
 }
 
