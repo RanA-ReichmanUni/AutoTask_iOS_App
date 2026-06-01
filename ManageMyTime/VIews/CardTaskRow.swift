@@ -56,13 +56,15 @@ struct CardTaskRow: View {
     var body: some View {
            
         VStack{
+            VStack {
                             HStack{
                                // Spacer()
-                                Text(self.taskName1).strikethrough(date < Date() ? true : false , color: Color.black).font(Font.custom("Chalkduster", size: 22))
+                                Text(self.taskName1).strikethrough(date < Date() ? true : false , color: self.colorScheme == .dark ? Color.gray : Color.black).font(Font.custom("Chalkduster", size: 22))
                             .font(.system(size: 20))
     
                             .fontWeight(.bold)
                                     .lineLimit(2).foregroundColor(.white)
+                                    .accessibilityAddTraits(.isHeader)
          
                                Spacer()
                             }.padding(.top,self.isClickable ? vStackPadding : 10)
@@ -166,6 +168,10 @@ struct CardTaskRow: View {
                                                                                                              ))
                                     Spacer()
                                 }.padding(.top,self.isClickable ? secondRowPadding : 2)
+                            }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel("Task: \(taskName1), Scheduled for \(scheduledDate), from \(taskViewModel.AdjustViewHourStandard(value:startTimeHour)):\(taskViewModel.AdjustViewHourStandard(value:startTimeMinutes)) to \(taskViewModel.AdjustViewHourStandard(value:endTimeHour)):\(taskViewModel.AdjustViewHourStandard(value:endTimeMinutes)), Due \(dueDate1)")
+                            .accessibilityValue(completed ? "Completed" : "Incomplete")
                         HStack{
                             
                      
@@ -198,6 +204,9 @@ struct CardTaskRow: View {
                                                                            
                                                                            
                              }
+                             .accessibilityLabel("Edit Task")
+                             .accessibilityHint("Opens the edit task screen")
+                             .accessibilityAddTraits(.isButton)
                               
                       
                               
@@ -212,7 +221,10 @@ struct CardTaskRow: View {
                                                 Text("Delete").font(Font.custom("Chalkduster", size: 16)).foregroundColor(self.colorScheme == .dark ? Color.white : Color.black)}.padding()
                                                                             
                                                                             
-                              } .alert(isPresented:$showingAlert) {
+                              } 
+                              .accessibilityLabel("Delete Task")
+                              .accessibilityHint("Prompts to delete this task")
+                              .accessibilityAddTraits(.isButton).alert(isPresented:$showingAlert) {
                                          Alert(title: Text("Are you sure you want to delete this task ?"), message: Text("\nThis Task And All It's Sub Schedules Will Be Deleted. \nYou can`t undo this action"), primaryButton: .destructive(Text("Delete")) {
                                                       self.taskViewModel.deleteTask(taskId: self.taskId)
                                                             self.taskViewModel.getFirstTaskColor()
@@ -233,6 +245,9 @@ struct CardTaskRow: View {
                                                                       
                                                                       
                         }
+                        .accessibilityLabel("Expand Task Details")
+                        .accessibilityHint("Expands the task card for more options")
+                        .accessibilityAddTraits(.isButton)
                                                      
               
                             
@@ -251,7 +266,7 @@ struct CardTaskRow: View {
                    
                    
                                 .padding(EdgeInsets(top: 15, leading: 15, bottom: self.isClickable ? paddingBottom : 2, trailing: 15))
-                .frame(height:self.height)
+                .frame(minHeight:self.height)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .fill(
@@ -270,7 +285,7 @@ struct CardTaskRow: View {
                         .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0, y: -3)
                 )
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(self.colorScheme == .dark ? Color.black : Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.3))
-                .frame(height:self.height)
+                .frame(minHeight:self.height)
                 .padding(.bottom,overlayPadding)
                 .offset(y: self.offset).sheet(item: self.$activeSheet) { sheet in
             if(sheet.type==1)

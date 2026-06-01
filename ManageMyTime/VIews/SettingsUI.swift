@@ -57,7 +57,7 @@ struct SettingsUI: View {
         UITableView.appearance().backgroundColor = self.colorScheme == .dark ? Color.black.uiColor() : Color(hex:"#fcfcfc").uiColor()
             return  NavigationView {
              
-         
+         VStack(spacing: 0) {
   Form{
                 
                                        
@@ -193,15 +193,12 @@ struct SettingsUI: View {
     
                       
                                                        
-                                Button("Privacy Policy") {
-                                   UIApplication.shared.open(URL(string: "http://auto-task-automatic.flycricket.io/privacy.html")!)
-                               }
+                                
     
-                              Button("Application Terms and Conditions") {
-                                        UIApplication.shared.open(URL(string: "http://auto-task-automatic.flycricket.io/terms.html")!)
-                                }
-
-
+                              
+    
+                               
+    
                            
     
     
@@ -222,6 +219,32 @@ struct SettingsUI: View {
                         
                         
                     
+  }
+  
+  VStack(spacing: 12) {
+      Button("Privacy Policy") {
+          UIApplication.shared.open(URL(string: "http://auto-task-automatic.flycricket.io/privacy.html")!)
+      }
+      .font(.footnote)
+      .foregroundColor(.secondary)
+      
+      Button("Application Terms and Conditions") {
+          UIApplication.shared.open(URL(string: "http://auto-task-automatic.flycricket.io/terms.html")!)
+      }
+      .font(.footnote)
+      .foregroundColor(.secondary)
+      
+      NavigationLink(destination: AccessibilityStatementUI()) {
+          Text("Accessibility Statement")
+      }
+      .font(.footnote)
+      .foregroundColor(.secondary)
+      .accessibilityLabel("Accessibility Statement")
+      .accessibilityHint("Opens the accessibility statement and exemption notice")
+  }
+  .padding(.bottom, 20)
+  .padding(.top, 10)
+  
   }.navigationBarTitle(Text("Settings"),displayMode: .inline)
     
         
@@ -339,5 +362,32 @@ extension Binding {
             self.wrappedValue = newValue
             closure()
         })
+    }
+}
+
+struct AccessibilityStatementUI: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                
+                Text("Accessibility Exemption Notice")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .accessibilityAddTraits(.isHeader)
+                
+                Text("This application is developed by a sole independent developer. Our annual revenue falls below the statutory threshold requiring mandatory commercial digital accessibility adaptations under applicable local regulations. Nevertheless, we believe in inclusivity and have voluntarily made an effort to implement screen reader compatibility, dynamic font scaling, and high-contrast themes. If you experience issues, please contact us and we will try to improve your experience.")
+                    .font(.body)
+                
+             
+             
+                
+             
+            }
+            .padding()
+        }
+        .navigationBarTitle("Accessibility Statement", displayMode: .inline)
+        .background(self.colorScheme == .dark ? Color.black : Color(hex: "#fcfcfc"))
     }
 }
