@@ -57,16 +57,7 @@ struct CardTaskRowIOS14: View {
     
     var body: some View {
            
-        ZStack(alignment: .leading) {
-   
-                Color.flatDarkCardBackground
-               // Spacer()
-            
-                 
-                   
-                    
-                
-            VStack{
+        VStack{
                             HStack{
                                // Spacer()
                                 Text(self.taskName1).strikethrough(date < Date() ? true : false , color: Color.black).font(Font.custom("Chalkduster", size: 22))
@@ -264,22 +255,29 @@ struct CardTaskRowIOS14: View {
                     
                    
                    
-                .padding(EdgeInsets(top: 15, leading: 15, bottom: self.isClickable ? paddingBottom : 2, trailing: 15)).frame(height:self.height) .background(
-                    self.colorScheme == .dark ? ( LinearGradient(
-                        gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
-                        startPoint: .topTrailing,
-                        endPoint:.bottomTrailing
-                               )) :(
-                   LinearGradient(
-                    gradient: Gradient(colors: [self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),/*.white,self.color,self.color,self.color //.white,self.color,self.color,self.color,.white*/
-                     //self.color,.purple,.purple,.purple
-                        startPoint: .topLeading,
-                      endPoint:.bottomTrailing
-                               ))).shadow(radius: 20).overlay(RoundedRectangle(cornerRadius: 20).stroke(self.colorScheme == .dark ? Color.black : Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.3)).frame(height:self.height).padding(.bottom,overlayPadding)
-                //.shadow(color:.black,radius: 5)
-                //.shadow(color:.white,radius: 5)
-            }
-        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(item: self.$activeSheet) { sheet in
+                .padding(EdgeInsets(top: 15, leading: 15, bottom: self.isClickable ? paddingBottom : 2, trailing: 15))
+                .frame(height:self.height)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(
+                            self.colorScheme == .dark ?
+                            LinearGradient(
+                                gradient: Gradient(colors: [self.color,Color(hex:"#161518"),Color(hex:"#161518"),Color(hex:"#161518"),self.color]),
+                                startPoint: .topTrailing,
+                                endPoint:.bottomTrailing
+                            ) :
+                            LinearGradient(
+                                gradient: Gradient(colors: [self.completed == false ? self.color: self.color.opacity(0.01),self.completed == false ? self.color: .white,self.completed == false ? self.color: .white,.white]),
+                                startPoint: .topLeading,
+                                endPoint:.bottomTrailing
+                            )
+                        )
+                        .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0, y: -3)
+                )
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(self.colorScheme == .dark ? Color.black : Color.black,lineWidth: self.colorScheme == .dark ? 5 : 0.3))
+                .frame(height:self.height)
+                .padding(.bottom,overlayPadding)
+                .offset(y: self.offset).sheet(item: self.$activeSheet) { sheet in
             if(sheet.type==1)
             {
                 
@@ -333,54 +331,24 @@ struct CardTaskRowIOS14: View {
             {
                 if(self.paddingBottom == 70)
                 {
-                    
-                       /* withAnimation(.easeInOut) {
-                                //self.vStackPadding = 0
-                               //self.lowerLinePadding = 20
-                            
-                    }*/
-                    
-                      
-                    
-                    //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        withAnimation(.easeInOut) {
-                            
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                             self.paddingBottom = -60
                             self.padding = 0
                             self.vStackPadding = 0
-                           self.lowerLinePadding = 20
-                            self.overlayPadding=2
+                            self.lowerLinePadding = 20
+                            self.overlayPadding = 2
                             self.secondRowPadding = 20
                         }
-                   // }
                 }
-            
-                    
-                
-    
-                
-                
-                else{
-                    withAnimation(.easeInOut) {
-                         self.paddingBottom=70//260
-                         self.padding = -96//-115
-                         self.vStackPadding = 120
-                         self.lowerLinePadding = 5
-                        //self.secondRowPadding = 25
-                        self.overlayPadding=98
+                else {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                         self.paddingBottom = 70
+                         self.padding = -96
+                         self.vStackPadding = 20
+                         self.lowerLinePadding = -20
+                         self.secondRowPadding = 2
+                         self.overlayPadding = 98
                     }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                            if(self.paddingBottom == 70)
-                            {
-                                withAnimation(.easeInOut) {
-                                     self.vStackPadding = 20
-                                    self.lowerLinePadding = -20
-                                    self.secondRowPadding = 2
-                                    }
-                                }
-                            }
-                                                     
                 }
         }
                /* DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
