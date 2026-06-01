@@ -37,6 +37,46 @@ struct DetailedTaskWithObj: View {
     var helper = HelperFuncs()
     @Environment(\.colorScheme) var colorScheme
 
+    var isRepeatedActivity: Bool = false
+    
+    init(taskViewModel: TaskViewModel = TaskViewModel(),
+         displayItem: Binding<Bool>,
+         taskName: String,
+         importance: String,
+         dueDate: Date,
+         notes: String,
+         asstimatedWorkTimeHour: String,
+         asstimatedWorkTimeMinutes: String,
+         startTimeHour: String,
+         startTimeMinutes: String,
+         endTimeHour: String,
+         endTimeMinutes: String,
+         day: Int,
+         month: Int,
+         year: Int,
+         taskId: UUID,
+         color: Color,
+         isRepeatedActivity: Bool = false) {
+        self._taskViewModel = ObservedObject(wrappedValue: taskViewModel)
+        self._displayItem = displayItem
+        self.taskName = taskName
+        self.importance = importance
+        self.dueDate = dueDate
+        self.notes = notes
+        self.asstimatedWorkTimeHour = asstimatedWorkTimeHour
+        self.asstimatedWorkTimeMinutes = asstimatedWorkTimeMinutes
+        self.startTimeHour = startTimeHour
+        self.startTimeMinutes = startTimeMinutes
+        self.endTimeHour = endTimeHour
+        self.endTimeMinutes = endTimeMinutes
+        self.day = day
+        self.month = month
+        self.year = year
+        self.taskId = taskId
+        self.color = color
+        self.isRepeatedActivity = isRepeatedActivity
+    }
+
    // var lightModeGradient:LinearGradient=
     
     //var task :Task
@@ -80,7 +120,7 @@ struct DetailedTaskWithObj: View {
                     Text(helper.dateToStringNormalized(date: dueDate)
                     ).foregroundColor(Color.red).font(Font.custom("Chalkduster", size: 18)).font(.system(size: 22)) .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).frame(height: 90)//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
                       Spacer()
-                }
+                }.isHidden(self.isRepeatedActivity, remove: true)
                 
               /*  HStack {
                     Text("Importance: ")//.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
@@ -99,7 +139,7 @@ struct DetailedTaskWithObj: View {
                           
                     
                     Spacer()
-                }
+                }.isHidden(self.isRepeatedActivity, remove: true)
                
          
                 
@@ -119,7 +159,7 @@ struct DetailedTaskWithObj: View {
                         }.frame(height: 90)
                        Spacer()
                        //.foregroundColor(self.colorScheme == .dark ? Color.black : Color.black)
-                           }
+                           }.isHidden(self.isRepeatedActivity, remove: true)
                     
                     
                 HStack {

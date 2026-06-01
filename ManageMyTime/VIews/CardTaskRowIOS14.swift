@@ -48,6 +48,13 @@ struct CardTaskRowIOS14: View {
     @State var overlayPadding:CGFloat = 2
     @State var secondRowPadding:CGFloat = 20
     
+    struct ActiveSheet: Identifiable {
+        let id = UUID()
+        let type: Int
+    }
+    @State var activeSheet: ActiveSheet?
+    
+    
     var body: some View {
            
         ZStack(alignment: .leading) {
@@ -193,8 +200,10 @@ struct CardTaskRowIOS14: View {
                             if (self.horizontalSizeClass == .compact) {
                                   Button(action: {
                                                                           
-                                            self.displayItem=true
                                             self.windowType=2
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                self.activeSheet = ActiveSheet(type: 2)
+                                            }
                                                                                                     
                                                }) {
                                                 
@@ -226,8 +235,10 @@ struct CardTaskRowIOS14: View {
                             
                             Button(action: {
                                                                                              
-                                self.displayItem=true
                                 self.windowType=1
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    self.activeSheet = ActiveSheet(type: 1)
+                                }
                                                                                                                        
                                       }) {
                                        
@@ -268,11 +279,11 @@ struct CardTaskRowIOS14: View {
                 //.shadow(color:.black,radius: 5)
                 //.shadow(color:.white,radius: 5)
             }
-        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).popover(isPresented: self.$displayItem) {
-            if(self.windowType==1)
+        .clipShape(RoundedRectangle(cornerRadius: 20)).offset(y: self.offset).sheet(item: self.$activeSheet) { sheet in
+            if(sheet.type==1)
             {
                 
-                DetailedTaskWithObj(taskViewModel: self.taskViewModel, displayItem: self.$displayItem, taskName: self.taskName1, importance: self.importance1, dueDate: self.dueDate, notes: self.notes, asstimatedWorkTimeHour: String(self.workTimeHour),asstimatedWorkTimeMinutes:String(self.workTimeMinutes),startTimeHour:String(self.startTimeHour),startTimeMinutes:String(self.startTimeMinutes),endTimeHour:String(self.endTimeHour),endTimeMinutes:String(self.endTimeMinutes),day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color)
+                DetailedTaskWithObj(taskViewModel: self.taskViewModel, displayItem: Binding(get: { self.activeSheet?.type == 1 }, set: { if !$0 { self.activeSheet = nil } }), taskName: self.taskName1, importance: self.importance1, dueDate: self.dueDate, notes: self.notes, asstimatedWorkTimeHour: String(self.workTimeHour),asstimatedWorkTimeMinutes:String(self.workTimeMinutes),startTimeHour:String(self.startTimeHour),startTimeMinutes:String(self.startTimeMinutes),endTimeHour:String(self.endTimeHour),endTimeMinutes:String(self.endTimeMinutes),day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color)
                  
                /* DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: self.taskName1,importance: self.importance1,dueDate: self.dueDate,notes: self.notes, asstimatedWorkTimeHour: self.workTimeHour,asstimatedWorkTimeMinutes:self.workTimeMinutes,startTimeHour:self.startTimeHour,startTimeMinutes:self.startTimeMinutes,endTimeHour:self.endTimeHour,endTimeMinutes:self.endTimeMinutes,day:self.date.day,month:self.date.month,year:self.date.year,taskId:self.id,color:self.color,displayItem:self.$displayItem, completed: self.$completed)*/
                     /*.onTapGesture {
@@ -303,7 +314,7 @@ struct CardTaskRowIOS14: View {
                 }*/
                             
             }
-            if(self.windowType==2)
+            if(sheet.type==2)
             {
                 
                         

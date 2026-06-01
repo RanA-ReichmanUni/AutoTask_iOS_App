@@ -32,10 +32,94 @@ struct TaskListFastAnimation: View {
     @State var showAdd=false
     @State var type=1
     private func GetTasksByChoise() {
-            
         taskViewModel.GetDayTasksByIndex(index: dayIndexSelector)
-           
-          }
+    }
+
+    private func taskRowView(task: Task, geometry: GeometryProxy) -> some View {
+        VStack {
+            if self.colorScheme != .dark {
+                taskCardContent(task: task, geometry: geometry)
+                    .animation(.ripple())
+            } else {
+                taskCardContent(task: task, geometry: geometry)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func taskCardContent(task: Task, geometry: GeometryProxy) -> some View {
+        if self.taskViewModel.allTasks.firstIndex(of: task) != self.taskViewModel.allTasks.count - 1 {
+            if self.show {
+                CardTaskRow(
+                    taskViewModel: self.taskViewModel,
+                    taskId: task.id,
+                    taskName1: task.taskName,
+                    dueDate1: self.helper.dateToStringNormalized(date: task.dueDate),
+                    importance1: task.importance!,
+                    workTimeHour: task.asstimatedWorkTime.hour,
+                    workTimeMinutes: task.asstimatedWorkTime.minutes,
+                    startTimeHour: task.startTime!.hour,
+                    startTimeMinutes: task.startTime!.minutes,
+                    endTimeHour: task.endTime!.hour,
+                    endTimeMinutes: task.endTime!.minutes,
+                    scheduledDate: self.helper.dateToString(date: task.date),
+                    color: self.taskViewModel.getTaskColor(task: task),
+                    date: task.date,
+                    notes: task.notes!,
+                    id: task.id,
+                    dueDate: task.dueDate,
+                    completed: task.completed,
+                    internalId: task.internalId!,
+                    isClickable: true,
+                    geometry: geometry
+                )
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0))
+                .offset(y: self.offset)
+                .onAppear { self.offset = 18 }
+            } else {
+                RoundedRectangle(cornerRadius: 20)
+                    .isHidden(true)
+                    .frame(height: 350)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0))
+                    .offset(y: self.offset)
+                    .onAppear { self.show = true }
+            }
+        } else {
+            CardTaskRow(
+                taskViewModel: self.taskViewModel,
+                taskId: task.id,
+                taskName1: task.taskName,
+                dueDate1: self.helper.dateToStringNormalized(date: task.dueDate),
+                importance1: task.importance!,
+                workTimeHour: task.asstimatedWorkTime.hour,
+                workTimeMinutes: task.asstimatedWorkTime.minutes,
+                startTimeHour: task.startTime!.hour,
+                startTimeMinutes: task.startTime!.minutes,
+                endTimeHour: task.endTime!.hour,
+                endTimeMinutes: task.endTime!.minutes,
+                scheduledDate: self.helper.dateToString(date: task.date),
+                color: self.taskViewModel.getTaskColor(task: task),
+                date: task.date,
+                notes: task.notes!,
+                id: task.id,
+                dueDate: task.dueDate,
+                completed: task.completed,
+                internalId: task.internalId!,
+                isClickable: false,
+                geometry: geometry
+            )
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+            .padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0))
+            .offset(y: self.offset)
+            .onAppear { self.offset = 18 }
+            .onAppear {
+                self.dayIndexSelector = self.taskViewModel.latestDayChoiseIndex
+            }
+        }
+    }
+
     
     var body: some View {
 
@@ -77,97 +161,10 @@ struct TaskListFastAnimation: View {
                  
                     
                     ForEach(self.taskViewModel.allTasks, id: \.id) { task in
-                        
-                        VStack{
-                            if(self.colorScheme != .dark)
-                            {
-                                VStack{
-                                   /* NavigationLink(destination: DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes!, asstimatedWorkTimeHour: task.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes,day:task.date.day,month:task.date.month,year:task.date.year,taskId:task.id,color:self.taskViewModel.getTaskColor(task:task))){*/
-                                    if(self.taskViewModel.allTasks.firstIndex(of: task) != self.taskViewModel.allTasks.count-1)
-                                    {
-                                        if(self.show)//Implemented lazyLoading of list cards,tremendous performance upgrade
-                                          {
-                                            CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToStringNormalized(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:true,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}//.onDisappear{self.show=false}
-                                        }
-                                          else{
-                                             RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.show=true}//When reaching exchange the placeholder with real card
-                                            
-                                        }
-                                        
-                                        
-                                    }
-                                    else{
-                                           
-                                             CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToStringNormalized(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:false,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onAppear{
-                                                     self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex
-                                             }
-                                        
-                                            
-                                    }
-                                 
-                                    /*.onTapGesture {
-                                            withAnimation(.easeIn(duration: 5)) { self.offset = 50 }
-                                        }*/
-                                        
-                                        
-                                              
-                                               /*.padding(.top, -6)
-                                               .padding(.bottom, -6)
-                                               .padding(.leading, -18)
-                                               .padding(.trailing, -18)*/
-                                       /* TaskRow(taskName1: task.taskName , dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance!,color:self.taskViewModel.getTaskColor(task:task))*/
-                                   // }
-                                    
-                                 
-                                }.animation(.ripple())
-                        }
-                        else{
-                                
-                                VStack{
-                                        /* NavigationLink(destination: DetailedTaskUI( taskViewModel:self.taskViewModel,taskName: task.taskName,importance: task.importance!,dueDate: task.dueDate,notes: task.notes!, asstimatedWorkTimeHour: task.asstimatedWorkTime.hour,asstimatedWorkTimeMinutes:task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes,day:task.date.day,month:task.date.month,year:task.date.year,taskId:task.id,color:self.taskViewModel.getTaskColor(task:task))){*/
-                                         if(self.taskViewModel.allTasks.firstIndex(of: task) != self.taskViewModel.allTasks.count-1)
-                                         {
-                                             if(self.show)//Implemented lazyLoading of list cards,tremendous performance upgrade
-                                               {
-                                                 CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToStringNormalized(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:true,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}//.onDisappear{self.show=false}
-                                             }
-                                               else{
-                                                  RoundedRectangle(cornerRadius: 20).isHidden(true).frame(height:350).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.show=true}//When reaching exchange the placeholder with real card
-                                                 
-                                             }
-                                             
-                                             
-                                         }
-                                         else{
-                                                
-                                                  CardTaskRow( taskViewModel:self.taskViewModel,taskId:task.id,taskName1: task.taskName, dueDate1: self.helper.dateToStringNormalized(date: task.dueDate), importance1: task.importance!, workTimeHour: task.asstimatedWorkTime.hour, workTimeMinutes: task.asstimatedWorkTime.minutes,startTimeHour:task.startTime!.hour,startTimeMinutes:task.startTime!.minutes,endTimeHour:task.endTime!.hour,endTimeMinutes:task.endTime!.minutes, scheduledDate: self.helper.dateToString(date: task.date), color: self.taskViewModel.getTaskColor(task:task),offset:self.$offset,date:task.date,notes:task.notes!,id:task.id,dueDate:task.dueDate,completed:task.completed,internalId:task.internalId!,isClickable:false,geometry:geometry).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).padding(EdgeInsets(top: -160, leading: 0, bottom: self.padding, trailing: 0)).offset(y:self.offset).onAppear{self.offset=18}.onAppear{
-                                                          self.dayIndexSelector=self.taskViewModel.latestDayChoiseIndex
-                                                  }
-                                             
-                                                 
-                                         }
-                                      
-                                         /*.onTapGesture {
-                                                 withAnimation(.easeIn(duration: 5)) { self.offset = 50 }
-                                             }*/
-                                             
-                                             
-                                                   
-                                                    /*.padding(.top, -6)
-                                                    .padding(.bottom, -6)
-                                                    .padding(.leading, -18)
-                                                    .padding(.trailing, -18)*/
-                                            /* TaskRow(taskName1: task.taskName , dueDate1: self.helper.dateToString(date: task.dueDate) , importance1: task.importance!,color:self.taskViewModel.getTaskColor(task:task))*/
-                                        // }
-                                         
-                                  
-                                 }//.animation(.easeInOut(duration:0.6))
-                            }
+                        self.taskRowView(task: task, geometry: geometry)
                     }
-                        
-                        
-                        
-                }
+
+
                 
                
                       

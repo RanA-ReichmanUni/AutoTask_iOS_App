@@ -42,52 +42,32 @@ struct TestTaskRow: View {
           {*/
         Text(self.taskName).frame(width: geometry.size.width, height:  geometry.size.height).background(RoundedRectangle(cornerRadius: 5).fill(self.fillColor.opacity(self.colorScheme == .dark ? Double(self.opacity==0.2 ? self.opacity*0.5 : self.opacity) : Double(self.opacity)))).foregroundColor(.white).onTapGesture{
                    
-                        if(self.taskId != nil && !self.isRepeatedActivity)
+                        if(self.taskId != nil)
                         {
-                        
-                                  self.taskViewModel.getTask(taskId: self.taskId!)
-                                print("here" ,self.taskViewModel.taskName)
-                                   self.displayItem.toggle()
-                                 print("here" ,self.displayItem)
-                                self.borderColor=Color.init(red: 0, green: 0, blue: 102)
-                                
-                                    self.dashCount = 0
-                        }
-                      /*  else if(self.taskId != nil && self.isRepeatedActivity)
-                        {
-                            self.taskViewModel.getTask(taskId: self.taskId!)
-                            print("here" ,self.taskViewModel.taskName)
-                               self.displayItem.toggle()
-                             print("here" ,self.displayItem)
+                            self.taskViewModel.isCurrentTaskRepeatedActivity = self.isRepeatedActivity
+                            if(self.isRepeatedActivity)
+                            {
+                                self.taskViewModel.getRestrictedSpace(restrictedSpaceId: self.taskId!)
+                            }
+                            else
+                            {
+                                self.taskViewModel.getTask(taskId: self.taskId!)
+                            }
+                            self.displayItem.toggle()
+                            self.taskViewModel.showWeeklySheet = true
                             self.borderColor=Color.init(red: 0, green: 0, blue: 102)
-                            
-                        }*/
+                            self.dashCount = 0
+                        }
             
-                    }
-     /*   }
-          else{//DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            Spacer().onAppear{ self.show=true}
-        }*/
-           
-            }
-                    .sheet(isPresented: self.$displayItem) {
+                    }.sheet(isPresented: self.$displayItem) {
                         VStack {
-                            DetailedTaskWithObj(displayItem:self.$displayItem, taskName: self.taskViewModel.taskName,importance: self.taskViewModel.importance,dueDate: self.taskViewModel.dueDate,notes: self.taskViewModel.notes, asstimatedWorkTimeHour: self.taskViewModel.asstimatedWorkTimeHour,asstimatedWorkTimeMinutes:self.taskViewModel.asstimatedWorkTimeMinutes,startTimeHour:self.taskViewModel.startTimeHour,startTimeMinutes:self.taskViewModel.startTimeMinutes,endTimeHour:self.taskViewModel.endTimeHour,endTimeMinutes:self.taskViewModel.endTimeMinutes,day:self.taskViewModel.date.day,month:self.taskViewModel.date.month,year:self.taskViewModel.date.year,taskId:self.taskViewModel.id,color:self.taskViewModel.color).animation(.spring()).onDisappear{self.borderColor=self.fillColor
+                            DetailedTaskWithObj(displayItem:self.$displayItem, taskName: self.taskViewModel.taskName,importance: self.taskViewModel.importance,dueDate: self.taskViewModel.dueDate,notes: self.taskViewModel.notes, asstimatedWorkTimeHour: self.taskViewModel.asstimatedWorkTimeHour,asstimatedWorkTimeMinutes:self.taskViewModel.asstimatedWorkTimeMinutes,startTimeHour:self.taskViewModel.startTimeHour,startTimeMinutes:self.taskViewModel.startTimeMinutes,endTimeHour:self.taskViewModel.endTimeHour,endTimeMinutes:self.taskViewModel.endTimeMinutes,day:self.taskViewModel.date.day,month:self.taskViewModel.date.month,year:self.taskViewModel.date.year,taskId:self.taskViewModel.id,color:self.taskViewModel.color,isRepeatedActivity:self.isRepeatedActivity).animation(.spring()).onDisappear{self.borderColor=self.fillColor
                                  self.dashCount = 0
                             }
-                                   
-                            
-                        
-                    
                         }
-                        
-        
-       
-          
-            
-                
+                    }
+           
     }//.animation(.easeInOut(duration: 0.5))
-        
     }
 }
 

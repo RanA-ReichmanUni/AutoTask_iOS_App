@@ -200,11 +200,11 @@ struct AddTask: View {
                                       Spacer()
                                       Picker(selection: self.$selectedDifficultyIndex, label:Text("")) {
                                                 ForEach(self.difficultyValues ,id:\.self) { element in
-                                                    Text(element).font(Font.custom("MarkerFelt-Wide", size: 30)).tag(Int(self.difficultyValues.firstIndex(of: element)!))
+                                                    Text(element).font(Font.custom("MarkerFelt-Wide", size: 14)).tag(Int(self.difficultyValues.firstIndex(of: element)!))
                                                 }
                                                                               //.labelsHidden()
                                                                    
-                                      }.frame(width: geometry.size.width / 5,height:140).pickerStyle(WheelPickerStyle()).animation(.default)
+                                      }.frame(width: geometry.size.width / 2, height:140).pickerStyle(WheelPickerStyle()).animation(.default)
                                       Spacer()
                                   }
                                   //.frame(width:800).padding(EdgeInsets(top: 0, leading: -50, bottom: 0, trailing: 0))

@@ -109,11 +109,7 @@ struct TaskListIOS14: View {
                             }
                         }
                     }
-                        
-                        
-                        
-                }
-                
+
                
                       
                      

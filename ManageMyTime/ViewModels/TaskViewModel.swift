@@ -108,6 +108,10 @@ class TaskViewModel : ObservableObject
     
     @Published var failedRestoringSubscription:Bool
     
+    @Published var showWeeklySheet: Bool = false
+    
+    @Published var isCurrentTaskRepeatedActivity: Bool = false
+    
     @Published var returnedFromCall:Bool
     
     @Published var errorPurchase:Bool
@@ -1653,8 +1657,60 @@ class TaskViewModel : ObservableObject
         
         SetViewHourStandard(startTime: viewModelTask!.startTime!, endTime: viewModelTask!.endTime!, asstimatedWorkTime: viewModelTask!.asstimatedWorkTime)
     }
-    
-    
- 
+
+    func getRestrictedSpace(restrictedSpaceId: UUID)
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RestrictedSpace")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", restrictedSpaceId as CVarArg)
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            if !result.isEmpty {
+                let space = result[0] as! RestrictedSpace
+                self.taskName = space.name
+                self.importance = "Difficulty: " + space.difficulty
+                self.dueDate = Date()
+                self.notes = "Repeated Activity on \(space.dayOfTheWeek)"
+                self.id = space.id
+                self.color = getTaskColor(color: space.color)
+                
+                if String(space.startTime.hour).count == 1 {
+                    self.startTimeHour = "0" + String(space.startTime.hour)
+                } else {
+                    self.startTimeHour = String(space.startTime.hour)
+                }
+                
+                if String(space.startTime.minutes).count == 1 {
+                    self.startTimeMinutes = "0" + String(space.startTime.minutes)
+                } else {
+                    self.startTimeMinutes = String(space.startTime.minutes)
+                }
+                
+                if String(space.endTime.hour).count == 1 {
+                    self.endTimeHour = "0" + String(space.endTime.hour)
+                } else {
+                    self.endTimeHour = String(space.endTime.hour)
+                }
+                
+                if String(space.endTime.minutes).count == 1 {
+                    self.endTimeMinutes = "0" + String(space.endTime.minutes)
+                } else {
+                    self.endTimeMinutes = String(space.endTime.minutes)
+                }
+                
+                self.asstimatedWorkTimeHour = "00"
+                self.asstimatedWorkTimeMinutes = "00"
+                
+                let customDate = CustomDate(context: managedContext)
+                customDate.day = Date().day
+                customDate.month = Date().month
+                customDate.year = Date().year
+                self.date = customDate
+            }
+        } catch {
+            print(error)
+        }
+    }
 }
 

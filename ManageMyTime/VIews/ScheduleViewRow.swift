@@ -71,7 +71,7 @@ struct ScheduleViewRow: View {
                             Text(hour > 9 ? "\(hour)" : "0\(hour)")
                                 .font(.system(size: 11, weight: .semibold, design: .monospaced))
                                 .foregroundColor(self.colorScheme == .dark ? Color.orange : Color.gray)
-                                .frame(width: 44, minHeight: geometry.size.height * 0.09, alignment: .center)
+                                .frame(minWidth: 44, minHeight: geometry.size.height * 0.09, alignment: .center)
                                 .background(self.colorScheme == .dark ? Color.black : Color(hex: "#efefef"))
 
                             // Columns 1–7: one task cell per day
@@ -113,6 +113,11 @@ struct ScheduleViewRow: View {
                     : Color(hex: "#f9f9f9").opacity(0.1)
             )
             .navigationBarTitle(Text("Weekly Schedule"))
+            .sheet(isPresented: self.$taskViewModel.showWeeklySheet) {
+                VStack {
+                    DetailedTaskWithObj(displayItem: self.$taskViewModel.showWeeklySheet, taskName: self.taskViewModel.taskName, importance: self.taskViewModel.importance, dueDate: self.taskViewModel.dueDate, notes: self.taskViewModel.notes, asstimatedWorkTimeHour: self.taskViewModel.asstimatedWorkTimeHour, asstimatedWorkTimeMinutes: self.taskViewModel.asstimatedWorkTimeMinutes, startTimeHour: self.taskViewModel.startTimeHour, startTimeMinutes: self.taskViewModel.startTimeMinutes, endTimeHour: self.taskViewModel.endTimeHour, endTimeMinutes: self.taskViewModel.endTimeMinutes, day: self.taskViewModel.date.day, month: self.taskViewModel.date.month, year: self.taskViewModel.date.year, taskId: self.taskViewModel.id, color: self.taskViewModel.color, isRepeatedActivity: self.taskViewModel.isCurrentTaskRepeatedActivity).animation(.spring())
+                }
+            }
         }
     }
 }

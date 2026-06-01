@@ -26,6 +26,7 @@
 		251649A624D36ADC003018BE /* CompactViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A524D36ADC003018BE /* CompactViewSelector.swift */; };
 		251649A824D36B1F003018BE /* RegularViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251649A724D36B1F003018BE /* RegularViewSelector.swift */; };
 		2519384B24C686290010E72D /* TempNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519384A24C686290010E72D /* TempNavigator.swift */; };
+		251AD8712FCCCD510075D251 /* ManageMyTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 251AD86F2FCCCD510075D251 /* ManageMyTime.xcdatamodeld */; };
 		251CDB2224EED06F00026911 /* AddRestrictedSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */; };
 		251CDB2424EF0B3000026911 /* MainUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251CDB2324EF0B3000026911 /* MainUI.swift */; };
 		251EE60824A52BDB00AC82F3 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */; };
@@ -40,7 +41,6 @@
 		253455D424A12539007CB6BF /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D324A12539007CB6BF /* AddTask.swift */; };
 		253455D624A149F7007CB6BF /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D524A149F7007CB6BF /* TestView.swift */; };
 		253455D824A14B7B007CB6BF /* TestView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253455D724A14B7B007CB6BF /* TestView3.swift */; };
-		2535D71D24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */; };
 		253A476F252BE4C700FD013D /* ExpandingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253A476E252BE4C700FD013D /* ExpandingMenu.swift */; };
 		253C5CE824B1193800C95A06 /* DayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CE724B1193800C95A06 /* DayObject.swift */; };
 		253C5CEA24B11A0400C95A06 /* HourlyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253C5CE924B11A0400C95A06 /* HourlyTask.swift */; };
@@ -194,6 +194,7 @@
 		251649A524D36ADC003018BE /* CompactViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViewSelector.swift; sourceTree = "<group>"; };
 		251649A724D36B1F003018BE /* RegularViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularViewSelector.swift; sourceTree = "<group>"; };
 		2519384A24C686290010E72D /* TempNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempNavigator.swift; sourceTree = "<group>"; };
+		251AD8702FCCCD510075D251 /* ManageMyTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ManageMyTime.xcdatamodel; sourceTree = "<group>"; };
 		251CDB2124EED06F00026911 /* AddRestrictedSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRestrictedSpace.swift; sourceTree = "<group>"; };
 		251CDB2324EF0B3000026911 /* MainUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUI.swift; sourceTree = "<group>"; };
 		251EE60724A52BDB00AC82F3 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -210,7 +211,6 @@
 		253455D324A12539007CB6BF /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		253455D524A149F7007CB6BF /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		253455D724A14B7B007CB6BF /* TestView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView3.swift; sourceTree = "<group>"; };
-		2535D71C24B6AFC400BD7623 /* ManageMyTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ManageMyTime.xcdatamodel; sourceTree = "<group>"; };
 		253A476E252BE4C700FD013D /* ExpandingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingMenu.swift; sourceTree = "<group>"; };
 		253C5CE724B1193800C95A06 /* DayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayObject.swift; sourceTree = "<group>"; };
 		253C5CE924B11A0400C95A06 /* HourlyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTask.swift; sourceTree = "<group>"; };
@@ -560,7 +560,7 @@
 				2568071B249FF1FC0096AB89 /* ContentView.swift */,
 				2568071D249FF1FF0096AB89 /* Assets.xcassets */,
 				25680722249FF1FF0096AB89 /* LaunchScreen.storyboard */,
-				2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */,
+				251AD86F2FCCCD510075D251 /* ManageMyTime.xcdatamodeld */,
 				25680725249FF1FF0096AB89 /* Info.plist */,
 				2568071F249FF1FF0096AB89 /* Preview Content */,
 			);
@@ -812,7 +812,6 @@
 				25D920B024CF985900A852BF /* TaskUnitPotrait.swift in Sources */,
 				2592C8B62513FEBC00E36E3A /* PriorityPerDate.swift in Sources */,
 				25032BC525671D4E00545BDF /* DailyView.swift in Sources */,
-				2535D71D24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld in Sources */,
 				258B44282563054900514D70 /* CustomAlertView.swift in Sources */,
 				25419FC224C79E3F004063A4 /* DayFreeSpace+CoreDataClass.swift in Sources */,
 				25EE9F4F24EC1BD4002A2E5A /* RestrictedSpaceUI.swift in Sources */,
@@ -874,6 +873,7 @@
 				25032BDB25673B6F00545BDF /* CardTaskRowIOS14.swift in Sources */,
 				25D920AE24CF981D00A852BF /* WeeklyTasksPotrait.swift in Sources */,
 				25D920AC24CF97D700A852BF /* ScheduleViewPortrait.swift in Sources */,
+				251AD8712FCCCD510075D251 /* ManageMyTime.xcdatamodeld in Sources */,
 				25D920B624CFA37800A852BF /* WeeklyRegular.swift in Sources */,
 				25A77A6724DAA81300667165 /* DetailedTaskWithObj.swift in Sources */,
 				2568071C249FF1FC0096AB89 /* ContentView.swift in Sources */,
@@ -1258,14 +1258,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2535D71B24B6AFC400BD7623 /* ManageMyTime.xcdatamodeld */ = {
+		251AD86F2FCCCD510075D251 /* ManageMyTime.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2535D71C24B6AFC400BD7623 /* ManageMyTime.xcdatamodel */,
+				251AD8702FCCCD510075D251 /* ManageMyTime.xcdatamodel */,
 			);
-			currentVersion = 2535D71C24B6AFC400BD7623 /* ManageMyTime.xcdatamodel */;
-			name = ManageMyTime.xcdatamodeld;
-			path = ../../../Downloads/ManageMyTime.xcdatamodeld;
+			currentVersion = 251AD8702FCCCD510075D251 /* ManageMyTime.xcdatamodel */;
+			path = ManageMyTime.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
