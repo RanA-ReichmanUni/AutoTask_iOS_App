@@ -1079,7 +1079,7 @@ class TaskViewModel : ObservableObject
         var scheduleAlgorithimPick=scheduleAlgorithm.smart.rawValue
         var scheduleDensityPick=scheduleDensity.mediumDensity.rawValue
         var breakPeriodsPick=breakPeriods.hourAndAHalf.rawValue
-        var animationStylePick=animationStyle.smooth.rawValue
+        var animationStylePick=animationStyle.spring.rawValue
         
         switch scheduleAlgorithimIndex {
         case 0:
@@ -1142,7 +1142,7 @@ class TaskViewModel : ObservableObject
              case 2:
                 animationStylePick=animationStyle.spring.rawValue
              default:
-                animationStylePick=animationStyle.smooth.rawValue
+                animationStylePick=animationStyle.spring.rawValue
              }
         
         
@@ -1233,7 +1233,7 @@ class TaskViewModel : ObservableObject
           case animationStyle.spring.rawValue:
              animationStylePick=2
           default:
-             animationStylePick=0
+             animationStylePick=2
           }
         
         let settingsArray=[scheduleDensityPick,scheduleAlgorithmPick,breakPeriodsPick,animationStylePick]

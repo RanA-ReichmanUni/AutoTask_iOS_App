@@ -28,7 +28,7 @@ struct TaskListIOS14: View {
     @Binding var listFlag:Bool
     @State var showAdd=false
     @State var type=1
-    @State var animationType:String=animationStyle.smooth.rawValue
+    @State var animationType:String=animationStyle.spring.rawValue
     
     private func GetTasksByChoise() {
             

@@ -445,7 +445,7 @@ class TaskModel : UIViewController
                     settingsObject.scheduleAlgorithm=scheduleAlgorithm.smart.rawValue
                     settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                     settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
-                    settingsObject.animationStyle=animationStyle.smooth.rawValue
+                    settingsObject.animationStyle=animationStyle.spring.rawValue
                     settingsObject.dayStartTime=startOfDayDefault
                     settingsObject.dayEndTime=endOfDayDefault
                 
@@ -476,7 +476,7 @@ class TaskModel : UIViewController
        {
            
        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return animationStyle.smooth.rawValue }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return animationStyle.spring.rawValue }
            
 
            let managedContext = appDelegate.persistentContainer.viewContext
@@ -513,7 +513,7 @@ class TaskModel : UIViewController
                        settingsObject.scheduleAlgorithm=scheduleAlgorithm.smart.rawValue
                        settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                        settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
-                       settingsObject.animationStyle=animationStyle.smooth.rawValue
+                       settingsObject.animationStyle=animationStyle.spring.rawValue
                        settingsObject.dayStartTime=startOfDayDefault
                        settingsObject.dayEndTime=endOfDayDefault
                     
@@ -534,7 +534,7 @@ class TaskModel : UIViewController
                print("Failed")
            }
 
-            return animationStyle.smooth.rawValue
+            return animationStyle.spring.rawValue
         
            
        }
@@ -574,7 +574,7 @@ class TaskModel : UIViewController
                            settingsObject.scheduleAlgorithm=scheduleAlgorithm.smart.rawValue
                            settingsObject.scheduleDensity=scheduleDensity.mediumDensity.rawValue
                            settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
-                           settingsObject.animationStyle=animationStyle.smooth.rawValue
+                           settingsObject.animationStyle=animationStyle.spring.rawValue
                            settingsObject.dayStartTime=startOfDayDefault
                            settingsObject.dayEndTime=endOfDayDefault
                     
@@ -647,7 +647,7 @@ class TaskModel : UIViewController
                         settingsObject.scheduleAlgorithm=scheduleAlgorithm.smart.rawValue
                         settingsObject.scheduleDensity=scheduleDensity.maximumCapacity.rawValue
                         settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
-                        settingsObject.animationStyle=animationStyle.smooth.rawValue
+                        settingsObject.animationStyle=animationStyle.spring.rawValue
                         settingsObject.dayStartTime=startOfDayDefault
                         settingsObject.dayEndTime=endOfDayDefault
                 }
@@ -725,7 +725,7 @@ class TaskModel : UIViewController
                       settingsObject.scheduleAlgorithm=scheduleAlgorithim
                       settingsObject.scheduleDensity=scheduleDensity
                       settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
-                      settingsObject.animationStyle=animationStyle.smooth.rawValue
+                      settingsObject.animationStyle=animationStyle.spring.rawValue
                       settingsObject.dayStartTime=startOfDayDefault
                       settingsObject.dayEndTime=endOfDayDefault
               }
@@ -792,7 +792,7 @@ class TaskModel : UIViewController
                         settingsObject.scheduleAlgorithim=scheduleAlgorithim
                         settingsObject.scheduleDensity=scheduleDensity
                         settingsObject.breakPeriods=breakPeriods.hourAndAHalf.rawValue
-                        settingsObject.animationStyle=animationStyle.smooth.rawValue
+                        settingsObject.animationStyle=animationStyle.spring.rawValue
                 }
                 
             } catch {

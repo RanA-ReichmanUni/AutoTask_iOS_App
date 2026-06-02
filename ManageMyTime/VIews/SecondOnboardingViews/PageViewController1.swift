@@ -144,7 +144,7 @@ struct PageViewController1: View {
        }.alert(isPresented:self.$showPrivacyAgreement)
        {
         
-        return Alert(title: Text("Application Agreements"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agree to the application 'Privacy Policy' agreement, as well as the 'Application Terms and Conditions' agreement, linked in the previous view. \n\n click 'Back' to read the Agreements linked in the previous view."), primaryButton: .default(Text("I Agree")) {
+        return Alert(title: Text("Application Agreements"), message: Text("\nBy using the application and clicking 'I Agree' you indicate that you read and agreed to the application 'Privacy Policy' agreement, as well as the 'Application Terms and Conditions' agreement, linked in the previous view. \n\n click 'Back' to read the Agreements linked in the previous view."), primaryButton: .default(Text("I Agree")) {
                                                                                                      
                                  withAnimation(.easeInOut){
                                     UserDefaults.standard.set(true, forKey: "didLaunchBefore")
