@@ -54,6 +54,16 @@ struct CardTaskRowIOS14: View {
     }
     @State var activeSheet: ActiveSheet?
     
+    private var cardAnimation: Animation {
+        let style = self.taskViewModel.GetAnimationStyleSettings()
+        if style == "fast" {
+            return .easeIn(duration: 0.2)
+        } else if style == "smooth" {
+            return .easeInOut(duration: 0.4)
+        } else {
+            return .spring(response: 0.5, dampingFraction: 0.4)
+        }
+    }
     
     var body: some View {
            
@@ -331,7 +341,7 @@ struct CardTaskRowIOS14: View {
             {
                 if(self.paddingBottom == 70)
                 {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                        withAnimation(self.cardAnimation) {
                             self.paddingBottom = -60
                             self.padding = 0
                             self.vStackPadding = 0
@@ -341,7 +351,7 @@ struct CardTaskRowIOS14: View {
                         }
                 }
                 else {
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    withAnimation(self.cardAnimation) {
                          self.paddingBottom = 70
                          self.padding = -96
                          self.vStackPadding = 20

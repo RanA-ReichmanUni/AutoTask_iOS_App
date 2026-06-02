@@ -44,7 +44,19 @@ struct RestrictedSpaceVerticalCard: View {
     @State var windowType:Int=1
     @State var overlayPadding:CGFloat = 2
     @State var secondRowPadding:CGFloat = -55
-    @State var thirdRowPadding:CGFloat = -35
+    @State var thirdRowPadding:CGFloat = 0
+    
+    private var cardAnimation: Animation {
+        let style = self.taskViewModel.GetAnimationStyleSettings()
+        if style == "fast" {
+            return .easeIn(duration: 0.2)
+        } else if style == "smooth" {
+            return .easeInOut(duration: 0.4)
+        } else {
+            return .spring(response: 0.5, dampingFraction: 0.4)
+        }
+    }
+
     var body: some View {
            
         VStack{
@@ -312,7 +324,7 @@ struct RestrictedSpaceVerticalCard: View {
             {
                 if(self.paddingBottom == 5)
                 {
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    withAnimation(self.cardAnimation) {
                         self.paddingBottom = -60
                         self.padding = 0
                         self.vStackPadding = -85
@@ -323,7 +335,7 @@ struct RestrictedSpaceVerticalCard: View {
                     }
                 }
                 else {
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    withAnimation(self.cardAnimation) {
                         self.paddingBottom = 5
                         self.padding = -96
                         self.vStackPadding = -25
