@@ -13,11 +13,21 @@ struct MainViewRouter : View {
     @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
-        VStack {
-            if viewRouter.currentPage == "PageViewController1" {
-                PageViewController1(taskViewModel:self.taskViewModel)
-            } else if viewRouter.currentPage == "MainUI2" {
-                MainUI2(taskViewModel:self.taskViewModel)
+        ZStack {
+            VStack {
+                if viewRouter.currentPage == "PageViewController1" {
+                    PageViewController1(taskViewModel:self.taskViewModel)
+                } else if viewRouter.currentPage == "MainUI2" {
+                    MainUI2(taskViewModel:self.taskViewModel)
+                }
+            }
+            
+            if viewRouter.showPolicyPopup {
+                Color.black.opacity(0.5)
+                    .edgesIgnoringSafeArea(.all)
+                
+                PolicyAgreementView()
+                    .frame(maxWidth: 340)
             }
         }
     }
