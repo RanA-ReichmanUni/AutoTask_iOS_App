@@ -41,7 +41,7 @@ struct TaskListIOS14: View {
        GeometryReader{geometry in
         ZStack{
             ScrollView{
-                LazyVStack(spacing: 0) {
+                VStack(spacing: 0) {
                 
                
               
@@ -136,7 +136,7 @@ struct TaskListIOS14: View {
                                         }*/
                
                 
-                } // end LazyVStack
+                } // end VStack
             }.background(self.colorScheme == .dark ? Color.black : Color.white)
             
             
